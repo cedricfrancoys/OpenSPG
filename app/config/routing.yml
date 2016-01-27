@@ -1,3 +1,8 @@
+member:
+    resource: "@MemberBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 producer:
     resource: "@ProducerBundle/Controller/"
     type:     annotation

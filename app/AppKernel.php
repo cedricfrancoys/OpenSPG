@@ -15,9 +15,6 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            
-            new AppBundle\AppBundle(),
-            new UserBundle\UserBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),
             
@@ -26,8 +23,12 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+
+            new AppBundle\AppBundle(),
+            new UserBundle\UserBundle(),
             new ProductBundle\ProductBundle(),
             new ProducerBundle\ProducerBundle(),
+            new MemberBundle\MemberBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

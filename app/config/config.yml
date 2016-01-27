@@ -84,4 +84,8 @@ sonata_block:
             contexts: [admin]
 
 sonata_admin:
-    title: "OpenPGS"
+    title: "OpenPGS"    title: "OpenPGS"
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine

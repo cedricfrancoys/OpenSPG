@@ -1,0 +1,27 @@
+services:
+#    product.example:
+#        class: ProductBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    product.admin.product:
+        class: ProductBundle\Admin\ProductAdmin
+        arguments: [~, ProductBundle\Entity\Product, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: products, label: Product }
+
+    product.admin.group:
+        class: ProductBundle\Admin\GroupAdmin
+        arguments: [~, ProductBundle\Entity\ProductGroup, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: products, label: ProductGroup }
+
+    product.admin.family:
+        class: ProductBundle\Admin\FamilyAdmin
+        arguments: [~, ProductBundle\Entity\Family, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: products, label: Family }
+
+    product.admin.variety:
+        class: ProductBundle\Admin\VarietyAdmin
+        arguments: [~, ProductBundle\Entity\Variety, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: products, label: Variety }

@@ -7,3 +7,15 @@ services:
         arguments: [~, ProducerBundle\Entity\Stock, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: products, label: Stock }
+
+    producer.admin.member:
+        class: ProducerBundle\Admin\MemberAdmin
+        arguments: [~, ProducerBundle\Entity\Member, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: members, label: Producers }
+
+    producer.admin.property:
+        class: ProducerBundle\Admin\PropertyAdmin
+        arguments: [~, ProducerBundle\Entity\Property, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: members, label: Properties }

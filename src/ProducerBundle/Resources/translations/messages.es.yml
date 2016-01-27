@@ -1,1 +1,32 @@
 Stock: Stock
+Producers: Productores
+Properties: Propiedades
+Phone: Teléfono
+Name: Nombre
+Surname: Apellido(s)
+Member List: Socios
+
+Property List: Propiedades
+Area Name: Zona
+Address: Dirección
+Reg Nr: Registro
+Tenure: Régimen de tenencia
+Size: Superficie
+Previous Uses: Usos anteriores de la propiedad
+Water Type Origin: Agua. Tipo y procedencia
+Surroundings: ¿Qué hay en los alrededores de la finca?. Cultivos colindantes.
+Surrounding Problems: ¿Qué tipo de manejo presenta? ¿Genera algún perjuicio a la unidad productiva? ¿Por qué?
+Crops: Cultivos utilizados. Origen de los mismos.
+Certified: Certificación. ¿Propiedad certificada anteriormente?
+Certified Year: ¿En qué años?
+Certified Provider: Nombre de la(s) certificadora(s)
+Last Agroquimic Usage: Ultima fecha de aplicación de agroquímicos
+Fertilizer: Tipos de fertilizantes usados y procedencia
+Phytosanitary: Tipos de fitosanitarios que suele utilizar
+Owner Lives Here: ¿El productor vive en la propiedad?
+Owner Distance: Si no es así, ¿a qué distancia se encuentra?
+Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
+Product Selling Distance: Distancia aproximada que recorren los productos hasta los puntos de venta
+Product Selling Time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
+Product Conservation: ¿Utiliza algún método de conservación?
+Product Conservation Details: Detalles sobre la conservación

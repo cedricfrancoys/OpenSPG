@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),

@@ -786,11 +786,11 @@ class Property
     /**
      * Set member
      *
-     * @param \ProductBundle\Entity\Member $member
+     * @param \ProducerBundle\Entity\Member $member
      *
      * @return Property
      */
-    public function setMember(\ProductBundle\Entity\Member $member = null)
+    public function setMember(\ProducerBundle\Entity\Member $member = null)
     {
         $this->Member = $member;
 
@@ -800,7 +800,7 @@ class Property
     /**
      * Get member
      *
-     * @return \ProductBundle\Entity\Member
+     * @return \ProducerBundle\Entity\Member
      */
     public function getMember()
     {

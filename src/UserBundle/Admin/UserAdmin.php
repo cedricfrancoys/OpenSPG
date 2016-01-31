@@ -6,13 +6,15 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use UserBundle\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserAdmin extends Admin
 {
     public function toString($object)
     {
-        return $object instanceof BlogPost
-            ? $object->getTitle()
+        return $object instanceof User
+            ? $object->getUsername()
             : 'User'; // shown in the breadcrumb on the create view
     }
 
@@ -21,9 +23,8 @@ class UserAdmin extends Admin
         $subject = $this->getSubject();
 
         $formMapper->add('username', 'text')
-            ->add('username_canonical', 'text')
-            ->add('email', 'text')
-            ->add('email_canonical', 'text');
+            ->add('email', 'text');
+        
         if (!$subject->getId()) {
             $formMapper->add('password', 'password');
         }else {
@@ -57,5 +58,20 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('username');
+    }
+
+    public function prePersist($data)
+    {
+        $roles = array();
+        ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
+        ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
+        $data->setRoles($roles);
+    }
+    public function preUpdate($data)
+    {
+        $roles = array();
+        ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
+        ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
+        $data->setRoles($roles);
     }
 }

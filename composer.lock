@@ -1284,16 +1284,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7"
+                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
-                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/e6f80ab77885151908d0ec743689ca700886e8b0",
+                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0",
                 "shasum": ""
             },
             "require": {
@@ -1328,7 +1328,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-01-06 13:31:20"
+            "time": "2016-01-29 16:19:52"
         },
         {
             "name": "psr/log",
@@ -1525,12 +1525,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "fba67eeacd1c549bc209a3c5416d1594d30bcb58"
+                "reference": "3294a3aec754ef5d1a16e9db292eae2e4a509c10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/fba67eeacd1c549bc209a3c5416d1594d30bcb58",
-                "reference": "fba67eeacd1c549bc209a3c5416d1594d30bcb58",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/3294a3aec754ef5d1a16e9db292eae2e4a509c10",
+                "reference": "3294a3aec754ef5d1a16e9db292eae2e4a509c10",
                 "shasum": ""
             },
             "require": {
@@ -1603,7 +1603,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-01-24 12:19:41"
+            "time": "2016-01-30 00:00:23"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1611,12 +1611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "d2cb8e8ee7657acf36a39b4b6ca46d78e280df5d"
+                "reference": "0038efc20be396f6aed1bfdd7fea8691a231b2fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/d2cb8e8ee7657acf36a39b4b6ca46d78e280df5d",
-                "reference": "d2cb8e8ee7657acf36a39b4b6ca46d78e280df5d",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/0038efc20be396f6aed1bfdd7fea8691a231b2fc",
+                "reference": "0038efc20be396f6aed1bfdd7fea8691a231b2fc",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2016-01-23 11:39:29"
+            "time": "2016-01-28 16:52:10"
         },
         {
             "name": "sonata-project/cache",
@@ -1813,12 +1813,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "2a5aeeca95f93f04bda5356dfa3b0601a567a7ac"
+                "reference": "434655533ce43c3f8c9a6af6c7a0373fdb3cea92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/2a5aeeca95f93f04bda5356dfa3b0601a567a7ac",
-                "reference": "2a5aeeca95f93f04bda5356dfa3b0601a567a7ac",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/434655533ce43c3f8c9a6af6c7a0373fdb3cea92",
+                "reference": "434655533ce43c3f8c9a6af6c7a0373fdb3cea92",
                 "shasum": ""
             },
             "require": {
@@ -1874,7 +1874,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2016-01-20 16:28:35"
+            "time": "2016-01-29 23:44:01"
         },
         {
             "name": "sonata-project/datagrid-bundle",

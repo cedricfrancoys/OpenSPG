@@ -31,9 +31,22 @@ class UserAdmin extends Admin
                 'required' => false
                 ));
         }
-        $formMapper->add('enabled', 'checkbox')
-            ->add('locked', 'checkbox')
-            ->add('expired', 'checkbox');
+
+        $roles = $subject->getRoles();
+
+        $formMapper
+            ->add('ROLE_ADMIN', 'checkbox', array(
+                'mapped' => false,
+                'label' => 'Admin',
+                'data' => in_array('ROLE_ADMIN', $roles),
+                'required' => false
+            ))
+            ->add('ROLE_PRODUCER', 'checkbox', array(
+                'mapped' => false,
+                'label' => 'Producer',
+                'data' => in_array('ROLE_PRODUCER', $roles),
+                'required' => false
+            ));
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

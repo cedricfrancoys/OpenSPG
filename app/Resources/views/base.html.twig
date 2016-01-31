@@ -19,7 +19,61 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+           
+            {% block navbar %}
+                <div class="navbar-wrapper">
+                  <div class="container">
+
+                    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+                      <div class="container">
+                        <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">{% trans %}Toggle navigation{% endtrans %}</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="{{ path('homepage') }}">OpenPGS</a>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                          <ul class="nav navbar-nav">
+                            <li class="active"><a href="{{ path('homepage') }}">{% trans %}Home{% endtrans %}</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#tablebooking">Table Booking</a></li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indina <b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">DRINKS</a></li>
+                                <li><a href="#">STARTERS</a></li>
+                                <li><a href="#">TANDOORI - CLAY OVEN - DISHES</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">SEAFOOD MAIN COURSES</li>
+                                <li><a href="#">CHICKEN MAIN COURSES</a></li>
+                                <li><a href="#">LAMB MAIN COURSES</a></li>
+                                <li><a href="#">RICE/BREDS</a></li>
+                                <li><a href="#">ACCOMPANIMENTS</a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+            {% endblock %}
+
+            {% block pageTitle %}
+                <div class="pageTitle">
+                    <div class="container">
+                        <h2>{% block pageTitleText %}OpenPGS - Open Source Participatory Garanty System{% endblock %}</h2>
+                    </div>
+                </div>
+            {% endblock %}
+
+        {% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
             {% javascripts '@AppBundle/Resources/public/js/*' %}

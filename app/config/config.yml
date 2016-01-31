@@ -43,6 +43,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -88,6 +89,11 @@ sonata_block:
 
 sonata_admin:
     title: "OpenPGS"
+
+sonata_doctrine_orm_admin:
+    templates:
+        form:
+            - AppBundle:Admin:my_form_admin_fields.html.twig
 
 services:
     fos_user.doctrine_registry:

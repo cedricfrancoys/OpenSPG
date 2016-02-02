@@ -111,6 +111,18 @@ a:hover{color:#eee}
 .highlightSection{padding:28px 0}
 .highlightSection img{padding:0 0 28px 0}
 .highlightSection .media{background-color: #efefef;border: 1px solid #efefef;color: #939393;padding: 10px;text-align: center;}
+.highlightSection .media.list h3{
+  text-align: left;
+}
+.highlightSection .media.list li{
+  text-align: left;
+}
+.highlightSection .media.list a{
+  color: #000;
+}
+.highlightSection .media.list a:hover{
+  color: rgb(200, 58, 58);
+}
 .introSection{background-color: #efefef; padding:28px 0}
 .brandBtn{background-color: #7db641;}
 .btn-default{color: #fff;background-color: #7db641;border-color: #7db641;border-radius:0}

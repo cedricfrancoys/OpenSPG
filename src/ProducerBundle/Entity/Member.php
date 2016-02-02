@@ -3,6 +3,7 @@
 namespace ProducerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Member
@@ -34,7 +35,6 @@ class Member extends \MemberBundle\Entity\Member
     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member")
     */
     protected $Properties;
-
 
     /**
      * Get id
@@ -74,7 +74,7 @@ class Member extends \MemberBundle\Entity\Member
      */
     public function __construct()
     {
-        $this->Properties = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Properties = new ArrayCollection();
     }
 
     /**

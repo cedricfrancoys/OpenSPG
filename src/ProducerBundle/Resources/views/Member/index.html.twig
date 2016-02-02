@@ -2,9 +2,9 @@
 
 {% block title %}Producers{% endblock %}
 
-{% block body %}
+{% block pageTitleText %}Producers{% endblock %}
 
-	{% block pageTitleText %}Producers{% endblock %}
+{% block body %}
 
 	{{ parent() }}
 
@@ -12,10 +12,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="media">
+					<div class="media list">
 						<h3 class="media-heading text-primary-theme">{% trans from "producer" %}My Data{% endtrans %}</h3>
 						<ul>
-							<li><a href="{{ path('producer_member_index') }}">{% trans from "producer" %}Profile{% endtrans %}</a></li>
+							<li><a href="{{ path('producer_member_profile') }}">{% trans from "producer" %}Profile{% endtrans %}</a></li>
 							<li><a href="#">{% trans from "producer" %}Properties{% endtrans %}</a></li>
 							<li><a href="#">{% trans from "producer" %}Products{% endtrans %}</a></li>
 							<li><a href="#">{% trans from "producer" %}Visits{% endtrans %}</a></li>
@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="media">
+					<div class="media list">
 						<h3 class="media-heading text-danger-theme">{% trans from "producer" %}Communication{% endtrans %}</h3>
 						<ul>
 							<li><a href="#">{% trans from "producer" %}Messages{% endtrans %}</a></li>

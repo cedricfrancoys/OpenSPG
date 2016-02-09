@@ -841,12 +841,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "8f1fc2273b37c61ddcc1620abf4500320a23763e"
+                "reference": "140cc28026304d3023c880f441689986f99b913b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/8f1fc2273b37c61ddcc1620abf4500320a23763e",
-                "reference": "8f1fc2273b37c61ddcc1620abf4500320a23763e",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/140cc28026304d3023c880f441689986f99b913b",
+                "reference": "140cc28026304d3023c880f441689986f99b913b",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +902,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-01-27 09:36:48"
+            "time": "2016-02-05 08:53:49"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1284,16 +1284,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.6",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0"
+                "reference": "b0e69d10852716b2ccbdff69c75c477637220790"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/e6f80ab77885151908d0ec743689ca700886e8b0",
-                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/b0e69d10852716b2ccbdff69c75c477637220790",
+                "reference": "b0e69d10852716b2ccbdff69c75c477637220790",
                 "shasum": ""
             },
             "require": {
@@ -1328,7 +1328,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-01-29 16:19:52"
+            "time": "2016-02-06 03:52:05"
         },
         {
             "name": "psr/log",
@@ -1525,12 +1525,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "3294a3aec754ef5d1a16e9db292eae2e4a509c10"
+                "reference": "ee5098f6115380ee4e4ccccd76a6e564045e0e1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/3294a3aec754ef5d1a16e9db292eae2e4a509c10",
-                "reference": "3294a3aec754ef5d1a16e9db292eae2e4a509c10",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/ee5098f6115380ee4e4ccccd76a6e564045e0e1c",
+                "reference": "ee5098f6115380ee4e4ccccd76a6e564045e0e1c",
                 "shasum": ""
             },
             "require": {
@@ -1549,6 +1549,7 @@
                 "symfony/http-foundation": "~2.3|~3.0",
                 "symfony/property-access": "~2.3|~3.0",
                 "symfony/routing": "~2.3|~3.0",
+                "symfony/security-acl": "~2.3|~3.0",
                 "symfony/security-bundle": "~2.3|~3.0",
                 "symfony/translation": "~2.3|~3.0",
                 "symfony/twig-bridge": "~2.3|~3.0",
@@ -1560,14 +1561,12 @@
                 "sensio/generator-bundle": "~2.3|~3.0",
                 "sonata-project/intl-bundle": "dev-master",
                 "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/security-acl": "~2.4|~3.0",
                 "symfony/yaml": "~2.3|~3.0"
             },
             "suggest": {
                 "jms/translation-bundle": "Extract message keys from Admins",
                 "sensio/generator-bundle": "Add sonata:admin:generate command",
-                "sonata-project/intl-bundle": "Add localized date and number into the list",
-                "symfony/security-acl": "To make sonata working with Symfony >=2.8"
+                "sonata-project/intl-bundle": "Add localized date and number into the list"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1603,7 +1602,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-01-30 00:00:23"
+            "time": "2016-02-04 16:01:14"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1611,12 +1610,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "0038efc20be396f6aed1bfdd7fea8691a231b2fc"
+                "reference": "dbc70ca3c58a4f4762626c93a83bb42006479b5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/0038efc20be396f6aed1bfdd7fea8691a231b2fc",
-                "reference": "0038efc20be396f6aed1bfdd7fea8691a231b2fc",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/dbc70ca3c58a4f4762626c93a83bb42006479b5c",
+                "reference": "dbc70ca3c58a4f4762626c93a83bb42006479b5c",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1670,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2016-01-28 16:52:10"
+            "time": "2016-02-03 18:34:30"
         },
         {
             "name": "sonata-project/cache",
@@ -2856,16 +2855,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "979d7323716fec847508eac3e62d59b117612a6e"
+                "reference": "18c3d4f356931a5b6a4afb0cc679a2c58931c795"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/979d7323716fec847508eac3e62d59b117612a6e",
-                "reference": "979d7323716fec847508eac3e62d59b117612a6e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/18c3d4f356931a5b6a4afb0cc679a2c58931c795",
+                "reference": "18c3d4f356931a5b6a4afb0cc679a2c58931c795",
                 "shasum": ""
             },
             "require": {
@@ -2937,6 +2936,7 @@
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": "~0.4|~1.0",
                 "phpdocumentor/reflection": "^1.0.7",
+                "symfony/polyfill-apcu": "~1.1",
                 "symfony/security-acl": "~2.8|~3.0"
             },
             "type": "library",
@@ -2950,7 +2950,6 @@
                     "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
                     "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
                     "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-                    "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
                     "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
                     "Symfony\\Bundle\\": "src/Symfony/Bundle/",
                     "Symfony\\Component\\": "src/Symfony/Component/"
@@ -2981,7 +2980,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-12-26 16:49:48"
+            "time": "2016-02-03 12:42:23"
         },
         {
             "name": "twig/extensions",

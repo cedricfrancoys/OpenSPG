@@ -2,7 +2,7 @@
 
 {% block title %}Producers{% endblock %}
 
-{% block pageTitleText %}Profile{% endblock %}
+{% block pageTitleText %}Registration{% endblock %}
 
 {% block body %}
 
@@ -11,6 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
+			{{ form_row(form.User) }}
 			{{ form_row(form.name) }}
 			{{ form_row(form.surname) }}
 			{{ form_row(form.phone) }}
@@ -42,7 +43,7 @@
 
 		jQuery(document).ready(function() {
 		    // Get the ul that holds the collection of tags
-		    $collectionHolder = $('#profile_Properties');
+		    $collectionHolder = $('#member_Properties');
 
 		    // add the "add a tag" anchor and li to the tags ul
 		    $collectionHolder.append($newLinkLi);

@@ -11,7 +11,7 @@ Area Name: Zona
 Address: Dirección
 Reg Nr: Registro
 Tenure: Régimen de tenencia
-Size: Superficie
+Size: Superficie (m2)
 Previous Uses: Usos anteriores de la propiedad
 Water Type Origin: Agua. Tipo y procedencia
 Surroundings: ¿Qué hay en los alrededores de la finca?. Cultivos colindantes.
@@ -26,8 +26,8 @@ Phytosanitary: Tipos de fitosanitarios que suele utilizar
 Owner Lives Here: ¿El productor vive en la propiedad?
 Owner Distance: Si no es así, ¿a qué distancia se encuentra?
 Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
-Product Selling Distance: Distancia aproximada que recorren los productos hasta los puntos de venta
-Product Selling Time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
+Product Selling Distance: Distancia aproximada que recorren los productos hasta los puntos de venta (km)
+Product Selling Time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta (horas)
 Product Conservation: ¿Utiliza algún método de conservación?
 Product Conservation Details: Detalles sobre la conservación
 

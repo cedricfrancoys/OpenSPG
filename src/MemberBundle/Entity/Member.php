@@ -35,7 +35,7 @@ class Member
     /**
     * @var User
     *
-    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User")
+    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist"})
     */
     protected $User;
 

@@ -32,7 +32,7 @@ class Member extends \MemberBundle\Entity\Member
     /**
     * @var Properties
     *
-    * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member")
+    * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member", cascade={"persist"})
     */
     protected $Properties;
 

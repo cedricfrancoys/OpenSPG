@@ -1,0 +1,8 @@
+.form_add_item_link{
+	color: #000;
+	float: right;
+	text-decoration: underline;
+}
+.form_add_item_link:hover{
+	color: #999;
+}

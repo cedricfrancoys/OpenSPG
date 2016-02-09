@@ -9,16 +9,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use ProducerBundle\Form\PropertyType;
-use UserBundle\Form\UserType;
 
-class MemberType extends AbstractType
+class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!$options['is_authenticated']) {
-            $builder->add('User', UserType::class);
-        }
-
         $builder
             ->add('name')
             ->add('surname')
@@ -34,8 +29,7 @@ class MemberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'ProducerBundle\Entity\Member',
-            'is_authenticated' => false
+	        'data_class' => 'ProducerBundle\Entity\Member'
 	    ));
 	}
 }

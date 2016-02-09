@@ -109,7 +109,7 @@
 				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{% trans %}Members{% endtrans %}</h2>
 				<div class="col-lg-6">
 					<div class="media">
-						<a href="{{ path('producer_member_index') }}"><h3 class="media-heading text-primary-theme">{% trans %}Producer members{% endtrans %}</h3></a>
+						<a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_profile') }}{% endif %}"><h3 class="media-heading text-primary-theme">{% trans %}Producer members{% endtrans %}</h3></a>
 						<p>{% trans %}Producer members desc{% endtrans %}</p>
 					</div>
 				</div>

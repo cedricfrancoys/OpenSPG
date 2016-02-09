@@ -48,7 +48,8 @@ class PropertyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ProducerBundle\Entity\Property'
+            'data_class' => 'ProducerBundle\Entity\Property',
+            'translation_domain' => 'property'
         ));
     }
 }

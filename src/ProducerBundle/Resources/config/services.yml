@@ -19,3 +19,8 @@ services:
         arguments: [~, ProducerBundle\Entity\Property, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: members, label: Properties }
+
+    app.form.registration:
+        class: ProducerBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }

@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="producer")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\MemberRepository")
  */
-class Member extends \MemberBundle\Entity\Member
+class Member
 {
     /**
      * @var int
@@ -30,11 +30,23 @@ class Member extends \MemberBundle\Entity\Member
     protected $phone;
 
     /**
+    * @var Member
+    *
+    * @ORM\OneToOne(targetEntity="\MemberBundle\Entity\Member", cascade={"persist"})
+    */
+    protected $Member;
+
+    /**
     * @var Properties
     *
     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member", cascade={"persist"})
     */
     protected $Properties;
+
+    public function __toString()
+    {
+        return ($this->getMember()) ? $this->getMember()->getName() . ' ' . $this->getMember()->getSurname() : '';
+    }
 
     /**
      * Get id
@@ -110,5 +122,29 @@ class Member extends \MemberBundle\Entity\Member
     public function getProperties()
     {
         return $this->Properties;
+    }
+
+    /**
+     * Set member
+     *
+     * @param \MemberBundle\Entity\Member $member
+     *
+     * @return Member
+     */
+    public function setMember(\MemberBundle\Entity\Member $member = null)
+    {
+        $this->Member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get member
+     *
+     * @return \MemberBundle\Entity\Member
+     */
+    public function getMember()
+    {
+        return $this->Member;
     }
 }

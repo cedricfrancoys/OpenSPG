@@ -20,7 +20,7 @@ class PropertyType extends AbstractType
             ->add('regNr')
             ->add('name', null, array(
                 'attr' => array(
-                    'class' => 'propertyName'
+                    'class' => 'nameField'
                 )
             ))
             ->add('tenure')
@@ -44,6 +44,10 @@ class PropertyType extends AbstractType
             ->add('productConservation')
             ->add('productConservationDetails')
         ;
+
+        $builder
+            ->setAttribute('add_link_label', $options['add_link_label'])
+        ;
     }
     
     /**
@@ -53,7 +57,9 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Property',
-            'translation_domain' => 'property'
+            'translation_domain' => 'property',
+            'add_link_label' => 'Add property',
+            'item_label' => 'Property'
         ));
     }
 }

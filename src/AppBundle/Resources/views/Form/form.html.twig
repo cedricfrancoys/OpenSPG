@@ -1,0 +1,11 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{%- block collection_widget -%}
+    {% if allow_add is defined and allow_add %}
+        {%- set attr = attr|merge({'data-allow_add': true }) -%}
+    {% endif %}
+    {% if add_link_label is defined %}
+        {%- set attr = attr|merge({'data-add_link_label': add_link_label }) -%}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock collection_widget -%}

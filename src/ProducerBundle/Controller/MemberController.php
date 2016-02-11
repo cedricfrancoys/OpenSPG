@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use ProducerBundle\Entity\Member;
 use ProducerBundle\Form\MemberType;
 use ProducerBundle\Form\ProfileType;
+use ProducerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
 class MemberController extends Controller
@@ -46,7 +47,9 @@ class MemberController extends Controller
         $user->setEnabled(true);
 
         $member = new Member();
-        $member->setUser($user);
+        // $pMember = new \MemberBundle\Entity\Member();
+        // $member->setMember($pMember);
+        // $pMember->setUser($user);
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
@@ -55,7 +58,7 @@ class MemberController extends Controller
             return $event->getResponse();
         }
 
-        $form = $this->createForm(MemberType::class, $member);
+        $form = $this->createForm(RegistrationType::class, $member);
         // $form->setData($user);
 
         $form->handleRequest($request);

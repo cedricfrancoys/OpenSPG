@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Visits{% endblock %}
+
+{% block pageTitleText %}{{"Visits"|trans({},"visit")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Date"|trans({},"visit")}}</th>
+						<th>{{"Producer"|trans({},"visit")}}</th>
+						<th>{{"Property"|trans({},"visit")}}</th>
+						<th><a href="{{ path('producer_visit_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for visit in visits %}
+						<tr>
+							<td>{{visit.date}}</td>
+							<td>{{visit.producerName}}</td>
+							<td>{{visit.propertyName}}</td>
+							<td><a href="{{ path('producer_visit_edit') }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+      <!-- FOOTER -->
+      <footer>
+		<div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p><a href="#">{% trans %}Privacy{% endtrans %}</a> &middot; <a href="#">{% trans %}Terms{% endtrans %}</a></p>
+		</div>
+      </footer>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

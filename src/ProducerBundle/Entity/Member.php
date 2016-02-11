@@ -86,6 +86,7 @@ class Member extends \MemberBundle\Entity\Member
      */
     public function addProperty(\ProducerBundle\Entity\Property $property)
     {
+        $property->setMember($this);
         $this->Properties[] = $property;
 
         return $this;

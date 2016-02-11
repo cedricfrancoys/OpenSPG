@@ -30,6 +30,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
 	{{ parent() }}
@@ -37,7 +40,7 @@
 		var $collectionHolder;
 
 		// setup an "add a tag" link
-		var $addPropertyLink = $('<a href="#" class="add_property_link form_add_item_link">Add property</a>');
+		var $addPropertyLink = $('<a href="#" class="add_property_link form_add_item_link">{{"Add property"|trans({}, "property")}}</a>');
 		var $newLinkLi = $addPropertyLink;
 
 		jQuery(document).ready(function() {
@@ -58,6 +61,10 @@
 		        // add a new tag form (see next code block)
 		        addPropertyForm($collectionHolder, $newLinkLi);
 		    });
+
+		    $('#profile_Properties > .form-group').each(function(index){
+		    	$(this).find('label').first().text($(this).find('.propertyName').val());
+		    });
 		});
 
 		function addPropertyForm($collectionHolder, $newLinkLi) {
@@ -77,6 +84,13 @@
 		    // Display the form in the page in an li, before the "Add a tag" link li
 		    var $newFormLi = newForm;
 		    $newLinkLi.before($newFormLi);
+
+		    var $subform = $($newLinkLi).prev('div.form-group');
+		    $formLabel = $subform.find('label').first();
+		    $formLabel.text('{{"Property"|trans({},"property")}} '+(index+1));
+		    $('#'+"profile_Properties_index_name".replace(/index/, index)).on('change', function(e){
+		    	$formLabel.text($(e.currentTarget).val());
+		    })
 		}
 
 	</script>

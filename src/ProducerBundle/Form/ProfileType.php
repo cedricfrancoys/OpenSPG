@@ -20,7 +20,8 @@ class ProfileType extends AbstractType
             ->add('phone')
             ->add('Properties', CollectionType::class, array(
                 'entry_type' => PropertyType::class,
-                'allow_add'    => true
+                'allow_add' => true,
+                'by_reference' => false
             ))
             ->add('save', SubmitType::class)
         ;

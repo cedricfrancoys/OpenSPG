@@ -18,7 +18,11 @@ class PropertyType extends AbstractType
             ->add('areaName')
             ->add('address')
             ->add('regNr')
-            ->add('name')
+            ->add('name', null, array(
+                'attr' => array(
+                    'class' => 'propertyName'
+                )
+            ))
             ->add('tenure')
             ->add('size')
             ->add('previousUses')

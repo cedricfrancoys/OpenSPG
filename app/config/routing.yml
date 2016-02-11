@@ -25,3 +25,5 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

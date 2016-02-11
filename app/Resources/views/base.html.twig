@@ -43,17 +43,9 @@
                             <li><a href="contact.html">Contact</a></li>
                             <li><a href="#tablebooking">Table Booking</a></li>
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indina <b class="caret"></b></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{"Members"|trans({},"member")}} <b class="caret"></b></a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">DRINKS</a></li>
-                                <li><a href="#">STARTERS</a></li>
-                                <li><a href="#">TANDOORI - CLAY OVEN - DISHES</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">SEAFOOD MAIN COURSES</li>
-                                <li><a href="#">CHICKEN MAIN COURSES</a></li>
-                                <li><a href="#">LAMB MAIN COURSES</a></li>
-                                <li><a href="#">RICE/BREDS</a></li>
-                                <li><a href="#">ACCOMPANIMENTS</a></li>
+                                <li><a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_profile') }}{% endif %}">{{"Producer"|trans({},"producer")}}</a></li>
                               </ul>
                             </li>
                           </ul>

@@ -9,9 +9,9 @@ legend{
 	text-transform: uppercase;
 	padding: 0 10px;
 }
-#profile_Properties > .form-group{
+#consumer_Properties > .form-group{
 	margin-left: 20px;
 }
-#producerRegistration_Properties > .form-group{
+#consumerRegistration_Properties > .form-group{
 	margin-left: 20px;
 }

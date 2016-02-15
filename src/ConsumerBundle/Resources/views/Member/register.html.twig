@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Producers{% endblock %}
+{% block title %}Consumer{% endblock %}
 
 {% block pageTitleText %}Registration{% endblock %}
 
@@ -13,29 +13,20 @@
 			{{ form_errors(form) }}
 			{{ form_row(form.Member) }}
 			{{ form_row(form.phone) }}
-    		{{ form_row(form.Properties) }}
 		{{ form_end(form) }}
 	</div>
-
-    <!-- FOOTER -->
-    <footer>
-		<div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p><a href="#">{% trans %}Privacy{% endtrans %}</a> &middot; <a href="#">{% trans %}Terms{% endtrans %}</a></p>
-		</div>
-    </footer>
 
 {% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+	{% stylesheets 'bundles/consumer/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'property' }) }}"></script>
+	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'consumer' }) }}"></script>
 	{% javascripts
         'bundles/producer/js/*' %}
         <script src="{{ asset_url }}"></script>

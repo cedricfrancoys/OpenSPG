@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block pageTitleText %}Register{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="media">
+						<a href="{{ path('producer_member_register') }}"><h3 class="media-heading text-primary-theme">{% trans %}Producer members{% endtrans %}</h3></a>
+						<p>{% trans %}Producer members desc{% endtrans %}</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="media">
+						<a href="{{ path('consumer_member_register') }}"><h3 class="media-heading text-danger-theme">{% trans %}Consumer members{% endtrans %}</h3></a>
+						<p>{% trans %}Consumer members desc{% endtrans %}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

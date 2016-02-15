@@ -1,0 +1,11 @@
+services:
+    consumer.admin.member:
+        class: ConsumerBundle\Admin\MemberAdmin
+        arguments: [~, ConsumerBundle\Entity\Member, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: members, label: Consumer }
+
+    consumer.form.registration:
+        class: ConsumerBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }

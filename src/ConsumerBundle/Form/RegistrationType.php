@@ -1,6 +1,6 @@
 <?php
 
-namespace ProducerBundle\Form;
+namespace ConsumerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
-use ProducerBundle\Form\PropertyType;
 use UserBundle\Form\UserType;
 use MemberBundle\Form\MemberType as pMemberType;
 
@@ -23,28 +22,19 @@ class RegistrationType extends AbstractType
                 'label' => false
             ))
             ->add('phone')
-            ->add('Properties', CollectionType::class, array(
-                'entry_type' => PropertyType::class,
-                'allow_add'    => true,
-                'attr' => array(
-                    'data-add_link_label' => 'Add property',
-                    'data-item_label' => 'Property',
-                    'data-translation_domain' => 'property'
-                )
-            ))
             ->add('save', SubmitType::class)
         ;
     }
 
     public function getBlockPrefix()
     {
-        return 'producerRegistration';
+        return 'consumerRegistration';
     }
 
     public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'ProducerBundle\Entity\Member'
+	        'data_class' => 'ConsumerBundle\Entity\Member'
 	    ));
 	}
 }

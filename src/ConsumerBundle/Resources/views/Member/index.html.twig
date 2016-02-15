@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Consumers{% endblock %}
+
+{% block pageTitleText %}Consumers{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="media list">
+						<h3 class="media-heading text-primary-theme">{% trans from "producer" %}My Data{% endtrans %}</h3>
+						<ul>
+							<li><a href="{{ path('consumer_member_profile') }}">{% trans from "consumer" %}Profile{% endtrans %}</a></li>
+							<li><a href="#">{% trans from "consumer" %}Visits{% endtrans %}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="media list">
+						<h3 class="media-heading text-danger-theme">{% trans from "producer" %}Communication{% endtrans %}</h3>
+						<ul>
+							<li><a href="#">{% trans from "producer" %}Messages{% endtrans %}</a></li>
+							<li><a href="#">{% trans from "producer" %}Enquiries{% endtrans %}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

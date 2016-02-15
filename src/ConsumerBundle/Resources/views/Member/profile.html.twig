@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Consumers{% endblock %}
+
+{% block pageTitleText %}{{"Profile"|trans({},"consumer")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+			{{ form_row(form.name) }}
+			{{ form_row(form.surname) }}
+			{{ form_row(form.phone) }}
+    		{{ form_row(form.Properties) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/consumer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

@@ -5,6 +5,8 @@ namespace ProducerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 class PropertyType extends AbstractType
 {
@@ -44,10 +46,6 @@ class PropertyType extends AbstractType
             ->add('productConservation')
             ->add('productConservationDetails')
         ;
-
-        $builder
-            ->setAttribute('add_link_label', $options['add_link_label'])
-        ;
     }
     
     /**
@@ -57,9 +55,7 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Property',
-            'translation_domain' => 'property',
-            'add_link_label' => 'Add property',
-            'item_label' => 'Property'
+            'translation_domain' => 'property'
         ));
     }
 }

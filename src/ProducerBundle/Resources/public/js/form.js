@@ -1,15 +1,18 @@
 var $collectionHolder;
 
-// setup an "add a tag" link
-var $addPropertyLink = $('<a href="#" class="add_property_link form_add_item_link">'+Translator.trans('Add property', {}, 'property')+'</a>');
-var $newLinkLi = $addPropertyLink;
-
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
     $collectionHolder = $('[data-allow_add=data-allow_add]');
 
+    var add_link_label = $collectionHolder.data('add_link_label');
+    var translation_domain = $collectionHolder.data('translation_domain');
+
+    var $addPropertyLink = $('<a href="#" class="add_property_link form_add_item_link">'+Translator.trans(add_link_label, {}, translation_domain)+'</a>');
+	var $newLinkLi = $addPropertyLink;
+
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
+
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
@@ -27,6 +30,8 @@ jQuery(document).ready(function() {
 function addPropertyForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
+    var item_label = $collectionHolder.data('item_label');
+    var translation_domain = $collectionHolder.data('translation_domain');
 
     // get the new index
     var index = $collectionHolder.data('index');
@@ -44,7 +49,7 @@ function addPropertyForm($collectionHolder, $newLinkLi) {
 
     var $subform = $($newLinkLi).prev('div.form-group');
     $formLabel = $subform.find('label').first();
-    $formLabel.text('{{"Property"|trans({},"property")}} '+(index+1));
+    $formLabel.text(Translator.trans(item_label, {}, translation_domain)+' '+(index+1));
     $subform.find('.nameField').on('change', function(e){
     	$formLabel.text($(e.currentTarget).val());
     })

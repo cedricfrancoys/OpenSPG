@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block pageTitleText %}{{"Products"|trans({},"stock")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Product"|trans({},"stock")}}</th>
+						<th>{{"Stock"|trans({},"stock")}}</th>
+						<th><a href="{{ path('producer_stock_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{product.Product.name}}</td>
+							<td>{{product.amount}}</td>
+							<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

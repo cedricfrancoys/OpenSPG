@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block pageTitleText %}{{"Product"|trans({},"stock")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+			{{ form_row(form.Product) }}
+			{{ form_row(form.amount) }}
+			{{ form_row(form.caduce) }}
+			{{ form_row(form.price) }}
+			{{ form_row(form.isExchangeable) }}
+		{{ form_end(form) }}
+	</div>
+
+	<div class="modal fade" id="product_modal" tabindex="1" role="dialog">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">Add product</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		{{ form_start(pForm) }}
+						{{ form_errors(pForm) }}
+						{{ form_row(pForm.name) }}
+						{{ form_row(pForm.Group) }}
+						{{ form_row(pForm.Family) }}
+						{{ form_row(pForm.Variety) }}
+					{{ form_end(pForm) }}
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        	<button type="button" class="btn btn-primary">Save changes</button>
+		      	</div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'stock' }) }}"></script>
+	{% javascripts
+        '@twitter_typeahead_js'
+        'bundles/producer/js/stock.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+    	var groups = {{groups}};
+    	var families = {{families}};
+    	var varieties = {{varieties}};
+
+    	var family_get_path = '{{family_get_path}}';
+    	var group_add_path = '{{group_add_path}}';
+    </script>
+{% endblock %}

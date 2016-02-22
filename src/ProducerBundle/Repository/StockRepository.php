@@ -10,4 +10,24 @@ namespace ProducerBundle\Repository;
  */
 class StockRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findbyUser(\FOS\UserBundle\Model\UserInterface $user)
+	{
+		$em = $this->getEntityManager();
+
+		$q = $em->createQuery(
+			'SELECT
+				s
+			FROM
+				ProducerBundle:Stock s
+			LEFT JOIN
+				s.Producer p
+			LEFT JOIN
+				p.Member m
+			WHERE
+				m.User = :user'
+		);
+		$q->setParameter('user', $user);
+
+		return $q->getResult();
+	}
 }

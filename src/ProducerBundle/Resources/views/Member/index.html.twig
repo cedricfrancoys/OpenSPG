@@ -17,7 +17,7 @@
 						<ul>
 							<li><a href="{{ path('producer_member_profile') }}">{% trans from "producer" %}Profile{% endtrans %}</a></li>
 							<li><a href="{{ path('producer_property_index') }}">{% trans from "producer" %}Properties{% endtrans %}</a></li>
-							<li><a href="#">{% trans from "producer" %}Products{% endtrans %}</a></li>
+							<li><a href="{{ path('producer_stock_index') }}">{% trans from "producer" %}Products{% endtrans %}</a></li>
 							<li><a href="{{ path('producer_visit_index') }}">{% trans from "producer" %}Visits{% endtrans %}</a></li>
 						</ul>
 					</div>
@@ -34,14 +34,6 @@
 			</div>
 		</div>
 	</div>
-
-      <!-- FOOTER -->
-      <footer>
-		<div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p><a href="#">{% trans %}Privacy{% endtrans %}</a> &middot; <a href="#">{% trans %}Terms{% endtrans %}</a></p>
-		</div>
-      </footer>
 
 {% endblock %}
 

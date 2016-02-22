@@ -56,6 +56,13 @@ class Stock
     */
     private $Product;
 
+    /**
+    * @var Producer
+    *
+    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member")
+    */
+    private $Producer;
+
 
     /**
      * Get id
@@ -185,5 +192,29 @@ class Stock
     public function getProduct()
     {
         return $this->Product;
+    }
+
+    /**
+     * Set producer
+     *
+     * @param \ProducerBundle\Entity\Member $producer
+     *
+     * @return Stock
+     */
+    public function setProducer(\ProducerBundle\Entity\Member $producer = null)
+    {
+        $this->Producer = $producer;
+
+        return $this;
+    }
+
+    /**
+     * Get producer
+     *
+     * @return \ProducerBundle\Entity\Member
+     */
+    public function getProducer()
+    {
+        return $this->Producer;
     }
 }

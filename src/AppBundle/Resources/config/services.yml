@@ -1,0 +1,23 @@
+parameters:
+    twitter_typeahead.typeahead_type.class: AppBundle\Form\Type\TypeaheadType
+    twitter_typeahead.twig_extension.class: AppBundle\Twig\Extension\TypeaheadTwigExtension
+
+services:
+    # provide twig functions
+    twitter_typeahead.twig_extension:
+        class: %twitter_typeahead.twig_extension.class%
+        tags: [{ name: twig.extension }]
+        
+    # main typeahead autocomplete form field
+    twitter_typeahead.typeahead_type:
+        class: %twitter_typeahead.typeahead_type.class%
+        arguments: ["@service_container", "@doctrine.orm.entity_manager", "@router"]
+        tags:
+            - {name: form.type, alias: entity_typeahead }
+
+    # experimental extension ...
+    #lifo_typeahead.form.form_extension:
+    #    class: Lifo\TypeaheadBundle\Form\Extension\FormExtension
+    #    arguments: []
+    #    tags: [{ name: form.type_extension, alias: form }]
+        

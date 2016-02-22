@@ -18,7 +18,8 @@ class MemberType extends AbstractType
     {
         $builder
             ->add('User', RegistrationType::class, array(
-                'label' => false
+                'label' => false,
+                'mapped' => false
             ))
             ->add('name')
             ->add('surname')

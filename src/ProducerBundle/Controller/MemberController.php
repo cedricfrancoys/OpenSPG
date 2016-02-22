@@ -45,9 +45,6 @@ class MemberController extends Controller
         $user->setEnabled(true);
 
         $member = new Member();
-        // $pMember = new \MemberBundle\Entity\Member();
-        // $member->setMember($pMember);
-        // $pMember->setUser($user);
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
@@ -78,6 +75,8 @@ class MemberController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+            $member->getMember()->setUser($user);
+
             $em->persist($member);
             $em->flush();
 
@@ -105,7 +104,6 @@ class MemberController extends Controller
     	$em = $this->getDoctrine()->getManager();
 
         $member = $em->getRepository('ProducerBundle:Member')->getUser($this->getUser());
-        print_r($member);
 
     	$form = $this->createForm(ProfileType::class, $member);
 

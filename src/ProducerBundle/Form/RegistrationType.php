@@ -20,8 +20,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('Member', pMemberType::class, array(
-                'label' => false,
-                'mapped' => false
+                'label' => false
             ))
             ->add('phone')
             ->add('Properties', CollectionType::class, array(

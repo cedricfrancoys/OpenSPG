@@ -74,6 +74,8 @@ class MemberController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+            $member->getMember()->setUser($user);
+
             $em->persist($member);
             $em->flush();
 

@@ -10,4 +10,24 @@ namespace ProducerBundle\Repository;
  */
 class PropertyRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findbyUser(\FOS\UserBundle\Model\UserInterface $user)
+	{
+		$em = $this->getEntityManager();
+
+		$q = $em->createQuery(
+			'SELECT
+				p
+			FROM
+				ProducerBundle:Property p
+			LEFT JOIN
+				p.Member pm
+			LEFT JOIN
+				pm.Member m
+			WHERE
+				m.User = :user'
+		);
+		$q->setParameter('user', $user);
+
+		return $q->getResult();
+	}
 }

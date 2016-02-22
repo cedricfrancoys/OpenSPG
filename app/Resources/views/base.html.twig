@@ -46,6 +46,7 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{"Members"|trans({},"member")}} <b class="caret"></b></a>
                               <ul class="dropdown-menu">
                                 <li><a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_profile') }}{% endif %}">{{"Producer"|trans({},"producer")}}</a></li>
+                                <li><a href="{% if is_granted(expression('"ROLE_CONSUMER" in roles')) %}{{ path('consumer_member_index') }}{% else %}{{ path('consumer_member_profile') }}{% endif %}">{{"Consumer"|trans({},"consumer")}}</a></li>
                               </ul>
                             </li>
                           </ul>

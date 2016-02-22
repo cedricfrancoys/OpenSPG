@@ -10,4 +10,26 @@ namespace ConsumerBundle\Repository;
  */
 class MemberRepository extends \MemberBundle\Repository\MemberRepository
 {
+	public function getUser(\FOS\UserBundle\Model\UserInterface $user)
+	{
+		$em = $this->getEntityManager();
+
+		$q = $em->createQuery(
+			'SELECT
+				m,
+				cm,
+				u
+			FROM
+				ConsumerBundle:Member cm
+			LEFT JOIN
+				cm.Member m
+			LEFT JOIN
+				m.User u
+			WHERE
+				m.User = :user'
+		);
+		$q->setParameter('user', $user);
+
+		return $q->getOneOrNullResult();
+	}
 }

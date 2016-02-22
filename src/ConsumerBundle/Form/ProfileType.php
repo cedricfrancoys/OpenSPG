@@ -8,15 +8,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-use ConsumerBundle\Form\PropertyType;
+use MemberBundle\Form\ProfileType as pProfileType;
 
 class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('surname')
+            ->add('Member', pProfileType::class, array(
+                'label' => false
+            ))
             ->add('phone')
             ->add('save', SubmitType::class)
         ;

@@ -36,8 +36,6 @@ class MemberController extends Controller
      */
     public function registerAction(Request $request)
     {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -64,6 +62,13 @@ class MemberController extends Controller
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
+            $pUser = $request->request->get('consumerRegistration');
+            $pUser = $pUser['Member']['User'];
+            $user->setEmail($pUser['email']);
+            $user->setPlainPassword($pUser['password']['first']);
+            $user->setUsername($pUser['username']);
+            
+            $user->addRole('ROLE_MEMBER');
             $user->addRole('ROLE_CONSUMER');
             $userManager->updateUser($user);
 
@@ -95,13 +100,25 @@ class MemberController extends Controller
 
     	$em = $this->getDoctrine()->getManager();
 
-        $member = $em->getRepository('ConsumerBundle:Member')->findOneBy(array('User'=>$this->getUser()));
+        $member = $em->getRepository('ConsumerBundle:Member')->getUser($this->getUser());
 
     	$form = $this->createForm(ProfileType::class, $member);
 
     	$form->handleRequest($request);
 
     	if ($form->isSubmitted() && $form->isValid()) {
+            
+            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserBy(array('id'=>$this->getUser()->getId()));
+
+            $pUser = $request->request->get('profile');
+            $pUser = $pUser['Member']['User'];
+            $user->setEmail($pUser['email']);
+            $user->setUsername($pUser['username']);
+            
+            $userManager->updateUser($user);
+
             $em->persist($member);
 		    $em->flush();
 

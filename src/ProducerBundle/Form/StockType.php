@@ -8,6 +8,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
+
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
+use ProductBundle\Form\ProductType;
 
 class StockType extends AbstractType
 {
@@ -18,10 +25,13 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Product')
-            ->add('amount')
+            ->add('Product', EntityType::class, array(
+                'class' => 'ProductBundle:Product',
+                'choice_label' => 'name'
+            ))
+            ->add('amount', NumberType::class)
             ->add('caduce')
-            ->add('price')
+            ->add('price', MoneyType::class)
             ->add('isExchangeable')
             ->add('save', SubmitType::class)
         ;

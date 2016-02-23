@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -16,10 +17,13 @@ use ProductBundle\Entity\Product;
 use ProducerBundle\Form\StockType;
 use ProductBundle\Form\ProductType;
 
+/**
+ * @Route("/members/producer/product")
+ */
 class StockController extends Controller
 {
     /**
-     * @Route("/members/producer/product/")
+     * @Route("/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
@@ -33,7 +37,9 @@ class StockController extends Controller
     }
 
     /**
-     * @Route("/members/producer/product/add")
+     * @Route("/add")
+     * @Security("has_role('ROLE_PRODUCER')")
+     * @Method({"POST"})
      */
     public function addAction(Request $request)
     {
@@ -60,9 +66,14 @@ class StockController extends Controller
             return $response;
         }
 
-        $groups = $em->getRepository('ProductBundle:ProductGroup')->findAll();
-        $families = $em->getRepository('ProductBundle:Family')->findAll();
-        $varieties = $em->getRepository('ProductBundle:Variety')->findAll();
+        $groups = $em->
+            getRepository('ProductBundle:ProductGroup')
+            ->createQueryBuilder('g')
+            ->select('g')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        $families = array();
+        $varieties = array();
 
         return $this->render('ProducerBundle:Stock:edit.html.twig', array(
             'form' => $form->createView(),
@@ -70,40 +81,67 @@ class StockController extends Controller
             'groups' => json_encode($groups),
             'families' => json_encode($families),
             'varieties' => json_encode($varieties),
+            'group_get_path' => $this->generateUrl('product_group_get'),
+            'group_add_path' => $this->generateUrl('product_group_add'),
             'family_get_path' => $this->generateUrl('product_family_get'),
-            'group_add_path' => $this->generateUrl('product_group_add')
+            'family_add_path' => $this->generateUrl('product_family_add'),
+            'variety_get_path' => $this->generateUrl('product_variety_get'),
+            'variety_add_path' => $this->generateUrl('product_variety_add'),
+            'product_add_path' => $this->generateUrl('product_product_add')
         ));
     }
 
     /**
-     * @Route("/members/producer/property/{id}")
+     * @Route("/edit/{id}")
+     * @Security("has_role('ROLE_PRODUCER')")
      */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $property = $em->getRepository('ProducerBundle:Property')->find($id);
+        $stock = $em->getRepository('ProducerBundle:Stock')->find($id);
+        $product = new Product();
 
-        if (!$property || $property->getMember()->getMember()->getUser() != $this->getUser()) {
+        if (!$stock || $stock->getProducer()->getMember()->getUser() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 
-        $form = $this->createForm(PropertyType::class, $property);
-        // $form->setData($user);
+        $form = $this->createForm(StockType::class, $stock);
+        $pForm = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($property);
+            $em->persist($stock);
             $em->flush();
 
-            $url = $this->generateUrl('producer_property_edit');
+            $url = $this->generateUrl('producer_stock_edit');
             $response = new RedirectResponse($url);
 
             return $response;
         }
 
-        return $this->render('ProducerBundle:Property:edit.html.twig', array(
-            'form' => $form->createView()
+        $groups = $em->
+            getRepository('ProductBundle:ProductGroup')
+            ->createQueryBuilder('g')
+            ->select('g')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        $families = array();
+        $varieties = array();
+
+        return $this->render('ProducerBundle:Stock:edit.html.twig', array(
+            'form' => $form->createView(),
+            'pForm' => $pForm->createView(),
+            'groups' => json_encode($groups),
+            'families' => json_encode($families),
+            'varieties' => json_encode($varieties),
+            'group_get_path' => $this->generateUrl('product_group_get'),
+            'group_add_path' => $this->generateUrl('product_group_add'),
+            'family_get_path' => $this->generateUrl('product_family_get'),
+            'family_add_path' => $this->generateUrl('product_family_add'),
+            'variety_get_path' => $this->generateUrl('product_variety_get'),
+            'variety_add_path' => $this->generateUrl('product_variety_add'),
+            'product_add_path' => $this->generateUrl('product_product_add')
         ));
     }
 }

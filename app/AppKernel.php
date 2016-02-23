@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
             new ProductBundle\ProductBundle(),

@@ -9,10 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 use AppBundle\Form\Type\TypeaheadType;
+
+use ProductBundle\Form\DataTransformer\GroupTransformer;
+use ProductBundle\Form\DataTransformer\FamilyTransformer;
+use ProductBundle\Form\DataTransformer\VarietyTransformer;
 
 class ProductType extends AbstractType
 {
+    private $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -21,11 +34,23 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('Group', TypeaheadType::class)
-            ->add('Family', TypeaheadType::class)
-            ->add('Variety', TypeaheadType::class)
-            ->add('save', SubmitType::class)
+            ->add('Group', TypeaheadType::class, array(
+                'compound' => false
+            ))
+            ->add('Family', TypeaheadType::class, array(
+                'compound' => false
+            ))
+            ->add('Variety', TypeaheadType::class, array(
+                'compound' => false
+            ))
         ;
+
+        $builder->get('Group')
+            ->addModelTransformer(new GroupTransformer($this->manager));
+        $builder->get('Family')
+            ->addModelTransformer(new FamilyTransformer($this->manager));
+        $builder->get('Variety')
+            ->addModelTransformer(new VarietyTransformer($this->manager));
     }
     
     /**

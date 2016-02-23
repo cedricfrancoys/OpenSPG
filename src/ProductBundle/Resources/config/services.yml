@@ -25,3 +25,9 @@ services:
         arguments: [~, ProductBundle\Entity\Variety, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: products, label: Variety }
+
+    product.form.type.task:
+        class: ProductBundle\Form\ProductType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

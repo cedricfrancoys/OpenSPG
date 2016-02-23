@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Variety
  *
- * @ORM\Table(name="variety")
+ * @ORM\Table(name="variety", uniqueConstraints={@ORM\UniqueConstraint(name="variety_idx", columns={"name","family_id"})})
  * @ORM\Entity(repositoryClass="ProductBundle\Repository\VarietyRepository")
  */
 class Variety

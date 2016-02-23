@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),

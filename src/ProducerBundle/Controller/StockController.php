@@ -28,6 +28,11 @@ class StockController extends Controller
      */
     public function indexAction()
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
+
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('ProducerBundle:Stock')->findByUser($this->getUser());
 
@@ -43,6 +48,12 @@ class StockController extends Controller
      */
     public function addAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
+        $breadcrumbs->addItem("add", $this->get("router")->generate("producer_stock_add"));
+
         $stock = new Stock();
         $product = new Product();
 
@@ -97,6 +108,12 @@ class StockController extends Controller
      */
     public function editAction(Request $request, $id)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
+        $breadcrumbs->addItem("edit", $this->get("router")->generate("producer_stock_edit", array('id'=>$id)));
+
         $em = $this->getDoctrine()->getManager();
         $stock = $em->getRepository('ProducerBundle:Stock')->find($id);
         $product = new Product();

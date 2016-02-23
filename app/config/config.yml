@@ -105,3 +105,5 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+white_october_breadcrumbs: ~

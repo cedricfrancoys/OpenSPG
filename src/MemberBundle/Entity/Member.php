@@ -42,6 +42,11 @@ class Member
     */
     protected $User;
 
+    public function __toString()
+    {
+        return $this->getName() . ' ' . $this->getSurname();
+    }
+
 
     /**
      * Get id

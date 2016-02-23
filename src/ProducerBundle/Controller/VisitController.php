@@ -12,16 +12,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use ProducerBundle\Entity\Visit;
 use ProducerBundle\Form\VisitType;
 
+/**
+ * @Route("/members/producer/visit")
+ * @Security("has_role('ROLE_PRODUCER')")
+ */
 class VisitController extends Controller
 {
     /**
-     * @Route("/members/producer/visit/")
+     * @Route("/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+
         $em = $this->getDoctrine()->getManager();
-        $visits = $em->getRepository('ProducerBundle:Visit')->findAll();
+
+        $visits = $em->
+            getRepository('ProducerBundle:Visit')
+            ->createQueryBuilder('v')
+            ->select('v')
+            ->leftJoin('v.Producer', 'p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('v.Property', 'pr')
+            ->leftJoin('pr.Member', 'm2')
+            ->leftJoin('m2.Member', 'm3')
+            ->where('m.User = :user OR m3.User = :user')
+            ->setParameter('user', $this->getUser())
+            ->getQuery()
+            ->getResult();
 
         return $this->render('ProducerBundle:Visit:index.html.twig', array(
             'visits' => $visits
@@ -29,10 +51,16 @@ class VisitController extends Controller
     }
 
     /**
-     * @Route("/members/producer/visit/add")
+     * @Route("/add")
      */
     public function addAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+        $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_visit_add"));
+
         $visit = new Visit();
         $visit->setVisitDate(new \DateTime());
         $visit->setStartTime(new \DateTime());
@@ -65,14 +93,19 @@ class VisitController extends Controller
     }
 
     /**
-     * @Route("/members/producer/visit/{id}")
+     * @Route("/{id}")
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request, $id)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+        $breadcrumbs->addItem("Edit", $this->get("router")->generate("producer_visit_edit", array('id'=>$id)));
+
         $visit = new Visit();
 
         $form = $this->createForm(VisitType::class, $visit);
-        // $form->setData($user);
 
         $form->handleRequest($request);
 

@@ -6,6 +6,7 @@ imports:
     - { resource: "@ProductBundle/Resources/config/services.yml" }
     - { resource: "@ProducerBundle/Resources/config/services.yml" }
     - { resource: "@MemberBundle/Resources/config/services.yml" }
+    - { resource: "@NodeBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -45,6 +46,7 @@ twig:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
         - 'bootstrap_3_layout.html.twig'
         - 'AppBundle:Form:form.html.twig'
+        - 'OhGoogleMapFormTypeBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -56,6 +58,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+            point: LocationBundle\Type\PointType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"

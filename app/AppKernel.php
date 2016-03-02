@@ -35,6 +35,10 @@ class AppKernel extends Kernel
             new ProducerBundle\ProducerBundle(),
             new MemberBundle\MemberBundle(),
             new ConsumerBundle\ConsumerBundle(),
+            new NodeBundle\NodeBundle(),
+            new LocationBundle\LocationBundle(),
+
+            new mhauptma73\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

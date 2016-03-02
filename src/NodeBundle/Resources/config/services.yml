@@ -1,0 +1,6 @@
+services:
+  node.admin.node:
+    class: NodeBundle\Admin\NodeAdmin
+    arguments: [~, NodeBundle\Entity\Node, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: nodes, label: Node }

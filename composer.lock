@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75f0c32ac4e9a8db75459abdff1b155e",
-    "content-hash": "f227fffc8984b44d3b91f359aee17939",
+    "hash": "c40fc22b74199658d93b128406e4b744",
+    "content-hash": "26cf46f4f0c5628dbb342ce6118d28d8",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -845,7 +845,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e770bfa2fd0fc665f55cd7cfeb34bddeffb892f4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/a39d000577d735444bee97de9f5ee382e3f85fa1",
                 "reference": "140cc28026304d3023c880f441689986f99b913b",
                 "shasum": ""
             },
@@ -1436,6 +1436,52 @@
             "time": "2015-11-12 13:51:40"
         },
         {
+            "name": "mhauptma73/OhGoogleMapFormTypeBundle",
+            "version": "dev-master",
+            "target-dir": "mhauptma73/GoogleMapFormTypeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mhauptma73/OhGoogleMapFormTypeBundle.git",
+                "reference": "cd306ed31e5b9f849738f51b2d5e9d6f4af0a27f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mhauptma73/OhGoogleMapFormTypeBundle/zipball/cd306ed31e5b9f849738f51b2d5e9d6f4af0a27f",
+                "reference": "cd306ed31e5b9f849738f51b2d5e9d6f4af0a27f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "mhauptma73\\GoogleMapFormTypeBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ollie Harridge",
+                    "email": "code@oll.ie"
+                }
+            ],
+            "description": "Set latitude and longitude values on a form using Google Maps",
+            "homepage": "https://github.com/ollieLtd/OhGoogleMapFormTypeBundle",
+            "keywords": [
+                "form",
+                "google maps",
+                "symfony"
+            ],
+            "support": {
+                "source": "https://github.com/mhauptma73/OhGoogleMapFormTypeBundle/tree/master"
+            },
+            "time": "2016-03-02 09:37:20"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.17.2",
             "source": {
@@ -1859,7 +1905,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/926f15924f612c75366472d99bedf8c6ca25ea68",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/25f7ebe45430472642f3758d047dc0bce154da3f",
                 "reference": "ee5098f6115380ee4e4ccccd76a6e564045e0e1c",
                 "shasum": ""
             },
@@ -2146,7 +2192,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/223413426b10f83051a3547d277fef9cd0bd7423",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/41a82b8d0c6bbea95dbbd617ef0156b08e5002df",
                 "reference": "434655533ce43c3f8c9a6af6c7a0373fdb3cea92",
                 "shasum": ""
             },
@@ -3685,7 +3731,8 @@
         "sonata-project/core-bundle": 20,
         "sonata-project/datagrid-bundle": 20,
         "sonata-project/exporter": 20,
-        "sonata-project/sonata-composer": 20
+        "sonata-project/sonata-composer": 20,
+        "mhauptma73/ohgooglemapformtypebundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

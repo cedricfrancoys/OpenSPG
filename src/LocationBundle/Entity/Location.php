@@ -5,6 +5,7 @@ namespace LocationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use mhauptma73\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
+use LocationBundle\Type\PointType;
 
 /**
  * LocationBundle\Entity\Location
@@ -157,11 +158,11 @@ class Location
     /**
      * Set location
      *
-     * @param \point $location
+     * @param PointType $location
      *
      * @return Location
      */
-    public function setLocation(\point $location)
+    public function setLocation(PointType $location)
     {
         $this->location = $location;
 
@@ -171,7 +172,7 @@ class Location
     /**
      * Get location
      *
-     * @return \point
+     * @return PointType
      */
     public function getLocation()
     {

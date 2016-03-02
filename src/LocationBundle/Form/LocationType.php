@@ -11,7 +11,11 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('latlng','oh_google_maps')
+            ->add('latlng','oh_google_maps', array(
+                'default_lat' => '37.06394430056685',
+                'default_lng' => '-3.09814453125',
+                'type' => 'hidden'
+            ))
             ;
     }
 

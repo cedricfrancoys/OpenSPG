@@ -19,9 +19,9 @@
 			</script>
 			<script>
 			var myCenter=new google.maps.LatLng(36.892011,-3.245017);
-			var orgiva=new google.maps.LatLng(36.900128,-3.421583);
-			var cadiar=new google.maps.LatLng(36.944282,-3.180973);
-			var gualchos=new google.maps.LatLng(36.743629,-3.390629);
+			{% for node in nodes %}
+				var pointer{{node.id}} = new google.maps.LatLng({{node.Location.latitude}},{{node.Location.longitude}});
+			{% endfor %}
 			var marker;
 			function initialize()
 			{
@@ -31,38 +31,19 @@
 				  mapTypeId:google.maps.MapTypeId.ROADMAP
 				  };
 				var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-				markerO=new google.maps.Marker({
-				  position:orgiva
-				});
-				markerO.setMap(map);
-				markerC=new google.maps.Marker({
-				   position:cadiar
-				});
-				markerC.setMap(map);
-				markerG=new google.maps.Marker({
-				   position:gualchos
-				});
-				markerG.setMap(map);
-
-				// Info open
-				var infowindowO = new google.maps.InfoWindow({
-				  content:"Orgiva - Nodo Alpujarra Occidental"
-				});
-				google.maps.event.addListener(markerO, 'click', function() {
-				  infowindowO.open(map,markerO);
-				});
-				var infowindowC = new google.maps.InfoWindow({
-				   content:"Cadiar - Nodo Alpujarra Oriental"
-				});
-				google.maps.event.addListener(markerC, 'click', function() {
-				   infowindowC.open(map,markerC);
-				});
-				var infowindowG = new google.maps.InfoWindow({
-				   content:"Gualchos - Nodo Costa"
-				});
-				google.maps.event.addListener(markerG, 'click', function() {
-				   infowindowG.open(map,markerG);
-				});
+				{% for node in nodes %}
+					marker{{node.id}}=new google.maps.Marker({
+					  position:pointer{{node.id}}
+					});
+					marker{{node.id}}.setMap(map);
+					var infowindow{{node.id}} = new google.maps.InfoWindow({
+					  content:"{{node.name}}"
+					});
+					google.maps.event.addListener(marker{{node.id}}, 'click', function() {
+					  infowindow{{node.id}}.open(map,marker{{node.id}});
+					});
+					infowindow{{node.id}}.open(map,marker{{node.id}});
+				{% endfor %}
 			}
 			google.maps.event.addDomListener(window, 'load', initialize);
 			</script>

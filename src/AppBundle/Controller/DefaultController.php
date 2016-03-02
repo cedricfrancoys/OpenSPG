@@ -13,8 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $nodes = $em->getRepository('NodeBundle:Node')->findAll();
+
         $data = array(
-            'products' => array()
+            'products' => array(),
+            'nodes' => $nodes
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);

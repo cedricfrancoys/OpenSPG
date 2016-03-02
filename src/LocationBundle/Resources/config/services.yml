@@ -1,0 +1,6 @@
+services:
+  location.admin.location:
+    class: LocationBundle\Admin\LocationAdmin
+    arguments: [~, LocationBundle\Entity\Location, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm }

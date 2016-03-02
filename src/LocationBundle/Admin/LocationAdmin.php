@@ -1,6 +1,6 @@
 <?php
 
-namespace NodeBundle\Admin;
+namespace LocationBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -8,7 +8,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class NodeAdmin extends Admin
+use mhauptma73\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
+
+class LocationAdmin extends Admin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,7 +19,7 @@ class NodeAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('name')
+            ->add('location')
         ;
     }
 
@@ -28,13 +30,12 @@ class NodeAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('name')
-            ->add('address')
+            ->add('location')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
+                    'delete' => array()
                 )
             ))
         ;
@@ -46,11 +47,7 @@ class NodeAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('address')
-            ->add('Location', 'sonata_type_admin', array(
-                'label' => false
-            ))
+            ->add('latlng', GoogleMapType::class)
         ;
     }
 
@@ -61,8 +58,7 @@ class NodeAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('phone')
-            ->add('address')
+            ->add('location')
         ;
     }
 }

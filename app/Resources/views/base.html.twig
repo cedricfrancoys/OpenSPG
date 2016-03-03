@@ -39,16 +39,8 @@
                         <div class="navbar-collapse collapse">
                           <ul class="nav navbar-nav">
                             <li class="active"><a href="{{ path('homepage') }}">{% trans %}Home{% endtrans %}</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="#tablebooking">Table Booking</a></li>
-                            <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{"Members"|trans({},"member")}} <b class="caret"></b></a>
-                              <ul class="dropdown-menu">
-                                <li><a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_profile') }}{% endif %}">{{"Producer"|trans({},"producer")}}</a></li>
-                                <li><a href="{% if is_granted(expression('"ROLE_CONSUMER" in roles')) %}{{ path('consumer_member_index') }}{% else %}{{ path('consumer_member_profile') }}{% endif %}">{{"Consumer"|trans({},"consumer")}}</a></li>
-                              </ul>
-                            </li>
+                            <li><a href="{{ path('product_public_index') }}">Productos</a></li>
+                            <li><a href="{{ path('producer_producer_index') }}">Productores</a></li>
                           </ul>
                           <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}

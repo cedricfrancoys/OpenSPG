@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block pageTitleText %}{{"Products"|trans({},"product")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Producto"|trans({},"product")}}</th>
+						<th>{{"Productor"|trans({},"product")}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{product.Product.name}}</td>
+							<td><a href="{{ path('producer_producer_show', {id:product.producer}) }}">{{product.Producer.Member.name}} {{product.Producer.Member.surname}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

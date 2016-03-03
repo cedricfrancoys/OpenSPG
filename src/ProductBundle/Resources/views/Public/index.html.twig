@@ -15,6 +15,7 @@
 					<tr>
 						<th>{{"Producto"|trans({},"product")}}</th>
 						<th>{{"Productor"|trans({},"product")}}</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,6 +23,7 @@
 						<tr>
 							<td>{{product.Product.name}}</td>
 							<td><a href="{{ path('producer_producer_show', {id:product.producer}) }}">{{product.Producer.Member.name}} {{product.Producer.Member.surname}}</a></td>
+							<td class="action"><a href="{{ path('cart_cart_add', {"from":"product_public_index", "product_id":product.id}) }}"><span class="glyphicon glyphicon-shopping-cart action addToBasket" aria-hidden="true"></span></a></td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -33,7 +35,7 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets 'bundles/producer/css/styles' filter='cssrewrite' %}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}	

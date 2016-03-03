@@ -18,7 +18,8 @@ class DefaultController extends Controller
 
         $data = array(
             'products' => array(),
-            'nodes' => $nodes
+            'nodes' => $nodes,
+            'menu' => 'home'
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);

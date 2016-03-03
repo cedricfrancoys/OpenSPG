@@ -38,7 +38,8 @@ class PublicController extends Controller
             ->getResult();
 
         $data = array(
-            'products' => $products
+            'products' => $products,
+            'menu' => 'products'
         );
 
         return $data;

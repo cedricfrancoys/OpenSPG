@@ -1,3 +1,18 @@
 table a{
 	color: #000;
 }
+table a:hover{
+	color: #999
+}
+td.action{
+	width: 50px;
+}
+td.action span{
+	display: none;
+}
+tr:hover td.action span{
+	display: inline-block;
+}
+span.action{
+	cursor: pointer;
+}

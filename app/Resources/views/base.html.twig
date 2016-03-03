@@ -1,3 +1,6 @@
+{% if menu is not defined %}
+    {% set menu = '' %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale|split('_')[0] }}">
     <head>
@@ -38,9 +41,9 @@
                         </div>
                         <div class="navbar-collapse collapse">
                           <ul class="nav navbar-nav">
-                            <li class="active"><a href="{{ path('homepage') }}">{% trans %}Home{% endtrans %}</a></li>
-                            <li><a href="{{ path('product_public_index') }}">Productos</a></li>
-                            <li><a href="{{ path('producer_producer_index') }}">Productores</a></li>
+                            <li{% if menu == 'home' %} class="active"{% endif %}><a href="{{ path('homepage') }}">{{"Home"|trans({})}}</a></li>
+                            <li{% if menu == 'products' %} class="active"{% endif %}><a href="{{ path('product_public_index') }}">{{"Products"|trans({},"product")}}</a></li>
+                            <li{% if menu == 'producer' %} class="active"{% endif %}><a href="{{ path('producer_producer_index') }}">{{"Producers"|trans({},"producer")}}</a></li>
                           </ul>
                           <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}

@@ -24,7 +24,7 @@ class Cart
     /**
     * @var Product
     *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Product")
+    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Stock")
     */
     protected $Product;
 
@@ -52,10 +52,15 @@ class Cart
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="edited", type="datetime")
+     * @ORM\Column(name="modified", type="datetime", nullable=true)
      */
-    private $edited;
+    private $modified = null;
 
+
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * Get id
@@ -116,37 +121,37 @@ class Cart
     }
 
     /**
-     * Set edited
+     * Set modified
      *
-     * @param \DateTime $edited
+     * @param \DateTime $modified
      *
      * @return Cart
      */
-    public function setEdited($edited)
+    public function setModified($modified)
     {
-        $this->edited = $edited;
+        $this->modified = $modified;
 
         return $this;
     }
 
     /**
-     * Get edited
+     * Get modified
      *
      * @return \DateTime
      */
-    public function getEdited()
+    public function getModified()
     {
-        return $this->edited;
+        return $this->modified;
     }
 
     /**
      * Set product
      *
-     * @param \ProductBundle\Entity\Product $product
+     * @param \ProducerBundle\Entity\Stock $product
      *
      * @return Cart
      */
-    public function setProduct(\ProductBundle\Entity\Product $product = null)
+    public function setProduct(\ProducerBundle\Entity\Stock $product = null)
     {
         $this->Product = $product;
 
@@ -156,7 +161,7 @@ class Cart
     /**
      * Get product
      *
-     * @return \ProductBundle\Entity\Product
+     * @return \ProducerBundle\Entity\Stock
      */
     public function getProduct()
     {

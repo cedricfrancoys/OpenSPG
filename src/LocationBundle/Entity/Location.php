@@ -113,7 +113,7 @@ class Location
      * Set created
      *
      * @param \DateTime $created
-     * @return Venue
+     * @return Location
      */
     public function setCreated($created)
     {
@@ -136,7 +136,7 @@ class Location
      * Set modified
      *
      * @param \DateTime $modified
-     * @return Venue
+     * @return Location
      */
     public function setModified($modified)
     {

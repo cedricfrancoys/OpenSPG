@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Add to Cart{% endblock %}
+
+{% block pageTitleText %}{{"Add to Cart"|trans({},"cart")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<form action="{{ path('cart_cart_update') }}" method="post">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>{{"Product"|trans({},"cart")}}</th>
+							<th>{{"Amount"|trans({},"cart")}}</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{product.Product.Product.name}}</td>
+								<td><input type="text" name="amount[{{ product.Product.id }}]" value="{{ product.amount }}" /></td>
+								<td class="action"><a href="{{ path('cart_cart_add', {"product_id":product.id}) }}"><span class="glyphicon glyphicon-plus-sign action plus" aria-hidden="true"></span></a> <a href="{{ path('cart_cart_rest', {"product_id":product.id}) }}"><span class="glyphicon glyphicon-minus-sign action minus" aria-hidden="true"></span></a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<input type="submit" />
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

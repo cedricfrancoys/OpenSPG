@@ -62,6 +62,8 @@ doctrine:
         charset:  UTF8
         types:
             point: LocationBundle\Type\PointType
+        mapping_types:
+            point: point
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

@@ -30,7 +30,19 @@ class ProducerController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('ProducerBundle:Producer:index.html.twig');
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Producers", $this->get("router")->generate("producer_producer_index"));
+
+        $em = $this->getDoctrine()->getManager();
+
+        $producers = $em->getRepository('ProducerBundle:Member')->findAll();
+
+        $data = array(
+            'producers' => $producers
+        );
+
+        return $this->render('ProducerBundle:Producer:index.html.twig', $data);
     }
 
     /**

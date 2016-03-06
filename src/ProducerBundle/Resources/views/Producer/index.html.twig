@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Producer"|trans({},"producer")}}{% endblock %}
+
+{% block pageTitleText %}{{"Producer"|trans({},"producer")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"producer")}}</th>
+						<th>{{"Surname"|trans({},"producer")}}</th>
+						<th>{{"Phone"|trans({},"producer")}}</th>
+						<th>{{"Node"|trans({},"producer")}}</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for producer in producers %}
+						<tr>
+							<td>{{producer.Member.name}}</td>
+							<td>{{producer.Member.surname}}</td>
+							<td>{{producer.phone}}</td>
+							<td>{{producer.Member.Node}}</td>
+							<td>contact</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

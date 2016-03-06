@@ -43,6 +43,13 @@ class Stock
     private $price;
 
     /**
+     * @var unit
+     *
+     * @ORM\Column(name="unit", type="string", length=10)
+     */
+    private $unit;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="is_exchangeable", type="boolean")
@@ -216,5 +223,29 @@ class Stock
     public function getProducer()
     {
         return $this->Producer;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     *
+     * @return Stock
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }

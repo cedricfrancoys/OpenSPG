@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new CartBundle\CartBundle(),
 
             new mhauptma73\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
+            new ManagementBundle\ManagementBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

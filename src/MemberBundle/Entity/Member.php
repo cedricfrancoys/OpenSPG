@@ -42,6 +42,13 @@ class Member
     */
     protected $User;
 
+    /**
+    * @var Node
+    *
+    * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
+    */
+    protected $Node;
+
     public function __toString()
     {
         return $this->getName() . ' ' . $this->getSurname();
@@ -128,5 +135,29 @@ class Member
     public function getUser()
     {
         return $this->User;
+    }
+
+    /**
+     * Set node
+     *
+     * @param \NodeBundle\Entity\Node $node
+     *
+     * @return Member
+     */
+    public function setNode(\NodeBundle\Entity\Node $node = null)
+    {
+        $this->Node = $node;
+
+        return $this;
+    }
+
+    /**
+     * Get node
+     *
+     * @return \NodeBundle\Entity\Node
+     */
+    public function getNode()
+    {
+        return $this->Node;
     }
 }

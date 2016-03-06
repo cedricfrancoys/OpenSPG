@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Edit visit"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Edit visit"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+			<fieldset>
+				<legend>{{"Information about the visit"|trans({},"visit")}}</legend>
+				{{ form_row(form.visitDate) }}
+				{{ form_row(form.Participants) }}
+				{{ form_row(form.startTime) }}
+				{{ form_row(form.endTime) }}
+				{{ form_row(form.Producer) }}
+				{{ form_row(form.Property) }}
+			</fieldset>
+			<fieldset>
+				<legend>{{"Fertilizers"|trans({},"visit")}}</legend>
+				{{ form_row(form.didFertilize) }}
+				{{ form_row(form.fertlizeWith) }}
+				{{ form_row(form.fertilizeQty) }}
+				{{ form_row(form.fertilizeOrigin) }}
+				{{ form_row(form.fertilizerObservations) }}
+			</fieldset>
+			<fieldset>
+				<legend>{{"Soil and grass management"|trans({},"visit")}}</legend>
+				{{ form_row(form.doesSoilConservation) }}
+				{{ form_row(form.didFertilize) }}
+				{{ form_row(form.scGreenManure) }}
+				{{ form_row(form.scMulching) }}
+				{{ form_row(form.scNotPlow) }}
+				{{ form_row(form.scHerbsState) }}
+				{{ form_row(form.scHerbsDistribution) }}
+				{{ form_row(form.scHerbsControl) }}
+				{{ form_row(form.scOberservations) }}
+			</fieldset>
+			<fieldset>
+				<legend>{{"Pest and disease management"|trans({},"visit")}}</legend>
+				{{ form_row(form.pcPests) }}
+				{{ form_row(form.pcPestsCrops) }}
+				{{ form_row(form.pcPestsDamage) }}
+				{{ form_row(form.pcControl) }}
+				{{ form_row(form.pcPrevention) }}
+				{{ form_row(form.pcOberservations) }}
+			</fieldset>
+			<fieldset>
+				<legend>{{"Various"|trans({},"visit")}}</legend>
+				{{ form_row(form.pruningRests) }}
+				{{ form_row(form.agroquimicPresence) }}
+				{{ form_row(form.plasticWaste) }}
+				{{ form_row(form.agroquimicPackaging) }}
+				{{ form_row(form.pesticideSupsition) }}
+			</fieldset>
+			{{ form_row(form.observations) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

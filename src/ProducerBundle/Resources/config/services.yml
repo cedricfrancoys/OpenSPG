@@ -1,7 +1,4 @@
 services:
-#    producer.example:
-#        class: ProducerBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
     producer.admin.stock:
         class: ProducerBundle\Admin\StockAdmin
         arguments: [~, ProducerBundle\Entity\Stock, SonataAdminBundle:CRUD]

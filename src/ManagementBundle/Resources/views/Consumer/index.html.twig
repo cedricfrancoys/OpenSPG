@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Consumers"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Consumers"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"consumer")}}</th>
+						<th>{{"Surname"|trans({},"consumer")}}</th>
+						<th>{{"Phone"|trans({},"consumer")}}</th>
+						<th><a href="{{ path('management_consumer_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for consumer in consumers %}
+						<tr>
+							<td>{{consumer.Member.name}}</td>
+							<td>{{consumer.Member.surname}}</td>
+							<td>{{consumer.phone}}</td>
+							<td><a href="{{ path('management_consumer_edit', {"id":consumer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

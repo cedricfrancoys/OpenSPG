@@ -1,6 +1,6 @@
 <?php
 
-namespace ProducerBundle\Admin;
+namespace MemberBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -17,8 +17,8 @@ class MemberAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('phone')
-            ->add('Member')
+            ->add('name')
+            ->add('surname')
         ;
     }
 
@@ -29,9 +29,8 @@ class MemberAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('Member')
-            ->add('phone')
-            ->add('Member.Node')
+            ->add('name')
+            ->add('surname')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -48,10 +47,9 @@ class MemberAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('Member', 'sonata_type_admin', array(
-                'label' => false
-            ))
-            ->add('phone')
+            ->add('Node')
+            ->add('name')
+            ->add('surname')
         ;
     }
 
@@ -62,7 +60,6 @@ class MemberAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('phone')
             ->add('name')
             ->add('surname')
         ;

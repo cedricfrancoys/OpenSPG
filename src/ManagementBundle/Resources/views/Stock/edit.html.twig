@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Edit product"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Edit product"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+			{{ form_row(form.Product) }}
+			{{ form_row(form.amount) }}
+			{{ form_row(form.price) }}
+			{{ form_row(form.unit) }}
+			{{ form_row(form.caduce) }}
+			{{ form_row(form.isExchangeable) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

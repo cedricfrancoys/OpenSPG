@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Producers"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Producers"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"producer")}}</th>
+						<th>{{"Surname"|trans({},"producer")}}</th>
+						<th>{{"Phone"|trans({},"producer")}}</th>
+						<th><a href="{{ path('management_producer_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for producer in producers %}
+						<tr>
+							<td>{{producer.Member.name}}</td>
+							<td>{{producer.Member.surname}}</td>
+							<td>{{producer.phone}}</td>
+							<td><a href="{{ path('management_producer_edit', {"id":producer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

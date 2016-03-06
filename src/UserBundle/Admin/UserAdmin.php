@@ -47,6 +47,18 @@ class UserAdmin extends Admin
                 'label' => 'Producer',
                 'data' => in_array('ROLE_PRODUCER', $roles),
                 'required' => false
+            ))
+            ->add('ROLE_CONSUMER', 'checkbox', array(
+                'mapped' => false,
+                'label' => 'Consumer',
+                'data' => in_array('ROLE_CONSUMER', $roles),
+                'required' => false
+            ))
+            ->add('ROLE_MANAGEMENT', 'checkbox', array(
+                'mapped' => false,
+                'label' => 'Management',
+                'data' => in_array('ROLE_MANAGEMENT', $roles),
+                'required' => false
             ));
     }
 
@@ -65,6 +77,8 @@ class UserAdmin extends Admin
         $roles = array();
         ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
         ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
+        ($this->getForm()->get('ROLE_CONSUMER')->getData()) ? $roles[] = 'ROLE_CONSUMER' : false;
+        ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
         $data->setRoles($roles);
     }
     public function preUpdate($data)
@@ -72,6 +86,8 @@ class UserAdmin extends Admin
         $roles = array();
         ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
         ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
+        ($this->getForm()->get('ROLE_CONSUMER')->getData()) ? $roles[] = 'ROLE_CONSUMER' : false;
+        ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
         $data->setRoles($roles);
     }
 }

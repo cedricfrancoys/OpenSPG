@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{% trans from "management" %}Management{% endtrans %}{% endblock %}
+
+{% block pageTitleText %}{% trans from "management" %}Management{% endtrans %}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="media list">
+						{# <h3 class="media-heading text-primary-theme">{% trans from "producer" %}My Data{% endtrans %}</h3> #}
+						<ul>
+							<li><a href="{{ path('management_producer_index') }}">{% trans from "management" %}Producers{% endtrans %}</a></li>
+							<li><a href="{{ path('management_consumer_index') }}">{% trans from "management" %}Consumers{% endtrans %}</a></li>
+							<li><a href="{{ path('management_stock_index') }}">{% trans from "management" %}Products{% endtrans %}</a></li>
+							<li><a href="{{ path('management_visit_index') }}">{% trans from "management" %}Visits{% endtrans %}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="media list">
+						{# <h3 class="media-heading text-danger-theme">{% trans from "producer" %}Communication{% endtrans %}</h3> #}
+						<ul>
+							<li><a href="#">{% trans from "management" %}Mailings{% endtrans %}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

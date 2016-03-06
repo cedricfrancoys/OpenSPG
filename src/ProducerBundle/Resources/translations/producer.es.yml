@@ -1,5 +1,6 @@
 Profile: Perfil
 Producer: Productor
+Producers: Productores
 
 My Data: Mis datos
 Properties: Propiedades
@@ -8,3 +9,6 @@ Visits: Visitas
 Communication: Comunicación
 Messages: Mensajes
 Enquiries: Consultas
+Name: Nombre
+Surname: Apellido(s)
+Phone: Teléfono

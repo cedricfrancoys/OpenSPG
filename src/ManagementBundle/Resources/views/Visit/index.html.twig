@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visits"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visits"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Producer"|trans({},"visit")}}</th>
+						<th>{{"Date"|trans({},"visit")}}</th>
+						<th><a href="{{ path('management_visit_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for visit in visits %}
+						<tr>
+							<td>{{visit.Producer}}</td>
+							<td>{{visit.visitDate}}</td>
+							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

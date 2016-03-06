@@ -56,7 +56,7 @@ class CartController extends Controller
             'products' => $products
         );
 
-        return $this->render('CartBundle:Cart:add.html.twig', $data);
+        return $this->render('CartBundle:Cart:cart.html.twig', $data);
     }
 
     /**
@@ -89,7 +89,7 @@ class CartController extends Controller
             'products' => $products
         );
 
-        return $this->render('CartBundle:Cart:add.html.twig', $data);
+        return $this->render('CartBundle:Cart:cart.html.twig', $data);
     }
 
     /**
@@ -109,7 +109,7 @@ class CartController extends Controller
 
         $amounts = $request->request->get('amount');
         foreach ($amounts as $stock_id => $amount) {
-            $this->updateProductInCart($stock_id, $member_id, $amount);
+            $this->updateProductInCart($stock_id, $member_id, $amount); 
         }
 
         $products = $em->
@@ -125,7 +125,7 @@ class CartController extends Controller
             'products' => $products
         );
 
-        return $this->render('CartBundle:Cart:add.html.twig', $data);
+        return $this->render('CartBundle:Cart:cart.html.twig', $data);
     }
 
     protected function updateProductInCart($product_id, $member_id, $amount)

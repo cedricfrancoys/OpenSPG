@@ -1,0 +1,32 @@
+Toggle password: Mostrar/esconder contraseña
+Generate password: Generar contraseña
+User data: Datos de usuario
+Username: Nombre de usuario
+Name: Nombre
+Surname: Apellido(s)
+Phone: Teléfono
+Email: Email
+Node: Nodo
+Password: Contraseña
+Send Email: Enviar Email
+sendEmailHelp: Enviar Email con su contraseña a la dirección dada en este campo
+Roles: Roles
+Admin: Administrador
+Producer: Productor
+Consumer: Consumidor
+Management: Gestión
+User List: Listado de usuarios
+User Create: Crear usuario
+User: Usuario
+Enabled: Activado
+Your account on SPG: Tu cuenta en el SPG
+RegistrationEmailContent: >
+  <p>Hola %name%</p>
+  <p>En el sistema del SPG se ha creado una cuenta para tu uso del portal<br />
+  Tus datos de acceso son:</p>
+  <p>Usuario: %username%<br />
+  Contraseña: %password%</p>
+  <p></p>
+  <p>Para hacer login accede al siguiente enlace: <a href="%loginLink%">%loginLink%</a></p>
+  <p></p>
+  <p>Saludos del equipo del SPG</p>

@@ -7,8 +7,9 @@ security:
 
     role_hierarchy:
         ROLE_PRODUCER: ROLE_MEMBER
+        ROLE_CONSUMER: ROLE_MEMBER
         ROLE_MEMBER: ROLE_USER
-        ROLE_ADMIN: [ ROLE_USER, ROLE_SONATA_ADMIN ]
+        ROLE_ADMIN: [ ROLE_USER, ROLE_SONATA_ADMIN, ROLE_PRODUCER, ROLE_CONSUMER, ROLE_MANAGEMENT ]
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers

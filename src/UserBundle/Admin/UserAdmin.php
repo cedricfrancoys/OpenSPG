@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserAdmin extends Admin
 {
+    protected $translationDomain = 'user';
+
     public function toString($object)
     {
         return $object instanceof User
@@ -22,54 +24,74 @@ class UserAdmin extends Admin
     {
         $subject = $this->getSubject();
 
-        $formMapper->add('username', 'text')
-            ->add('email', 'text');
+        $formMapper
+            ->with('User data')
+                ->add('username', 'text')
+                ->add('name', 'text')
+                ->add('surname', 'text')
+                ->add('phone', 'text')
+                ->add('email', 'email')
+                ->add('Node');
         
-        if (!$subject->getId()) {
-            $formMapper->add('password', 'password');
-        }else {
-            $formMapper->add('password', 'password',array(
-                'required' => false
-                ));
-        }
+                if (!$subject->getId()) {
+                    $formMapper->add('password', 'password');
+                    $formMapper->add('sendEmail', 'checkbox', array(
+                        'help' => 'sendEmailHelp',
+                        'mapped' => false,
+                        'required' => false
+                    ));
+                }
+
+        $formMapper
+                ->add('enabled')
+            ->end()
+            ->with('Roles');
 
         $roles = $subject->getRoles();
 
         $formMapper
-            ->add('ROLE_ADMIN', 'checkbox', array(
-                'mapped' => false,
-                'label' => 'Admin',
-                'data' => in_array('ROLE_ADMIN', $roles),
-                'required' => false
-            ))
-            ->add('ROLE_PRODUCER', 'checkbox', array(
-                'mapped' => false,
-                'label' => 'Producer',
-                'data' => in_array('ROLE_PRODUCER', $roles),
-                'required' => false
-            ))
-            ->add('ROLE_CONSUMER', 'checkbox', array(
-                'mapped' => false,
-                'label' => 'Consumer',
-                'data' => in_array('ROLE_CONSUMER', $roles),
-                'required' => false
-            ))
-            ->add('ROLE_MANAGEMENT', 'checkbox', array(
-                'mapped' => false,
-                'label' => 'Management',
-                'data' => in_array('ROLE_MANAGEMENT', $roles),
-                'required' => false
-            ));
+                ->add('ROLE_ADMIN', 'checkbox', array(
+                    'mapped' => false,
+                    'label' => 'Admin',
+                    'data' => in_array('ROLE_ADMIN', $roles),
+                    'required' => false
+                ))
+                ->add('ROLE_PRODUCER', 'checkbox', array(
+                    'mapped' => false,
+                    'label' => 'Producer',
+                    'data' => in_array('ROLE_PRODUCER', $roles),
+                    'required' => false
+                ))
+                ->add('ROLE_CONSUMER', 'checkbox', array(
+                    'mapped' => false,
+                    'label' => 'Consumer',
+                    'data' => in_array('ROLE_CONSUMER', $roles),
+                    'required' => false
+                ))
+                ->add('ROLE_MANAGEMENT', 'checkbox', array(
+                    'mapped' => false,
+                    'label' => 'Management',
+                    'data' => in_array('ROLE_MANAGEMENT', $roles),
+                    'required' => false
+                ))
+            ->end();
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('username');
+        $datagridMapper
+            ->add('username');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('username');
+        $listMapper
+            ->addIdentifier('username')
+            ->add('name')
+            ->add('surname')
+            ->add('phone')
+            ->add('email')
+            ->add('Node');
     }
 
     public function prePersist($data)
@@ -81,6 +103,12 @@ class UserAdmin extends Admin
         ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
         $data->setRoles($roles);
     }
+    public function postPersist($data)
+    {
+        if( $this->getForm()->get('sendEmail')->getData() ){
+            $this->sendPasswordEmail();
+        }
+    }
     public function preUpdate($data)
     {
         $roles = array();
@@ -89,5 +117,39 @@ class UserAdmin extends Admin
         ($this->getForm()->get('ROLE_CONSUMER')->getData()) ? $roles[] = 'ROLE_CONSUMER' : false;
         ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
         $data->setRoles($roles);
+    }
+
+    public function configure() {
+        $this->setTemplate('edit', 'UserBundle:Admin:edit.html.twig');
+    }
+
+    protected function sendPasswordEmail(){
+        $container = $this->getConfigurationPool()->getContainer();
+        $trans = $container->get('translator');
+        $tpl = $container->get('twig');
+        $form = $this->getForm();
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($trans->trans('Your account on SPG', array(), 'user'))
+            ->setFrom('mhauptma73@gmail.com')
+            ->setTo($form->get('email')->getData())
+            ->setBody(
+                $tpl->render(
+                    'UserBundle:Emails:registration.html.twig',
+                    array(
+                        'password' => $form->get('password')->getData(),
+                        'name' => $form->get('name')->getData(),
+                        'surname' => $form->get('surname')->getData(),
+                        'username' => $form->get('username')->getData(),
+                        'phone' => $form->get('phone')->getData(),
+                        'email' => $form->get('email')->getData(),
+                        'node' => $form->get('Node')->getData(),
+                        'enabled' => $form->get('enabled')->getData()
+                    )
+                ),
+                'text/html'
+            )
+        ;
+        $container->get('mailer')->send($message);
     }
 }

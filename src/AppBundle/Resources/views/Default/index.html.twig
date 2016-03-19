@@ -58,7 +58,7 @@
 	<div class="container">
 	<h1>OpenPGS</h1>
 	<p>
-	{% trans %}OpenPGS is ment to aid in administering a Participatory Garanty System{% endtrans %}
+	{% trans %}ExplainSite{% endtrans %}
 	</p>
 	</div>
 	</div>
@@ -84,7 +84,7 @@
 	<div class="highlightSection">
 		<div class="container">
 			<div class="row">
-				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{% trans %}Members{% endtrans %}</h2>
+				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{% trans from "member"%}Members{% endtrans %}</h2>
 				<div class="col-lg-6">
 					<div class="media">
 						<a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_register') }}{% endif %}"><h3 class="media-heading text-primary-theme">{% trans %}Producer members{% endtrans %}</h3></a>

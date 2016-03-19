@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Consumers{% endblock %}
+{% block title %}{{"Profile"|trans({},"consumer")}}{% endblock %}
 
 {% block pageTitleText %}{{"Profile"|trans({},"consumer")}}{% endblock %}
 
@@ -11,8 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
-			{{ form_row(form.Member) }}
-			{{ form_row(form.phone) }}
+			{{ form_row(form.User) }}
 		{{ form_end(form) }}
 	</div>
 

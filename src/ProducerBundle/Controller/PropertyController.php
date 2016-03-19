@@ -14,10 +14,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ProducerBundle\Entity\Property;
 use ProducerBundle\Form\PropertyType;
 
+/**
+ * @Route("/members/producer/property")
+ */
 class PropertyController extends Controller
 {
     /**
-     * @Route("/members/producer/property/")
+     * @Route("/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
@@ -31,7 +34,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * @Route("/members/producer/property/add")
+     * @Route("/add")
      */
     public function addAction(Request $request)
     {
@@ -63,19 +66,18 @@ class PropertyController extends Controller
     }
 
     /**
-     * @Route("/members/producer/property/{id}")
+     * @Route("/{id}")
      */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $property = $em->getRepository('ProducerBundle:Property')->find($id);
 
-        if (!$property || $property->getMember()->getMember()->getUser() != $this->getUser()) {
+        if (!$property || $property->getMember()->getUser() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 
         $form = $this->createForm(PropertyType::class, $property);
-        // $form->setData($user);
 
         $form->handleRequest($request);
 

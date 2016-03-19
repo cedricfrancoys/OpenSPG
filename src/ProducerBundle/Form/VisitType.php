@@ -20,7 +20,7 @@ class VisitType extends AbstractType
         $builder
             ->add('visitDate', 'date')
             ->add('Participants', EntityType::class, array(
-                'class' => 'MemberBundle:Member',
+                'class' => 'UserBundle:User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('m');
                 },

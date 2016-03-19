@@ -32,7 +32,7 @@ class MemberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MemberBundle\Entity\Member'
+            'data_class' => 'UserBundle\Entity\User'
         ));
     }
 }

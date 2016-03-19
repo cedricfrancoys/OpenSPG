@@ -23,18 +23,11 @@ class Member
     protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=25, nullable=true)
-     */
-    protected $phone;
-
-    /**
-    * @var Member
+    * @var User
     *
-    * @ORM\OneToOne(targetEntity="\MemberBundle\Entity\Member", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist"})
     */
-    protected $Member;
+    protected $User;
 
     /**
     * @var Properties
@@ -45,7 +38,7 @@ class Member
 
     public function __toString()
     {
-        return ($this->getMember()) ? $this->getMember()->getName() . ' ' . $this->getMember()->getSurname() : '';
+        return ($this->getUser()) ? $this->getUser()->getName() . ' ' . $this->getUser()->getSurname() : '';
     }
 
     /**
@@ -58,29 +51,6 @@ class Member
         return $this->id;
     }
 
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return Member
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
     /**
      * Constructor
      */
@@ -125,26 +95,26 @@ class Member
     }
 
     /**
-     * Set member
+     * Set user
      *
-     * @param \MemberBundle\Entity\Member $member
+     * @param \UserBundle\Entity\User $user
      *
      * @return Member
      */
-    public function setMember(\MemberBundle\Entity\Member $member = null)
+    public function setUser(\UserBundle\Entity\User $user = null)
     {
-        $this->Member = $member;
+        $this->User = $user;
 
         return $this;
     }
 
     /**
-     * Get member
+     * Get user
      *
-     * @return \MemberBundle\Entity\Member
+     * @return \UserBundle\Entity\User
      */
-    public function getMember()
+    public function getUser()
     {
-        return $this->Member;
+        return $this->User;
     }
 }

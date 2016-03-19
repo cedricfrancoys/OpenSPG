@@ -5,7 +5,7 @@ imports:
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@ProductBundle/Resources/config/services.yml" }
     - { resource: "@ProducerBundle/Resources/config/services.yml" }
-    - { resource: "@MemberBundle/Resources/config/services.yml" }
+    # - { resource: "@MemberBundle/Resources/config/services.yml" }
     - { resource: "@NodeBundle/Resources/config/services.yml" }
     - { resource: "@LocationBundle/Resources/config/services.yml" }
     - { resource: "@CartBundle/Resources/config/services.yml" }

@@ -20,10 +20,13 @@ use ProducerBundle\Form\ProfileType;
 use ProducerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
+/**
+ * @Route("/members/producer")
+ */
 class MemberController extends Controller
 {
     /**
-     * @Route("/members/producer/")
+     * @Route("/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
@@ -32,7 +35,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/members/producer/register/")
+     * @Route("/register/")
      */
     public function registerAction(Request $request)
     {
@@ -54,7 +57,6 @@ class MemberController extends Controller
         }
 
         $form = $this->createForm(RegistrationType::class, $member);
-        // $form->setData($user);
 
         $form->handleRequest($request);
 
@@ -63,7 +65,7 @@ class MemberController extends Controller
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
             $pUser = $request->request->get('producerRegistration');
-            $pUser = $pUser['Member']['User'];
+            $pUser = $pUser['User'];
             $user->setEmail($pUser['email']);
             $user->setPlainPassword($pUser['password']['first']);
             $user->setUsername($pUser['username']);
@@ -75,7 +77,7 @@ class MemberController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $member->getMember()->setUser($user);
+            $member->setUser($user);
 
             $em->persist($member);
             $em->flush();
@@ -96,7 +98,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/members/producer/profile/")
+     * @Route("/profile/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function profileAction(Request $request){
@@ -116,7 +118,7 @@ class MemberController extends Controller
             $user = $userManager->findUserBy(array('id'=>$this->getUser()->getId()));
 
             $pUser = $request->request->get('profile');
-            $pUser = $pUser['Member']['User'];
+            $pUser = $pUser['User'];
             $user->setEmail($pUser['email']);
             $user->setUsername($pUser['username']);
             

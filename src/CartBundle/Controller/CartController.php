@@ -133,7 +133,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
-        $member = $em->getRepository('MemberBundle:Member')->find($member_id);
+        $member = $em->getRepository('UserBundle:User')->find($member_id);
         $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
 
         if( $cartItem ){
@@ -148,7 +148,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
-        $member = $em->getRepository('MemberBundle:Member')->find($member_id);
+        $member = $em->getRepository('UserBundle:User')->find($member_id);
         $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
 
         if( $cartItem ){
@@ -169,7 +169,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
-        $member = $em->getRepository('MemberBundle:Member')->find($member_id);
+        $member = $em->getRepository('UserBundle:User')->find($member_id);
         $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
 
         if( $cartItem ){

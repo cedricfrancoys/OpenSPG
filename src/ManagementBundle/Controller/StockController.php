@@ -32,15 +32,15 @@ class StockController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $currentMember = $em->getRepository('MemberBundle:Member')->findOneBy(array('User'=>$this->getUser()));
+        $currentMember = $em->getRepository('UserBundle:User')->findOneBy(array('User'=>$this->getUser()));
 
         $products = $em
             ->getRepository('ProducerBundle:Stock')
             ->createQueryBuilder('s')
             ->select('s,p,m')
             ->leftJoin('s.Producer', 'p')
-            ->leftJoin('p.Member', 'm')
-            ->andWhere('m.Node = :node')
+            ->leftJoin('p.User', 'u')
+            ->andWhere('u.Node = :node')
             ->setParameter('node', $currentMember->getNode())
             ->getQuery()
             ->getResult();

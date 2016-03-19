@@ -118,7 +118,7 @@ class StockController extends Controller
         $stock = $em->getRepository('ProducerBundle:Stock')->find($id);
         $product = new Product();
 
-        if (!$stock || $stock->getProducer()->getMember()->getUser() != $this->getUser()) {
+        if (!$stock || $stock->getProducer()->getUser() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 

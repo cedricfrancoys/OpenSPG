@@ -9,17 +9,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use ProducerBundle\Form\PropertyType;
-use MemberBundle\Form\ProfileType as pProfileType;
+use UserBundle\Form\ProfileType as uProfileType;
 
 class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Member', pProfileType::class, array(
+            ->add('User', uProfileType::class, array(
                 'label' => false
             ))
-            ->add('phone')
             ->add('Properties', CollectionType::class, array(
                 'entry_type' => PropertyType::class,
                 'allow_add' => true,

@@ -21,10 +21,8 @@ class PropertyRepository extends \Doctrine\ORM\EntityRepository
 				ProducerBundle:Property p
 			LEFT JOIN
 				p.Member pm
-			LEFT JOIN
-				pm.Member m
 			WHERE
-				m.User = :user'
+				pm.User = :user'
 		);
 		$q->setParameter('user', $user);
 

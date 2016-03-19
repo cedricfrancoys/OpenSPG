@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{"Stock"|trans({},"stock")}}{% endblock %}
 
-{% block pageTitleText %}{{"Product"|trans({},"stock")}}{% endblock %}
+{% block pageTitleText %}{{"Stock"|trans({},"stock")}}{% endblock %}
 
 {% block body %}
 
@@ -36,8 +36,8 @@
 					{{ form_end(pForm) }}
 		      	</div>
 		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        	<button type="button" class="btn btn-primary" id="saveProductBtn">Save changes</button>
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+		        	<button type="button" class="btn btn-primary" id="saveProductBtn">{{"Save changes"|trans({})}}</button>
 		      	</div>
 		    </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

@@ -21,10 +21,8 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
 				ProducerBundle:Stock s
 			LEFT JOIN
 				s.Producer p
-			LEFT JOIN
-				p.Member m
 			WHERE
-				m.User = :user'
+				p.User = :user'
 		);
 		$q->setParameter('user', $user);
 

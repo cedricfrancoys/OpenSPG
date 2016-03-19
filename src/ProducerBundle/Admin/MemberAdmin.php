@@ -17,8 +17,7 @@ class MemberAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('phone')
-            ->add('Member')
+            ->add('User')
         ;
     }
 
@@ -29,9 +28,8 @@ class MemberAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('Member')
-            ->add('phone')
-            ->add('Member.Node')
+            ->add('User')
+            ->add('User.Node')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -48,7 +46,7 @@ class MemberAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('Member', 'sonata_type_admin', array(
+            ->add('User', 'sonata_type_admin', array(
                 'label' => false
             ))
             ->add('phone')
@@ -62,9 +60,9 @@ class MemberAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('phone')
-            ->add('name')
-            ->add('surname')
+            ->add('User.name')
+            ->add('User.surname')
+            ->add('User.phone')
         ;
     }
 }

@@ -36,11 +36,11 @@ class Cart
     private $amount;
 
     /**
-    * @var Member
+    * @var User
     *
-    * @ORM\ManyToOne(targetEntity="\MemberBundle\Entity\Member")
+    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
     */
-    protected $Member;
+    protected $User;
 
     /**
      * @var \DateTime
@@ -169,26 +169,26 @@ class Cart
     }
 
     /**
-     * Set member
+     * Set user
      *
-     * @param \MemberBundle\Entity\Member $member
+     * @param \UserBundle\Entity\User $user
      *
      * @return Cart
      */
-    public function setMember(\MemberBundle\Entity\Member $member = null)
+    public function setUser(\UserBundle\Entity\User $user = null)
     {
-        $this->Member = $member;
+        $this->User = $user;
 
         return $this;
     }
 
     /**
-     * Get member
+     * Get user
      *
-     * @return \MemberBundle\Entity\Member
+     * @return \UserBundle\Entity\User
      */
-    public function getMember()
+    public function getUser()
     {
-        return $this->Member;
+        return $this->User;
     }
 }

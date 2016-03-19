@@ -29,9 +29,9 @@ class Visit
     private $visitDate;
 
     /**
-     * @var \MemberBundle\Entity\Member
+     * @var \UserBundle\Entity\User
      *
-     * @ORM\ManyToMany(targetEntity="\MemberBundle\Entity\Member", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\UserBundle\Entity\User", cascade={"persist"})
      */
     private $Participants;
 
@@ -979,11 +979,11 @@ class Visit
     /**
      * Add participant
      *
-     * @param \MemberBundle\Entity\Member $participant
+     * @param \UserBundle\Entity\User $participant
      *
      * @return Visit
      */
-    public function addParticipant(\MemberBundle\Entity\Member $participant)
+    public function addParticipant(\UserBundle\Entity\User $participant)
     {
         $this->Participants[] = $participant;
 
@@ -993,9 +993,9 @@ class Visit
     /**
      * Remove participant
      *
-     * @param \MemberBundle\Entity\Member $participant
+     * @param \UserBundle\Entity\User $participant
      */
-    public function removeParticipant(\MemberBundle\Entity\Member $participant)
+    public function removeParticipant(\UserBundle\Entity\User $participant)
     {
         $this->Participants->removeElement($participant);
     }

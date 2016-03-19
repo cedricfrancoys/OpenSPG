@@ -12,17 +12,16 @@ use Symfony\Component\Form\FormInterface;
 
 use ProducerBundle\Form\PropertyType;
 use UserBundle\Form\UserType;
-use MemberBundle\Form\MemberType as pMemberType;
+use UserBundle\Form\MemberType as uMemberType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Member', pMemberType::class, array(
+            ->add('User', uMemberType::class, array(
                 'label' => false
             ))
-            ->add('phone')
             ->add('Properties', CollectionType::class, array(
                 'entry_type' => PropertyType::class,
                 'allow_add'    => true,

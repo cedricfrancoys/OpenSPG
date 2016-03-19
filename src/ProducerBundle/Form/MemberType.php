@@ -15,14 +15,9 @@ class MemberType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!$options['is_authenticated']) {
-            $builder->add('User', UserType::class);
-        }
+        $builder->add('User', UserType::class);
 
         $builder
-            ->add('name')
-            ->add('surname')
-            ->add('phone')
             ->add('Properties', CollectionType::class, array(
                 'entry_type' => PropertyType::class,
                 'allow_add'    => true

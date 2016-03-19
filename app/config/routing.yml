@@ -12,10 +12,10 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
     prefix:   /
-member:
-    resource: "@MemberBundle/Controller/"
-    type:     annotation
-    prefix:   /
+# member:
+#     resource: "@MemberBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
 
 producer:
     resource: "@ProducerBundle/Controller/"

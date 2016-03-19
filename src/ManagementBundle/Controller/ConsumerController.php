@@ -32,15 +32,15 @@ class ConsumerController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $currentMember = $em->getRepository('MemberBundle:Member')->findOneBy(array('User'=>$this->getUser()));
+        $currentMember = $em->getRepository('UserBundle:User')->findOneBy(array('User'=>$this->getUser()));
 
         $consumers = $em
             ->getRepository('ConsumerBundle:Member')
             ->createQueryBuilder('p')
             ->select('p,m')
-            ->leftJoin('p.Member', 'm')
-            ->where('p.Member IS NOT NULL')
-            ->andWhere('m.Node = :node')
+            ->leftJoin('p.User', 'u')
+            ->where('p.User IS NOT NULL')
+            ->andWhere('u.Node = :node')
             ->setParameter('node', $currentMember->getNode())
             ->getQuery()
             ->getResult();

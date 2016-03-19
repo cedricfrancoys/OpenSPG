@@ -17,9 +17,9 @@ class MemberAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('phone')
-            ->add('name')
-            ->add('surname')
+            ->add('User.name')
+            ->add('User.surname')
+            ->add('User.phone')
         ;
     }
 
@@ -30,9 +30,9 @@ class MemberAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('name')
-            ->add('surname')
-            ->add('phone')
+            ->add('User.name')
+            ->add('User.surname')
+            ->add('User.phone')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -50,10 +50,7 @@ class MemberAdmin extends Admin
     {
         $formMapper
             ->add('id')
-            ->add('phone')
-            ->add('name')
-            ->add('surname')
-            ->add('Properties')
+            ->add('User')
         ;
     }
 
@@ -64,9 +61,9 @@ class MemberAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('phone')
-            ->add('name')
-            ->add('surname')
+            ->add('User.name')
+            ->add('User.surname')
+            ->add('User.phone')
         ;
     }
 }

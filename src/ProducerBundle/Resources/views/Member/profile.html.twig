@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Producers{% endblock %}
+{% block title %}{{"Profile"|trans({},"producer")}}{% endblock %}
 
 {% block pageTitleText %}{{"Profile"|trans({},"producer")}}{% endblock %}
 
@@ -11,8 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
-			{{ form_row(form.Member) }}
-			{{ form_row(form.phone) }}
+			{{ form_row(form.User) }}
     		{{ form_row(form.Properties) }}
 		{{ form_end(form) }}
 	</div>

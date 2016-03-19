@@ -33,7 +33,7 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new ProductBundle\ProductBundle(),
             new ProducerBundle\ProducerBundle(),
-            new MemberBundle\MemberBundle(),
+            // new MemberBundle\MemberBundle(),
             new ConsumerBundle\ConsumerBundle(),
             new NodeBundle\NodeBundle(),
             new LocationBundle\LocationBundle(),

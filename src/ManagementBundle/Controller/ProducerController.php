@@ -86,8 +86,7 @@ class ProducerController extends Controller
             $userManager = $this->get('fos_user.user_manager');
             /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
             $dispatcher = $this->get('event_dispatcher');
-            $user = $userManager->createUser();
-            $event = new GetResponseUserEvent($user, $request);
+            $event = new GetResponseUserEvent($producer->getUser(), $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
             if (null !== $event->getResponse()) {
                 return $event->getResponse();
@@ -97,31 +96,22 @@ class ProducerController extends Controller
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
             $pUser = $request->request->get('producer');
             $pUser = $pUser['User'];
-            $user->setEmail($pUser['email']);
-            $user->setPlainPassword($pUser['password']);
-            $user->setUsername($pUser['username']);
-            $user->setName($pUser['name']);
-            $user->setSurname($pUser['surname']);
-            $user->setPhone($pUser['phone']);
-            $user->addRole('ROLE_MEMBER');
-            $user->addRole('ROLE_CONSUMER');
-            $user->addRole('ROLE_PRODUCER');
-            $user->setNode($this->getUser()->getNode());
-            $user->setProducer($producer);
-            $userManager->updateUser($user, false);
 
-            $producer->setUser( $user);
+            $producer->getUser()->setPlainPassword($pUser['password']);
+            $producer->getUser()->addRole('ROLE_MEMBER');
+            $producer->getUser()->addRole('ROLE_CONSUMER');
+            $producer->getUser()->addRole('ROLE_PRODUCER');
+            $producer->getUser()->setNode($this->getUser()->getNode());
+
             $em->persist($producer);
             $em->flush();
 
-            if ($pUser['sendEmail']) {
+            if (isset($pUser['sendEmail']) && $pUser['sendEmail']) {
                 $this->sendPasswordEmail($pUser);
             }
 
             $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
             $response = new RedirectResponse($url);
-
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
             return $response;
         }
@@ -152,6 +142,15 @@ class ProducerController extends Controller
         if ($form->isValid()) {
             $em->persist($producer);
             $em->flush();
+
+            $session = $this->get('session');
+            $trans = $this->get('translator');
+
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('The producer data has been updated!', array(), 'management')
+            );
 
             $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
             $response = new RedirectResponse($url);
@@ -197,7 +196,7 @@ class ProducerController extends Controller
 
             // add flash messages
             $session->getFlashBag()->add(
-                'info',
+                'success',
                 $trans->trans('The producer has been deleted!', array(), 'management')
             );
 

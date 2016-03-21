@@ -192,7 +192,7 @@ class Property
     /**
     * @var Member
     *
-    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Properties", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Properties", cascade={"persist","detach"})
     */
     private $Member;
 

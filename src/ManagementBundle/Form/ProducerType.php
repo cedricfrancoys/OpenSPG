@@ -15,18 +15,20 @@ class ProducerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Member', MemberType::class, array(
+            ->add('User', MemberType::class, array(
                 'label' => false
             ))
-            ->add('phone')
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'translation_domain' => 'messages'
+            ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'ProducerBundle\Entity\Member'
+	        'data_class' => 'ProducerBundle\Entity\Member',
+            'translation_domain' => 'user'
 	    ));
 	}
 }

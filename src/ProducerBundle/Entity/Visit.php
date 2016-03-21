@@ -31,7 +31,7 @@ class Visit
     /**
      * @var \UserBundle\Entity\User
      *
-     * @ORM\ManyToMany(targetEntity="\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\UserBundle\Entity\User", cascade={"persist","detach"})
      */
     private $Participants;
 
@@ -52,14 +52,14 @@ class Visit
     /**
      * @var \ProducerBundle\Entity\Member
      *
-     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","detach"})
      */
     private $Producer;
 
     /**
      * @var \ProducerBundle\Entity\Property
      *
-     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", cascade={"persist","detach"})
      */
     private $Property;
 

@@ -6,10 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -23,9 +19,9 @@ use ProducerBundle\Entity\Member;
 use ManagementBundle\Form\ProducerType;
 
 /**
- * @Route("/management/producer")
+ * @Route("/management/producer/{producer_id}/property")
  */
-class ProducerController extends Controller
+class PropertyController extends Controller
 {
     /**
      * @Route("/")
@@ -108,9 +104,8 @@ class ProducerController extends Controller
             $user->addRole('ROLE_PRODUCER');
             $user->setNode($this->getUser()->getNode());
             $user->setProducer($producer);
-            $userManager->updateUser($user, false);
+            $userManager->updateUser($user);
 
-            $producer->setUser( $user);
             $em->persist($producer);
             $em->flush();
 
@@ -167,50 +162,9 @@ class ProducerController extends Controller
     /**
      * @Route("/{id}/delete")
      * @Security("has_role('ROLE_MANAGEMENT')")
-     * @Template()
      */
     public function deleteAction(Member $producer, Request $request)
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem("Delete", $this->get("router")->generate("management_producer_delete",array('id'=>$producer->getId())));
-
-        if (!$producer) {
-            throw $this->createNotFoundException('No producer found');
-        }
-
-        $session = $this->get('session');
-        $trans = $this->get('translator');
-
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/producer/delete')){
-            $session->remove('confirmation/management/producer/delete');
-
-            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()){
-                throw new AccessDeniedException();
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($producer);
-            $em->flush();
-
-            // add flash messages
-            $session->getFlashBag()->add(
-                'info',
-                $trans->trans('The producer has been deleted!', array(), 'management')
-            );
-
-            return new RedirectResponse($this->generateUrl('management_producer_index'));
-        }else{
-            $confirmation_key = uniqid();
-            $session->set('confirmation/management/producer/delete', $confirmation_key);
-
-            return array(
-                'confirmation_key' => $confirmation_key
-            );
-        }
-    }
+    {}
 
     protected function sendPasswordEmail($user){
         $trans = $this->get('translator');

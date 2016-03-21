@@ -46,6 +46,20 @@ class User extends BaseUser
     */
     protected $Node;
 
+    /**
+    * @var Producer
+    *
+    * @ORM\OneToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+    */
+    protected $Producer;
+
+    /**
+    * @var Consumer
+    *
+    * @ORM\OneToOne(targetEntity="\ConsumerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+    */
+    protected $Consumer;
+
     public function __construct()
     {
         parent::__construct();
@@ -151,5 +165,53 @@ class User extends BaseUser
     public function getNode()
     {
         return $this->Node;
+    }
+
+    /**
+     * Set producer
+     *
+     * @param \ProducerBundle\Entity\Member $producer
+     *
+     * @return User
+     */
+    public function setProducer(\ProducerBundle\Entity\Member $producer = null)
+    {
+        $this->Producer = $producer;
+
+        return $this;
+    }
+
+    /**
+     * Get producer
+     *
+     * @return \ProducerBundle\Entity\Member
+     */
+    public function getProducer()
+    {
+        return $this->Producer;
+    }
+
+    /**
+     * Set consumer
+     *
+     * @param \ConsumerBundle\Entity\Member $consumer
+     *
+     * @return User
+     */
+    public function setConsumer(\ConsumerBundle\Entity\Member $consumer = null)
+    {
+        $this->Consumer = $consumer;
+
+        return $this;
+    }
+
+    /**
+     * Get consumer
+     *
+     * @return \ConsumerBundle\Entity\Member
+     */
+    public function getConsumer()
+    {
+        return $this->Consumer;
     }
 }

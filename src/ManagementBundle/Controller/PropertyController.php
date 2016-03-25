@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -15,8 +19,10 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 
+use ProducerBundle\Entity\Property;
+use ManagementBundle\Form\PropertyType;
+
 use ProducerBundle\Entity\Member;
-use ManagementBundle\Form\ProducerType;
 
 /**
  * @Route("/management/producer/{producer_id}/property")
@@ -26,170 +32,181 @@ class PropertyController extends Controller
     /**
      * @Route("/")
      * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function indexAction()
+    public function indexAction(Member $producer)
     {
         
+        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
-        $producers = $em
-            ->getRepository('UserBundle:User')
-            ->createQueryBuilder('u')
-            ->select('p,u')
-            ->leftJoin('u.Producer', 'p')
-            ->where('u.Producer IS NOT NULL')
+        $properties = $em
+            ->getRepository('ProducerBundle:Property')
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('m.User', 'u')
+            ->where('p.Member = :producer')
             ->andWhere('u.Node = :node')
+            ->setParameter('producer', $producer)
             ->setParameter('node', $currentMember->getNode())
             ->getQuery()
             ->getResult();
 
-        $data = array(
-            'producers' => $producers
+        return array(
+            'properties' => $properties,
+            'producer' => $producer
         );
-
-        return $this->render('ManagementBundle:Producer:index.html.twig', $data);
     }
 
     /**
      * @Route("/add")
      * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function addAction(Request $request)
+    public function addAction(Member $producer, Request $request)
     {
+        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
         $breadcrumbs->addItem("Add", $this->get("router")->generate("management_producer_add"));
 
         $em = $this->getDoctrine()->getManager();
 
-        $producer = new Member();
+        $property = new Property();
 
-        $form = $this->createForm(ProducerType::class, $producer);
+        $form = $this->createForm(PropertyType::class, $property);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
-            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-            $dispatcher = $this->get('event_dispatcher');
-            $user = $userManager->createUser();
-            $event = new GetResponseUserEvent($user, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
-            }
-
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-            $pUser = $request->request->get('producer');
-            $pUser = $pUser['User'];
-            $user->setEmail($pUser['email']);
-            $user->setPlainPassword($pUser['password']);
-            $user->setUsername($pUser['username']);
-            $user->setName($pUser['name']);
-            $user->setSurname($pUser['surname']);
-            $user->setPhone($pUser['phone']);
-            $user->addRole('ROLE_MEMBER');
-            $user->addRole('ROLE_CONSUMER');
-            $user->addRole('ROLE_PRODUCER');
-            $user->setNode($this->getUser()->getNode());
-            $user->setProducer($producer);
-            $userManager->updateUser($user);
-
-            $em->persist($producer);
+            $property->setMember($producer);
+            $em->persist($property);
             $em->flush();
 
-            if ($pUser['sendEmail']) {
-                $this->sendPasswordEmail($pUser);
-            }
+            $session = $this->get('session');
+            $trans = $this->get('translator');
 
-            $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
-            $response = new RedirectResponse($url);
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('The property has been added!', array(), 'management')
+            );
 
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
+            return new RedirectResponse($this->generateUrl('management_property_edit', array('producer_id'=>$producer->getId(), 'id'=>$property->getId())));
         }
 
-        return $this->render('ManagementBundle:Producer:add.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return array(
+            'form' => $form->createView(),
+            'producer' => $producer
+        );
     }
 
     /**
      * @Route("/{id}/edit")
      * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function editAction(Member $producer, Request $request)
+    public function editAction(Member $producer, Property $property, Request $request)
     {
+        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit",array('id'=>$producer->getId())));
+        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
+        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit", array('producer_id'=>0, 'id'=>0)));
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ProducerType::class, $producer);
+        $form = $this->createForm(PropertyType::class, $property);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($producer);
+            $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
+            $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId(), 'producer_id'=>$producer->getId()));
             $response = new RedirectResponse($url);
 
             return $response;
         }
 
-        return $this->render('ManagementBundle:Producer:edit.html.twig', array(
+        return array(
             'form' => $form->createView()
-        ));
+        );
     }
 
     /**
      * @Route("/{id}/delete")
      * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function deleteAction(Member $producer, Request $request)
-    {}
+    public function deleteAction(Member $producer, Property $property, Request $request)
+    {
+        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
+        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
+        $breadcrumbs->addItem("Delete", $this->get("router")->generate("management_producer_delete", array('producer_id'=>0, 'id'=>0)));
 
-    protected function sendPasswordEmail($user){
+        if (!$producer) {
+            throw $this->createNotFoundException('No producer found');
+        }
+        if (!$property) {
+            throw $this->createNotFoundException('No property found');
+        }
+
+        $session = $this->get('session');
         $trans = $this->get('translator');
-        $tpl = $this->get('twig');
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject($trans->trans('Your account on SPG', array(), 'user'))
-            ->setFrom('mhauptma73@gmail.com')
-            ->setTo($user['email'])
-            ->setBody(
-                $tpl->render(
-                    'UserBundle:Emails:registration.html.twig',
-                    array(
-                        'password' => $user['password'],
-                        'name' => $user['name'],
-                        'surname' => $user['surname'],
-                        'username' => $user['username'],
-                        'phone' => $user['phone'],
-                        'email' => $user['email'],
-                        'enabled' => $user['enabled']
-                    )
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
+        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/property/delete')){
+            $session->remove('confirmation/management/property/delete');
+
+            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()){
+                throw new AccessDeniedException();
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($property);
+            $em->flush();
+
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('The property has been deleted!', array(), 'management')
+            );
+
+            return new RedirectResponse($this->generateUrl('management_property_index', array('producer_id'=>$producer->getId())));
+        }else{
+            $confirmation_key = uniqid();
+            $session->set('confirmation/management/property/delete', $confirmation_key);
+
+            return array(
+                'confirmation_key' => $confirmation_key
+            );
+        }
     }
 }

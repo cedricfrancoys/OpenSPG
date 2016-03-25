@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Properties"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Properties"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="alert alert-{{ type }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"property")}}</th>
+						<th>{{"Area"|trans({},"property")}}</th>
+						<th>{{"Address"|trans({},"property")}}</th>
+						<th><a href="{{ path('management_property_add', {"producer_id":producer.id}) }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for property in properties %}
+						<tr>
+							<td>{{property.name}}</td>
+							<td>{{property.areaName}}</td>
+							<td>{{property.address}}</td>
+							<td><a href="{{ path('management_property_edit', {"producer_id":producer.id,"id":property.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_property_delete', {"producer_id":producer.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

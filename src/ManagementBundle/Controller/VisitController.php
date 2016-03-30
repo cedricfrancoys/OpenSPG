@@ -32,12 +32,12 @@ class VisitController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $currentMember = $em->getRepository('UserBundle:User')->findOneBy(array('User'=>$this->getUser()));
+        $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser());
 
         $visits = $em
             ->getRepository('ProducerBundle:Visit')
             ->createQueryBuilder('v')
-            ->select('v,p,m')
+            ->select('v,p')
             ->leftJoin('v.Producer', 'p')
             ->leftJoin('p.User', 'u')
             ->andWhere('u.Node = :node')

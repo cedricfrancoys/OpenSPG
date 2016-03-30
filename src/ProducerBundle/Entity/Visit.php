@@ -150,7 +150,7 @@ class Visit
     /**
      * @var string
      *
-     * @ORM\Column(name="scOberservations", type="text")
+     * @ORM\Column(name="scOberservations", type="text", nullable=true)
      */
     private $scOberservations;
 
@@ -164,77 +164,77 @@ class Visit
     /**
      * @var string
      *
-     * @ORM\Column(name="pcControl", type="text")
+     * @ORM\Column(name="pcControl", type="text", nullable=true)
      */
     private $pcControl;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pcPrevention", type="text")
+     * @ORM\Column(name="pcPrevention", type="text", nullable=true)
      */
     private $pcPrevention;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pcOberservations", type="text")
+     * @ORM\Column(name="pcOberservations", type="text", nullable=true)
      */
     private $pcOberservations;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pcPestsCrops", type="string", length=255)
+     * @ORM\Column(name="pcPestsCrops", type="string", length=255, nullable=true)
      */
     private $pcPestsCrops;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pcPestsDamage", type="string", length=255)
+     * @ORM\Column(name="pcPestsDamage", type="string", length=255, nullable=true)
      */
     private $pcPestsDamage;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="PruningRests", type="string", length=255)
+     * @ORM\Column(name="PruningRests", type="string", length=255, nullable=true)
      */
     private $pruningRests;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="AgroquimicPresence", type="string", length=255)
+     * @ORM\Column(name="AgroquimicPresence", type="string", length=255, nullable=true)
      */
     private $agroquimicPresence;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="PlasticWaste", type="string", length=255)
+     * @ORM\Column(name="PlasticWaste", type="string", length=255, nullable=true)
      */
     private $plasticWaste;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="AgroquimicPackaging", type="string", length=255)
+     * @ORM\Column(name="AgroquimicPackaging", type="string", length=255, nullable=true)
      */
     private $agroquimicPackaging;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="PesticideSupsition", type="string", length=255)
+     * @ORM\Column(name="PesticideSupsition", type="string", length=255, nullable=true)
      */
     private $pesticideSupsition;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="observations", type="text")
+     * @ORM\Column(name="observations", type="text", nullable=true)
      */
     private $observations;
 

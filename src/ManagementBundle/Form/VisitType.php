@@ -5,6 +5,7 @@ namespace ManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -53,20 +54,45 @@ class VisitType extends AbstractType
             ->add('scHerbsState')
             ->add('scHerbsDistribution')
             ->add('scHerbsControl')
-            ->add('scOberservations')
+            ->add('scOberservations', null, array(
+                'required' => false
+            ))
             ->add('pcPests')
-            ->add('pcControl')
-            ->add('pcPrevention')
-            ->add('pcOberservations')
-            ->add('pcPestsCrops')
-            ->add('pcPestsDamage')
-            ->add('pruningRests')
+            ->add('pcControl', null, array(
+                'required' => false
+            ))
+            ->add('pcPrevention', null, array(
+                'required' => false
+            ))
+            ->add('pcOberservations', null, array(
+                'required' => false
+            ))
+            ->add('pcPestsCrops', null, array(
+                'required' => false
+            ))
+            ->add('pcPestsDamage', null, array(
+                'required' => false
+            ))
+            ->add('pruningRests', null, array(
+                'required' => false
+            ))
             ->add('agroquimicPresence')
             ->add('plasticWaste')
             ->add('agroquimicPackaging')
             ->add('pesticideSupsition')
-            ->add('observations')
-            ->add('save', SubmitType::class)
+            ->add('observations', null, array(
+                'required' => false
+            ))
+            ->add('save', SubmitType::class, array(
+                'translation_domain' => 'messages'
+            ))
+            ->add('cancel', ResetType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array(
+                    'class' => 'btn-danger cancel-btn',
+                    'data-path' => 'manager_user_index'
+                )
+            ))
         ;
     }
 

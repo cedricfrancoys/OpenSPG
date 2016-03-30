@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Edit manager"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Edit manager"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+    	{% for type, messages in app.session.flashbag.all() %}
+			{% for message in messages %}
+				<div class="alert alert-{{ type }}">{{ message }}</div>
+			{% endfor %}
+		{% endfor %}
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

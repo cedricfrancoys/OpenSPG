@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Add manager"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Add manager"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

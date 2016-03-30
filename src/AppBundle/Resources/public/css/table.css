@@ -1,0 +1,6 @@
+.table-striped > tbody > tr.row-success td{
+	background-color: #BCED91
+}
+.table-striped > tbody > tr.row-danger td{
+	background-color: #ff6961
+}

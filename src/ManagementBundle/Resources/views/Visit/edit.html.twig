@@ -58,6 +58,7 @@
 				{{ form_row(form.pesticideSupsition) }}
 			</fieldset>
 			{{ form_row(form.observations) }}
+			{{ form_row(form.accepted) }}
 		{{ form_end(form) }}
 	</div>
 
@@ -65,7 +66,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets 'bundles/management/css/edit.css' filter='cssrewrite' %}
+	{% stylesheets 'bundles/management/css/edit.css'
+					'bundles/app/css/form.css' 
+				filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}	

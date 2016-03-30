@@ -6,3 +6,7 @@
 .form_add_item_link:hover{
 	color: #999;
 }
+div.form-group div.radio{
+	display: inline-block;
+	margin-right: 10px;
+}

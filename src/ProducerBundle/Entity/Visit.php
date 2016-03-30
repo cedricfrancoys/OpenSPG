@@ -238,6 +238,13 @@ class Visit
      */
     private $observations;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="accepted", type="boolean", nullable=true)
+     */
+    private $accepted;
+
 
     /**
      * Get id
@@ -1008,5 +1015,29 @@ class Visit
     public function getParticipants()
     {
         return $this->Participants;
+    }
+
+    /**
+     * Set accepted
+     *
+     * @param boolean $accepted
+     *
+     * @return Visit
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+
+        return $this;
+    }
+
+    /**
+     * Get accepted
+     *
+     * @return boolean
+     */
+    public function getAccepted()
+    {
+        return $this->accepted;
     }
 }

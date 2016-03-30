@@ -21,7 +21,7 @@
 				</thead>
 				<tbody>
 					{% for visit in visits %}
-						<tr>
+						<tr class="row-{% if visit.accepted %}success{% elseif visit.accepted == false %}danger{% endif %}">
 							<td>{{visit.Producer}}</td>
 							<td>{{visit.Property.name}}</td>
 							<td>{{visit.visitDate|date('d/m/Y')}}</td>
@@ -37,6 +37,10 @@
 
 {% block stylesheets %}
 	{{ parent() }}
+	{% stylesheets 'bundles/app/css/table.css' 
+				filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
 	{{ parent() }}

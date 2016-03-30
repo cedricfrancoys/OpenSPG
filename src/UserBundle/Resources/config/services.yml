@@ -4,3 +4,13 @@ services:
         arguments: [~, UserBundle\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: User, group: users }
+    users.manager.user:
+        class: UserBundle\Manager\UserManager
+        arguments: ["@doctrine.orm.entity_manager","@security.token_storage"]
+        calls:
+            - [setRequest, ["@request_stack"]]
+            - [setTwig, ["@twig"]]
+            - [setTranslator, ["@translator"]]
+            - [setFosUserManager, ["@fos_user.user_manager"]]
+            - [setFosEventDispatcher, ["@event_dispatcher"]]
+            - [setMailer, ["@mailer"]]

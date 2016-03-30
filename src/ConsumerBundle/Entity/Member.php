@@ -61,6 +61,7 @@ class Member
     public function setUser(\UserBundle\Entity\User $user = null)
     {
         $this->User = $user;
+        $user->setConsumer($this);
 
         return $this;
     }

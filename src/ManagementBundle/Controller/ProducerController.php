@@ -43,16 +43,8 @@ class ProducerController extends Controller
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
-        $producers = $em
-            ->getRepository('UserBundle:User')
-            ->createQueryBuilder('u')
-            ->select('p,u')
-            ->leftJoin('u.Producer', 'p')
-            ->where('u.Producer IS NOT NULL')
-            ->andWhere('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode())
-            ->getQuery()
-            ->getResult();
+        $manager = $this->get('users.manager.user');
+        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
 
         $data = array(
             'producers' => $producers
@@ -82,38 +74,25 @@ class ProducerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
-            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-            $dispatcher = $this->get('event_dispatcher');
-            $event = new GetResponseUserEvent($producer->getUser(), $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
+            $manager = $this->get('users.manager.user');
+            $manager->setCurrentUser($this->getUser());
+            $userCreated = $manager->createUser($producer, $form, $request->request->get('producer'), array('ROLE_MEMBER','ROLE_PRODUCER'));
+            if($userCreated)
+            {
+                $session = $this->get('session');
+                $trans = $this->get('translator');
+
+                // add flash messages
+                $session->getFlashBag()->add(
+                    'success',
+                    $trans->trans('The producer data has been updated!', array(), 'management')
+                );
+
+                $url = $this->generateUrl('management_producer_edit', array('id'=>$user->getId()));
+                $response = new RedirectResponse($url);
+
+                return $response;
             }
-
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-            $pUser = $request->request->get('producer');
-            $pUser = $pUser['User'];
-
-            $producer->getUser()->setPlainPassword($pUser['password']);
-            $producer->getUser()->addRole('ROLE_MEMBER');
-            $producer->getUser()->addRole('ROLE_CONSUMER');
-            $producer->getUser()->addRole('ROLE_PRODUCER');
-            $producer->getUser()->setNode($this->getUser()->getNode());
-
-            $em->persist($producer);
-            $em->flush();
-
-            if (isset($pUser['sendEmail']) && $pUser['sendEmail']) {
-                $this->sendPasswordEmail($pUser);
-            }
-
-            $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
-            $response = new RedirectResponse($url);
-
-            return $response;
         }
 
         return $this->render('ManagementBundle:Producer:add.html.twig', array(

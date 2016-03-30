@@ -10,6 +10,11 @@
 
     <div class="highlightSection">
 		<div class="container">
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="alert alert-{{ type }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -22,10 +27,13 @@
 				<tbody>
 					{% for consumer in consumers %}
 						<tr>
-							<td>{{consumer.Member.name}}</td>
-							<td>{{consumer.Member.surname}}</td>
+							<td>{{consumer.name}}</td>
+							<td>{{consumer.surname}}</td>
 							<td>{{consumer.phone}}</td>
-							<td><a href="{{ path('management_consumer_edit', {"id":consumer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+							<td>
+								<a href="{{ path('management_consumer_edit', {"id":consumer.Consumer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_consumer_delete', {"id":consumer.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

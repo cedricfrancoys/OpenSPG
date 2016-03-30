@@ -161,16 +161,35 @@ class UserManager
     $this->mailer = $mailer;
   }
 
-  public function getUsersByRole($role)
+  public function getUsersByRole($role, $makeSureFieldIsNotNull = false)
   {
-    return $this->orm
+    $sql = $this->orm
       ->getRepository('UserBundle:User')
       ->createQueryBuilder('u')
       ->select('u')
       ->where('u.Node = :node')
       ->andWhere('u.roles LIKE :role')
       ->setParameter('node', $this->currentUser->getNode())
-      ->setParameter('role', "%{$role}%")
+      ->setParameter('role', "%{$role}%");
+
+    if( $makeSureFieldIsNotNull ){
+      $sql->andWhere("u.{$makeSureFieldIsNotNull} IS NOT NULL");
+    }
+
+    $query = $sql->getQuery();
+    $users = $query->getResult();
+
+    return $users;
+  }
+
+  public function getAll()
+  {
+    return $this->orm
+      ->getRepository('UserBundle:User')
+      ->createQueryBuilder('u')
+      ->select('u')
+      ->where('u.Node = :node')
+      ->setParameter('node', $this->currentUser->getNode())
       ->getQuery()
       ->getResult();
   }

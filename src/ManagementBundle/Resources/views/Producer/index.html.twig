@@ -32,7 +32,7 @@
 							<td>{{producer.phone}}</td>
 							<td><a href="{{ path('management_producer_edit', {"id":producer.Producer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
 								<a href="{{ path('management_property_index', {"producer_id":producer.Producer.id}) }}" class="btn btn-warning">{{"Properties"|trans({},"management")}}
-								<a href="{{ path('management_producer_delete', {"id":producer.Producer.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
+								<a href="{{ path('management_producer_remove', {"id":producer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

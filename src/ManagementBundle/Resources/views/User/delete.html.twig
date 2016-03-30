@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Delete user?"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Delete user?"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    <form method="post">
+	    	{% trans %}
+	    		<h2>Are you sure you want to delete the selected user?</h2>
+	    		<p>Doing so is undoable and will also delete any possibly related properties. Other related items will be converted to orphans in order to keep organizational data.</p>
+	    	{% endtrans %}
+	    	<input type="submit" value="{{ "Delete forever" }}" />
+	    	<input type="button" value="{{ "Cancel" }}" onclick="document.location.href = '{{ path("management_user_index") }}'" />
+	    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
+	    </form>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

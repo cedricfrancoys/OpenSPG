@@ -21,6 +21,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 
 use ConsumerBundle\Entity\Member;
 use ManagementBundle\Form\ConsumerType;
+use UserBundle\Entity\User;
 
 /**
  * @Route("/management/consumer")
@@ -44,7 +45,7 @@ class ConsumerController extends Controller
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
         $manager = $this->get('users.manager.user');
-        $consumers = $manager->getUsersByRole('ROLE_CONSUMER');
+        $consumers = $manager->getUsersByRole('ROLE_CONSUMER', 'Consumer');
 
         $data = array(
             'consumers' => $consumers
@@ -144,77 +145,51 @@ class ConsumerController extends Controller
     }
 
     /**
-     * @Route("/{id}/delete")
+     * @Route("/{id}/remove")
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */
-    public function deleteAction(Member $consumer, Request $request)
+    public function removeAction(User $user, Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem("Delete", $this->get("router")->generate("management_producer_delete",array('id'=>$producer->getId())));
+        $breadcrumbs->addItem("Consumers", $this->get("router")->generate("management_consumer_index"));
+        $breadcrumbs->addItem("Remove", $this->get("router")->generate("management_consumer_remove",array('id'=>$user->getId())));
 
-        if (!$producer) {
-            throw $this->createNotFoundException('No producer found');
+        if (!$user) {
+            throw $this->createNotFoundException('No consumer found');
         }
 
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/producer/delete')){
-            $session->remove('confirmation/management/producer/delete');
+        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/consumer/remove')){
+            $session->remove('confirmation/management/consumer/remove');
 
-            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()){
+            if ($user->getNode() !== $this->getUser()->getNode()){
                 throw new AccessDeniedException();
             }
 
+            $user->removeRole('ROLE_CONSUMER');
+
             $em = $this->getDoctrine()->getManager();
-            $em->remove($producer);
             $em->flush();
 
             // add flash messages
             $session->getFlashBag()->add(
                 'success',
-                $trans->trans('The producer has been deleted!', array(), 'management')
+                $trans->trans('The user has been removed from consumer status!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_producer_index'));
+            return new RedirectResponse($this->generateUrl('management_consumer_index'));
         }else{
             $confirmation_key = uniqid();
-            $session->set('confirmation/management/producer/delete', $confirmation_key);
+            $session->set('confirmation/management/consumer/remove', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key
             );
         }
-    }
-
-    protected function sendPasswordEmail($user){
-        $trans = $this->get('translator');
-        $tpl = $this->get('twig');
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject($trans->trans('Your account on SPG', array(), 'user'))
-            ->setFrom('mhauptma73@gmail.com')
-            ->setTo($user['email'])
-            ->setBody(
-                $tpl->render(
-                    'UserBundle:Emails:registration.html.twig',
-                    array(
-                        'password' => $user['password'],
-                        'name' => $user['name'],
-                        'surname' => $user['surname'],
-                        'username' => $user['username'],
-                        'phone' => $user['phone'],
-                        'email' => $user['email'],
-                        'enabled' => $user['enabled']
-                    )
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
     }
 }

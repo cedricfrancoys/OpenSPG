@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Remove producer status?"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Remove producer status?"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    <form method="post">
+	    	{% trans %}
+	    		<h2>Are you sure you want to remove the "producer" status from the selected user?</h2>
+	    		<p>The user will not be deleted, but will have removed all "consumer" privileges. You can reassign the status again when needed.</p>
+	    	{% endtrans %}
+	    	<input type="submit" value="{{ "Remove"|trans({},"management") }}" />
+	    	<input type="button" value="{{ "Cancel" }}" onclick="document.location.href = '{{ path("management_producer_index") }}'" />
+	    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
+	    </form>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/management/css/edit.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'management' }) }}"></script>
+	<script src="{{ asset('bundles/management/js/edit.js') }}" type="text/javascript"></script>
+{% endblock %}

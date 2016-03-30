@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{"Delete producer?"|trans({},"management")}}{% endblock %}
+{% block title %}{{"Remove consumer status?"|trans({},"management")}}{% endblock %}
 
-{% block pageTitleText %}{{"Delete producer?"|trans({},"management")}}{% endblock %}
+{% block pageTitleText %}{{"Remove consumer status?"|trans({},"management")}}{% endblock %}
 
 {% block body %}
 
@@ -11,10 +11,11 @@
     <div class="container">
 	    <form method="post">
 	    	{% trans %}
-	    		<h2>Are you sure you want to delete the selected producer?</h2>
-	    		<p>Doing so is undoable and will also delete related properties. Other related items will be converted to orphans in order to keep organizational data.</p>
+	    		<h2>Are you sure you want to remove the "consumer" status from the selected user?</h2>
+	    		<p>The user will not be deleted, but will have removed all "consumer" privileges. You can reassign the status again when needed.</p>
 	    	{% endtrans %}
-	    	<input type="submit" value="{{ "Delete forever" }}" />
+	    	<input type="submit" value="{{ "Remove"|trans({},"management") }}" />
+	    	<input type="button" value="{{ "Cancel" }}" onclick="document.location.href = '{{ path("management_consumer_index") }}'" />
 	    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
 	    </form>
 	</div>

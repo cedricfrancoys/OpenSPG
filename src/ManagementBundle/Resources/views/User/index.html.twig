@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{"Managers"|trans({},"management")}}{% endblock %}
+{% block title %}{{"Users"|trans({},"management")}}{% endblock %}
 
-{% block pageTitleText %}{{"Managers"|trans({},"management")}}{% endblock %}
+{% block pageTitleText %}{{"Users"|trans({},"management")}}{% endblock %}
 
 {% block body %}
 
@@ -21,18 +21,19 @@
 						<th>{{"Name"|trans({},"management")}}</th>
 						<th>{{"Surname"|trans({},"management")}}</th>
 						<th>{{"Phone"|trans({},"management")}}</th>
-						<th><a href="{{ path('management_manager_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th>{{"Roles"|trans({},"management")}}</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for manager in managers %}
+					{% for user in users %}
 						<tr>
-							<td>{{manager.name}}</td>
-							<td>{{manager.surname}}</td>
-							<td>{{manager.phone}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.surname}}</td>
+							<td>{{user.phone}}</td>
+							<td>{{user.roles|join(", ")}}</td>
 							<td>
-								<a href="{{ path('management_manager_edit', {"id":manager.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_manager_remove', {"id":manager.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
+								<a href="{{ path('management_user_edit', {"id":user.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_user_delete', {"id":user.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
 							</td>
 						</tr>
 					{% endfor %}

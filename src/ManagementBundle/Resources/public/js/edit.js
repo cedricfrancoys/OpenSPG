@@ -18,6 +18,12 @@ jQuery(document).ready(function() {
     		$('#producer_User_sendEmail').closest('.form-group').hide();
     	}
     });
+    $('button[type=reset]').on('click', function(e){
+    	var loc = document.location.href.split('/');
+    	loc.pop();
+    	loc.pop();
+    	document.location.href = loc.join('/');
+    });
 });
 
 // Public: Constructor

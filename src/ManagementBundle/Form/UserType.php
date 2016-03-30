@@ -4,20 +4,28 @@ namespace ManagementBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-use ManagementBundle\Form\MemberType;
-
-class ConsumerType extends AbstractType
+class UserType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('User', MemberType::class, array(
-                'label' => false
+            ->add('username')
+            ->add('name')
+            ->add('surname')
+            ->add('phone')
+            ->add('email')
+            ->add('password', 'password')
+            ->add('enabled', null, array(
+                'required' => false
             ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages'
@@ -31,11 +39,14 @@ class ConsumerType extends AbstractType
             ))
         ;
     }
-
+    
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'ConsumerBundle\Entity\Member'
-	    ));
-	}
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'UserBundle\Entity\User'
+        ));
+    }
 }

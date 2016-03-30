@@ -21,6 +21,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 
 use ProducerBundle\Entity\Member;
 use ManagementBundle\Form\ProducerType;
+use UserBundle\Entity\User;
 
 /**
  * @Route("/management/producer")
@@ -142,78 +143,54 @@ class ProducerController extends Controller
         ));
     }
 
+
+
     /**
-     * @Route("/{id}/delete")
+     * @Route("/{id}/remove")
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */
-    public function deleteAction(Member $producer, Request $request)
+    public function removeAction(User $user, Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem("Delete", $this->get("router")->generate("management_producer_delete",array('id'=>$producer->getId())));
+        $breadcrumbs->addItem("Remove", $this->get("router")->generate("management_producer_remove",array('id'=>$user->getId())));
 
-        if (!$producer) {
+        if (!$user) {
             throw $this->createNotFoundException('No producer found');
         }
 
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/producer/delete')){
-            $session->remove('confirmation/management/producer/delete');
+        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/producer/remove')){
+            $session->remove('confirmation/management/producer/remove');
 
-            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()){
+            if ($user->getNode() !== $this->getUser()->getNode()){
                 throw new AccessDeniedException();
             }
 
+            $user->removeRole('ROLE_PRODUCER');
+
             $em = $this->getDoctrine()->getManager();
-            $em->remove($producer);
             $em->flush();
 
             // add flash messages
             $session->getFlashBag()->add(
                 'success',
-                $trans->trans('The producer has been deleted!', array(), 'management')
+                $trans->trans('The user has been removed from producer status!', array(), 'management')
             );
 
             return new RedirectResponse($this->generateUrl('management_producer_index'));
         }else{
             $confirmation_key = uniqid();
-            $session->set('confirmation/management/producer/delete', $confirmation_key);
+            $session->set('confirmation/management/producer/remove', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key
             );
         }
-    }
-
-    protected function sendPasswordEmail($user){
-        $trans = $this->get('translator');
-        $tpl = $this->get('twig');
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject($trans->trans('Your account on SPG', array(), 'user'))
-            ->setFrom('mhauptma73@gmail.com')
-            ->setTo($user['email'])
-            ->setBody(
-                $tpl->render(
-                    'UserBundle:Emails:registration.html.twig',
-                    array(
-                        'password' => $user['password'],
-                        'name' => $user['name'],
-                        'surname' => $user['surname'],
-                        'username' => $user['username'],
-                        'phone' => $user['phone'],
-                        'email' => $user['email'],
-                        'enabled' => $user['enabled']
-                    )
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
     }
 }

@@ -5,6 +5,7 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,6 +22,7 @@ class StockController extends Controller
     /**
      * @Route("/")
      * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
      */
     public function indexAction()
     {
@@ -32,12 +34,12 @@ class StockController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $currentMember = $em->getRepository('UserBundle:User')->findOneBy(array('User'=>$this->getUser()));
+        $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser());
 
         $products = $em
             ->getRepository('ProducerBundle:Stock')
             ->createQueryBuilder('s')
-            ->select('s,p,m')
+            ->select('s,p,u')
             ->leftJoin('s.Producer', 'p')
             ->leftJoin('p.User', 'u')
             ->andWhere('u.Node = :node')
@@ -49,7 +51,7 @@ class StockController extends Controller
             'products' => $products
         );
 
-        return $this->render('ManagementBundle:Stock:index.html.twig', $data);
+        return $data;
     }
 
     /**

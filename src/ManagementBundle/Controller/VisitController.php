@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use ProducerBundle\Entity\Visit;
 use ManagementBundle\Form\VisitType;
+use ProducerBundle\Entity\Member;
 
 /**
  * @Route("/management/visits")
@@ -20,9 +21,10 @@ class VisitController extends Controller
 {
     /**
      * @Route("/")
+     * @Route("/producer/{producer_id}/", name="management_visit_index2")
      * @Security("has_role('ROLE_MANAGEMENT')")
      */
-    public function indexAction()
+    public function indexAction($producer_id=null)
     {
         
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -34,16 +36,23 @@ class VisitController extends Controller
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser());
 
-        $visits = $em
+        $sql = $em
             ->getRepository('ProducerBundle:Visit')
             ->createQueryBuilder('v')
             ->select('v,p')
             ->leftJoin('v.Producer', 'p')
             ->leftJoin('p.User', 'u')
             ->andWhere('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode())
-            ->getQuery()
-            ->getResult();
+            ->setParameter('node', $currentMember->getNode());
+
+        if( $producer_id ){
+            $member = $em->getRepository('ProducerBundle:Member')->find($producer_id);
+            $sql->andWhere('u.Producer = :user')
+                ->setParameter('user', $member);
+        }
+
+        $query = $sql->getQuery();
+        $visits = $query->getResult();
 
         $data = array(
             'visits' => $visits
@@ -54,6 +63,7 @@ class VisitController extends Controller
 
     /**
      * @Route("/add")
+     * @Route("/producer/{producer_id}/add", name="management_visit_add2")
      * @Security("has_role('ROLE_MANAGEMENT')")
      */
     public function addAction(Request $request)

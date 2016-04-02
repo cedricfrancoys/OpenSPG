@@ -21,10 +21,9 @@ class VisitController extends Controller
 {
     /**
      * @Route("/")
-     * @Route("/producer/{producer_id}/", name="management_visit_index2")
      * @Security("has_role('ROLE_MANAGEMENT')")
      */
-    public function indexAction($producer_id=null)
+    public function indexAction(Request $request)
     {
         
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -45,17 +44,22 @@ class VisitController extends Controller
             ->andWhere('u.Node = :node')
             ->setParameter('node', $currentMember->getNode());
 
-        if( $producer_id ){
-            $member = $em->getRepository('ProducerBundle:Member')->find($producer_id);
-            $sql->andWhere('u.Producer = :user')
-                ->setParameter('user', $member);
+        if($filter = $request->request->get('filter')){
+            if ($filter['producer']) {
+                $sql->andWhere('u.id = :user')
+                    ->setParameter('user', $filter['producer']);
+            }
         }
 
         $query = $sql->getQuery();
         $visits = $query->getResult();
 
+        $manager = $this->get('users.manager.user');
+        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
+
         $data = array(
-            'visits' => $visits
+            'visits' => $visits,
+            'producers' => $producers
         );
 
         return $this->render('ManagementBundle:Visit:index.html.twig', $data);

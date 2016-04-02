@@ -24,7 +24,7 @@ class StockController extends Controller
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         
         $breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -36,19 +36,31 @@ class StockController extends Controller
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser());
 
-        $products = $em
+        $sql = $em
             ->getRepository('ProducerBundle:Stock')
             ->createQueryBuilder('s')
             ->select('s,p,u')
             ->leftJoin('s.Producer', 'p')
             ->leftJoin('p.User', 'u')
             ->andWhere('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode())
-            ->getQuery()
-            ->getResult();
+            ->setParameter('node', $currentMember->getNode());
+
+        if($filter = $request->request->get('filter')){
+            if ($filter['producer']) {
+                $sql->andWhere('u.id = :user')
+                    ->setParameter('user', $filter['producer']);
+            }
+        }
+
+        $query = $sql->getQuery();
+        $products = $query->getResult();
+
+        $manager = $this->get('users.manager.user');
+        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
 
         $data = array(
-            'products' => $products
+            'products' => $products,
+            'producers' => $producers
         );
 
         return $data;

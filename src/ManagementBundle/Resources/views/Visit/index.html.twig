@@ -10,6 +10,19 @@
 
     <div class="highlightSection">
 		<div class="container">
+			<div class="filter">
+				<form method="post">
+					{{"Filter"|trans()}}: 
+					<select name="filter[producer]">
+						{% set filter = app.request.request.get('filter')|default({"producer":0}) %}
+						<option value="">{{"All"|trans()}}</option>
+						{% for producer in producers %}
+							<option value="{{producer.id}}"{% if filter.producer == producer.id %} selected="selected"{% endif %}>{{producer.name}} {{producer.surname}}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="{{"Apply"|trans()}}" />
+				</form>
+			</div>
 			<table class="table table-striped">
 				<thead>
 					<tr>

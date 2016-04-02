@@ -16,3 +16,6 @@
 /web/bundles/
 /web/js/
 /web/css/
+/web/imgs/user_imgs/*.jpeg
+/web/imgs/user_imgs/*.gif
+/web/imgs/user_imgs/*.png

@@ -120,6 +120,16 @@ class ProducerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            // $file = $producer->getUser()->getImage();
+            // // Generate a unique name for the file before saving it
+            // $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            // // Move the file to the directory where images are stored
+            // $imgsDir = $this->container->getParameter('kernel.root_dir').'/../web/imgs/user_imgs';
+            // $file->move($imgsDir, $fileName);
+            // // Update the 'image' property to store the image file name
+            // // instead of its contents
+            // $producer->getUser()->setImage($fileName);
+
             $em->persist($producer);
             $em->flush();
 

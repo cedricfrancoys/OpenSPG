@@ -10,3 +10,12 @@ div.form-group div.radio{
 	display: inline-block;
 	margin-right: 10px;
 }
+.form_image{
+	vertical-align: bottom;
+	width: 80px;
+}
+.form_image_remove{
+	color: #000;
+	margin-left: 10px;
+	text-decoration: underline;
+}

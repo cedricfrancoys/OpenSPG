@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -24,7 +26,12 @@ class MemberType extends AbstractType
             ->add('name')
             ->add('surname')
             ->add('phone')
-            ->add('email');
+            ->add('email')
+            ->add('image', FileType::class, array(
+                'image_path' => 'webPath',
+                'allow_remove' => false,
+                'required' => false
+            ));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $user = $event->getData();

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserType extends AbstractType
 {
@@ -24,6 +25,11 @@ class UserType extends AbstractType
             ->add('phone')
             ->add('email')
             ->add('password', 'password')
+            ->add('image', FileType::class, array(
+                'image_path' => 'webPath',
+                'allow_remove' => false,
+                'required' => false
+            ))
             ->add('enabled', null, array(
                 'required' => false
             ))

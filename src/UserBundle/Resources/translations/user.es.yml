@@ -20,6 +20,7 @@ User Create: Crear usuario
 User: Usuario
 Enabled: Activado
 Your account on SPG: Tu cuenta en el SPG
+Image: Imagen
 RegistrationEmailContent: >
   <p>Hola %name%</p>
   <p>En el sistema del SPG se ha creado una cuenta para tu uso del portal<br />

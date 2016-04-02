@@ -14,3 +14,11 @@ services:
         arguments: ["@service_container", "@doctrine.orm.entity_manager", "@router"]
         tags:
             - {name: form.type, alias: entity_typeahead }
+    app.form.type.image:
+        class: AppBundle\Form\Type\ImageType
+        tags:
+            - { name: form.type }
+    app.image_type_extension:
+        class: AppBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }

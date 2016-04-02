@@ -6,3 +6,17 @@
     {% endif %}
     {{- parent() -}}
 {%- endblock collection_widget -%}
+
+{% block file_widget %}
+{% spaceless %}
+   	{{ block('form_widget') }}
+    <div class="form_image_div">
+	    {% if image_url is not null %}
+	        <img src="{{ asset(image_url) }}" class="form_image" />
+	        {% if allow_remove %}
+		    	<a href="#" class="form_image_remove">{% trans %}remove{% endtrans %}</a>
+		    {% endif %}
+	    {% endif %}
+	</div>
+{% endspaceless %}
+{% endblock %}

@@ -4,10 +4,14 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\HasLifecycleCallbacks
  */
 class User extends BaseUser
 {
@@ -59,6 +63,23 @@ class User extends BaseUser
     * @ORM\OneToOne(targetEntity="\ConsumerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
     */
     protected $Consumer;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png", "image/tiff" })
+     */
+    protected $image;
+    protected $file;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -213,5 +234,145 @@ class User extends BaseUser
     public function getConsumer()
     {
         return $this->Consumer;
+    }
+
+    /**
+     * @param UploadedFile $image
+     *
+     * @return User
+     */
+    public function setImage(UploadedFile $image = null)
+    {
+        if( null === $image ) return $this;
+        
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getImage()
+    {
+        $path = $this->getRootPath().'/web/imgs/user_imgs/'.$this->image;
+        return (!$this->image || !file_exists($path))
+            ? null 
+            : new File($path);
+        // return $this->image;
+    }
+
+    protected function getRootPath(){
+        return dirname(dirname(dirname(dirname(__FILE__))));
+    }
+
+    /**
+     * Called before saving the entity
+     * 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {   
+        if (null !== $this->image) {
+            // do whatever you want to generate a unique name
+            $this->file = $this->image;
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->image = $filename.'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * Called before entity removal
+     *
+     * @ORM\PreRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file); 
+        }
+    }
+
+    /**
+     * Called after entity persistence
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // The file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+
+        // Use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->file->move(
+            $this->getUploadRootDir(),
+            $this->image
+        );
+
+        // Set the path property to the filename where you've saved the file
+        //$this->path = $this->file->getClientOriginalName();
+
+        // Clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadRootDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadDir().'/'.$this->image;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'imgs/user_imgs';
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

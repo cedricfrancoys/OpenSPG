@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Fees"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Fees"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<div class="filter">
+				<form method="post">
+					{{"Filter"|trans()}}: 
+					<select name="filter[user]">
+						{% set filter = app.request.request.get('filter')|default({"user":0}) %}
+						<option value="">{{"All"|trans()}}</option>
+						{% for user in users %}
+							<option value="{{user.id}}"{% if filter.user == user.id %} selected="selected"{% endif %}>{{user.name}} {{user.surname}}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="{{"Apply"|trans()}}" />
+				</form>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"User"|trans({},"fee")}}</th>
+						<th>{{"Name"|trans({},"fee")}}</th>
+						<th>{{"Start"|trans({},"fee")}}</th>
+						<th>{{"Amount"|trans({},"fee")}}</th>
+						<th>{{"Status"|trans({},"fee")}}</th>
+						<th><a href="{{ path('management_fee_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for fee in fees %}
+						<tr class="row-{% if fee.status == 'paid' %}success{% endif %}">
+							<td>{{fee.User}}</td>
+							<td>{{fee.name}}</td>
+							<td>{{fee.startDate|date('d/m/Y')}}</td>
+							<td>{{fee.amount}} €</td>
+							<td>{{fee.status}}</td>
+							<td>
+								<a href="{{ path('management_fee_edit', {"id":fee.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								{% if fee.status != 'paid' %}
+									<a href="{{ path('management_fee_markpaid', {"id":fee.id}) }}" class="btn btn-danger">{{"mark paid"|trans({},"fee")}}</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/app/css/table.css' 
+				filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

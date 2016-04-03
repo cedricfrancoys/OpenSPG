@@ -41,6 +41,7 @@ class AppKernel extends Kernel
 
             new mhauptma73\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             new ManagementBundle\ManagementBundle(),
+            new FeeBundle\FeeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,0 +1,4 @@
+services:
+#    fee.example:
+#        class: FeeBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

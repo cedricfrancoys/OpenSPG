@@ -1,3 +1,8 @@
+fee:
+    resource: "@FeeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 management:
     resource: "@ManagementBundle/Controller/"
     type:     annotation

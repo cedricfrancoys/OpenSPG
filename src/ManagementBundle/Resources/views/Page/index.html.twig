@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Pages"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Pages"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Title"|trans({},"page")}}</th>
+						<th>{{"Path"|trans({},"page")}}</th>
+						<th><a href="{{ path('management_page_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for page in pages %}
+						<tr>
+							<td>{{page.title}}</td>
+							<td>{{page.path}}</td>
+							<td>
+								<a href="{{ path('management_page_edit', {"id":page.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/app/css/table.css' 
+				filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

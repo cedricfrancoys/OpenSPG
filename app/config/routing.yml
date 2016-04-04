@@ -1,3 +1,8 @@
+page:
+    resource: "@PageBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 fee:
     resource: "@FeeBundle/Controller/"
     type:     annotation

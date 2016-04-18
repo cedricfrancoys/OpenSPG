@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-/**
- * @Route("/management")
- */
 class DefaultController extends Controller
 {
     /**

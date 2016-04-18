@@ -24,7 +24,7 @@ use ManagementBundle\Form\ConsumerType;
 use UserBundle\Entity\User;
 
 /**
- * @Route("/management/consumer")
+ * @Route("/consumer")
  */
 class ConsumerController extends Controller
 {

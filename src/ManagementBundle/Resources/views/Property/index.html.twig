@@ -4,6 +4,10 @@
 
 {% block pageTitleText %}{{"Properties"|trans({},"management")}}{% endblock %}
 
+{# {% if not producer %}
+	{% set producer = {"id":0} %}
+{% endif %} #}
+
 {% block body %}
 
 	{{ parent() }}
@@ -15,23 +19,42 @@
 					<div class="alert alert-{{ type }}">{{ message }}</div>
 				{% endfor %}
 			{% endfor %}
+			<div class="filter">
+				<form method="get">
+					{{"Filter"|trans()}}: 
+					<select name="filter[Member]">
+						{% set filter = app.request.get('filter')|default({"Member":0}) %}
+						<option value="">{{"All"|trans()}}</option>
+						{% for user in users %}
+							<option value="{{user.id}}"{% if filter.Member == user.id %} selected="selected"{% endif %}>{{user.name}} {{user.surname}}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="{{"Apply"|trans()}}" />
+				</form>
+			</div>
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						{# {% if not producer.id %} #}
+							<th>{{"Producer"|trans({},"property")}}</th>	
+						{# {% endif %} #}
 						<th>{{"Name"|trans({},"property")}}</th>
 						<th>{{"Area"|trans({},"property")}}</th>
 						<th>{{"Address"|trans({},"property")}}</th>
-						<th><a href="{{ path('management_property_add', {"producer_id":producer.id}) }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th><a href="{{ path('management_property_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for property in properties %}
 						<tr>
+							{# {% if not producer.id %} #}
+								<td>{{property.Member.User}}</td>
+							{# {% endif %} #}
 							<td>{{property.name}}</td>
 							<td>{{property.areaName}}</td>
 							<td>{{property.address}}</td>
-							<td><a href="{{ path('management_property_edit', {"producer_id":producer.id,"id":property.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_property_delete', {"producer_id":producer.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
+							<td><a href="{{ path('management_property_edit', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_property_delete', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

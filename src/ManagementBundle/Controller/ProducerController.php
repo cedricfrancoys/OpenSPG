@@ -24,7 +24,7 @@ use ManagementBundle\Form\ProducerType;
 use UserBundle\Entity\User;
 
 /**
- * @Route("/management/producer")
+ * @Route("/producer")
  */
 class ProducerController extends Controller
 {

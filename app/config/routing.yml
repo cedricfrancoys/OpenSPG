@@ -11,7 +11,7 @@ fee:
 management:
     resource: "@ManagementBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /gestion/
 
 cart:
     resource: "@CartBundle/Controller/"

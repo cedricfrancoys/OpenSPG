@@ -20,7 +20,7 @@ use UserBundle\Entity\User;
 use ManagementBundle\Form\ManagerType;
 
 /**
- * @Route("/management/manager")
+ * @Route("/manager")
  */
 class ManagerController extends Controller
 {

@@ -3,6 +3,9 @@
 namespace ProducerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Property
@@ -188,6 +191,16 @@ class Property
      * @ORM\Column(name="productConservationDetails", type="text", nullable=true)
      */
     private $productConservationDetails;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png", "image/tiff" })
+     */
+    protected $sketch;
+    protected $file;
 
     /**
     * @var Member
@@ -810,5 +823,121 @@ class Property
     public function getMember()
     {
         return $this->Member;
+    }
+
+    /**
+     * @param UploadedFile $image
+     *
+     * @return User
+     */
+    public function setSketch(UploadedFile $sketch = null)
+    {
+        if( null === $sketch ) return $this;
+        
+        $this->sketch = $sketch;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getSketch()
+    {
+        $path = $this->getRootPath().'/web/imgs/sketches/'.$this->sketch;
+        return (!$this->sketch || !file_exists($path))
+            ? null 
+            : new File($path);
+        // return $this->image;
+    }
+
+    protected function getRootPath(){
+        return dirname(dirname(dirname(dirname(__FILE__))));
+    }
+
+    /**
+     * Called before saving the entity
+     * 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {   
+        if (null !== $this->sketch) {
+            // do whatever you want to generate a unique name
+            $this->file = $this->sketch;
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->sketch = $filename.'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * Called before entity removal
+     *
+     * @ORM\PreRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file); 
+        }
+    }
+
+    /**
+     * Called after entity persistence
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // The file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+
+        // Use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->file->move(
+            $this->getUploadRootDir(),
+            $this->sketch
+        );
+
+        // Set the path property to the filename where you've saved the file
+        //$this->path = $this->file->getClientOriginalName();
+
+        // Clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->sketch
+            ? null
+            : $this->getUploadRootDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->sketch
+            ? null
+            : $this->getUploadDir().'/'.$this->sketch;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'imgs/sketches';
     }
 }

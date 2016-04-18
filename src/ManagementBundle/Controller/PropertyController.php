@@ -25,7 +25,7 @@ use ManagementBundle\Form\PropertyType;
 use ProducerBundle\Entity\Member;
 
 /**
- * @Route("/management/producer/{producer_id}/property")
+ * @Route("/producer/property")
  */
 class PropertyController extends Controller
 {
@@ -33,39 +33,55 @@ class PropertyController extends Controller
      * @Route("/")
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
-     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function indexAction(Member $producer)
+    public function indexAction(Request $request)
     {
-        
-        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
+        // if($producer){
+        //     $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
+        //     $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+        //     $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        // }
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
 
         $em = $this->getDoctrine()->getManager();
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
-        $properties = $em
+        $sql = $em
             ->getRepository('ProducerBundle:Property')
             ->createQueryBuilder('p')
             ->select('p')
             ->leftJoin('p.Member', 'm')
             ->leftJoin('m.User', 'u')
-            ->where('p.Member = :producer')
-            ->andWhere('u.Node = :node')
-            ->setParameter('producer', $producer)
-            ->setParameter('node', $currentMember->getNode())
-            ->getQuery()
-            ->getResult();
+            ->where('u.Node = :node')
+            ->setParameter('node', $currentMember->getNode());
+
+        // if ($producer) {
+        //     $sql
+        //         ->where('p.Member = :producer')
+        //         ->setParameter('producer', $producer);
+        // }
+
+        if($filter = $request->get('filter')){
+            if ($filter['Member']) {
+                $sql->andWhere('u.id = :user')
+                    ->setParameter('user', $filter['Member']);
+            }
+        }
+            
+        $query = $sql->getQuery();
+        $properties = $query->getResult();
+
+        $manager = $this->get('users.manager.user');
+        $users = $manager->getUsersByRole('ROLE_PRODUCER');
 
         return array(
             'properties' => $properties,
-            'producer' => $producer
+            // 'producer' => $producer,
+            'users' => $users
         );
     }
 
@@ -121,18 +137,17 @@ class PropertyController extends Controller
      * @Route("/{id}/edit")
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
-     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function editAction(Member $producer, Property $property, Request $request)
+    public function editAction(Property $property, Request $request)
     {
-        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
+        // $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit", array('producer_id'=>0, 'id'=>0)));
+        // $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+        // $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
+        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit", array('id'=>0)));
 
         $em = $this->getDoctrine()->getManager();
 

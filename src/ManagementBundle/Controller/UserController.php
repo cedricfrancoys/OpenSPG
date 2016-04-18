@@ -15,7 +15,7 @@ use UserBundle\Entity\User;
 use ManagementBundle\Form\UserType;
 
 /**
- * @Route("/management/user")
+ * @Route("/user")
  */
 class UserController extends Controller
 {

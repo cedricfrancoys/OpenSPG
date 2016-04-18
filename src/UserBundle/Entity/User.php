@@ -274,7 +274,7 @@ class User extends BaseUser
      */
     public function preUpload()
     {   
-        if (null !== $this->image) {
+        if (null !== $this->image && !is_string($this->image)) {
             // do whatever you want to generate a unique name
             $this->file = $this->image;
             $filename = sha1(uniqid(mt_rand(), true));

@@ -14,7 +14,7 @@
 				<form method="post">
 					{{"Filter"|trans()}}: 
 					<select name="filter[producer]">
-						{% set filter = app.request.request.get('filter')|default({"producer":0}) %}
+						{% set filter = app.request.get('filter')|default({"producer":0}) %}
 						<option value="">{{"All"|trans()}}</option>
 						{% for producer in producers %}
 							<option value="{{producer.id}}"{% if filter.producer == producer.id %} selected="selected"{% endif %}>{{producer.name}} {{producer.surname}}</option>

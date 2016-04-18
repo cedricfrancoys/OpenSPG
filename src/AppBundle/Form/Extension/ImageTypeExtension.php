@@ -48,7 +48,7 @@ class ImageTypeExtension extends AbstractTypeExtension
             if (null !== $parentData) {
                 $accessor = PropertyAccess::createPropertyAccessor();
                 $imageUrl = $accessor->getValue($parentData, $options['image_path']);
-                dump($this->getWebRoot().$imageUrl);
+                
                 if(!file_exists($this->getWebRoot().$imageUrl) || !is_file($this->getWebRoot().$imageUrl)){
                 	$imageUrl = null;
                 }

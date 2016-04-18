@@ -15,7 +15,7 @@ use ManagementBundle\Form\VisitType;
 use ProducerBundle\Entity\Member;
 
 /**
- * @Route("/management/visits")
+ * @Route("/visits")
  */
 class VisitController extends Controller
 {

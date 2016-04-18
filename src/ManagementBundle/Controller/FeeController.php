@@ -20,7 +20,7 @@ use FeeBundle\Entity\Fee;
 use ManagementBundle\Form\FeeType;
 
 /**
- * @Route("/management/fees")
+ * @Route("/fees")
  */
 class FeeController extends Controller
 {

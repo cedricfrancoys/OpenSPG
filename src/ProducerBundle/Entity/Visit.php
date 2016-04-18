@@ -24,7 +24,7 @@ class Visit
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="visitDate", type="date")
+     * @ORM\Column(name="visitDate", type="date", nullable=true)
      */
     private $visitDate;
 
@@ -38,14 +38,14 @@ class Visit
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startTime", type="time")
+     * @ORM\Column(name="startTime", type="time", nullable=true)
      */
     private $startTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endTime", type="time")
+     * @ORM\Column(name="endTime", type="time", nullable=true)
      */
     private $endTime;
 

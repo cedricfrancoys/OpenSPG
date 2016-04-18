@@ -159,7 +159,7 @@ class PropertyController extends Controller
             $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId(), 'producer_id'=>$producer->getId()));
+            $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
             $response = new RedirectResponse($url);
 
             return $response;

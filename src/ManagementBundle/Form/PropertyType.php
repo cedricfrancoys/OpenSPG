@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class PropertyType extends AbstractType
 {
@@ -35,7 +36,10 @@ class PropertyType extends AbstractType
             ->add('certified')
             ->add('certifiedYear')
             ->add('certifiedProvider')
-            ->add('lastAgroquimicUsage', 'date')
+            ->add('lastAgroquimicUsage', DateType::class, array(
+                'placeholder' => 'Never',
+                'required' => false
+            ))
             ->add('fertilizer')
             ->add('phytosanitary')
             ->add('ownerLivesHere')

@@ -77,7 +77,9 @@ class ProducerController extends Controller
         if ($form->isValid()) {
             $manager = $this->get('users.manager.user');
             $manager->setCurrentUser($this->getUser());
-            $userCreated = $manager->createUser($producer, $form, $request->request->get('producer'), array('ROLE_MEMBER','ROLE_PRODUCER'));
+            $userFormData = $request->request->get('producer');
+            $userFormData = $userFormData['User'];
+            $userCreated = $manager->createUser($producer->getUser(), $form, $userFormData, array('ROLE_MEMBER','ROLE_PRODUCER'));
             if($userCreated)
             {
                 $session = $this->get('session');
@@ -89,7 +91,7 @@ class ProducerController extends Controller
                     $trans->trans('The producer data has been updated!', array(), 'management')
                 );
 
-                $url = $this->generateUrl('management_producer_edit', array('id'=>$user->getId()));
+                $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
                 $response = new RedirectResponse($url);
 
                 return $response;

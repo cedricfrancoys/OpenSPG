@@ -13,6 +13,8 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 
+use Symfony\Component\Form\Exception\OutOfBoundsException;
+
 use AppBundle\Manager\ManagerInterface;
 use UserBundle\Entity\User;
 
@@ -197,7 +199,11 @@ class UserManager
   public function createUser(User $user, $form, array $formData, array $roles)
   {
     if($this->checkIsDuplicate($formData)){
-      $form->get('username')->addError(new FormError('The username already exists'));
+      try{
+        $form->get('username')->addError(new FormError('The username already exists'));
+      }catch(\OutOfBoundsException $e){
+        $form->get('User')->get('username')->addError(new FormError('The username already exists'));
+      }
       return false;
     }
 

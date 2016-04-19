@@ -75,7 +75,7 @@ class User extends BaseUser
     protected $file;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */

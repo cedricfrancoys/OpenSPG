@@ -89,17 +89,18 @@ class PropertyController extends Controller
      * @Route("/add")
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
-     * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */
-    public function addAction(Member $producer, Request $request)
+    public function addAction(Request $request)
     {
-        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
+        if(false){
+            $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
+            $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
+            $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        }
+        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
         $breadcrumbs->addItem("Add", $this->get("router")->generate("management_producer_add"));
 
         $em = $this->getDoctrine()->getManager();
@@ -124,12 +125,12 @@ class PropertyController extends Controller
                 $trans->trans('The property has been added!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_property_edit', array('producer_id'=>$producer->getId(), 'id'=>$property->getId())));
+            return new RedirectResponse($this->generateUrl('management_property_edit', array('id'=>$property->getId())));
         }
 
         return array(
             'form' => $form->createView(),
-            'producer' => $producer
+            // 'producer' => $producer
         );
     }
 

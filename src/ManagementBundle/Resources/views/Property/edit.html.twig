@@ -11,6 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
+			{{ form_row(form.Member) }}
 			<fieldset>
 				<legend>{{"Property data"|trans({},"property")}}</legend>
 				{{ form_row(form.areaName) }}	

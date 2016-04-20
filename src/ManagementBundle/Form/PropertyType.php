@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class PropertyType extends AbstractType
 {
@@ -20,6 +22,22 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('Member', EntityType::class, array(
+                'class' => 'ProducerBundle:Member',
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    return $er->createQueryBuilder('m')
+                        ->select('m,u')
+                        ->leftJoin('m.User', 'u')
+                        ->where('u.Node = :node')
+                        ->andWhere('u.roles LIKE :role')
+                        ->setParameter('node', $options['node'])
+                        ->setParameter('role', '%ROLE_PRODUCER%')
+                        ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => function($member){
+                    return $member->getUser()->getName() . ' ' . $member->getUser()->getSurname();
+                }
+            ))
             ->add('areaName')
             ->add('address')
             ->add('regNr')
@@ -71,7 +89,8 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Property',
-            'translation_domain' => 'property'
+            'translation_domain' => 'property',
+            'node' => false
         ));
     }
 }

@@ -53,17 +53,13 @@ class PropertyController extends Controller
         $sql = $em
             ->getRepository('ProducerBundle:Property')
             ->createQueryBuilder('p')
-            ->select('p')
+            ->select('p, v')
             ->leftJoin('p.Member', 'm')
             ->leftJoin('m.User', 'u')
+            ->leftJoin('p.Visits', 'v')
             ->where('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode());
-
-        // if ($producer) {
-        //     $sql
-        //         ->where('p.Member = :producer')
-        //         ->setParameter('producer', $producer);
-        // }
+            ->setParameter('node', $currentMember->getNode())
+            ->addOrderBy('v.visitDate', 'DESC');
 
         if($filter = $request->get('filter')){
             if ($filter['Member']) {
@@ -80,7 +76,6 @@ class PropertyController extends Controller
 
         return array(
             'properties' => $properties,
-            // 'producer' => $producer,
             'users' => $users
         );
     }
@@ -107,12 +102,11 @@ class PropertyController extends Controller
 
         $property = new Property();
 
-        $form = $this->createForm(PropertyType::class, $property);
+        $form = $this->createForm(PropertyType::class, $property, array('node'=>$this->getUser()->getNode()));
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $property->setMember($producer);
             $em->persist($property);
             $em->flush();
 
@@ -152,7 +146,7 @@ class PropertyController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(PropertyType::class, $property);
+        $form = $this->createForm(PropertyType::class, $property, array('node'=>$this->getUser()->getNode()));
 
         $form->handleRequest($request);
 

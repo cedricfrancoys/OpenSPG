@@ -11,13 +11,25 @@
     <div class="highlightSection">
 		<div class="container">
 			<div class="filter">
-				<form method="post">
+				<form method="get">
 					{{"Filter"|trans()}}: 
+					{% set filter = app.request.get('filter')|default({"producer":0,"property":0}) %}
+					{% if filter.producer is not defined %}
+						{% set filter = filter|merge({"producer":0}) %}
+					{% endif %}
 					<select name="filter[producer]">
-						{% set filter = app.request.get('filter')|default({"producer":0}) %}
-						<option value="">{{"All"|trans()}}</option>
+						<option value="">{{"Producer"|trans({},"management")}}</option>
 						{% for producer in producers %}
 							<option value="{{producer.id}}"{% if filter.producer == producer.id %} selected="selected"{% endif %}>{{producer.name}} {{producer.surname}}</option>
+						{% endfor %}
+					</select>
+					{% if filter.property is not defined %}
+						{% set filter = filter|merge({"property":0}) %}
+					{% endif %}
+					<select name="filter[property]">
+						<option value="">{{"Property"|trans({},"management")}}</option>
+						{% for property in properties %}
+							<option value="{{property.id}}"{% if filter.property == property.id %} selected="selected"{% endif %}>{{property.name}}</option>
 						{% endfor %}
 					</select>
 					<input type="submit" value="{{"Apply"|trans()}}" />
@@ -38,7 +50,7 @@
 							<td>{{visit.Producer}}</td>
 							<td>{{visit.Property.name}}</td>
 							<td>{{visit.visitDate|date('d/m/Y')}}</td>
-							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

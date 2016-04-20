@@ -41,13 +41,25 @@ class VisitController extends Controller
             ->select('v,p')
             ->leftJoin('v.Producer', 'p')
             ->leftJoin('p.User', 'u')
+            ->leftJoin('v.Property', 'pr')
             ->andWhere('u.Node = :node')
             ->setParameter('node', $currentMember->getNode());
 
-        if($filter = $request->request->get('filter')){
+        if($filter = $request->get('filter')){
+            $filter = array_merge(
+                array(
+                    'producer' => 0,
+                    'property' => 0
+                ),
+                $filter
+            );
             if ($filter['producer']) {
                 $sql->andWhere('u.id = :user')
                     ->setParameter('user', $filter['producer']);
+            }
+            if ($filter['property']) {
+                $sql->andWhere('pr.id = :property')
+                    ->setParameter('property', $filter['property']);
             }
         }
 
@@ -56,10 +68,21 @@ class VisitController extends Controller
 
         $manager = $this->get('users.manager.user');
         $producers = $manager->getUsersByRole('ROLE_PRODUCER');
+        $properties = $em
+            ->getRepository('ProducerBundle:Property')
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('m.User', 'u')
+            ->andWhere('u.Node = :node')
+            ->setParameter('node', $currentMember->getNode())
+            ->getQuery()
+            ->getResult();
 
         $data = array(
             'visits' => $visits,
-            'producers' => $producers
+            'producers' => $producers,
+            'properties' => $properties
         );
 
         return $this->render('ManagementBundle:Visit:index.html.twig', $data);

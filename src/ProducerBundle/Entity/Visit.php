@@ -59,35 +59,35 @@ class Visit
     /**
      * @var \ProducerBundle\Entity\Property
      *
-     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", cascade={"persist","detach"})
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", inversedBy="Visits", cascade={"persist","detach"})
      */
     private $Property;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="didFertilize", type="boolean")
+     * @ORM\Column(name="didFertilize", type="boolean", nullable=true)
      */
     private $didFertilize;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fertlizeWith", type="string", length=255)
+     * @ORM\Column(name="fertlizeWith", type="string", length=255, nullable=true)
      */
     private $fertlizeWith;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fertilizeQty", type="string", length=255)
+     * @ORM\Column(name="fertilizeQty", type="string", length=255, nullable=true)
      */
     private $fertilizeQty;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fertilizeOrigin", type="string", length=255)
+     * @ORM\Column(name="fertilizeOrigin", type="string", length=255, nullable=true)
      */
     private $fertilizeOrigin;
 
@@ -101,49 +101,49 @@ class Visit
     /**
      * @var bool
      *
-     * @ORM\Column(name="doesSoilConservation", type="boolean")
+     * @ORM\Column(name="doesSoilConservation", type="boolean", nullable=true)
      */
     private $doesSoilConservation;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scGreenManure", type="boolean")
+     * @ORM\Column(name="scGreenManure", type="boolean", nullable=true)
      */
     private $scGreenManure;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scMulching", type="boolean")
+     * @ORM\Column(name="scMulching", type="boolean", nullable=true)
      */
     private $scMulching;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scNotPlow", type="boolean")
+     * @ORM\Column(name="scNotPlow", type="boolean", nullable=true)
      */
     private $scNotPlow;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scHerbsState", type="boolean")
+     * @ORM\Column(name="scHerbsState", type="boolean", nullable=true)
      */
     private $scHerbsState;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scHerbsDistribution", type="boolean")
+     * @ORM\Column(name="scHerbsDistribution", type="boolean", nullable=true)
      */
     private $scHerbsDistribution;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="scHerbsControl", type="boolean")
+     * @ORM\Column(name="scHerbsControl", type="boolean", nullable=true)
      */
     private $scHerbsControl;
 
@@ -157,7 +157,7 @@ class Visit
     /**
      * @var bool
      *
-     * @ORM\Column(name="pcPests", type="boolean")
+     * @ORM\Column(name="pcPests", type="boolean", nullable=true)
      */
     private $pcPests;
 

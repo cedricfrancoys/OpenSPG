@@ -24,7 +24,7 @@
 					{{"Filter"|trans()}}: 
 					<select name="filter[Member]">
 						{% set filter = app.request.get('filter')|default({"Member":0}) %}
-						<option value="">{{"All"|trans()}}</option>
+						<option value="">{{"Producer"|trans({},"management")}}</option>
 						{% for user in users %}
 							<option value="{{user.id}}"{% if filter.Member == user.id %} selected="selected"{% endif %}>{{user.name}} {{user.surname}}</option>
 						{% endfor %}
@@ -41,20 +41,43 @@
 						<th>{{"Name"|trans({},"property")}}</th>
 						<th>{{"Area"|trans({},"property")}}</th>
 						<th>{{"Address"|trans({},"property")}}</th>
-						<th><a href="{{ path('management_property_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th>{{"Last Visit"|trans({},"property")}}</th>
+						<th><a href="{{ path('management_property_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for property in properties %}
-						<tr>
+						{% set visits = property.Visits %}
+						{% if visits|length %}
+							{% set lastVisit = visits[0] %}
+							{% if lastVisit.accepted %}
+								{% set visitStatus = "accepted" %}
+							{% elseif lastVisit.accepted is null %}
+								{% set visitStatus = "pending" %}
+							{% else %}
+								{% set visitStatus = "denied" %}
+							{% endif %}
+							{% if lastVisit.accepted is null %}
+								{% if visits|length > 1 %}
+									{% set lastVisit = visits[1] %}
+								{% endif %}
+							{% endif %}
+						{% else %}
+							{% set lastVisit = {"accepted":null,"visitDate":null} %}
+							{% set visitStatus = "pending" %}
+						{% endif %}
+						<tr class="row-{% if visitStatus == "accepted" %}success{% elseif visitStatus == "denied" %}danger{% else %}warning{% endif %}">
 							{# {% if not producer.id %} #}
 								<td>{{property.Member.User}}</td>
 							{# {% endif %} #}
 							<td>{{property.name}}</td>
 							<td>{{property.areaName}}</td>
 							<td>{{property.address}}</td>
-							<td><a href="{{ path('management_property_edit', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_property_delete', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a></td>
+							<td>{{lastVisit.visitDate is empty ? "--" : lastVisit.visitDate|date('d/m/Y')}}</td>
+							<td><a href="{{ path('management_property_edit', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_property_delete', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
+								<a href="{{ path('management_visit_index', {"filter[property]":property.id}) }}" class="btn btn-default">{{"visits"|trans({},"management")}}</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

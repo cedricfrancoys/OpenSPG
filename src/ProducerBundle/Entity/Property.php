@@ -209,6 +209,13 @@ class Property
     */
     private $Member;
 
+    /**
+     * @var \ProducerBundle\Entity\Visit
+     *
+     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Visit", mappedBy="Property", cascade={"persist","detach"})
+     */
+    private $Visits;
+
     public function __toString()
     {
         return $this->getName();
@@ -939,5 +946,46 @@ class Property
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
         return 'imgs/sketches';
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Visits = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add visit
+     *
+     * @param \ProducerBundle\Entity\Visit $visit
+     *
+     * @return Property
+     */
+    public function addVisit(\ProducerBundle\Entity\Visit $visit)
+    {
+        $this->Visits[] = $visit;
+
+        return $this;
+    }
+
+    /**
+     * Remove visit
+     *
+     * @param \ProducerBundle\Entity\Visit $visit
+     */
+    public function removeVisit(\ProducerBundle\Entity\Visit $visit)
+    {
+        $this->Visits->removeElement($visit);
+    }
+
+    /**
+     * Get visits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVisits()
+    {
+        return $this->Visits;
     }
 }

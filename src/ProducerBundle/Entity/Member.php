@@ -23,6 +23,13 @@ class Member
     protected $id;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="activeAsProducer", type="boolean")
+     */
+    private $activeAsProducer;
+
+    /**
     * @var User
     *
     * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist","remove"}, mappedBy="Producer")
@@ -117,5 +124,29 @@ class Member
     public function getUser()
     {
         return $this->User;
+    }
+
+    /**
+     * Set activeAsProducer
+     *
+     * @param boolean $activeAsProducer
+     *
+     * @return Member
+     */
+    public function setActiveAsProducer($activeAsProducer)
+    {
+        $this->activeAsProducer = $activeAsProducer;
+
+        return $this;
+    }
+
+    /**
+     * Get activeAsProducer
+     *
+     * @return boolean
+     */
+    public function getActiveAsProducer()
+    {
+        return $this->activeAsProducer;
     }
 }

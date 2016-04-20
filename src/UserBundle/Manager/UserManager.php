@@ -168,7 +168,9 @@ class UserManager
     $sql = $this->orm
       ->getRepository('UserBundle:User')
       ->createQueryBuilder('u')
-      ->select('u')
+      ->select('u,c,p')
+      ->leftJoin('u.Consumer', 'c')
+      ->leftJoin('u.Producer', 'p')
       ->where('u.Node = :node')
       ->andWhere('u.roles LIKE :role')
       ->setParameter('node', $this->currentUser->getNode())

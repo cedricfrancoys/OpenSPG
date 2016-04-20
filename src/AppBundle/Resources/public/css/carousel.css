@@ -126,7 +126,7 @@ a:hover{color:#eee}
 .introSection{background-color: #efefef; padding:28px 0}
 .brandBtn{background-color: #7db641;}
 /*.btn-default{color: #fff;background-color: #7db641;border-color: #7db641;border-radius:0}*/
-.btn-default.active, .open .dropdown-toggle.btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active {color: #fff;background-color: #c83a3a ;border-color: #c83a3a ;}
+/*.btn-default.active,*/ .open .dropdown-toggle.btn-default, ./*btn-default:hover, .btn-default:focus, .btn-default:active*/ {color: #fff;background-color: #c83a3a ;border-color: #c83a3a ;}
 .text-primary-theme {color: #7db641;}
 .text-danger-theme {color: #FF007A;}
 .carousel-control.right, .carousel-control.left,

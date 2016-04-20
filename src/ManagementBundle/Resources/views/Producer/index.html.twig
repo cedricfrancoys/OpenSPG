@@ -21,7 +21,8 @@
 						<th>{{"Name"|trans({},"producer")}}</th>
 						<th>{{"Surname"|trans({},"producer")}}</th>
 						<th>{{"Phone"|trans({},"producer")}}</th>
-						<th><a href="{{ path('management_producer_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th>{{"Email"|trans({},"producer")}}</th>
+						<th><a href="{{ path('management_producer_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,10 +31,12 @@
 							<td>{{producer.name}}</td>
 							<td>{{producer.surname}}</td>
 							<td>{{producer.phone}}</td>
-							<td><a href="{{ path('management_producer_edit', {"id":producer.Producer.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_property_index', {"filter[Member]":producer.id}) }}" class="btn btn-warning">{{"Properties"|trans({},"management")}}
-								<a href="{{ path('management_visit_index', {"filter[producer]":producer.id}) }}" class="btn btn-warning">{{"Visits"|trans({},"management")}}
-								<a href="{{ path('management_producer_remove', {"id":producer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a></td>
+							<td>{{producer.email}}</td>
+							<td><a href="{{ path('management_producer_edit', {"id":producer.Producer.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_property_index', {"filter[Member]":producer.id}) }}" class="btn btn-warning">{{"Properties"|trans({},"management")}}</a>
+								<a href="{{ path('management_visit_index', {"filter[producer]":producer.id}) }}" class="btn btn-warning">{{"Visits"|trans({},"management")}}</a>
+								<a href="{{ path('management_producer_remove', {"id":producer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

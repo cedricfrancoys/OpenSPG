@@ -21,7 +21,7 @@
 						<th>{{"Name"|trans({},"management")}}</th>
 						<th>{{"Surname"|trans({},"management")}}</th>
 						<th>{{"Phone"|trans({},"management")}}</th>
-						<th><a href="{{ path('management_manager_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th><a href="{{ path('management_manager_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,7 +31,7 @@
 							<td>{{manager.surname}}</td>
 							<td>{{manager.phone}}</td>
 							<td>
-								<a href="{{ path('management_manager_edit', {"id":manager.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_manager_edit', {"id":manager.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
 								<a href="{{ path('management_manager_remove', {"id":manager.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
 							</td>
 						</tr>

@@ -5,6 +5,9 @@ namespace ManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -36,7 +39,7 @@ class ManagerType extends AbstractType
             $form = $event->getForm();
 
             if( !$user || null === $user->getId() ){
-                $form->add('password', 'password');
+                $form->add('password', PasswordType::class);
             }
 
             $form->add('enabled', null, array(
@@ -44,7 +47,7 @@ class ManagerType extends AbstractType
             ));
 
             if( !$user || null === $user->getId() ){
-                $form->add('sendEmail', 'checkbox', array(
+                $form->add('sendEmail', CheckboxType::class, array(
                     'label' => 'Send Email',
                     'mapped' => false,
                     'required' => false
@@ -54,6 +57,13 @@ class ManagerType extends AbstractType
 
             $form->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages'
+            ))
+            ->add('cancel', ResetType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array(
+                    'class' => 'btn-danger cancel-btn',
+                    'data-path' => 'manager_manager_index'
+                )
             ));
         });
     }
@@ -62,7 +72,7 @@ class ManagerType extends AbstractType
 	{
 	    $resolver->setDefaults(array(
 	        'data_class' => 'UserBundle\Entity\User',
-            'translation_domain' => 'management'
+            'translation_domain' => 'user'
 	    ));
 	}
 }

@@ -46,15 +46,31 @@
 				</thead>
 				<tbody>
 					{% for visit in visits %}
-						<tr class="row-{% if visit.accepted %}success{% elseif visit.accepted == false %}danger{% endif %}">
+						{% if visit.accepted %}
+							{% set row = 'success' %}
+							{% set title = 'Accepted' %}
+						{% elseif visit.accepted is not null %}
+							{% set row = 'danger' %}
+							{% set title = 'Rejected' %}
+						{% else %}
+							{% set row = 'warning' %}
+							{% set title = 'Pending' %}
+						{% endif %}
+						<tr class="row-{{ row }}" title="{{ title|trans({},'visit') }}">
 							<td>{{visit.Producer}}</td>
 							<td>{{visit.Property.name}}</td>
-							<td>{{visit.visitDate|date('d/m/Y')}}</td>
+							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
 							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
+			<div class="legend">
+				<span class="title">{{ "Legend"|trans({},"table") }}:</span>
+				<span class="legend legend-success">{{ "Accepted"|trans({},"visit") }}</span>
+				<span class="legend legend-danger">{{ "Rejected"|trans({},"visit") }}</span>
+				<span class="legend legend-warning">{{ "Pending"|trans({},"visit") }}</span>
+			</div>
 		</div>
 	</div>
 

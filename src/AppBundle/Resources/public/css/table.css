@@ -1,9 +1,24 @@
-.table-striped > tbody > tr.row-success td{
+.table-striped > tbody > tr.row-success td,
+div.legend span.legend-success{
 	background-color: #BCED91
 }
-.table-striped > tbody > tr.row-danger td{
+.table-striped > tbody > tr.row-danger td,
+div.legend span.legend-danger{
 	background-color: #ff6961
 }
-.table-striped > tbody > tr.row-warning td{
+.table-striped > tbody > tr.row-warning td,
+div.legend span.legend-warning{
 	background-color: #f0ad4e
+}
+div.legend{
+	float: right;
+}
+div.legend span.legend{
+	display: inline-block;
+    margin-right: 0;
+    padding: 4px 10px;
+    width: auto;
+}
+div.legend span.title{
+	font-weight: bold;
 }

@@ -18,10 +18,11 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>{{"Name"|trans({},"management")}}</th>
-						<th>{{"Surname"|trans({},"management")}}</th>
-						<th>{{"Phone"|trans({},"management")}}</th>
-						<th>{{"Roles"|trans({},"management")}}</th>
+						<th>{{"Name"|trans({},"user")}}</th>
+						<th>{{"Surname"|trans({},"user")}}</th>
+						<th>{{"Phone"|trans({},"user")}}</th>
+						<th>{{"Email"|trans({},"user")}}</th>
+						<th>{{"Roles"|trans({},"user")}}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,9 +31,10 @@
 							<td>{{user.name}}</td>
 							<td>{{user.surname}}</td>
 							<td>{{user.phone}}</td>
+							<td>{{user.email}}</td>
 							<td>{{user.roles|join(", ")}}</td>
 							<td>
-								<a href="{{ path('management_user_edit', {"id":user.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_user_edit', {"id":user.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
 								<a href="{{ path('management_user_delete', {"id":user.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
 							</td>
 						</tr>

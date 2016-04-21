@@ -12,4 +12,7 @@ Enquiries: Consultas
 Name: Nombre
 Surname: Apellido(s)
 Phone: Teléfono
-Email: EmailActive as producer: Activo como productor
+Email: Email
+Active: Activo
+Inactive: Inactivo
+Active as producer: Activo como productor

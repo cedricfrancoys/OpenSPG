@@ -19,6 +19,9 @@ class ProducerType extends AbstractType
             ->add('User', MemberType::class, array(
                 'label' => false
             ))
+            ->add('activeAsProducer', null, array(
+                'translation_domain' => 'producer'
+            ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages'
             ))

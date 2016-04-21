@@ -17,16 +17,26 @@ class VisitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitDate', 'date')
+            ->add('visitDate', 'date', array(
+                'placeholder' => 'Not yet defined',
+                'required' => false
+            ))
             ->add('Participants', EntityType::class, array(
                 'class' => 'UserBundle:User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u');
                 },
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ))
-            ->add('startTime', 'time')
-            ->add('endTime', 'time')
+            ->add('startTime', 'time', array(
+                'placeholder' => 'Not yet defined',
+                'required' => false
+            ))
+            ->add('endTime', 'time', array(
+                'placeholder' => 'Not yet defined',
+                'required' => false
+            ))
             ->add('Producer', EntityType::class, array(
                 'class' => 'ProducerBundle:Member',
                 'query_builder' => function (EntityRepository $er) {

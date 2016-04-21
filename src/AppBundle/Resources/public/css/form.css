@@ -19,3 +19,8 @@ div.form-group div.radio{
 	margin-left: 10px;
 	text-decoration: underline;
 }
+form div.form-group button.btn-default[type=submit]{
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	color: #fff;
+}

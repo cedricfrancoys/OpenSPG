@@ -21,3 +21,10 @@ services:
         class: ProducerBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    producer.events.visit:
+        class: ProducerBundle\Event\VisitEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+        tags:
+            - {name:"kernel.event_listener", event:"producer.events.visitPersisted", method:"onVisitSaved"}

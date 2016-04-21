@@ -14,6 +14,8 @@ use ProducerBundle\Entity\Visit;
 use ManagementBundle\Form\VisitType;
 use ProducerBundle\Entity\Member;
 
+use ProducerBundle\Event\VisitEvent;
+
 /**
  * @Route("/visits")
  */
@@ -118,6 +120,10 @@ class VisitController extends Controller
             $em->persist($visit);
             $em->flush();
 
+            $event = new VisitEvent($visit, 'add');
+            $dispatcher = $this->get('event_dispatcher'); 
+            $dispatcher->dispatch('producer.events.visitPersisted', $event);
+
             $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
             $response = new RedirectResponse($url);
 
@@ -150,6 +156,10 @@ class VisitController extends Controller
         if ($form->isValid()) {
             $em->persist($visit);
             $em->flush();
+
+            $event = new VisitEvent($visit, 'edit');
+            $dispatcher = $this->get('event_dispatcher'); 
+            $dispatcher->dispatch('producer.events.visitPersisted', $event);
 
             $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
             $response = new RedirectResponse($url);

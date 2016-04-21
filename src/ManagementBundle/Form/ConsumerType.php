@@ -17,7 +17,8 @@ class ConsumerType extends AbstractType
     {
         $builder
             ->add('User', MemberType::class, array(
-                'label' => false
+                'label' => false,
+                'translation_domain' => 'user'
             ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages'
@@ -35,7 +36,8 @@ class ConsumerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'ConsumerBundle\Entity\Member'
+	        'data_class' => 'ConsumerBundle\Entity\Member',
+            'translation_domain' => 'consumer'
 	    ));
 	}
 }

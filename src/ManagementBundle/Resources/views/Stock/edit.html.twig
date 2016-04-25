@@ -16,7 +16,6 @@
 			{{ form_row(form.price) }}
 			{{ form_row(form.unit) }}
 			{{ form_row(form.caduce) }}
-			{{ form_row(form.isExchangeable) }}
 		{{ form_end(form) }}
 	</div>
 
@@ -24,7 +23,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets 'bundles/management/css/edit.css' filter='cssrewrite' %}
+	{% stylesheets 'bundles/management/css/edit.css'
+					'bundles/app/css/form.css' 
+				filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}	

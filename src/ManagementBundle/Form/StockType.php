@@ -28,7 +28,6 @@ class StockType extends AbstractType
                 'placeholder' => 'Please choose'
             ))
             ->add('caduce')
-            ->add('isExchangeable')
             ->add('Product')
             ->add('Producer')
             ->add('save', SubmitType::class)

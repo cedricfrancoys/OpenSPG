@@ -36,7 +36,8 @@ class PropertyType extends AbstractType
                 },
                 'choice_label' => function($member){
                     return $member->getUser()->getName() . ' ' . $member->getUser()->getSurname();
-                }
+                },
+                'label' => 'Producer'
             ))
             ->add('areaName')
             ->add('address')

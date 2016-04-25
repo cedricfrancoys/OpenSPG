@@ -30,7 +30,10 @@
 						<th>{{"Producer"|trans({},"stock")}}</th>
 						<th>{{"Amount"|trans({},"stock")}}</th>
 						<th>{{"Price"|trans({},"stock")}}</th>
-						<th><a href="{{ path('management_stock_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+						<th>
+							<a href="{{ path('management_stock_add') }}" class="btn btn-success">{{"Add stock"|trans({},"management")}}</a>
+							<a href="{{ path('management_product_add') }}" class="btn btn-success">{{"Add product"|trans({},"management")}}</a>
+						</th>
 					</tr>
 				</thead>
 				<tbody>

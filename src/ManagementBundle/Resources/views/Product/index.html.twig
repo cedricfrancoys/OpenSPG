@@ -1,0 +1,74 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Products"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Products"|trans({},"management")}}{% endblock %}
+
+{% set requestFilter = app.request.get('filter')|default({}) %}
+{% set filter = {"family":0,"group":0,"variety":0}|merge(requestFilter) %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<div class="filter">
+				<form method="get">
+					{{"Filter"|trans()}}: 
+					<select name="filter[group]">
+						<option value="">{{"All groups"|trans({},"management")}}</option>
+						{% for group in groups %}
+							<option value="{{group.id}}"{% if filter.group == group.id %} selected="selected"{% endif %}>{{group.name}}</option>
+						{% endfor %}
+					</select>
+					<select name="filter[family]">
+						<option value="">{{"All families"|trans({},"management")}}</option>
+						{% for family in families %}
+							<option value="{{family.id}}"{% if filter.family == family.id %} selected="selected"{% endif %}>{{family.name}}</option>
+						{% endfor %}
+					</select>
+					<select name="filter[variety]">
+						<option value="">{{"All varieties"|trans({},"management")}}</option>
+						{% for variety in varieties %}
+							<option value="{{variety.id}}"{% if filter.variety == variety.id %} selected="selected"{% endif %}>{{variety.name}}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="{{"Apply"|trans()}}" />
+				</form>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"product")}}</th>
+						<th>{{"Group"|trans({},"product")}}</th>
+						<th>{{"Family"|trans({},"product")}}</th>
+						<th>{{"Variety"|trans({},"product")}}</th>
+						<th>
+							<a href="{{ path('management_product_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{product.name}}</td>
+							<td>{{product.Group}}</td>
+							<td>{{product.Family}}</td>
+							<td>{{product.Variety}}</td>
+							<td><a href="{{ path('management_product_edit', {"id":product.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

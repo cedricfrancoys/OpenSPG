@@ -15,7 +15,7 @@ use ProducerBundle\Entity\Stock;
 use ManagementBundle\Form\StockType;
 
 /**
- * @Route("/products")
+ * @Route("/stock")
  */
 class StockController extends Controller
 {

@@ -35,6 +35,10 @@ class Family
     */
     private $Group;
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     /**
      * Get id

@@ -2,6 +2,7 @@ Management: Gestión
 Producers: Productores
 Consumers: Consumidores
 Products: Productos
+Products/Stock: Productos/Stock
 Visits: Visitas
 Mailings: Mailings
 Manager: Gestores
@@ -36,3 +37,7 @@ Property: Propiedad
 Add consumer: Añadir consumidor
 Add manager: Añadir gestor
 Edit product: Editar producto
+Add stock: Añadir stock
+All groups: Todos los grupos
+All families: Todas las familias
+All varieties: Todas las variedades

@@ -24,6 +24,29 @@ jQuery(document).ready(function() {
     	loc.pop();
     	document.location.href = loc.join('/');
     });
+    $('#product_Group').on('change', function(e){
+    	$('#product_Family').empty();
+    	$('#product_Variety').empty();
+    	$.get(
+    		Routing.generate('management_product_getfamilies', { group: $('#product_Group').val() }),
+    		function(data, status){
+    			$.each(data, function(index,item){
+    				$('#product_Family').append('<option value="'+item.id+'">'+item.name+'</option>');
+    			});
+    		}
+    	);
+    });
+    $('#product_Family').on('change', function(e){
+    	$('#product_Variety').empty();
+    	$.get(
+    		Routing.generate('management_product_getvarieties', { family: $('#product_Family').val() }),
+    		function(data, status){
+    			$.each(data, function(index,item){
+    				$('#product_Variety').append('<option value="'+item.id+'">'+item.name+'</option>');
+    			});
+    		}
+    	);
+    });
 });
 
 // Public: Constructor

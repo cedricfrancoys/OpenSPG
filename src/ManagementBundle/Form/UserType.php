@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
 class UserType extends AbstractType
 {
     /**
@@ -24,16 +27,35 @@ class UserType extends AbstractType
             ->add('surname')
             ->add('phone')
             ->add('email')
-            ->add('password', 'password')
             ->add('image', FileType::class, array(
                 'image_path' => 'webPath',
                 'allow_remove' => false,
                 'required' => false
             ))
-            ->add('enabled', null, array(
+        ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $user = $event->getData();
+            $form = $event->getForm();
+
+            if( !$user || null === $user->getId() ){
+                $form->add('password', PasswordType::class);
+            }
+
+            $form->add('enabled', null, array(
                 'required' => false
-            ))
-            ->add('save', SubmitType::class, array(
+            ));
+
+            if( !$user || null === $user->getId() ){
+                $form->add('sendEmail', CheckboxType::class, array(
+                    'label' => 'Send Email',
+                    'mapped' => false,
+                    'required' => false
+                ));
+            }
+
+
+            $form->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages'
             ))
             ->add('cancel', ResetType::class, array(
@@ -42,8 +64,8 @@ class UserType extends AbstractType
                     'class' => 'btn-danger cancel-btn',
                     'data-path' => 'manager_user_index'
                 )
-            ))
-        ;
+            ));
+        });
     }
     
     /**

@@ -82,6 +82,13 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			<div class="legend">
+				<span class="title">{{ "Legend"|trans({},"table") }}:</span>
+				{{ "Visit"|trans({},"visit") }}
+				<span class="legend legend-success">{{ "acceptedF"|trans({},"visit") }}</span>
+				<span class="legend legend-danger">{{ "rejectedF"|trans({},"visit") }}</span>
+				<span class="legend legend-warning">{{ "pending"|trans({},"visit") }}</span>
+			</div>
 		</div>
 	</div>
 

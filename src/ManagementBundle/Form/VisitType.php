@@ -103,14 +103,21 @@ class VisitType extends AbstractType
                 )
             ))
             ->add('save', SubmitType::class, array(
-                'translation_domain' => 'messages'
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
+            ->add('saveAndClose', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
             ))
             ->add('cancel', ResetType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array(
+                    'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'manager_user_index'
-                )
+                    'data-path' => 'manager_visit_index'
+                ),
+                'label' => 'Close'
             ))
         ;
     }

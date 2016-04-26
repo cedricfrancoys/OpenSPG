@@ -100,7 +100,12 @@ class FeeController extends Controller
                 $trans->trans('The fee has been added!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_fee_edit', array('id'=>$fee->getId())));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_fee_index');
+            }else{
+                $url = $this->generateUrl('management_fee_edit', array('id'=>$fee->getId()));
+            }
+            return new RedirectResponse($url);
         }
 
         return array(
@@ -140,7 +145,11 @@ class FeeController extends Controller
                 $trans->trans('The fee has been updated!', array(), 'management')
             );
 
-            $url = $this->generateUrl('management_fee_edit', array('id'=>$fee->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_fee_index');
+            }else{
+                $url = $this->generateUrl('management_fee_edit', array('id'=>$fee->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

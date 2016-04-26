@@ -161,7 +161,11 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_product_index');
+            }else{
+                $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;
@@ -194,7 +198,11 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_product_index');
+            }else{
+                $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

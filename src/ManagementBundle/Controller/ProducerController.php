@@ -91,7 +91,11 @@ class ProducerController extends Controller
                     $trans->trans('The producer data has been updated!', array(), 'management')
                 );
 
-                $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
+                if ($form->get('saveAndClose')->isClicked()) {
+                    $url = $this->generateUrl('management_producer_index');
+                }else{
+                    $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
+                }
                 $response = new RedirectResponse($url);
 
                 return $response;
@@ -144,7 +148,11 @@ class ProducerController extends Controller
                 $trans->trans('The producer data has been updated!', array(), 'management')
             );
 
-            $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_producer_index');
+            }else{
+                $url = $this->generateUrl('management_producer_edit', array('id'=>$producer->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

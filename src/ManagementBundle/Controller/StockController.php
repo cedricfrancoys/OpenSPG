@@ -90,7 +90,11 @@ class StockController extends Controller
             $em->persist($stock);
             $em->flush();
 
-            $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_stock_index');
+            }else{
+                $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;
@@ -123,7 +127,11 @@ class StockController extends Controller
             $em->persist($stock);
             $em->flush();
 
-            $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_stock_index');
+            }else{
+                $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

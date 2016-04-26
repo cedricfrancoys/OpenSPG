@@ -124,7 +124,11 @@ class VisitController extends Controller
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch('producer.events.visitPersisted', $event);
 
-            $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_visit_index');
+            }else{
+                $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;
@@ -161,7 +165,11 @@ class VisitController extends Controller
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch('producer.events.visitPersisted', $event);
 
-            $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_visit_index');
+            }else{
+                $url = $this->generateUrl('management_visit_edit', array('id'=>$visit->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

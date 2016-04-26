@@ -69,7 +69,11 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $url = $this->generateUrl('management_user_edit', array('id'=>$user->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_user_index');
+            }else{
+                $url = $this->generateUrl('management_user_edit', array('id'=>$user->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

@@ -103,7 +103,12 @@ class PageController extends Controller
                 $trans->trans('The page has been added!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_page_edit', array('id'=>$page->getId())));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_page_index');
+            }else{
+                $url = $this->generateUrl('management_page_edit', array('id'=>$page->getId()));
+            }
+            return new RedirectResponse($url);
         }
 
         return array(
@@ -145,7 +150,11 @@ class PageController extends Controller
                 $trans->trans('The page has been updated!', array(), 'management')
             );
 
-            $url = $this->generateUrl('management_page_edit', array('id'=>$page->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_page_index');
+            }else{
+                $url = $this->generateUrl('management_page_edit', array('id'=>$page->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

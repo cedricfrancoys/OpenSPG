@@ -30,5 +30,9 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'management' }) }}"></script>
-	<script src="{{ asset('bundles/management/js/edit.js') }}" type="text/javascript"></script>
+	{% javascripts
+        'bundles/management/js/edit.js'
+        'bundles/app/js/forms.js'%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

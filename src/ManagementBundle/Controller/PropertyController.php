@@ -119,7 +119,12 @@ class PropertyController extends Controller
                 $trans->trans('The property has been added!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_property_edit', array('id'=>$property->getId())));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_property_index');
+            }else{
+                $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
+            }
+            return new RedirectResponse($url);
         }
 
         return array(
@@ -154,7 +159,11 @@ class PropertyController extends Controller
             $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                $url = $this->generateUrl('management_property_index');
+            }else{
+                $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
+            }
             $response = new RedirectResponse($url);
 
             return $response;

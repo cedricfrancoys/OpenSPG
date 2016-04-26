@@ -19,13 +19,22 @@ class ProductType extends AbstractType
             ->add('Family')
             ->add('Variety')
             ->add('name')
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
+            ->add('saveAndClose', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
             ->add('cancel', ResetType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array(
+                    'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
                     'data-path' => 'manager_product_index'
-                )
+                ),
+                'label' => 'Close'
             ))
         ;
     }

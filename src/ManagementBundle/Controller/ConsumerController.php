@@ -89,7 +89,11 @@ class ConsumerController extends Controller
                     $trans->trans('The consumer data has been updated!', array(), 'management')
                 );
 
-                $url = $this->generateUrl('management_consumer_edit', array('id'=>$user->getId()));
+                if ($form->get('saveAndClose')->isClicked()) {
+                    $url = $this->generateUrl('management_consumer_index');
+                }else{
+                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$user->getId()));
+                }
                 $response = new RedirectResponse($url);
 
                 return $response;
@@ -133,7 +137,11 @@ class ConsumerController extends Controller
                 $trans->trans('The consumers data has been updated!', array(), 'management')
             );
 
-            $url = $this->generateUrl('management_consumer_edit', array('id'=>$consumer->getId()));
+            if ($form->get('saveAndClose')->isClicked()) {
+                    $url = $this->generateUrl('management_consumer_index');
+                }else{
+                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$user->getId()));
+                }
             $response = new RedirectResponse($url);
 
             return $response;

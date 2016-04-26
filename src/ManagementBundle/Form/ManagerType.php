@@ -56,14 +56,21 @@ class ManagerType extends AbstractType
 
 
             $form->add('save', SubmitType::class, array(
-                'translation_domain' => 'messages'
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
+            ->add('saveAndClose', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
             ))
             ->add('cancel', ResetType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array(
+                    'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
                     'data-path' => 'manager_manager_index'
-                )
+                ),
+                'label' => 'Close'
             ));
         });
     }

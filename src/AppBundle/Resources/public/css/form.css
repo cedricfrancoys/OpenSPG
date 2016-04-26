@@ -24,3 +24,12 @@ form div.form-group button.btn-default[type=submit]{
 	border-color: #4cae4c;
 	color: #fff;
 }
+button[btn=buttons]{
+	margin-right: 5px;
+}
+.cancel-btn{
+	height: 30px;
+	padding-top: 4px;
+	position: relative;
+	top: 2px;
+}

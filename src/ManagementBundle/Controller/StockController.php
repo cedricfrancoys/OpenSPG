@@ -30,7 +30,7 @@ class StockController extends Controller
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("management_stock_index"));
+        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -75,7 +75,7 @@ class StockController extends Controller
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("management_stock_index"));
+        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
         $breadcrumbs->addItem("Add", $this->get("router")->generate("management_stock_add"));
 
         $em = $this->getDoctrine()->getManager();
@@ -110,7 +110,7 @@ class StockController extends Controller
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("management_stock_index"));
+        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
         $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_stock_edit",array('id'=>$stock->getId())));
 
         $em = $this->getDoctrine()->getManager();

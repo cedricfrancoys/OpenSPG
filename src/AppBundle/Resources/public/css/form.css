@@ -33,3 +33,7 @@ button[btn=buttons]{
 	position: relative;
 	top: 2px;
 }
+div.action-buttons{
+	margin-top: 5px;
+	text-align: right;
+}

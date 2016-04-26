@@ -14,6 +14,9 @@
 				<div class="alert alert-{{ type }}">{{ message }}</div>
 			{% endfor %}
 		{% endfor %}
+		<div class="action-buttons">
+			<a href="{{ path('management_manager_add') }}" class="btn btn-success btn-add">{{"New manager"|trans({},"management")}}</a>
+		</div>
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
 		{{ form_end(form) }}

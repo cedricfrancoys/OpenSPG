@@ -8,12 +8,15 @@
 
 	{{ parent() }}
 
-    <div class="container">
+    <div class="container action-edit">
     	{% for type, messages in app.session.flashbag.all() %}
 			{% for message in messages %}
 				<div class="alert alert-{{ type }}">{{ message }}</div>
 			{% endfor %}
 		{% endfor %}
+		<div class="action-buttons">
+			<a href="{{ path('management_producer_add') }}" class="btn btn-success btn-add">{{"New producer"|trans({},"management")}}</a>
+		</div>
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
 			{{ form_row(form.User) }}

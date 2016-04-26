@@ -9,6 +9,9 @@
 	{{ parent() }}
 
     <div class="container">
+	    <div class="action-buttons">
+			<a href="{{ path('management_stock_add') }}" class="btn btn-success btn-add">{{"New stock"|trans({},"management")}}</a>
+		</div>
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
 			{{ form_row(form.Product) }}

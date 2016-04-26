@@ -10,6 +10,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
+ *      )
+ * })
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks
  */

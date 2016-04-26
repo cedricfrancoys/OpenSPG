@@ -25,8 +25,12 @@ class MemberType extends AbstractType
             ->add('username')
             ->add('name')
             ->add('surname')
-            ->add('phone')
-            ->add('email')
+            ->add('phone', null, array(
+                'required' => false
+            ))
+            ->add('email', null, array(
+                'required' => false
+            ))
             ->add('image', FileType::class, array(
                 'image_path' => 'webPath',
                 'allow_remove' => false,

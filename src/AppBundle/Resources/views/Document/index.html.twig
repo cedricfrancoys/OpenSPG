@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Documentos{% endblock %}
+{% block pageTitleText %}Documentos{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},'document')}}</th>
+						<th>{{"File"|trans({},'document')}}</th>
+						<th>{{"Last updated"|trans({},'document')}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for file in files %}
+						<tr>
+							<td><a href="{{ path('app_document_download',{"file":file.file}) }}">{{ file.name }}</a></td>
+							<td>{{file.file}}</td>
+							<td>{{ file.updated|date('d/m/Y')}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

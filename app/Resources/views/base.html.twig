@@ -46,6 +46,7 @@
                             <li{% if menu == 'producer' %} class="active"{% endif %}><a href="{{ path('producer_producer_index') }}">{{"Producers"|trans({},"producer")}}</a></li>
                             <li{% if menu == 'nosotros' %} class="active"{% endif %}><a href="#">{{"The PGS"|trans({})}}</a></li>
                             <li{% if menu == 'contacto' %} class="active"{% endif %}><a href="#">{{"Contact"|trans({})}}</a></li>
+                            <li{% if menu == 'documentos' %} class="active"{% endif %}><a href="{{ path('app_document_index') }}">{{"Documents"|trans({})}}</a></li>
                           </ul>
                           <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}

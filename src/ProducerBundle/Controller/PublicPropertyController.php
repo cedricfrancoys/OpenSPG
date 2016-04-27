@@ -14,16 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-use ProducerBundle\Entity\Member;
-use ProducerBundle\Form\MemberType;
-use ProducerBundle\Form\ProfileType;
-use ProducerBundle\Form\RegistrationType;
-use UserBundle\Entity\User;
+use ProducerBundle\Entity\Property;
 
 /**
- * @Route("/productores")
+ * @Route("/propiedades")
  */
-class ProducerController extends Controller
+class PublicPropertyController extends Controller
 {
     /**
      * @Route("/")
@@ -32,34 +28,34 @@ class ProducerController extends Controller
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("producer_producer_index"));
+        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_publicproperty_index"));
 
         $em = $this->getDoctrine()->getManager();
 
-        $producers = $em->getRepository('ProducerBundle:Member')->findAll();
+        $properties = $em->getRepository('ProducerBundle:Property')->findAll();
 
         $data = array(
-            'producers' => $producers
+            'properties' => $properties
         );
 
-        return $this->render('ProducerBundle:Producer:index.html.twig', $data);
+        return $this->render('ProducerBundle:PublicProperty:index.html.twig', $data);
     }
 
     /**
      * @Route("/{id}")
      */
-    public function showAction(Member $producer)
+    public function showAction(Property $property)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("producer_producer_index"));
-        $breadcrumbs->addItem($producer->getUser()->getName(), $this->get("router")->generate("producer_producer_show",array('id'=>$producer->getId())));
+        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_publicproperty_index"));
+        $breadcrumbs->addItem($property->getName(), $this->get("router")->generate("producer_publicproperty_show",array('id'=>$property->getId())));
 
         $data = array(
-            'producer' => $producer,
-            'properties' => $producer->getProperties()
+            'property' => $property,
+            'visits' => $property->getVisits()
         );
 
-        return $this->render('ProducerBundle:Producer:show.html.twig', $data);
+        return $this->render('ProducerBundle:PublicProperty:show.html.twig', $data);
     }
 }

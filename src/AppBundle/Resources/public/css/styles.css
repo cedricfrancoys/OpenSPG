@@ -5,3 +5,16 @@
 #wo-breadcrumbs a{
 	color: #888;
 }
+a,
+a:hover,
+a:visited{
+	color: #000;
+}
+footer a{
+	color: #fff;
+}
+.row.row-underline {
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 4px;
+    padding: 5px 0;
+}

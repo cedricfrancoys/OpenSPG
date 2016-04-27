@@ -4,6 +4,7 @@ Reg nr: Registro
 Name: Nombre
 Tenure: Régimen de tenencia
 Size: Superficie (m2)
+Size public: Superficie
 Previous uses: Usos anteriores de la propiedad
 Water type origin: Agua
 water type origin help: Tipo y procedencia
@@ -14,6 +15,7 @@ surrounding problems help: ¿Genera algún perjuicio a la unidad productiva? ¿P
 Crops: Cultivos utilizados
 crops help: Origen de los mismos
 Certified: Certificación. ¿Propiedad certificada anteriormente?
+Certified public: ¿Propiedad certificada anteriormente?
 Certified year: ¿En qué años?
 Certified provider: Nombre de la(s) certificadora(s)
 Last agroquimic usage: Ultima fecha de aplicación de agroquímicos
@@ -23,7 +25,9 @@ Owner lives here: ¿El productor vive en la propiedad?
 Owner distance: Si no es así, ¿a qué distancia se encuentra?
 Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
 Product selling distance: Distancia aproximada que recorren los productos hasta los puntos de venta (km)
+Product selling distance public: Distancia aproximada que recorren los productos hasta los puntos de venta
 Product selling time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta (horas)
+Product selling time public: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
 Product conservation: ¿Utiliza algún método de conservación?
 Product conservation details: Detalles sobre la conservación
 

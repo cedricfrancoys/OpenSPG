@@ -1,0 +1,153 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ property.name }}{% endblock %}
+
+{% block pageTitleText %}{{ property.name }}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+		<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Ficha de la propiedad</h2>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Producer"|trans({},'property')}}:</div>
+			<div class="col-lg-9"><a href="{{ path('producer_producer_show',{'id':property.Member.id}) }}">{{ property.Member }}</a></div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Name"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.name }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Area"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.areaName }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Address"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.address }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Email"|trans({},'property')}}:</div>
+			<div class="col-lg-9"><a href="mailto:{{ property.Member.User.email }}">{{ property.Member.User.email }}</a></div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Tenure"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.tenure }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Size public"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.size }} m2</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Previous uses"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.previousUses }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Water type origin"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.waterTypeOrigin }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Crops"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.crops }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Certified public"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{% if property.certified %}{{"Yes"|trans()}}{% else %}{{"No"|trans()}}{% endif %}</div>
+		</div>
+		{% if property.certified %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Certified year"|trans({},'property')}}:</div>
+				<div class="col-lg-9">{{ property.certifiedYear }}</div>
+			</div>
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Certified provider"|trans({},'property')}}:</div>
+				<div class="col-lg-9">{{ property.certifiedProvider }}</div>
+			</div>
+		{% endif %}
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Last agroquimic usage"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{property.lastAgroquimicUsage is null ? '--' : property.lastAgroquimicUsage|date('d/m/Y')}}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Fertilizer"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.fertilizer }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Phytosanitary"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.phytosanitary }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Owner lives here"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{% if property.ownerLivesHere %}{{"Yes"|trans()}}{% else %}{{"No"|trans()}}{% endif %}</div>
+		</div>
+		{% if not property.ownerLivesHere %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Owner distance"|trans({},'property')}}:</div>
+				<div class="col-lg-9">{{ property.ownerDistance }} km</div>
+			</div>
+		{% endif %}
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Workforce"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.workforce }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Product selling distance public"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.productSellingDistance|default('--') }} km</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Product selling time public"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.productSellingTime|default('--') }} horas</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Product conservation"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.productConservation }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Product conservation details"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.productConservationDetails }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Surroundings"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.surroundings }}</div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Surrounding problems"|trans({},'property')}}:</div>
+			<div class="col-lg-9">{{ property.surroundingProblems }}</div>
+		</div>
+		{% if property.sketch %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Sketch"|trans({},'property')}}:</div>
+				<div class="col-lg-9"><img src="{{ property.sketch }}" /></div>
+			</div>
+		{% endif %}
+		<h3 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Visitas</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>{{"Date"|trans({},"visit")}}</th>
+					<th>{{"Producer"|trans({},"visit")}}</th>
+					<th>{{"Property"|trans({},"visit")}}</th>
+					<th>{{"Result"|trans({},"visit")}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for visit in visits %}
+					<tr>
+						<td>{{visit.visitDate is null ? '--' : visit.visitDate|date('d/m/Y')}}</td>
+						<td>{{visit.Producer}}</td>
+						<td>{{visit.Property}}</td>
+						<td>{{visit.accepted}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

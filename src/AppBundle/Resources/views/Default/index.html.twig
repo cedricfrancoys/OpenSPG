@@ -12,38 +12,6 @@
 	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 	    	<div class="carousel-inner">
 	        	<div class="item active">
-	          		<script	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false">
-					</script>
-					<script>
-						var myCenter=new google.maps.LatLng(36.892011,-3.245017);
-						{% for node in nodes %}
-							var pointer{{node.id}} = new google.maps.LatLng({{node.Location.latitude}},{{node.Location.longitude}});
-						{% endfor %}
-						var marker;
-						function initialize()
-						{
-							var mapProp = {
-							  center:myCenter,
-							  zoom:10,
-							  mapTypeId:google.maps.MapTypeId.ROADMAP
-							  };
-							var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-							{% for node in nodes %}
-								marker{{node.id}}=new google.maps.Marker({
-								  position:pointer{{node.id}}
-								});
-								marker{{node.id}}.setMap(map);
-								var infowindow{{node.id}} = new google.maps.InfoWindow({
-								  content:"{{node.name}}"
-								});
-								google.maps.event.addListener(marker{{node.id}}, 'click', function() {
-								  infowindow{{node.id}}.open(map,marker{{node.id}});
-								});
-								infowindow{{node.id}}.open(map,marker{{node.id}});
-							{% endfor %}
-						}
-						google.maps.event.addDomListener(window, 'load', initialize);
-					</script>
 					<div id="googleMap" style="height:450px;"></div>
 				  	<div class="container">
 						<div class="carousel-caption">
@@ -100,6 +68,62 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="container">
+		<div class="row">
+			<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Upcoming visits"|trans({},'visit')}}</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{"Producer"|trans({},'visit')}}</th>
+						<th>{{"Property"|trans({},'visit')}}</th>
+						<th>{{"Visit date"|trans({},'visit')}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for visit in upcomingVisits %}
+						<tr>
+							<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}">{{visit.Producer}}</a></td>
+							<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}">{{visit.Property.name}}</a></td>
+							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false"></script>
+	<script type="text/javascript">
+		var myCenter=new google.maps.LatLng(36.892011,-3.245017);
+		{% for node in nodes %}
+			var pointer{{node.id}} = new google.maps.LatLng({{node.Location.latitude}},{{node.Location.longitude}});
+		{% endfor %}
+		var marker;
+		function initialize()
+		{
+			var mapProp = {
+			  center:myCenter,
+			  zoom:10,
+			  mapTypeId:google.maps.MapTypeId.ROADMAP
+			  };
+			var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+			{% for node in nodes %}
+				marker{{node.id}}=new google.maps.Marker({
+				  position:pointer{{node.id}}
+				});
+				marker{{node.id}}.setMap(map);
+				var infowindow{{node.id}} = new google.maps.InfoWindow({
+				  content:"{{node.name}}"
+				});
+				google.maps.event.addListener(marker{{node.id}}, 'click', function() {
+				  infowindow{{node.id}}.open(map,marker{{node.id}});
+				});
+				infowindow{{node.id}}.open(map,marker{{node.id}});
+			{% endfor %}
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
 
 {% endblock %}
 

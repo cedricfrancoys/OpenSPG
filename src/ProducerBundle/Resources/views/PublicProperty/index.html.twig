@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Properties"|trans({},"property")}}{% endblock %}
+
+{% block pageTitleText %}{{"Properties"|trans({},"property")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"property")}}</th>
+						<th>{{"Area"|trans({},"property")}}</th>
+						<th>{{"Address"|trans({},"property")}}</th>
+						<th>{{"Last Visit"|trans({},"property")}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for property in properties %}
+						<tr>
+							<td>{{property.name}}</td>
+							<td>{{property.areaName}}</td>
+							<td>{{property.address}}</td>
+							<td><td>{{property.Visits.0.visitDate is null ? '--' : property.Visits.0.visitDate|date('d/m/Y')}}</td></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

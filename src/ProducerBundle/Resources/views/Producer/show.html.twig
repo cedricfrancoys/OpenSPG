@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ producer.User.name }}{% endblock %}
+
+{% block pageTitleText %}{{ producer.User.name }}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+		<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Ficha del propietario</h2>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Name"|trans({},'producer')}}:</div>
+			<div class="col-lg-9">{{ producer.User.name }} {{ producer.User.surname }}</a></div>
+		</div>
+		<div class="row row-underline">
+			<div class="col-lg-3">{{"Email"|trans({},'producer')}}:</div>
+			<div class="col-lg-9"><a href="mailto:{{ producer.User.email }}">{{ producer.User.email }}</a></div>
+		</div>
+		{% if producer.User.image %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Image"|trans({},'producer')}}:</div>
+				<div class="col-lg-9"><img src="{{ producer.User.image }}" /></div>
+			</div>
+		{% endif %}
+		<h3 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Propiedades</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>{{"Name"|trans({},"property")}}</th>
+					<th>{{"Area"|trans({},"property")}}</th>
+					<th>{{"Address"|trans({},"property")}}</th>
+					<th>{{"Last Visit"|trans({},"property")}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for property in properties %}
+					<tr>
+						<td><a href="{{ path('producer_publicproperty_show',{'id':property.id}) }}">{{property.name}}</a></td>
+						<td>{{property.areaName}}</td>
+						<td>{{property.address}}</td>
+						<td>{{property.Visits.0.visitDate is null ? '--' : property.Visits.0.visitDate|date('d/m/Y')}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

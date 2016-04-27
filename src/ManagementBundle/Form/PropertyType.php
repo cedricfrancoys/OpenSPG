@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Doctrine\ORM\EntityRepository;
 
 class PropertyType extends AbstractType
@@ -50,8 +51,12 @@ class PropertyType extends AbstractType
             ->add('tenure')
             ->add('size')
             ->add('previousUses')
-            ->add('waterTypeOrigin')
-            ->add('crops')
+            ->add('waterTypeOrigin', null, array(
+                'help' => 'water type origin help'
+            ))
+            ->add('crops', null, array(
+                'help' => 'crops help'
+            ))
             ->add('certified')
             ->add('certifiedYear')
             ->add('certifiedProvider')
@@ -68,8 +73,18 @@ class PropertyType extends AbstractType
             ->add('productSellingTime')
             ->add('productConservation')
             ->add('productConservationDetails')
-            ->add('surroundings')
-            ->add('surroundingProblems')
+            ->add('surroundings', null, array(
+                'help' => 'surroundings help'
+            ))
+            ->add('surroundingProblems', null, array(
+                'help' => 'surrounding problems help'
+            ))
+            ->add('sketch', FileType::class, array(
+                'image_path' => 'webPath',
+                'allow_remove' => false,
+                'required' => false,
+                'help' => 'sketch help'
+            ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array('btn'=>'buttons')

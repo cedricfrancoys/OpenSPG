@@ -14,7 +14,7 @@ use LocationBundle\Type\PointType;
  * @ORM\Entity(repositoryClass="LocationBundle\Entity\LocationRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Location
+class Location implements \ArrayAccess
 {
     /**
      * @var integer $id
@@ -177,5 +177,22 @@ class Location
     public function getLocation()
     {
         return $this->location;
+    }
+
+    public function offsetSet($offset, $value) {
+        $offset = 'set' . ucfirst($offset);
+        $this->$offset($value);
+    }
+    public function offsetExists($offset) {
+        $offset = 'get' . ucfirst($offset);
+        return method_exists($this, $offset);
+    }
+    public function offsetUnset($offset) {
+        $offset = 'set' . ucfirst($offset);
+        $this->$offset(null);
+    }
+    public function offsetGet($offset) {
+        $offset = 'get' . ucfirst($offset);
+        return $this->$offset();
     }
 }

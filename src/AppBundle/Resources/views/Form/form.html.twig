@@ -1,4 +1,4 @@
-{% use "bootstrap_3_layout.html.twig" %}
+{% use "bootstrap_3_layout.html.twig" with form_label as base_form_label %}
 
 {%- block collection_widget -%}
     {% if allow_add is defined and allow_add %}
@@ -19,4 +19,12 @@
 	    {% endif %}
 	</div>
 {% endspaceless %}
+{% endblock %}
+
+{% block form_label %}
+    {{ block('base_form_label') }}
+
+    {% if help is defined %}
+        <span class="help">{{ help|trans({},translation_domain) }}</span>
+    {% endif %}
 {% endblock %}

@@ -37,3 +37,8 @@ div.action-buttons{
 	margin-top: 5px;
 	text-align: right;
 }
+form span.help{
+	display: block;
+    position: relative;
+    top: -10px;
+}

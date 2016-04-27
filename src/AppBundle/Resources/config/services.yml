@@ -22,3 +22,7 @@ services:
         class: AppBundle\Form\Extension\ImageTypeExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+    app.help_type_extension:
+        class: AppBundle\Form\Extension\HelpTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

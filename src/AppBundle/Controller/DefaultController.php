@@ -43,7 +43,9 @@ class DefaultController extends Controller
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Legal", $this->get("router")->generate("app_default_legal"));
 
-        $data = array();
+        $data = array(
+            'menu' => 'legal'
+        );
 
         return $this->render('AppBundle:Default:legal.html.twig', $data);
     }
@@ -57,8 +59,26 @@ class DefaultController extends Controller
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Cookie Politic", $this->get("router")->generate("app_default_cookies"));
 
-        $data = array();
+        $data = array(
+            'menu' => 'cookies'
+        );
 
         return $this->render('AppBundle:Default:cookies.html.twig', $data);
+    }
+
+    /**
+     * @Route("/el_spg")
+     */
+    public function aboutAction(Request $request)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("The PGS", $this->get("router")->generate("app_default_about"));
+
+        $data = array(
+            'menu' => 'about'
+        );
+
+        return $this->render('AppBundle:Default:about.html.twig', $data);
     }
 }

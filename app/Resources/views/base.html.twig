@@ -44,7 +44,7 @@
                             <li{% if menu == 'home' %} class="active"{% endif %}><a href="{{ path('homepage') }}">{{"Home"|trans({})}}</a></li>
                             <li{% if menu == 'products' %} class="active"{% endif %}><a href="{{ path('product_public_index') }}">{{"Products"|trans({},"product")}}</a></li>
                             <li{% if menu == 'producer' %} class="active"{% endif %}><a href="{{ path('producer_producer_index') }}">{{"Producers"|trans({},"producer")}}</a></li>
-                            <li{% if menu == 'nosotros' %} class="active"{% endif %}><a href="#">{{"The PGS"|trans({})}}</a></li>
+                            <li{% if menu == 'about' %} class="active"{% endif %}><a href="{{ path('app_default_about') }}">{{"The PGS"|trans({})}}</a></li>
                             <li{% if menu == 'contacto' %} class="active"{% endif %}><a href="#">{{"Contact"|trans({})}}</a></li>
                             <li{% if menu == 'documentos' %} class="active"{% endif %}><a href="{{ path('app_document_index') }}">{{"Documents"|trans({})}}</a></li>
                           </ul>

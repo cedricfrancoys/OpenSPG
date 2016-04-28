@@ -10,7 +10,9 @@ a:hover,
 a:visited{
 	color: #000;
 }
-footer a{
+footer a,
+footer a:hover,
+footer a:visited{
 	color: #fff;
 }
 .row.row-underline {

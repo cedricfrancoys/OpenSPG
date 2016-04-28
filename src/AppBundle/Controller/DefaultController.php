@@ -33,4 +33,32 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Default:index.html.twig', $data);
     }
+
+    /**
+     * @Route("/legal")
+     */
+    public function legalAction(Request $request)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Legal", $this->get("router")->generate("app_default_legal"));
+
+        $data = array();
+
+        return $this->render('AppBundle:Default:legal.html.twig', $data);
+    }
+
+    /**
+     * @Route("/politica_de_cookies")
+     */
+    public function cookiesAction(Request $request)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Cookie Politic", $this->get("router")->generate("app_default_cookies"));
+
+        $data = array();
+
+        return $this->render('AppBundle:Default:cookies.html.twig', $data);
+    }
 }

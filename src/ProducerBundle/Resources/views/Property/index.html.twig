@@ -16,7 +16,7 @@
 						<th>{{"Name"|trans({},"property")}}</th>
 						<th>{{"Area"|trans({},"property")}}</th>
 						<th>{{"Address"|trans({},"property")}}</th>
-						<th><a href="{{ path('producer_property_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th><a href="{{ path('producer_property_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,7 +25,7 @@
 							<td>{{property.name}}</td>
 							<td>{{property.areaName}}</td>
 							<td>{{property.address}}</td>
-							<td><a href="{{ path('producer_property_edit', {"id":property.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+							<td><a href="{{ path('producer_property_edit', {"id":property.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

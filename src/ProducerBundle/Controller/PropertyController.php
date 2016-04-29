@@ -25,11 +25,16 @@ class PropertyController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $properties = $em->getRepository('ProducerBundle:Property')->findByUser($this->getUser());
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
+
+        $properties = $this->getUser()->getProducer()->getProperties();
 
         return $this->render('ProducerBundle:Property:index.html.twig', array(
-            'properties' => $properties
+            'properties' => $properties,
+            'menu' => 'account'
         ));
     }
 
@@ -38,6 +43,12 @@ class PropertyController extends Controller
      */
     public function addAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
+        $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_property_add"));
+
         $property = new Property();
 
         $form = $this->createForm(PropertyType::class, $property);
@@ -61,7 +72,8 @@ class PropertyController extends Controller
         }
 
         return $this->render('ProducerBundle:Property:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'account'
         ));
     }
 

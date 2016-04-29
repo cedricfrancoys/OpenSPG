@@ -53,8 +53,8 @@
                                 {% if app.user %}
                                     <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}Log out{% endtrans %}</a></li>
                                 {% else %}
-                                    <li><a href="{{ path('fos_user_security_login') }}">{% trans %}Log in{% endtrans %}</a></li>
-                                    <li><a href="{{ path('fos_user_registration_register') }}">{% trans %}Register{% endtrans %}</a></li>
+                                    <li{% if menu == 'login' %} class="active"{% endif %}><a href="{{ path('fos_user_security_login') }}">{% trans %}Log in{% endtrans %}</a></li>
+                                    <li{% if menu == 'register' %} class="active"{% endif %}><a href="{{ path('fos_user_registration_register') }}">{% trans %}Register{% endtrans %}</a></li>
                                 {% endif %}
                           </ul>
                         </div>

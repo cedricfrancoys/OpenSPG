@@ -12,25 +12,24 @@ use Symfony\Component\Form\FormInterface;
 
 use ProducerBundle\Form\PropertyType;
 use UserBundle\Form\UserType;
-use UserBundle\Form\MemberType as uMemberType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('User', uMemberType::class, array(
+            ->add('User', userType::class, array(
                 'label' => false
             ))
-            ->add('Properties', CollectionType::class, array(
-                'entry_type' => PropertyType::class,
-                'allow_add'    => true,
-                'attr' => array(
-                    'data-add_link_label' => 'Add property',
-                    'data-item_label' => 'Property',
-                    'data-translation_domain' => 'property'
-                )
-            ))
+            // ->add('Properties', CollectionType::class, array(
+            //     'entry_type' => PropertyType::class,
+            //     'allow_add'    => true,
+            //     'attr' => array(
+            //         'data-add_link_label' => 'Add property',
+            //         'data-item_label' => 'Property',
+            //         'data-translation_domain' => 'property'
+            //     )
+            // ))
             ->add('save', SubmitType::class)
         ;
     }

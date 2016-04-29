@@ -39,6 +39,11 @@ class MemberController extends Controller
      */
     public function registerAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Registration", $this->get("router")->generate("fos_user_registration_register"));
+        $breadcrumbs->addItem("Producer registration", $this->get("router")->generate("producer_member_register"));
+
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -93,7 +98,8 @@ class MemberController extends Controller
         }
 
         return $this->render('ProducerBundle:Member:register.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'register'
         ));
     }
 

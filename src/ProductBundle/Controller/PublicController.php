@@ -25,6 +25,10 @@ class PublicController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Products", $this->get("router")->generate("product_public_index"));
+
         $em = $this->getDoctrine()->getManager();
 
         $products = $em->

@@ -1,20 +1,3 @@
-html,
-body,
-div.body{
-	height: 100%;
-}
-body{
-	position: absolute;
-	width: 100%;
-}
-div.body{
-	height: auto;
-	min-height: 100%;
-	padding-bottom: 142px;
-}
-.navbar-nav.navbar-right:last-child{
-	margin-right: 20px;
-}
 .form_add_item_link{
 	color: #000;
 	float: right;
@@ -58,9 +41,4 @@ form span.help{
 	display: block;
     position: relative;
     top: -10px;
-}
-footer{
-	clear: both;
-	margin-top: -137px;
-	position: relative;
 }

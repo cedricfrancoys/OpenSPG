@@ -12,6 +12,9 @@ div.body{
 	min-height: 100%;
 	padding-bottom: 142px;
 }
+.navbar-nav.navbar-right:last-child{
+	margin-right: 20px;
+}
 .form_add_item_link{
 	color: #000;
 	float: right;

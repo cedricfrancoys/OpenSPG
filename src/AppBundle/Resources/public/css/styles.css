@@ -50,6 +50,11 @@ a:hover,
 a:visited{
 	color: #000;
 }
+a.btn,
+a.btn:hover,
+a.btn:visited{
+	color: #fff;
+}
 footer a,
 footer a:hover,
 footer a:visited{

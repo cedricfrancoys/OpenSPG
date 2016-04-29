@@ -42,3 +42,6 @@ form span.help{
     position: relative;
     top: -10px;
 }
+.btn.btn-add{
+	float: right;
+}

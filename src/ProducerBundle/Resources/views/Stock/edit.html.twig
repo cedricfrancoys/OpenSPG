@@ -11,36 +11,8 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
-			{{ form_row(form.Product) }}
-			{{ form_row(form.amount) }}
-			{{ form_row(form.caduce) }}
-			{{ form_row(form.price) }}
 		{{ form_end(form) }}
 	</div>
-
-	<div class="modal fade" id="product_modal" tabindex="1" role="dialog">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		      	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title">Add product</h4>
-		      	</div>
-		      	<div class="modal-body">
-		      		{{ form_start(pForm) }}
-						{{ form_errors(pForm) }}
-						{{ form_row(pForm.name) }}
-						{{ form_row(pForm.Group) }}
-						{{ form_row(pForm.Family) }}
-						{{ form_row(pForm.Variety) }}
-					{{ form_end(pForm) }}
-		      	</div>
-		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
-		        	<button type="button" class="btn btn-primary" id="saveProductBtn">{{"Save changes"|trans({})}}</button>
-		      	</div>
-		    </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 
 {% endblock %}
 
@@ -53,23 +25,4 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'stock' }) }}"></script>
-	{% javascripts
-        '@twitter_typeahead_js'
-        'bundles/producer/js/stock.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script type="text/javascript">
-    	var groups = {{groups|raw()}};
-    	var families = {{families}};
-    	var varieties = {{varieties}};
-
-    	var group_add_path = '{{group_add_path}}';
-    	var group_get_path = '{{group_get_path}}';
-    	var family_add_path = '{{family_add_path}}';
-    	var family_get_path = '{{family_get_path}}';
-    	var variety_add_path = '{{variety_add_path}}';
-    	var variety_get_path = '{{variety_get_path}}';
-    	var product_add_path = '{{product_add_path}}';
-    	
-    </script>
 {% endblock %}

@@ -18,7 +18,7 @@ use ProducerBundle\Form\StockType;
 use ProductBundle\Form\ProductType;
 
 /**
- * @Route("/members/producer/product")
+ * @Route("/members/producer/stock")
  */
 class StockController extends Controller
 {
@@ -33,7 +33,13 @@ class StockController extends Controller
         $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
         $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
 
-        $products = $this->getUser()->getProducer()->getStocks();
+        $producer = $this->getUser()->getProducer();
+
+        if( null === $producer ){
+            throw new AccessDeniedException();
+        }
+
+        $products = $producer->getStocks();
 
         return $this->render('ProducerBundle:Stock:index.html.twig', array(
             'products' => $products,

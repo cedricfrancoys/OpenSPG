@@ -15,14 +15,19 @@
 					<tr>
 						<th>{{"Product"|trans({},"stock")}}</th>
 						<th>{{"Stock"|trans({},"stock")}}</th>
-						<th><a href="{{ path('producer_stock_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+						<th>{{"Price"|trans({},"stock")}}</th>
+						<th>
+							<a href="{{ path('producer_stock_add') }}" class="btn btn-success">{{"Add stock"|trans({},"stock")}}</a>
+							<a href="{{ path('producer_product_add') }}" class="btn btn-success">{{"Add product"|trans({},"stock")}}</a>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for product in products %}
 						<tr>
 							<td>{{product.Product.name}}</td>
-							<td>{{product.amount}}</td>
+							<td>{{product.amount}}{{product.unit}}</td>
+							<td>{{product.price}} €/{{product.unit}}</td>
 							<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}

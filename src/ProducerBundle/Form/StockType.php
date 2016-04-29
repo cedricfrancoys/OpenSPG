@@ -29,10 +29,10 @@ class StockType extends AbstractType
                 'class' => 'ProductBundle:Product',
                 'choice_label' => 'name'
             ))
-            ->add('amount', NumberType::class)
-            ->add('caduce')
-            ->add('price', MoneyType::class)
             ->add('unit')
+            ->add('amount', NumberType::class)
+            ->add('price', MoneyType::class)
+            ->add('caduce')
             ->add('save', SubmitType::class)
         ;
     }

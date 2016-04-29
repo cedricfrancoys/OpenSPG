@@ -1,0 +1,94 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Add product"|trans({},"product")}}{% endblock %}
+
+{% block pageTitleText %}{{"Add product"|trans({},"product")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container add">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+	<div class="modal fade" id="group_modal" tabindex="1" role="dialog">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">{{ "Add group"|trans({},'product') }}</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		{{ form_start(groupForm) }}
+						{{ form_errors(groupForm) }}
+					{{ form_end(groupForm) }}
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+		        	<button type="button" class="btn btn-primary saveBtn" id="saveGroupBtn">{{"Create group"|trans({},'product')}}</button>
+		      	</div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="modal fade" id="family_modal" tabindex="1" role="dialog">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">{{ "Add family"|trans({},'product') }}</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		{{ form_start(familyForm) }}
+						{{ form_errors(familyForm) }}
+					{{ form_end(familyForm) }}
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+		        	<button type="button" class="btn btn-primary saveBtn" id="saveFamilyBtn">{{"Create family"|trans({},'product')}}</button>
+		      	</div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="modal fade" id="variety_modal" tabindex="1" role="dialog">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">{{ "Add variety"|trans({},'product') }}</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		{{ form_start(varietyForm) }}
+						{{ form_errors(varietyForm) }}
+					{{ form_end(varietyForm) }}
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+		        	<button type="button" class="btn btn-primary saveBtn" id="saveVarietyBtn">{{"Create variety"|trans({},'product')}}</button>
+		      	</div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'product' }) }}"></script>
+		{% javascripts
+        'bundles/producer/js/product.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

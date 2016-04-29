@@ -1,6 +1,6 @@
 Products: Productos
 Product: Producto
-Stock: Existencia
+Stock: Stock
 Amount: Cantidad
 Caduce: Caducidad
 Price: Precio
@@ -13,3 +13,5 @@ kg: kg
 l: l
 unit: unidad
 Stocks: Stock
+Add stock: Añadir stock
+Add product: Añadir producto

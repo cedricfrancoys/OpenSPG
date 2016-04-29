@@ -11,9 +11,11 @@ if (!String.prototype.endsWith) {
 }
 
 jQuery(document).ready(function() {
-    $('[type=password]').first()
-    	.after('<button class="btn-default btn separate" type="button" data-action="toggle_passwd">'+Translator.trans('Toggle password', {}, 'management')+'</button>')
-    	.after('<button class="btn-default btn separate" type="button" data-action="generate_passwd">'+Translator.trans('Generate password', {}, 'management')+'</button>');
+    if(!$('form.login').size()){
+        $('[type=password]').first()
+        	.after('<button class="btn-default btn separate" type="button" data-action="toggle_passwd">'+Translator.trans('Toggle password', {}, 'management')+'</button>')
+    	   .after('<button class="btn-default btn separate" type="button" data-action="generate_passwd">'+Translator.trans('Generate password', {}, 'management')+'</button>');
+        }
     $('[data-action=generate_passwd]').on('click', function(e){
     	var randomPassword = new RandomPassword();
     	var inp = $(this).prevAll('input');

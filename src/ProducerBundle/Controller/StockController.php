@@ -31,28 +31,27 @@ class StockController extends Controller
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
+        $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
 
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('ProducerBundle:Stock')->findByUser($this->getUser());
+        $products = $this->getUser()->getProducer()->getStocks();
 
         return $this->render('ProducerBundle:Stock:index.html.twig', array(
-            'products' => $products
+            'products' => $products,
+            'menu' => 'account'
         ));
     }
 
     /**
      * @Route("/add")
      * @Security("has_role('ROLE_PRODUCER')")
-     * @Method({"POST"})
      */
     public function addAction(Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
-        $breadcrumbs->addItem("add", $this->get("router")->generate("producer_stock_add"));
+        $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
+        $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_stock_add"));
 
         $stock = new Stock();
         $product = new Product();

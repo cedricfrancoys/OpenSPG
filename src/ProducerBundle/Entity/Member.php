@@ -43,6 +43,13 @@ class Member
     */
     protected $Properties;
 
+    /**
+    * @var Stocks
+    *
+    * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Stock", mappedBy="Producer", cascade={"persist"})
+    */
+    protected $Stocks;
+
     public function __toString()
     {
         return ($this->getUser()) ? $this->getUser()->getName() . ' ' . $this->getUser()->getSurname() : '';
@@ -148,5 +155,39 @@ class Member
     public function getActiveAsProducer()
     {
         return $this->activeAsProducer;
+    }
+
+    /**
+     * Add stock
+     *
+     * @param \ProducerBundle\Entity\Stock $stock
+     *
+     * @return Member
+     */
+    public function addStock(\ProducerBundle\Entity\Stock $stock)
+    {
+        $this->Stocks[] = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Remove stock
+     *
+     * @param \ProducerBundle\Entity\Stock $stock
+     */
+    public function removeStock(\ProducerBundle\Entity\Stock $stock)
+    {
+        $this->Stocks->removeElement($stock);
+    }
+
+    /**
+     * Get stocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStocks()
+    {
+        return $this->Stocks;
     }
 }

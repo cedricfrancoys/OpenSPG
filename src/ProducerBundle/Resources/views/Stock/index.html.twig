@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{"Products"|trans({},"stock")}}{% endblock %}
+{% block title %}{{"Stocks"|trans({},"stock")}}{% endblock %}
 
-{% block pageTitleText %}{{"Products"|trans({},"stock")}}{% endblock %}
+{% block pageTitleText %}{{"Stocks"|trans({},"stock")}}{% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
 					<tr>
 						<th>{{"Product"|trans({},"stock")}}</th>
 						<th>{{"Stock"|trans({},"stock")}}</th>
-						<th><a href="{{ path('producer_stock_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th><a href="{{ path('producer_stock_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,7 +23,7 @@
 						<tr>
 							<td>{{product.Product.name}}</td>
 							<td>{{product.amount}}</td>
-							<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a></td>
+							<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

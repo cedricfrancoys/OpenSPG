@@ -66,7 +66,7 @@ class Stock
     /**
     * @var Producer
     *
-    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member")
+    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Stocks")
     */
     private $Producer;
 

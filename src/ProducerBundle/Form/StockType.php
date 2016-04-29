@@ -32,7 +32,7 @@ class StockType extends AbstractType
             ->add('amount', NumberType::class)
             ->add('caduce')
             ->add('price', MoneyType::class)
-            ->add('isExchangeable')
+            ->add('unit')
             ->add('save', SubmitType::class)
         ;
     }

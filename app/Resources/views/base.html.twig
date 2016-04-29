@@ -51,6 +51,7 @@
                           </ul>
                           <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}
+                                    <li{% if menu == 'account' %} class="active"{% endif %}><a href="{{ path('app_account_index') }}">{% trans %}My Account{% endtrans %}</a></li>
                                     <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}Log out{% endtrans %}</a></li>
                                 {% else %}
                                     <li{% if menu == 'login' %} class="active"{% endif %}><a href="{{ path('fos_user_security_login') }}">{% trans %}Log in{% endtrans %}</a></li>

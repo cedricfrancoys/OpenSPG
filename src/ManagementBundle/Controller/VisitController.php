@@ -22,7 +22,7 @@ use ProducerBundle\Event\VisitEvent;
 class VisitController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      */
     public function indexAction(Request $request)

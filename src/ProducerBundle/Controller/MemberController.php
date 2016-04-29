@@ -26,12 +26,20 @@ use UserBundle\Entity\User;
 class MemberController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
     {
-        return $this->render('ProducerBundle:Member:index.html.twig');
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+
+        $data = array(
+            'menu' => 'account'
+        );
+
+        return $this->render('ProducerBundle:Member:index.html.twig', $data);
     }
 
     /**
@@ -113,9 +121,14 @@ class MemberController extends Controller
      */
     public function profileAction(Request $request){
 
-    	$em = $this->getDoctrine()->getManager();
+    	$breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Profile", $this->get("router")->generate("producer_member_profile"));
 
-        $member = $em->getRepository('ProducerBundle:Member')->getUser($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+
+        $member = $this->getUser()->getProducer();
 
     	$form = $this->createForm(ProfileType::class, $member);
 
@@ -142,7 +155,8 @@ class MemberController extends Controller
 
 
     	return $this->render('ProducerBundle:Member:profile.html.twig', array(
-    		'form' => $form->createView()
+    		'form' => $form->createView(),
+            'menu' => 'account'
     	));
     }
 }

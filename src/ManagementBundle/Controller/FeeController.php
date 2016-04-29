@@ -25,7 +25,7 @@ use ManagementBundle\Form\FeeType;
 class FeeController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template
      */

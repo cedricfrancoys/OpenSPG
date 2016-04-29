@@ -20,7 +20,7 @@ use ManagementBundle\Form\StockType;
 class StockController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */

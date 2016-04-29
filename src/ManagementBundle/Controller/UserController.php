@@ -20,7 +20,7 @@ use ManagementBundle\Form\UserType;
 class UserController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template
      */

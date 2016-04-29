@@ -24,7 +24,7 @@ use ManagementBundle\Form\ProductType;
 class ProductController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */

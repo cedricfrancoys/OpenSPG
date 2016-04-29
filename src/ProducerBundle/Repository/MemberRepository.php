@@ -10,23 +10,23 @@ namespace ProducerBundle\Repository;
  */
 class MemberRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getUser(\FOS\UserBundle\Model\UserInterface $user)
-	{
-		$em = $this->getEntityManager();
+	// public function getUser(\FOS\UserBundle\Model\UserInterface $user)
+	// {
+	// 	$em = $this->getEntityManager();
 
-		$q = $em->createQuery(
-			'SELECT
-				u,
-				pm
-			FROM
-				ProducerBundle:Member pm
-			LEFT JOIN
-				pm.User u
-			WHERE
-				pm.User = :user'
-		);
-		$q->setParameter('user', $user);
+	// 	$q = $em->createQuery(
+	// 		'SELECT
+	// 			u,
+	// 			p
+	// 		FROM
+	// 			ProducerBundle:Member p
+	// 		LEFT JOIN
+	// 			UserBundle:User u WITH p.id = u.Producer
+	// 		WHERE
+	// 			p.User = :user'
+	// 	);
+	// 	$q->setParameter('user', $user);
 
-		return $q->getOneOrNullResult();
-	}
+	// 	return $q->getOneOrNullResult();
+	// }
 }

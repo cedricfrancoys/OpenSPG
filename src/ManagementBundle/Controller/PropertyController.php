@@ -30,7 +30,7 @@ use ProducerBundle\Entity\Member;
 class PropertyController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template()
      */

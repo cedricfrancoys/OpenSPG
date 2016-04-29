@@ -17,7 +17,15 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('name')
+            ->add('surname')
+            ->add('phone')
             ->add('email')
+            ->add('image', null, array(
+                'image_path' => 'webPath',
+                'allow_remove' => false,
+                'required' => false
+            ))
         ;
     }
 

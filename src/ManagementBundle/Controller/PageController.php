@@ -27,7 +27,7 @@ use ManagementBundle\Form\PageType;
 class PageController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_MANAGEMENT')")
      * @Template
      */

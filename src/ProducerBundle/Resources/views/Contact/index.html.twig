@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Contactar productor{% endblock %}
+{% block pageTitleText %}Contactar productor{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
+					{% endfor %}
+				{% endfor %}
+			    {{ form_start(form) }}
+					{{ form_errors(form) }}
+					{{ form_row( form.name ) }}
+					{{ form_row( form.email ) }}
+					{{ form_row( form.message ) }}
+					{% if stock %}
+						<div class="form-group">
+							Solicito información sobre "{{ stock.Product.name }}"
+						</div>
+					{% endif %}
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

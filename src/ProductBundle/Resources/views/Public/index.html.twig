@@ -15,6 +15,8 @@
 					<tr>
 						<th>{{"Producto"|trans({},"product")}}</th>
 						<th>{{"Productor"|trans({},"product")}}</th>
+						<th>{{"Amount"|trans({},"stock")}}</th>
+						<th>{{"Price"|trans({},"stock")}}</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -22,8 +24,13 @@
 					{% for product in products %}
 						<tr>
 							<td>{{product.Product.name}}</td>
-							<td><a href="{{ path('producer_producer_show', {id:product.producer}) }}">{{product.Producer.Member.name}} {{product.Producer.Member.surname}}</a></td>
-							<td class="action"><a href="{{ path('cart_cart_add', {"from":"product_public_index", "product_id":product.id}) }}"><span class="glyphicon glyphicon-shopping-cart action addToBasket" aria-hidden="true"></span></a></td>
+							<td><a href="{{ path('producer_producer_show', {id:product.producer}) }}">{{product.Producer.User.name}} {{product.Producer.User.surname}}</a></td>
+							<td>{{product.amount}}{{product.unit}}</td>
+							<td>{{product.price}}/{{product.unit}}</td>
+							<td class="action">
+								{# <a href="{{ path('cart_cart_add', {"from":"product_public_index", "product_id":product.id}) }}"><span class="glyphicon glyphicon-shopping-cart action addToBasket" aria-hidden="true"></span></a> #}
+								<a href="{{ path('producer_contact_index', {"from":"product_public_index", "stock_id":product.id}) }}" title="Contactar productor para este producto"><span class="glyphicon glyphicon-envelope action contactProducer" aria-hidden="true"></span></a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

@@ -50,6 +50,13 @@ class Contact
     private $received;
 
     /**
+    * @var \UserBundle\Entity\User
+    *
+    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+    */
+    private $Receiver;
+
+    /**
      * Get id
      *
      * @return int
@@ -153,5 +160,29 @@ class Contact
     public function getReceived()
     {
         return $this->received;
+    }
+
+    /**
+     * Set receiver
+     *
+     * @param \UserBundle\Entity\User $receiver
+     *
+     * @return Contact
+     */
+    public function setReceiver(\UserBundle\Entity\User $receiver = null)
+    {
+        $this->Receiver = $receiver;
+
+        return $this;
+    }
+
+    /**
+     * Get receiver
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getReceiver()
+    {
+        return $this->Receiver;
     }
 }

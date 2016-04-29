@@ -27,7 +27,9 @@
 							<td>{{producer.User.surname}}</td>
 							<td>{{producer.User.phone}}</td>
 							<td>{{producer.User.Node}}</td>
-							<td>contact</td>
+							<td>
+								<a href="{{ path('producer_contact_index', {"from":"producer_producer_index", "producer_id":producer.id}) }}" title="Contactar productor"><span class="glyphicon glyphicon-envelope action contactProducer" aria-hidden="true"></span></a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -39,6 +41,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
 	{{ parent() }}

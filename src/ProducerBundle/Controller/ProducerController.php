@@ -39,7 +39,8 @@ class ProducerController extends Controller
         $producers = $em->getRepository('ProducerBundle:Member')->findAll();
 
         $data = array(
-            'producers' => $producers
+            'producers' => $producers,
+            'menu' => 'producer'
         );
 
         return $this->render('ProducerBundle:Producer:index.html.twig', $data);

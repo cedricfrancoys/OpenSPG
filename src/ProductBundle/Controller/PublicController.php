@@ -30,16 +30,16 @@ class PublicController extends Controller
         $products = $em->
             getRepository('ProducerBundle:Stock')
             ->createQueryBuilder('s')
-            ->select('s')
+            ->select('s,pd,u')
             ->leftJoin('s.Product', 'p')
             ->leftJoin('s.Producer', 'pd')
-            ->leftJoin('pd.Member', 'm')
+            ->leftJoin('pd.User', 'u')
             ->getQuery()
             ->getResult();
 
         $data = array(
             'products' => $products,
-            'menu' => 'products'
+            'menu' => 'product'
         );
 
         return $data;

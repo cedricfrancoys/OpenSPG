@@ -74,6 +74,9 @@ class MemberController extends Controller
             $user->setEmail($pUser['email']);
             $user->setPlainPassword($pUser['password']['first']);
             $user->setUsername($pUser['username']);
+            $user->setName($pUser['name']);
+            $user->setSurname($pUser['surname']);
+            $user->setPhone($pUser['phone']);
             
             $user->addRole('ROLE_MEMBER');
             $user->addRole('ROLE_CONSUMER');
@@ -83,6 +86,7 @@ class MemberController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $member->setUser($user);
+            $member->setActiveAsProducer(false);
 
             $em->persist($member);
             $em->flush();

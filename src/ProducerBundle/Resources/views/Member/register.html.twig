@@ -8,7 +8,7 @@
 
 	{{ parent() }}
 
-    <div class="container">
+    <div class="container registration">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
 			{{ form_row(form.User) }}
@@ -20,7 +20,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+	{% stylesheets 
+		'bundles/producer/css/*' 
+		'bundles/management/css/edit.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}	
@@ -28,7 +30,9 @@
 	{{ parent() }}
 	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'producer' }) }}"></script>
 	{% javascripts
-        'bundles/producer/js/*' %}
+        'bundles/producer/js/*'
+        'bundles/management/js/edit.js'
+       	%}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

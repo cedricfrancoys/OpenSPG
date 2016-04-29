@@ -1,15 +1,4 @@
 jQuery(document).ready(function() {
-    $('[type=password]')
-    	.after('<button class="btn-default btn separate" type="button" data-action="toggle_passwd">'+Translator.trans('Toggle password', {}, 'management')+'</button>')
-    	.after('<button class="btn-default btn separate" type="button" data-action="generate_passwd">'+Translator.trans('Generate password', {}, 'management')+'</button>');
-    $('[data-action=generate_passwd]').on('click', function(e){
-    	var randomPassword = new RandomPassword();
-    	$(this).prevAll('input').val(randomPassword.create(15));
-    });
-    $('[data-action=toggle_passwd]').on('click', function(e){
-    	var type = $(this).prevAll('input')[0].getAttribute('type');
-    	$(this).prevAll('input')[0].setAttribute('type', (type=='text')?'password':'text');
-    });
     $('#producer_User_sendEmail').closest('.form-group').hide();
     $('#producer_User_enabled').on('click', function(e){
     	if(this.checked){

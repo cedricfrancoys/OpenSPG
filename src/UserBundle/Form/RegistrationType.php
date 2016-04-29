@@ -17,6 +17,10 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('name')
+            ->add('surname')
+            ->add('phone')
+            ->add('email')
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
@@ -25,7 +29,11 @@ class RegistrationType extends AbstractType
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password')
             ))
-            ->add('email')
+            ->add('image', null, array(
+                'image_path' => 'webPath',
+                'allow_remove' => false,
+                'required' => false
+            ))
         ;
     }
 

@@ -11,14 +11,14 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
 use ProducerBundle\Form\PropertyType;
-use UserBundle\Form\UserType;
+use UserBundle\Form\RegistrationType as BaseRegistrationType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('User', userType::class, array(
+            ->add('User', BaseRegistrationType::class, array(
                 'label' => false
             ))
             // ->add('Properties', CollectionType::class, array(

@@ -22,6 +22,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <div class="body">
         {% block body %}
            
             {% block navbar %}
@@ -74,6 +75,7 @@
             {% endblock %}
 
         {% endblock %}
+        </div>
         
         {% block footer %}
             <footer>

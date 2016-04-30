@@ -16,3 +16,7 @@ tr:hover td.action span{
 span.action{
 	cursor: pointer;
 }
+tr.legend td{
+	font-size: 1.3em;
+	font-weight: bold;
+}

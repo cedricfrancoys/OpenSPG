@@ -5,6 +5,7 @@ namespace ProducerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,7 +52,6 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isValid()) {
-            $product->setProducer($member);
 
             $em->persist($product);
             $em->flush();
@@ -75,17 +75,7 @@ class ProductController extends Controller
             'form' => $form->createView(),
             'groupForm' => $groupForm->createView(),
             'familyForm' => $familyForm->createView(),
-            'varietyForm' => $varietyForm->createView(),
-            'groups' => json_encode($groups),
-            'families' => json_encode($families),
-            'varieties' => json_encode($varieties),
-            'group_get_path' => $this->generateUrl('product_group_get'),
-            'group_add_path' => $this->generateUrl('product_group_add'),
-            'family_get_path' => $this->generateUrl('product_family_get'),
-            'family_add_path' => $this->generateUrl('product_family_add'),
-            'variety_get_path' => $this->generateUrl('product_variety_get'),
-            'variety_add_path' => $this->generateUrl('product_variety_add'),
-            'product_add_path' => $this->generateUrl('product_product_add')
+            'varietyForm' => $varietyForm->createView()
         ));
     }
 

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RegistrationType extends AbstractType
 {
@@ -21,6 +22,9 @@ class RegistrationType extends AbstractType
             ->add('surname')
             ->add('phone')
             ->add('email')
+            ->add('Node', EntityType::class, array(
+                'class' => 'NodeBundle\\Entity\\Node'
+            ))
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',

@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormView;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use ProductBundle\Form\DataTransformer\GroupTransformer;
@@ -26,7 +27,6 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
             ->add('Group', EntityType::class, array(
                 'class' => 'ProductBundle\\Entity\\ProductGroup',
                 'placeholder' => 'Please choose...'
@@ -37,7 +37,26 @@ class ProductType extends AbstractType
             ))
             ->add('Variety', EntityType::class, array(
                 'class' => 'ProductBundle\\Entity\\Variety',
-                'placeholder' => 'Please choose...'
+                'placeholder' => 'Please choose...',
+                'required' => false
+            ))
+            ->add('name')
+            ->add('save', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
+            ->add('saveAndClose', SubmitType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array('btn'=>'buttons')
+            ))
+            ->add('cancel', ResetType::class, array(
+                'translation_domain' => 'messages',
+                'attr' => array(
+                    'btn' => 'buttons',
+                    'class' => 'btn-danger cancel-btn',
+                    'data-path' => 'producer_stock_index'
+                ),
+                'label' => 'Close'
             ))
         ;
 

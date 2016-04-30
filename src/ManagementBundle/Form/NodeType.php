@@ -22,6 +22,9 @@ class NodeType extends AbstractType
             ->add('name')
             ->add('address')
             ->add('Location', LocationType::class)
+            ->add('Admin', EntityType::class, array(
+                'class' => 'UserBundle\\Entity\\User'
+            ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array('btn'=>'buttons')

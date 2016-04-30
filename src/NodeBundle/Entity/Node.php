@@ -43,6 +43,14 @@ class Node
     */
     private $Location;
 
+    /**
+    * @var Admin
+    *
+    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+    */
+    private $Admin;
+
+
     public function __toString()
     {
         return $this->getName();
@@ -128,5 +136,29 @@ class Node
     public function getLocation()
     {
         return $this->Location;
+    }
+
+    /**
+     * Set admin
+     *
+     * @param \UserBundle\Entity\User $admin
+     *
+     * @return Node
+     */
+    public function setAdmin(\UserBundle\Entity\User $admin = null)
+    {
+        $this->Admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getAdmin()
+    {
+        return $this->Admin;
     }
 }

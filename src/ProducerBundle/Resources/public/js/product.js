@@ -3,9 +3,9 @@ String.prototype.capitalizeFirstLetter = function() {
 }
 
 jQuery(document).ready(function() {
-    $('#product_Group').after('<button class="btn-default btn btn-add" id="group_add" type="button" data-toggle="modal" data-target="#group_modal">Add group</button>'); 
-    $('#product_Family').after('<button class="btn-default btn btn-add" id="family_add" type="button" data-toggle="modal" data-target="#family_modal">Add family</button>'); 
-    $('#product_Variety').after('<button class="btn-default btn btn-add" id="variety_add" type="button" data-toggle="modal" data-target="#variety_modal">Add variety</button>'); 
+    $('#product_Group').after('<button class="btn-default btn btn-add" id="group_add" type="button" data-toggle="modal" data-target="#group_modal">'+Translator.trans('Add group', {}, 'product')+'</button>'); 
+    $('#product_Family').after('<button class="btn-default btn btn-add" id="family_add" type="button" data-toggle="modal" data-target="#family_modal">'+Translator.trans('Add family', {}, 'product')+'</button>'); 
+    $('#product_Variety').after('<button class="btn-default btn btn-add" id="variety_add" type="button" data-toggle="modal" data-target="#variety_modal">'+Translator.trans('Add variety', {}, 'product')+'</button>'); 
     if ($('div.container.add').size()) {
     	$('#product_Family').empty();
     	$('#product_Variety').empty();

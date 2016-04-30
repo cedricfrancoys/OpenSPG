@@ -12,6 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Form\Type\HiddenEntityType;
 
 class VarietyType extends AbstractType
 {

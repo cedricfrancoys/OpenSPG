@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\ContactType;
 
+use AppBundle\Util\Util;
+
 class ContactController extends Controller
 {
     /**
@@ -33,7 +35,7 @@ class ContactController extends Controller
             $em->persist($contact);
             $em->flush();
 
-            $this->sendReceivedMail($contact);
+            Util::sendReceivedMail($contact, $this->get('translator'), $this->get('mailer'), $this->get('twig'));
 
             $session = $this->get('session');
             $trans = $this->get('translator');
@@ -58,26 +60,26 @@ class ContactController extends Controller
         return $this->render('AppBundle:Contact:index.html.twig', $data);
     }
 
-    protected function sendReceivedMail(Contact $contact)
-    {
-        $trans = $this->get('translator');
+    // protected function sendReceivedMail(Contact $contact)
+    // {
+    //     $trans = $this->get('translator');
 
-        $subject = $trans->trans('New contact request received', array(), 'contact');
+    //     $subject = $trans->trans('New contact request received', array(), 'contact');
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
-            ->setFrom('hellp@raac.es')
-            ->setTo('mhauptma73@gmail.com')
-            ->setBody(
-                $this->renderView(
-                    'AppBundle:Contact:admin_mail.html.twig',
-                    array(
-                        'contact' => $contact
-                    )
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
-    }
+    //     $message = \Swift_Message::newInstance()
+    //         ->setSubject($subject)
+    //         ->setFrom('hello@raac.es')
+    //         ->setTo('mhauptma73@gmail.com')
+    //         ->setBody(
+    //             $this->renderView(
+    //                 'AppBundle:Contact:admin_mail.html.twig',
+    //                 array(
+    //                     'contact' => $contact
+    //                 )
+    //             ),
+    //             'text/html'
+    //         )
+    //     ;
+    //     $this->get('mailer')->send($message);
+    // }
 }

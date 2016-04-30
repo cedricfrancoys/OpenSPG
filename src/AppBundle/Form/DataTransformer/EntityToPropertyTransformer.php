@@ -31,12 +31,8 @@ class EntityToPropertyTransformer implements DataTransformerInterface
             return null;
         }
 
-        //if (!$this->unitOfWork->isInIdentityMap($entity) and !$this->unitOfWork->isScheduledForInsert($entity)) {
-        //    throw new TransformationFailedException("Entities must be managed");
-        //}
-
         return !empty($this->property)
-            ? PropertyAccess::getPropertyAccessor()->getValue($entity, $this->property)
+            ? PropertyAccess::createPropertyAccessor()->getValue($entity, $this->property)
             : current($this->unitOfWork->getEntityIdentifier($entity));
     }
 

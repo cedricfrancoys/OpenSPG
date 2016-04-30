@@ -13,6 +13,32 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+    }
+
+    public function testLegal()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/legal');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testCookies()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/politica_de_cookies');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testAbout()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/el_spg');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

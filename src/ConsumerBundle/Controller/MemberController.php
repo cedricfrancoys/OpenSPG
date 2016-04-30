@@ -23,12 +23,20 @@ use UserBundle\Entity\User;
 class MemberController extends Controller
 {
     /**
-     * @Route("/members/consumer/")
+     * @Route("/members/consumer/", options={"expose":true})
      * @Security("has_role('ROLE_CONSUMER')")
      */
     public function indexAction()
     {
-        return $this->render('ConsumerBundle:Member:index.html.twig');
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("consumer_member_index"));
+
+        $data = array(
+            'menu' => 'account'
+        );
+
+        return $this->render('ConsumerBundle:Member:index.html.twig', $data);
     }
 
     /**
@@ -95,7 +103,8 @@ class MemberController extends Controller
         }
 
         return $this->render('ConsumerBundle:Member:register.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu'=> 'registration'
         ));
     }
 
@@ -105,7 +114,12 @@ class MemberController extends Controller
      */
     public function profileAction(Request $request){
 
-    	$em = $this->getDoctrine()->getManager();
+    	$breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("consumer_member_index"));
+        $breadcrumbs->addItem("Profile", $this->get("router")->generate("consumer_member_profile"));
+
+        $em = $this->getDoctrine()->getManager();
 
         $member = $em->getRepository('ConsumerBundle:Member')->getUser($this->getUser());
 
@@ -134,7 +148,8 @@ class MemberController extends Controller
 
 
     	return $this->render('ConsumerBundle:Member:profile.html.twig', array(
-    		'form' => $form->createView()
+    		'form' => $form->createView(),
+            'menu' => 'account'
     	));
     }
 }

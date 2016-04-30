@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{% trans from "consumer" %}Consumers{% endtrans %}{% endblock %}
+{% block title %}{% trans from "consumer" %}Dashboard{% endtrans %}{% endblock %}
 
-{% block pageTitleText %}{% trans from "consumer" %}Consumers{% endtrans %}{% endblock %}
+{% block pageTitleText %}{% trans from "consumer" %}Dashboard{% endtrans %}{% endblock %}
 
 {% block body %}
 
@@ -16,7 +16,7 @@
 						<h3 class="media-heading text-primary-theme">{% trans from "consumer" %}My Data{% endtrans %}</h3>
 						<ul>
 							<li><a href="{{ path('consumer_member_profile') }}">{% trans from "consumer" %}Profile{% endtrans %}</a></li>
-							<li><a href="#">{% trans from "consumer" %}Visits{% endtrans %}</a></li>
+							<li><a href="{{ path('consumer_visit_index') }}">{% trans from "consumer" %}Visits{% endtrans %}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -24,8 +24,7 @@
 					<div class="media list">
 						<h3 class="media-heading text-danger-theme">{% trans from "consumer" %}Communication{% endtrans %}</h3>
 						<ul>
-							<li><a href="#">{% trans from "consumer" %}Messages{% endtrans %}</a></li>
-							<li><a href="#">{% trans from "consumer" %}Enquiries{% endtrans %}</a></li>
+							<li><a href="{{ path('consumer_contact_index') }}">{% trans from "consumer" %}Messages{% endtrans %}</a></li>
 						</ul>
 					</div>
 				</div>

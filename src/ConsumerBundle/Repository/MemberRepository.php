@@ -23,7 +23,7 @@ class MemberRepository extends \Doctrine\ORM\EntityRepository
 			LEFT JOIN
 				cm.User u
 			WHERE
-				cm.User = :user'
+				u = :user'
 		);
 		$q->setParameter('user', $user);
 

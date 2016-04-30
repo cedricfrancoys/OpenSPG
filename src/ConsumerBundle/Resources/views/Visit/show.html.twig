@@ -1,0 +1,164 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    <table class="table">
+	    	<tbody>
+	    		<tr class="legend">
+	    			<td colspan="2">{{"Information about the visit"|trans({},"visit")}}</td>
+	    		</tr>
+		    		<tr>
+		    			<td style="width:400px;">{{ "Visit date"|trans({},'visit') }}:</td>
+		    			<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Participants"|trans({},'visit') }}:</td>
+		    			<td>
+		    				{% for participant in visit.Participants %}
+		    					{{ participant }}<br />
+		    				{% endfor %}
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Start time"|trans({},'visit') }}:</td>
+		    			<td>{{visit.startTime is null ? 'pending'|trans({},'visit') : visit.startTime|date('H:i')}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "End time"|trans({},'visit') }}:</td>
+		    			<td>{{visit.endTime is null ? 'pending'|trans({},'visit') : visit.endTime|date('H:i')}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Property"|trans({},'visit') }}:</td>
+		    			<td>{{visit.property}}</td>
+		    		</tr>
+	    		<tr class="legend">
+	    			<td colspan="2">{{ "Fertilizers"|trans({},'visit') }}</td>
+	    		</tr>
+	    			<tr>
+		    			<td>{{ "Did fertilize"|trans({},'visit') }}:</td>
+		    			<td>{% if visit.didFertilize %}Si{% else %}No{% endif %}</td>
+		    		</tr>
+		    		{% if visit.didFertilize %}
+			    		<tr>
+			    			<td>{{ "Fertlize with"|trans({},'visit') }}:</td>
+			    			<td>{{visit.fertlizeWith}}</td>
+			    		</tr>
+			    		<tr>
+			    			<td>{{ "Fertilize qty"|trans({},'visit') }}:</td>
+			    			<td>{{visit.fertilizeQty}}</td>
+			    		</tr>
+			    		<tr>
+			    			<td>{{ "Fertilize origin"|trans({},'visit') }}:</td>
+			    			<td>{{visit.fertilizeOrigin}}</td>
+			    		</tr>
+			    	{% endif %}
+		    		<tr>
+		    			<td>{{ "Fertilizer observations"|trans({},'visit') }}:</td>
+		    			<td>{{visit.fertilizerObservations}}</td>
+		    		</tr>
+		    	<tr class="legend">
+	    			<td colspan="2">{{ "Soil and grass management"|trans({},'visit') }}</td>
+	    		</tr>
+	    			<tr>
+		    			<td>{{ "Does soil conservation"|trans({},'visit') }}:</td>
+		    			<td>{{visit.doesSoilConservation}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc green manure"|trans({},'visit') }}:</td>
+		    			<td>{{visit.scGreenManure}}</td>
+		    		</tr><tr>
+		    			<td>{{ "Sc mulching"|trans({},'visit') }}:</td>
+		    			<td>{% if visit.scMulching %}Si{% else %}No{% endif %}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc not plow"|trans({},'visit') }}:</td>
+		    			<td>{% if visit.scNotPlow %}Si{% else %}No{% endif %}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc herbs state"|trans({},'visit') }}:</td>
+		    			<td>{% if visit.scHerbsState %}Si{% else %}No{% endif %}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc herbs distribution"|trans({},'visit') }}:</td>
+		    			<td>{% if visit.scHerbsDistribution %}Si{% else %}No{% endif %}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc herbs control"|trans({},'visit') }}:</td>
+		    			<td>{{visit.scHerbsControl}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Sc oberservations"|trans({},'visit') }}:</td>
+		    			<td>{{visit.scOberservations}}</td>
+		    		</tr>
+		    	<tr class="legend">
+	    			<td colspan="2">{{ "Pest and disease management"|trans({},'visit') }}</td>
+	    		</tr>
+	    			<tr>
+		    			<td>{{ "Pc pests"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcPests}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pc pests crops"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcPestsCrops}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pc pests damage"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcPestsDamage}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pc control"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcControl}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pc prevention"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcPrevention}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pc oberservations"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pcOberservations}}</td>
+		    		</tr>
+		    	<tr class="legend">
+	    			<td colspan="2">{{ "Various"|trans({},'visit') }}</td>
+	    		</tr>
+	    			<tr>
+		    			<td>{{ "Pruning rests"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pruningRests}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Agroquimic presence"|trans({},'visit') }}:</td>
+		    			<td>{{visit.agroquimicPresence}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Plastic waste"|trans({},'visit') }}:</td>
+		    			<td>{{visit.plasticWaste}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Agroquimic packaging"|trans({},'visit') }}:</td>
+		    			<td>{{visit.agroquimicPackaging}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Pesticide supsition"|trans({},'visit') }}:</td>
+		    			<td>{{visit.pesticideSupsition}}</td>
+		    		</tr>
+	    	</tbody>
+	    </table>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

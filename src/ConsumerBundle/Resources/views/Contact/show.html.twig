@@ -1,0 +1,79 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Contact"|trans({},"contact")}}{% endblock %}
+
+{% block pageTitleText %}{{"Contact"|trans({},"contact")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-4"><strong>{{"Receiver"|trans({},"contact")}}:</strong> {{contact.Receiver}}</div>
+			<div class="col-lg-4">
+				<strong>{{"MessageSent"|trans({},"contact")}}:</strong> {{contact.sent|date('d/m/Y H:i')}} 
+				{# <button data-target="#reply_modal" data-toggle="modal" type="button" id="message_reply" class="btn-default btn">Responder</button> #}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12"><strong>{{"Message"|trans({},"contact")}}:</strong><br />{{contact.message}}</div>
+		</div>
+	</div>
+
+	{# <div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Respuestas</h3>
+			</div>
+		</div>
+	</div> #}
+
+	{% for reply in replys %}
+		<hr />
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<strong>{{"Sent"|trans({},"contact")}}:</strong> {{reply.sent|date('d/m/Y H:i')}} 
+				</div>
+				<div class="col-lg-9"><strong>{{"Message"|trans({},"contact")}}:</strong><br />{{reply.message|nl2br}}</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	<div class="modal fade" id="reply_modal" tabindex="1" role="dialog">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">{{ "Reply"|trans({},'contact') }}</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		{{ form_start(form) }}
+						{{ form_errors(form) }}
+					{{ form_end(form) }}
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+		        	<button type="button" class="btn btn-primary saveBtn" id="sendReplyBtn">{{"Send reply"|trans({},'contact')}}</button>
+		      	</div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+	{% javascripts
+        'bundles/producer/js/contact.js'
+       	%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

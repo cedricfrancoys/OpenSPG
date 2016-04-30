@@ -1,6 +1,6 @@
 <?php
 
-namespace ProducerBundle\Form;
+namespace ConsumerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -82,7 +82,7 @@ class VisitType extends AbstractType
                 'attr' => array(
                     'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'producer_visit_index'
+                    'data-path' => 'consumer_visit_index'
                 ),
                 'label' => 'Close'
             ))

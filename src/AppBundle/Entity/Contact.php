@@ -45,9 +45,16 @@ class Contact
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="received", type="datetime")
+     * @ORM\Column(name="received", type="datetime", nullable=true)
      */
     private $received;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="sent", type="datetime", nullable=true)
+     */
+    private $sent;
 
     /**
     * @var \UserBundle\Entity\User
@@ -55,6 +62,20 @@ class Contact
     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
     */
     private $Receiver;
+
+    /**
+    * @var \UserBundle\Entity\User
+    *
+    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+    */
+    private $Sender;
+
+    /**
+    * @var \AppBundle\Entity\Contact
+    *
+    * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Contact")
+    */
+    private $Parent;
 
     /**
      * Get id
@@ -184,5 +205,77 @@ class Contact
     public function getReceiver()
     {
         return $this->Receiver;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param \UserBundle\Entity\User $sender
+     *
+     * @return Contact
+     */
+    public function setSender(\UserBundle\Entity\User $sender = null)
+    {
+        $this->Sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getSender()
+    {
+        return $this->Sender;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Contact $parent
+     *
+     * @return Contact
+     */
+    public function setParent(\AppBundle\Entity\Contact $parent = null)
+    {
+        $this->Parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Contact
+     */
+    public function getParent()
+    {
+        return $this->Parent;
+    }
+
+    /**
+     * Set sent
+     *
+     * @param \DateTime $sent
+     *
+     * @return Contact
+     */
+    public function setSent($sent)
+    {
+        $this->sent = $sent;
+
+        return $this;
+    }
+
+    /**
+     * Get sent
+     *
+     * @return \DateTime
+     */
+    public function getSent()
+    {
+        return $this->sent;
     }
 }

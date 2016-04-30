@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Contacts"|trans({},"contact")}}{% endblock %}
+
+{% block pageTitleText %}{{"Contacts"|trans({},"contact")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"contact")}}</th>
+						<th>{{"Email"|trans({},"contact")}}</th>
+						<th>{{"Received"|trans({},"contact")}}</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for contact in contacts %}
+						<tr>
+							<td>{{contact.name}}</td>
+							<td><a href="mailto:{{contact.email}}">{{contact.email}}</a></td>
+							<td>{{contact.received|date('d/m/Y H:i')}}</td>
+							<td>
+								<a href="{{ path('producer_membercontact_show', {"id":contact.id}) }}" class="btn btn-success">{{"show"|trans({},"table")}}</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

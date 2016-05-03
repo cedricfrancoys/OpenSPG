@@ -20,12 +20,20 @@ class DefaultController extends Controller
             ->createQueryBuilder('v')
             ->where('v.visitDate IS NULL OR v.visitDate > :today')
             ->setParameter('today', new \DateTime())
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
 
+        $stocks = $em->getRepository('ProducerBundle:Stock')
+            ->createQueryBuilder('s')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;        
+
         $data = array(
-            'products' => array(),
+            'products' => $stocks,
             'nodes' => $nodes,
             'menu' => 'home',
             'upcomingVisits' => $upcomingVisits

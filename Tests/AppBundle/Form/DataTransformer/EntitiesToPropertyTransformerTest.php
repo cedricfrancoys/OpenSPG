@@ -23,16 +23,16 @@ class EntitiesToPropertyTransformerTest extends KernelTestCase
         $this->em = static::$kernel->getContainer()
                 ->get('doctrine')
                 ->getManager();
-
-        $contact = $this->getMock(Contact::class);;
-        $contact->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(10));
-        $this->array[] = $contact;
     }
 
     public function testTransform()
     {
+        $contact = $this->getMock(Contact::class);
+        $contact->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(10));
+        $this->array[] = $contact;
+
         $transformer = new EntitiesToPropertyTransformer($this->em, $this->cls);
 
         $result = $transformer->transform($this->array);
@@ -43,12 +43,15 @@ class EntitiesToPropertyTransformerTest extends KernelTestCase
 
     public function testReverseTransform()
     {
+    	$contact = $this->getMock(Contact::class);
+        $this->array[] = $contact;
+
     	$contactRepository = $this
             ->getMockBuilder(EntityRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
         $contactRepository->expects($this->once())
-            ->method('find')
+            ->method('findOneBy')
             ->will($this->returnValue($this->array[0]));
 
         $entityManager = $this

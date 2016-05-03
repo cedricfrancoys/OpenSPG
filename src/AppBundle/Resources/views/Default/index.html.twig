@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}OpenPGS - Open Source Participatory Garanty System{% endblock %}
+{% block title %}Red Agroecológica Alpujarra/Costa{% endblock %}
 
 {% block body %}
 
@@ -23,75 +23,72 @@
 	</div>
 
 	<div class="mainTitle">
-	<div class="container">
-	<h1>OpenPGS</h1>
-	<p>
-	{% trans %}ExplainSite{% endtrans %}
-	</p>
-	</div>
+		<div class="container">
+			<h1>Red Agroecológica Alpujarra/Costa</h1>
+			<p>
+				El SPG "Red Agroecológica Alpujarra/Costa" ofrece una certificación ecológica alternativa a la convencional, apoyándose en la participación de quienes producen y consumen productos agroecológicos, artesanales y sostenibles hechos localmente. A través de este sistema, las personas que se dedican a la agricultura y la artesanía, las asociaciones de consumo, las tiendas locales y particulares en general se benefician de un proyecto que busca un cambio en los actuales modelos de producción, consumo y distribución, basado en la confianza y la participación. 
+			</p>
+		</div>
 	</div>
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
-        {% for product in products %}{# Limit to 3 items #}
-        	<div class="col-lg-4">
-	          <img class="img-circle" src="themes/assets/images/nepali-momo.png" alt="{{ product.name }}" />
-	          <h2>{{ product.name }}</h2>
-	          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies</p>
-	          <p><a class="btn btn-default" href="#" role="button">&pound; 2.2 Add to cart &raquo;</a></p>
-	        </div><!-- /.col-lg-4 -->
-        {% endfor %}
-      </div><!-- /.row -->
-	</div>
-	
-	<div class="highlightSection">
+    {% if products|length %}
+	    <div class="container marketing">
+	      <!-- Three columns of text below the carousel -->
+	      <div class="row">
+	      	<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Products"|trans({},'product')}}</h2>
+	        	<table class="table">
+					<thead>
+						<tr>
+							<th>{{"Product"|trans({},'stock')}}</th>
+							<th>{{"Producer"|trans({},'stock')}}</th>
+							<th>{{"Amount"|trans({},'stock')}}</th>
+							<th>{{"Price"|trans({},'stock')}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{product.Product.name}}</td>
+								<td><a href="{{ path('producer_producer_show',{"id":product.Producer.id}) }}">{{product.Producer}}</a></td>
+								<td>{{product.amount}}{{product.unit}}</td>
+								<td>{{product.price}} EUR/{{product.unit}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	      </div><!-- /.row -->
+		</div>
+	{% endif %}
+
+	{% if upcomingVisits|length %}
 		<div class="container">
 			<div class="row">
-				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{% trans from "member"%}Members{% endtrans %}</h2>
-				<div class="col-lg-6">
-					<div class="media">
-						<a href="{% if is_granted(expression('"ROLE_PRODUCER" in roles')) %}{{ path('producer_member_index') }}{% else %}{{ path('producer_member_register') }}{% endif %}"><h3 class="media-heading text-primary-theme">{% trans %}Producer members{% endtrans %}</h3></a>
-						<p>{% trans %}Producer members desc{% endtrans %}</p>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="media">
-						<a href="#"><h3 class="media-heading text-danger-theme">{% trans %}Consumer members{% endtrans %}</h3></a>
-						<p>{% trans %}Consumer members desc{% endtrans %}</p>
-					</div>
-				</div>
+				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Upcoming visits"|trans({},'visit')}}</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>{{"Producer"|trans({},'visit')}}</th>
+							<th>{{"Property"|trans({},'visit')}}</th>
+							<th>{{"Visit date"|trans({},'visit')}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for visit in upcomingVisits %}
+							<tr>
+								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}">{{visit.Producer}}</a></td>
+								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}">{{visit.Property.name}}</a></td>
+								<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Upcoming visits"|trans({},'visit')}}</h2>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>{{"Producer"|trans({},'visit')}}</th>
-						<th>{{"Property"|trans({},'visit')}}</th>
-						<th>{{"Visit date"|trans({},'visit')}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for visit in upcomingVisits %}
-						<tr>
-							<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}">{{visit.Producer}}</a></td>
-							<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}">{{visit.Property.name}}</a></td>
-							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	{% endif %}
 
 	<script	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false"></script>
 	<script type="text/javascript">

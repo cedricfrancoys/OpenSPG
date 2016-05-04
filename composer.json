@@ -1,6 +1,6 @@
 {
     "name": "michaelhauptmann/spg",
-    "license": "proprietary",
+    "license": "GPL-3.0",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -36,10 +36,10 @@
         "sonata-project/intl-bundle": "~2.2@dev",
         "sonata-project/admin-bundle": "~3.0@dev",
         "sonata-project/doctrine-orm-admin-bundle": "~3.0@dev",
-        "sonata-project/block-bundle": "~2.3@dev",
+        "sonata-project/block-bundle": "~3.0@dev",
         "sonata-project/cache-bundle": "~2.1@dev",
         "sonata-project/cache": "~1.0@dev",
-        "sonata-project/core-bundle": "2.3.x-dev",
+        "sonata-project/core-bundle": "~3.0@dev",
         "sonata-project/datagrid-bundle": "~2.2@dev",
         "sonata-project/exporter": "~1.3@dev",
         "sonata-project/sonata-composer": "dev-master",

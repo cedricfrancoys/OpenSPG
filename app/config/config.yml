@@ -12,6 +12,7 @@ imports:
     - { resource: "@ManagementBundle/Resources/config/services.yml" }
     - { resource: "@FeeBundle/Resources/config/services.yml" }
     - { resource: "@PageBundle/Resources/config/services.yml" }
+    - { resource: "@NewsBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -109,5 +110,13 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            sluggable: true
+            blameable: true
+            timestampable: true
 
 white_october_breadcrumbs: ~

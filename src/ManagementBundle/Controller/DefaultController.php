@@ -17,6 +17,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
+
         return $this->render('ManagementBundle:Default:index.html.twig');
     }
 }

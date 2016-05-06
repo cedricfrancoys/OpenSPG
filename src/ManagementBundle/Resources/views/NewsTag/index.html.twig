@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Tags"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Tags"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="alert alert-{{ type }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"news")}}</th>
+						<th><a href="{{ path('management_newstag_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for tag in tags %}
+						<tr>
+							<td>{{tag.name}}</td>
+							<td>
+								<a href="{{ path('management_newstag_edit', {"id":tag.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

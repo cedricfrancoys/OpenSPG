@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
             new AppBundle\AppBundle(),
@@ -44,6 +45,7 @@ class AppKernel extends Kernel
             new ManagementBundle\ManagementBundle(),
             new FeeBundle\FeeBundle(),
             new PageBundle\PageBundle(),
+            new NewsBundle\NewsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

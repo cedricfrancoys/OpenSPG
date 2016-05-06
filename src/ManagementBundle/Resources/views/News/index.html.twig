@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"News"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"News"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="alert alert-{{ type }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Title"|trans({},"news")}}</th>
+						<th>{{"Tags"|trans({},"news")}}</th>
+						<th>{{"Created"|trans({},"news")}}</th>
+						<th>{{"Modified"|trans({},"news")}}</th>
+						<th><a href="{{ path('management_news_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for new in news %}
+						<tr>
+							<td>{{new.title}}</td>
+							<td>
+								{% for tag in new.Tags %}
+									{% if loop.index0 %}, {% endif %}{{tag.name}}
+								{% endfor %}
+							</td>
+							<td>{{new.createdAt|date('d/m/Y H:i')}} {{"by"|trans({},'news')}} {{new.createdBy}}</td>
+							<td>{% if new.modifiedAt is not null %}{{new.modifiedAt|date('d/m/Y H:i')}} {{"by"|trans({},'news')}} {{new.modifiedBy}}{%else%}--{% endif %}</td>
+							<td>
+								<a href="{{ path('management_news_edit', {"id":new.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

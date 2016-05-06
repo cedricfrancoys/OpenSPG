@@ -44,4 +44,5 @@ form span.help{
 }
 .btn.btn-add{
 	float: right;
+	margin-left: 5px;
 }

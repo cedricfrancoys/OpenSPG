@@ -12,6 +12,10 @@ use mhauptma73\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 
 class LocationAdmin extends Admin
 {
+    public function configure() {
+        $this->setTemplate('edit', 'LocationBundle:CRUD:edit.html.twig');
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -47,7 +51,12 @@ class LocationAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('latlng', GoogleMapType::class)
+            ->add('LatLng', GoogleMapType::class, array(
+                'default_lat' => '37.06394430056685',
+                'default_lng' => '-3.09814453125',
+                'map_width' => 600,
+                'type' => 'hidden'
+            ))
         ;
     }
 

@@ -10,6 +10,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class NodeAdmin extends Admin
 {
+    public function configure() {
+        $this->setTemplate('edit', 'LocationBundle:CRUD:edit.html.twig');
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */

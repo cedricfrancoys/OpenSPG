@@ -31,9 +31,29 @@
 		</div>
 	</div>
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
+	{% if news|length %}
+	    <div class="container news">
+	      <!-- Three columns of text below the carousel -->
+	      <div class="row">
+	      	<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"News"|trans({},'news')}}</h2>
+	      </div><!-- /.row -->
+	      {% for new in news %}
+	      	<div class="row">
+	      		<div class="col-lg-12"><h4>{{new.title}}</h4></div>
+	      	</div>
+	      	<div class="row">
+	      		<div class="col-lg-12">{{new.content|nl2br}}</div>
+	      	</div>
+	      	<div class="row">
+	      		<div class="col-lg-12">&nbsp;</div>
+	      	</div>
+	      	<div class="row">
+	      		<div class="col-lg-4 smaller">{{"created.by.at"|trans({"%by%":new.createdBy,"%at%":new.createdAt|date('d/m/Y H:i')},'news')}}</div>
+	      		<div class="col-lg-4 smaller">{{"Tags"|trans({},'news')}}: {% for tag in new.Tags %}{% if loop.index0 %}, {% endif %}{{tag.name}}{% endfor %}</div>
+	      	</div>
+	      {% endfor %}
+		</div>
+	{% endif %}
 
     {% if products|length %}
 	    <div class="container marketing">

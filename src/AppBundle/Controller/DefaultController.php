@@ -30,13 +30,21 @@ class DefaultController extends Controller
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+        ;
+
+        $news = $em->getRepository('NewsBundle:News')
+            ->createQueryBuilder('n')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
         ;        
 
         $data = array(
             'products' => $stocks,
             'nodes' => $nodes,
             'menu' => 'home',
-            'upcomingVisits' => $upcomingVisits
+            'upcomingVisits' => $upcomingVisits,
+            'news' => $news
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);

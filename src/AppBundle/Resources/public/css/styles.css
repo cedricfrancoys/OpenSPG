@@ -55,6 +55,12 @@ a.btn:hover,
 a.btn:visited{
 	color: #fff;
 }
+}
+a.btn.btn-default,
+a.btn.btn-default:hover,
+a.btn.btn-default:visited{
+	color: #333;
+}
 footer a,
 footer a:hover,
 footer a:visited{

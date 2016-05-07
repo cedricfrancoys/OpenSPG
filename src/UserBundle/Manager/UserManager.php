@@ -67,7 +67,7 @@ class UserManager
 
   /**
    * @param EntityManager $orm
-   * @param MailService $mailService
+   * @param TokenStorage $token
    */
   public function __construct(EntityManager $orm, TokenStorage $token) {
     $this->orm = $orm;

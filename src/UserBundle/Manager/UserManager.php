@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use \Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Form\FormError;
 
 use FOS\UserBundle\FOSUserEvents;
@@ -15,7 +17,6 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 
 use Symfony\Component\Form\Exception\OutOfBoundsException;
 
-use AppBundle\Manager\ManagerInterface;
 use UserBundle\Entity\User;
 
 class UserManager
@@ -116,10 +117,10 @@ class UserManager
   /**
    * Set the translator
    *
-   * @param DataCollectorTranslator $trans
+   * @param TranslatorInterface $trans
    * @return void
    */
-  public function setTranslator(DataCollectorTranslator $trans) {
+  public function setTranslator(TranslatorInterface $trans) {
     $this->translator = $trans;
   }
 

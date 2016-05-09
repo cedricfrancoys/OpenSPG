@@ -166,25 +166,11 @@ class UserManager
 
   public function getUsersByRole($role, $makeSureFieldIsNotNull = false)
   {
-    $sql = $this->orm
+    return $this
+      ->orm
       ->getRepository('UserBundle:User')
-      ->createQueryBuilder('u')
-      ->select('u,c,p')
-      ->leftJoin('u.Consumer', 'c')
-      ->leftJoin('u.Producer', 'p')
-      ->where('u.Node = :node')
-      ->andWhere('u.roles LIKE :role')
-      ->setParameter('node', $this->currentUser->getNode())
-      ->setParameter('role', "%{$role}%");
-
-    if( $makeSureFieldIsNotNull ){
-      $sql->andWhere("u.{$makeSureFieldIsNotNull} IS NOT NULL");
-    }
-
-    $query = $sql->getQuery();
-    $users = $query->getResult();
-
-    return $users;
+      ->findUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull)
+    ;
   }
 
   public function getAll()

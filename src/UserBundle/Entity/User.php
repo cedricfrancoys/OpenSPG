@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\AttributeOverrides({
  *      @ORM\AttributeOverride(name="email",
  *          column=@ORM\Column(

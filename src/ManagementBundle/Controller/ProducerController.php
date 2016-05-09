@@ -40,9 +40,7 @@ class ProducerController extends Controller
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
 
-        $em = $this->getDoctrine()->getManager();
-
-        $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
+        $currentMember = $this->getUser();
 
         $manager = $this->get('users.manager.user');
         $producers = $manager->getUsersByRole('ROLE_PRODUCER');

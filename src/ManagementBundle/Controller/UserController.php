@@ -150,7 +150,7 @@ class UserController extends Controller
 
         if( $user->getProducer() ){
             $producer = $user->getProducer();
-        }else () {
+        }else{
             $producer = new Producer();
             $producer->setActiveAsProducer(true);
             $em->persist($producer);

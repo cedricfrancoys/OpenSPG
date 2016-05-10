@@ -14,6 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use UserBundle\Entity\User;
 use ManagementBundle\Form\UserType;
 
+use ProducerBundle\Entity\Member as Producer;
+use ConsumerBundle\Entity\Member as Consumer;
+
 /**
  * @Route("/user")
  */
@@ -79,7 +82,8 @@ class UserController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         );
     }
 
@@ -129,5 +133,96 @@ class UserController extends Controller
                 'confirmation_key' => $confirmation_key
             );
         }
+    }
+
+    /**
+     * @Route("/{id}/makeProducer")
+     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     */
+    public function makeProducerAction(User $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->get('session');
+        $trans = $this->get('translator');
+
+        $user->addRole('ROLE_PRODUCER');
+
+        $producer = new Producer();
+        $producer->setActiveAsProducer(true);
+
+        $em->persist($producer);
+
+        $user->setProducer($producer);
+
+        $em->persist($user);
+
+        $em->flush();
+
+        // add flash messages
+        $session->getFlashBag()->add(
+            'success',
+            $trans->trans('The user has been made a producer!', array(), 'producer')
+        );
+
+        return new RedirectResponse($this->generateUrl('management_producer_edit', array('id'=>$producer->getId())));
+    }
+
+    /**
+     * @Route("/{id}/makeConsumer")
+     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     */
+    public function makeConsumerAction(User $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->get('session');
+        $trans = $this->get('translator');
+
+        $user->addRole('ROLE_CONSUMER');
+
+        $consumer = new Consumer();
+
+        $em->persist($consumer);
+
+        $user->setConsumer($consumer);
+
+        $em->persist($user);
+
+        $em->flush();
+
+        // add flash messages
+        $session->getFlashBag()->add(
+            'success',
+            $trans->trans('The user has been made a consumer!', array(), 'consumer')
+        );
+
+        return new RedirectResponse($this->generateUrl('management_consumer_edit', array('id'=>$consumer->getId())));
+    }
+
+    /**
+     * @Route("/{id}/makeManager")
+     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Template()
+     */
+    public function makeManagerAction(User $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->get('session');
+        $trans = $this->get('translator');
+
+        $user->addRole('ROLE_MANAGEMENT');
+
+        $em->persist($user);
+
+        $em->flush();
+
+        // add flash messages
+        $session->getFlashBag()->add(
+            'success',
+            $trans->trans('The user has been made a manager!', array(), 'management')
+        );
+
+        return new RedirectResponse($this->generateUrl('management_management_edit', array('id'=>$user->getId())));
     }
 }

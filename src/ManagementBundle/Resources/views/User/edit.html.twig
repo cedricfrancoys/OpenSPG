@@ -15,10 +15,10 @@
 			{% endfor %}
 		{% endfor %}
 		<div class="action-buttons">
-			{% if not user.hasRole('ROLE_CONSUMER') %}
+			{% if not user.hasRole('ROLE_CONSUMER') or user.Consumer is null %}
 				<a href="{{ path('management_user_makeconsumer', {"id": user.id}) }}" class="btn btn-success btn-makeConsumer">{{"Make consumer"|trans({},"consumer")}}</a>
 			{% endif %}
-			{% if not user.hasRole('ROLE_PRODUCER') %}
+			{% if not user.hasRole('ROLE_PRODUCER')  or user.Producer is null %}
 				<a href="{{ path('management_user_makeproducer', {"id": user.id}) }}" class="btn btn-success btn-makeProducer">{{"Make producer"|trans({},"producer")}}</a>
 			{% endif %}
 			{% if not user.hasRole('ROLE_MANAGEMENT') %}

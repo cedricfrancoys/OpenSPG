@@ -148,12 +148,14 @@ class UserController extends Controller
 
         $user->addRole('ROLE_PRODUCER');
 
-        $producer = new Producer();
-        $producer->setActiveAsProducer(true);
-
-        $em->persist($producer);
-
-        $user->setProducer($producer);
+        if( $user->getProducer() ){
+            $producer = $user->getProducer();
+        }else () {
+            $producer = new Producer();
+            $producer->setActiveAsProducer(true);
+            $em->persist($producer);
+            $user->setProducer($producer);
+        }
 
         $em->persist($user);
 
@@ -181,11 +183,13 @@ class UserController extends Controller
 
         $user->addRole('ROLE_CONSUMER');
 
-        $consumer = new Consumer();
-
-        $em->persist($consumer);
-
-        $user->setConsumer($consumer);
+        if( $user->getConsumer() ){
+            $consumer = $user->getConsumer();
+        }else{
+            $consumer = new Consumer();
+            $em->persist($consumer);
+            $user->setConsumer($consumer);
+        }
 
         $em->persist($user);
 

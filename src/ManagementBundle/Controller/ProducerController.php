@@ -44,7 +44,7 @@ class ProducerController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $producers = $em->getRepository('UserBundle:User')->getUsersByRole('ROLE_PRODUCER', $currentMember->getNode());
+        $producers = $em->getRepository('UserBundle:User')->getUsersByRole('ROLE_PRODUCER', $currentMember->getNode(), 'Producer');
 
         $data = array(
             'producers' => $producers

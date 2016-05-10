@@ -7,10 +7,9 @@ namespace UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function findUsersByRole($role, $node, $makeSureFieldIsNotNull = false)
+	public function getUsersByRole($role, $node, $makeSureFieldIsNotNull = false)
 	{
-	    $sql = $this->orm
-	      ->getRepository('UserBundle:User')
+	    $sql = $this
 	      ->createQueryBuilder('u')
 	      ->select('u,c,p')
 	      ->leftJoin('u.Consumer', 'c')
@@ -28,5 +27,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 	    $users = $query->getResult();
 
 	    return $users;
+	}
+
+	public function getAll($node)
+	{
+	    return $this
+	      ->createQueryBuilder('u')
+	      ->select('u')
+	      ->where('u.Node = :node')
+	      ->setParameter('node', $node)
+	      ->getQuery()
+	      ->getResult();
 	}
 }

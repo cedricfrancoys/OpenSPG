@@ -42,8 +42,9 @@ class ProducerController extends Controller
 
         $currentMember = $this->getUser();
 
-        $manager = $this->get('users.manager.user');
-        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
+        $em = $this->getDoctrine()->getManager();
+
+        $producers = $em->getRepository('UserBundle:User')->getUsersByRole('ROLE_PRODUCER', $currentMember->getNode());
 
         $data = array(
             'producers' => $producers
@@ -124,16 +125,6 @@ class ProducerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // $file = $producer->getUser()->getImage();
-            // // Generate a unique name for the file before saving it
-            // $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            // // Move the file to the directory where images are stored
-            // $imgsDir = $this->container->getParameter('kernel.root_dir').'/../web/imgs/user_imgs';
-            // $file->move($imgsDir, $fileName);
-            // // Update the 'image' property to store the image file name
-            // // instead of its contents
-            // $producer->getUser()->setImage($fileName);
-
             $em->persist($producer);
             $em->flush();
 

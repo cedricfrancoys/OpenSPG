@@ -164,12 +164,15 @@ class UserManager
     $this->mailer = $mailer;
   }
 
+  /**
+  * @deprecated
+  */
   public function getUsersByRole($role, $makeSureFieldIsNotNull = false)
   {
     return $this
       ->orm
       ->getRepository('UserBundle:User')
-      ->findUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull)
+      ->getUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull)
     ;
   }
 
@@ -177,12 +180,7 @@ class UserManager
   {
     return $this->orm
       ->getRepository('UserBundle:User')
-      ->createQueryBuilder('u')
-      ->select('u')
-      ->where('u.Node = :node')
-      ->setParameter('node', $this->currentUser->getNode())
-      ->getQuery()
-      ->getResult();
+      ->getAll();
   }
 
   public function createUser(User $user, $form, array $formData, array $roles)

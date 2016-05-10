@@ -34,10 +34,9 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
+        $currentMember = $this->getUser();
 
-        $manager = $this->get('users.manager.user');
-        $users = $manager->getAll();
+        $users = $em->getRepository('UserBundle:User')->getAll($currentMember->getNode());
 
         $data = array(
             'users' => $users

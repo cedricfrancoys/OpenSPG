@@ -77,7 +77,7 @@ class ConsumerController extends Controller
         if ($form->isValid()) {
             $manager = $this->get('users.manager.user');
             $manager->setCurrentUser($this->getUser());
-            $userCreated = $manager->createUser($consumer, $form, $request->request->get('consumer'), array('ROLE_MEMBER','ROLE_CONSUMER'));
+            $userCreated = $manager->createUser($consumer->getUser(), $form, $request->request->get('consumer'), array('ROLE_MEMBER','ROLE_CONSUMER'));
             if($userCreated)
             {
                 $session = $this->get('session');

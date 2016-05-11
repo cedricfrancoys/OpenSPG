@@ -206,7 +206,7 @@ class UserManager
 
     $event = new FormEvent($form, $this->request);
     $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-    $pUser = $formData;
+    $pUser = (array_key_exists('User', $formData)) ? $formData['User'] : $formData;
 
     $user->setPlainPassword($pUser['password']);
     foreach ($roles as $role) {
@@ -226,7 +226,8 @@ class UserManager
 
   private function checkIsDuplicate($data)
   {
-    $items = $this->orm->getRepository('UserBundle:User')->findBy(array('username'=>$data['username']));
+    $username = (array_key_exists('User', $data)) ? $data['User']['username'] : $data['username'];
+    $items = $this->orm->getRepository('UserBundle:User')->findBy(array('username'=>$username));
     return count($items);
   }
 

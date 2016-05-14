@@ -78,14 +78,19 @@ class PropertyController extends Controller
     }
 
     /**
-     * @Route("/{id}")
+     * @Route("/{id}/edit")
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Property $property, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $property = $em->getRepository('ProducerBundle:Property')->find($id);
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
+        $breadcrumbs->addItem("Edit", $this->get("router")->generate("producer_property_edit", array('id'=>$property->getId())));
 
-        if (!$property || $property->getMember()->getUser() != $this->getUser()) {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($property->getMember()->getUser() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 
@@ -97,7 +102,7 @@ class PropertyController extends Controller
             $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('producer_property_edit');
+            $url = $this->generateUrl('producer_property_edit', array('id'=>$property->getId()));
             $response = new RedirectResponse($url);
 
             return $response;

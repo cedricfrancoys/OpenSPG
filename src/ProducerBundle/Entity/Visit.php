@@ -344,6 +344,7 @@ class Visit
      * @Gedmo\UploadableFilePath
      */
     private $document;
+    private $newFileUpload = false;
 
 
     /**
@@ -1473,7 +1474,10 @@ class Visit
      */
     public function setDocument($document)
     {
-        $this->document = $document;
+        if( $document){
+            $this->document = $document;
+            $this->newFileUpload = true;
+        }
 
         return $this;
     }
@@ -1501,7 +1505,7 @@ class Visit
      */
     public function getDocumentFile()
     {
-        return $this->document;
+        return ($this->newFileUpload) ? $this->document : null;
     }
 
     /**

@@ -31,3 +31,7 @@ services:
         arguments: ["@doctrine"]
         tags:
             - { name: form.type, alias: hidden_entity }
+    app.download_type_extension:
+        class: AppBundle\Form\Extension\DownloadTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }

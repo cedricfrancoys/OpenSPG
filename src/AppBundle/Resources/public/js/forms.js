@@ -72,6 +72,22 @@ jQuery(document).ready(function() {
         // console.info(path);
         document.location.href = Routing.generate(path);
     });
+
+    // Form Collection handler
+    $('[data-allow_add=data-allow_add]').each(function(index){
+        var parent = $(this).closest('div.form-group');
+        parent.append('<a class="btn btn-success btn-add addCollection" href="#">Add</a>');
+        var header = $(this).data('header');
+        var index = $(this).children('div.form-group').length;
+        $('.addCollection').on('click', function(e){
+                var container = $(this).prev('div');
+                var p = container.data('prototype');
+                p = p.replace(/__name__/g, index);
+                container.append(p);
+                ++index;
+                return false;
+            });
+    });
 });
 
 // Public: Constructor

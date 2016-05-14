@@ -1,3 +1,39 @@
 .btn.separate{
 	margin-right: 5px;
 }
+
+/*** Vegetal production ***/
+#visit_Production > .form-group > div > div:nth-child(1){
+	width: 240px;
+}
+#visit_Production .fld-name{
+	width: 235px;
+}
+#visit_Production > .form-group > div > div:nth-child(2){
+	width: 200px;
+}
+#visit_Production .fld-estimatedYield{
+	width: 195px;
+}
+#visit_Production > .form-group > div > div:nth-child(3){
+	text-align: center;
+	width: 110px;
+}
+#visit_Production > .form-group > div > div:nth-child(4){
+	text-align: center;
+	width: 140px;
+}
+#visit_Production > .form-group > div > div:nth-child(5){
+	text-align: center;
+	width: 60px;
+}
+#visit_Production > .form-group > div > div:nth-child(6){
+	text-align: center;
+	width: 80px;
+}
+#visit_Production .fld-originReference{
+	width: 310px;
+}
+#visit_Production > .form-group > label{
+	display: none;
+}

@@ -3,12 +3,15 @@
 namespace ProducerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Visit
  *
  * @ORM\Table(name="visit")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\VisitRepository")
+ * @Gedmo\Uploadable(path="downloads/visits")
  */
 class Visit
 {
@@ -92,11 +95,39 @@ class Visit
     private $fertilizeOrigin;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="usesFoliarFertilizer", type="boolean", nullable=true)
+     */
+    private $usesFoliarFertilizer;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usesFoliarFertilizerWhich", type="string", length=255, nullable=true)
+     */
+    private $usesFoliarFertilizerWhich;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="fertilizerObservations", type="text", nullable=true)
      */
     private $fertilizerObservations;
+
+    /**
+     * @var \ProducerBundle\Entity\VisitProduction
+     *
+     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\VisitProduction", mappedBy="Visit", cascade={"persist"})
+     */
+    private $Production;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="productionOberservation", type="text", nullable=true)
+     */
+    private $productionOberservation;
 
     /**
      * @var bool
@@ -197,6 +228,69 @@ class Visit
     private $pcPestsDamage;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="doesAssociations", type="boolean", nullable=true)
+     */
+    private $doesAssociations;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="associations", type="string", length=255, nullable=true)
+     */
+    private $associations;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="doesRotations", type="boolean", nullable=true)
+     */
+    private $doesRotations;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rotations", type="string", length=255, nullable=true)
+     */
+    private $rotations;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="distanceToNeighbour", type="string", length=255, nullable=true)
+     */
+    private $distanceToNeighbours;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="steepBankStatus", type="boolean", nullable=true)
+     */
+    private $steepBankStatus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="steepBankStatusReason", type="string", length=255, nullable=true)
+     */
+    private $steepBankStatusReason;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="hedgesBarriersExists", type="boolean", nullable=true)
+     */
+    private $hedgesBarriersExists;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hedgesBarriersExistsReason", type="string", length=255, nullable=true)
+     */
+    private $hedgesBarriersExistsReason;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="PruningRests", type="string", length=255, nullable=true)
@@ -244,6 +338,12 @@ class Visit
      * @ORM\Column(name="accepted", type="boolean", nullable=true)
      */
     private $accepted;
+
+    /**
+     * @ORM\Column(name="document")
+     * @Gedmo\UploadableFilePath
+     */
+    private $document;
 
 
     /**
@@ -1039,5 +1139,365 @@ class Visit
     public function getAccepted()
     {
         return $this->accepted;
+    }
+
+    /**
+     * Set usesFoliarFertilizer
+     *
+     * @param boolean $usesFoliarFertilizer
+     *
+     * @return Visit
+     */
+    public function setUsesFoliarFertilizer($usesFoliarFertilizer)
+    {
+        $this->usesFoliarFertilizer = $usesFoliarFertilizer;
+
+        return $this;
+    }
+
+    /**
+     * Get usesFoliarFertilizer
+     *
+     * @return boolean
+     */
+    public function getUsesFoliarFertilizer()
+    {
+        return $this->usesFoliarFertilizer;
+    }
+
+    /**
+     * Set usesFoliarFertilizerWhich
+     *
+     * @param string $usesFoliarFertilizerWhich
+     *
+     * @return Visit
+     */
+    public function setUsesFoliarFertilizerWhich($usesFoliarFertilizerWhich)
+    {
+        $this->usesFoliarFertilizerWhich = $usesFoliarFertilizerWhich;
+
+        return $this;
+    }
+
+    /**
+     * Get usesFoliarFertilizerWhich
+     *
+     * @return string
+     */
+    public function getUsesFoliarFertilizerWhich()
+    {
+        return $this->usesFoliarFertilizerWhich;
+    }
+
+    /**
+     * Add production
+     *
+     * @param \ProducerBundle\Entity\VisitProduction $production
+     *
+     * @return Visit
+     */
+    public function addProduction(\ProducerBundle\Entity\VisitProduction $production)
+    {
+        $production->setVisit($this);
+        $this->Production->add($production);
+
+        return $this;
+    }
+
+    /**
+     * Remove production
+     *
+     * @param \ProducerBundle\Entity\VisitProduction $production
+     */
+    public function removeProduction(\ProducerBundle\Entity\VisitProduction $production)
+    {
+        $this->Production->removeElement($production);
+    }
+
+    /**
+     * Get production
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduction()
+    {
+        return $this->Production;
+    }
+
+    /**
+     * Set productionOberservation
+     *
+     * @param string $productionOberservation
+     *
+     * @return Visit
+     */
+    public function setProductionOberservation($productionOberservation)
+    {
+        $this->productionOberservation = $productionOberservation;
+
+        return $this;
+    }
+
+    /**
+     * Get productionOberservation
+     *
+     * @return string
+     */
+    public function getProductionOberservation()
+    {
+        return $this->productionOberservation;
+    }
+
+    /**
+     * Set doesAssociations
+     *
+     * @param boolean $doesAssociations
+     *
+     * @return Visit
+     */
+    public function setDoesAssociations($doesAssociations)
+    {
+        $this->doesAssociations = $doesAssociations;
+
+        return $this;
+    }
+
+    /**
+     * Get doesAssociations
+     *
+     * @return boolean
+     */
+    public function getDoesAssociations()
+    {
+        return $this->doesAssociations;
+    }
+
+    /**
+     * Set associations
+     *
+     * @param string $associations
+     *
+     * @return Visit
+     */
+    public function setAssociations($associations)
+    {
+        $this->associations = $associations;
+
+        return $this;
+    }
+
+    /**
+     * Get associations
+     *
+     * @return string
+     */
+    public function getAssociations()
+    {
+        return $this->associations;
+    }
+
+    /**
+     * Set doesRotations
+     *
+     * @param boolean $doesRotations
+     *
+     * @return Visit
+     */
+    public function setDoesRotations($doesRotations)
+    {
+        $this->doesRotations = $doesRotations;
+
+        return $this;
+    }
+
+    /**
+     * Get doesRotations
+     *
+     * @return boolean
+     */
+    public function getDoesRotations()
+    {
+        return $this->doesRotations;
+    }
+
+    /**
+     * Set rotations
+     *
+     * @param string $rotations
+     *
+     * @return Visit
+     */
+    public function setRotations($rotations)
+    {
+        $this->rotations = $rotations;
+
+        return $this;
+    }
+
+    /**
+     * Get rotations
+     *
+     * @return string
+     */
+    public function getRotations()
+    {
+        return $this->rotations;
+    }
+
+    /**
+     * Set distanceToNeighbours
+     *
+     * @param string $distanceToNeighbours
+     *
+     * @return Visit
+     */
+    public function setDistanceToNeighbours($distanceToNeighbours)
+    {
+        $this->distanceToNeighbours = $distanceToNeighbours;
+
+        return $this;
+    }
+
+    /**
+     * Get distanceToNeighbours
+     *
+     * @return string
+     */
+    public function getDistanceToNeighbours()
+    {
+        return $this->distanceToNeighbours;
+    }
+
+    /**
+     * Set steepBankStatus
+     *
+     * @param boolean $steepBankStatus
+     *
+     * @return Visit
+     */
+    public function setSteepBankStatus($steepBankStatus)
+    {
+        $this->steepBankStatus = $steepBankStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get steepBankStatus
+     *
+     * @return boolean
+     */
+    public function getSteepBankStatus()
+    {
+        return $this->steepBankStatus;
+    }
+
+    /**
+     * Set steepBankStatusReason
+     *
+     * @param string $steepBankStatusReason
+     *
+     * @return Visit
+     */
+    public function setSteepBankStatusReason($steepBankStatusReason)
+    {
+        $this->steepBankStatusReason = $steepBankStatusReason;
+
+        return $this;
+    }
+
+    /**
+     * Get steepBankStatusReason
+     *
+     * @return string
+     */
+    public function getSteepBankStatusReason()
+    {
+        return $this->steepBankStatusReason;
+    }
+
+    /**
+     * Set hedgesBarriersExists
+     *
+     * @param boolean $hedgesBarriersExists
+     *
+     * @return Visit
+     */
+    public function setHedgesBarriersExists($hedgesBarriersExists)
+    {
+        $this->hedgesBarriersExists = $hedgesBarriersExists;
+
+        return $this;
+    }
+
+    /**
+     * Get hedgesBarriersExists
+     *
+     * @return boolean
+     */
+    public function getHedgesBarriersExists()
+    {
+        return $this->hedgesBarriersExists;
+    }
+
+    /**
+     * Set hedgesBarriersExistsReason
+     *
+     * @param string $hedgesBarriersExistsReason
+     *
+     * @return Visit
+     */
+    public function setHedgesBarriersExistsReason($hedgesBarriersExistsReason)
+    {
+        $this->hedgesBarriersExistsReason = $hedgesBarriersExistsReason;
+
+        return $this;
+    }
+
+    /**
+     * Get hedgesBarriersExistsReason
+     *
+     * @return string
+     */
+    public function getHedgesBarriersExistsReason()
+    {
+        return $this->hedgesBarriersExistsReason;
+    }
+
+    /**
+     * Set document
+     *
+     * @param string $document
+     *
+     * @return Visit
+     */
+    public function setDocument($document)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get document
+     *
+     * @return File
+     */
+    public function getDocument()
+    {
+        $web_path = dirname(dirname(dirname(__DIR__))).'/web';
+        $document = new File($web_path . '/' . $this->document);
+
+        return $document;
+    }
+
+    /**
+     * Return the public path to the document
+     *
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return $this->document;
     }
 }

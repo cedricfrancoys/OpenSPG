@@ -30,4 +30,7 @@ jQuery(document).ready(function() {
     		}
     	);
     });
+
+    // Visits
+    
 });

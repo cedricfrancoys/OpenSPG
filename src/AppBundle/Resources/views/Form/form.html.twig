@@ -11,12 +11,15 @@
 {% spaceless %}
    	{{ block('form_widget') }}
     <div class="form_image_div">
-	    {% if image_url is not null %}
+	    {% if image_url is defined and image_url is not null %}
 	        <img src="{{ asset(image_url) }}" class="form_image" />
 	        {% if allow_remove %}
 		    	<a href="#" class="form_image_remove">{% trans %}remove{% endtrans %}</a>
 		    {% endif %}
 	    {% endif %}
+        {% if file_url is defined and file_url is not null %}
+            {{ "Download"|trans() }}: <a href="/{{ file_url }}" class="form_file_download">{{ file_name }}</a>
+        {% endif %}
 	</div>
 {% endspaceless %}
 {% endblock %}
@@ -28,3 +31,15 @@
         <span class="help">{{ help|trans({},translation_domain) }}</span>
     {% endif %}
 {% endblock %}
+
+{%- block form_widget_compound -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty -%}
+            {{ form_errors(form) }}
+        {%- endif -%}
+        {%- if attr['data-header'] is defined -%}
+            {{ attr['data-header']|raw }}
+        {%- endif -%}
+        {{- form_rest(form) -}}
+    </div>
+{%- endblock form_widget_compound -%}

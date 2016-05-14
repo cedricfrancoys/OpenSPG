@@ -119,8 +119,10 @@ class VisitController extends Controller
         if ($form->isValid()) {
             $em->persist($visit);
 
-            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
-            $uploadableManager->markEntityToUpload($visit, $visit->getDocumentFile());
+            if ($visit->getDocumentFile()) {
+                $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
+                $uploadableManager->markEntityToUpload($visit, $visit->getDocumentFile());
+            }
 
             $em->flush();
 

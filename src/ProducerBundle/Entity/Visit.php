@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @ORM\Table(name="visit")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\VisitRepository")
- * @Gedmo\Uploadable(path="downloads/visits")
+ * @Gedmo\Uploadable(path="downloads/visits", appendNumber=true)
  */
 class Visit
 {
@@ -1492,6 +1492,16 @@ class Visit
         }
 
         return $document;
+    }
+
+    /**
+     * Get document... should only be used when an file has been uploaded
+     *
+     * @return FileInfoInterface
+     */
+    public function getDocumentFile()
+    {
+        return $this->document;
     }
 
     /**

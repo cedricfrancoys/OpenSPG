@@ -147,7 +147,8 @@ class VisitType extends AbstractType
                 'required' => false
             ))
             ->add('document', FileType::class, array(
-                'file_path' => 'getWebPath'
+                'file_path' => 'getWebPath',
+                'required' => false
             ))
             ->add('accepted', ChoiceType::class, array(
                 'required' => false,

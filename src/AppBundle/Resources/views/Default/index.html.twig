@@ -94,6 +94,7 @@
 							<th>{{"Producer"|trans({},'visit')}}</th>
 							<th>{{"Property"|trans({},'visit')}}</th>
 							<th>{{"Visit date"|trans({},'visit')}}</th>
+							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,6 +103,11 @@
 								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}">{{visit.Producer}}</a></td>
 								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}">{{visit.Property.name}}</a></td>
 								<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+								<td>
+									{% if app.user %}
+										<a class="btn btn-success" href="{{ path('producer_visit_signmeup',{"id":visit.id}) }}">{{"Sign me up"|trans({},'visit')}}</a>
+									{% endif %}
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

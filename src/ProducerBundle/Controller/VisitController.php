@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use ProducerBundle\Entity\Visit;
 use ProducerBundle\Form\VisitType;
+use ProducerBundle\Form\SignMeUpType;
 
 /**
  * @Route("/members/producer/visit")
@@ -52,84 +53,6 @@ class VisitController extends Controller
     }
 
     /**
-     * @Route("/add")
-     */
-    // public function addAction(Request $request)
-    // {
-    //     $breadcrumbs = $this->get("white_october_breadcrumbs");
-    //     $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-    //     $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-    //     $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
-    //     $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_visit_add"));
-
-    //     $visit = new Visit();
-    //     $visit->setVisitDate(new \DateTime());
-    //     $visit->setStartTime(new \DateTime());
-    //     $endTime = new \DateTime();
-    //     $endTime->add(new \DateInterval('PT4H'));
-    //     $visit->setEndTime($endTime);
-
-    //     $form = $this->createForm(VisitType::class, $visit);
-    //     // $form->setData($user);
-
-    //     $form->handleRequest($request);
-
-    //     if ($form->isValid()) {
-    //         $em = $this->getDoctrine()->getManager();
-
-    //         $em->persist($visit);
-    //         $em->flush();
-
-    //         if (null === $response = $event->getResponse()) {
-    //             $url = $this->generateUrl('producer_visit_edit');
-    //             $response = new RedirectResponse($url);
-    //         }
-
-    //         return $response;
-    //     }
-
-    //     return $this->render('ProducerBundle:Visit:edit.html.twig', array(
-    //         'form' => $form->createView()
-    //     ));
-    // }
-
-    /**
-     * @Route("/{id}")
-     */
-    // public function editAction(Request $request, $id)
-    // {
-    //     $breadcrumbs = $this->get("white_october_breadcrumbs");
-    //     $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-    //     $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-    //     $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
-    //     $breadcrumbs->addItem("Edit", $this->get("router")->generate("producer_visit_edit", array('id'=>$id)));
-
-    //     $visit = new Visit();
-
-    //     $form = $this->createForm(VisitType::class, $visit);
-
-    //     $form->handleRequest($request);
-
-    //     if ($form->isValid()) {
-    //         $em = $this->getDoctrine()->getManager();
-
-    //         $em->persist($visit);
-    //         $em->flush();
-
-    //         if (null === $response = $event->getResponse()) {
-    //             $url = $this->generateUrl('producer_visit_edit');
-    //             $response = new RedirectResponse($url);
-    //         }
-
-    //         return $response;
-    //     }
-
-    //     return $this->render('ProducerBundle:Visit:edit.html.twig', array(
-    //         'form' => $form->createView()
-    //     ));
-    // }
-
-    /**
      * @Route("/{id}")
      */
     public function showAction(Request $request, Visit $visit)
@@ -143,6 +66,51 @@ class VisitController extends Controller
         return $this->render('ProducerBundle:Visit:show.html.twig', array(
             'visit' => $visit,
             'menu' => 'account'
+        ));
+    }
+
+    /**
+     * @Route("/{id}/signMeUp")
+     */
+    public function signMeUpAction(Visit $visit, Request $request)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My Account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+        $breadcrumbs->addItem("Sign me up", $this->get("router")->generate("producer_visit_signmeup", array('id'=>$visit->getId())));
+
+        $form = $this->createForm(SignMeUpType::class, null);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $visit->addParticipant($this->getUser());
+
+            $em->persist($visit);
+            $em->flush();
+
+            $session = $this->get('session');
+            $trans = $this->get('translator');
+
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('You have been added to the visit!', array(), 'visit')
+            );
+
+            $url = $this->generateUrl('producer_visit_show', array('id'=>$visit->getId()));
+            $response = new RedirectResponse($url);
+
+            return $response;
+        }
+
+        return $this->render('ProducerBundle:Visit:signmeup.html.twig', array(
+            'form' => $form->createView(),
+            'visit' => $visit,
+            'menu' => 'producer'
         ));
     }
 }

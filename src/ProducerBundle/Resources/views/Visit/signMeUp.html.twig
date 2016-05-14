@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

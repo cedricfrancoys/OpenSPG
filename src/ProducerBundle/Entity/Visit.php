@@ -1486,7 +1486,10 @@ class Visit
     public function getDocument()
     {
         $web_path = dirname(dirname(dirname(__DIR__))).'/web';
-        $document = new File($web_path . '/' . $this->document);
+        $document = null;
+        if( $this->document && file_exists($web_path.'/'.$this->document) ){
+            $document = new File($web_path . '/' . $this->document);
+        }
 
         return $document;
     }

@@ -340,7 +340,7 @@ class Visit
     private $accepted;
 
     /**
-     * @ORM\Column(name="document")
+     * @ORM\Column(name="document", nullable=true)
      * @Gedmo\UploadableFilePath
      */
     private $document;

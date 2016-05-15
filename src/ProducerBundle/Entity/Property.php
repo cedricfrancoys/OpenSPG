@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Property
  *
  * @ORM\Table(name="property")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\PropertyRepository")
+ * @Gedmo\Loggable
  */
 class Property
 {
@@ -28,6 +30,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="areaName", type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $areaName;
 
@@ -35,6 +38,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $address;
 
@@ -42,6 +46,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="regNr", type="string", length=25, nullable=true)
+     * @Gedmo\Versioned
      */
     private $regNr;
 
@@ -49,6 +54,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50, nullable=true)
+     * @Gedmo\Versioned
      */
     private $name;
 
@@ -56,6 +62,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="tenure", type="string", length=50, nullable=true)
+     * @Gedmo\Versioned
      */
     private $tenure;
 
@@ -63,6 +70,7 @@ class Property
      * @var float
      *
      * @ORM\Column(name="size", type="float", nullable=true)
+     * @Gedmo\Versioned
      */
     private $size;
 
@@ -70,6 +78,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="previousUses", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $previousUses;
 
@@ -77,6 +86,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="waterTypeOrigin", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $waterTypeOrigin;
 
@@ -84,6 +94,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="surroundings", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $surroundings;
 
@@ -91,6 +102,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="surroundingProblems", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $surroundingProblems;
 
@@ -98,6 +110,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="crops", type="text")
+     * @Gedmo\Versioned
      */
     private $crops;
 
@@ -105,6 +118,7 @@ class Property
      * @var bool
      *
      * @ORM\Column(name="certified", type="boolean")
+     * @Gedmo\Versioned
      */
     private $certified;
 
@@ -112,6 +126,7 @@ class Property
      * @var int
      *
      * @ORM\Column(name="certifiedYear", type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $certifiedYear;
 
@@ -119,6 +134,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="certifiedProvider", type="string", length=100, nullable=true)
+     * @Gedmo\Versioned
      */
     private $certifiedProvider;
 
@@ -126,6 +142,7 @@ class Property
      * @var \DateTime
      *
      * @ORM\Column(name="lastAgroquimicUsage", type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $lastAgroquimicUsage;
 
@@ -133,6 +150,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="fertilizer", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $fertilizer;
 
@@ -140,6 +158,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="phytosanitary", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $phytosanitary;
 
@@ -147,6 +166,7 @@ class Property
      * @var bool
      *
      * @ORM\Column(name="ownerLivesHere", type="boolean")
+     * @Gedmo\Versioned
      */
     private $ownerLivesHere;
 
@@ -154,6 +174,7 @@ class Property
      * @var int
      *
      * @ORM\Column(name="ownerDistance", type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $ownerDistance;
 
@@ -161,6 +182,7 @@ class Property
      * @var string
      *
      * @ORM\Column(name="workforce", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $workforce;
 
@@ -168,6 +190,7 @@ class Property
      * @var int
      *
      * @ORM\Column(name="productSellingDistance", type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $productSellingDistance;
 
@@ -175,6 +198,7 @@ class Property
      * @var int
      *
      * @ORM\Column(name="productSellingTime", type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $productSellingTime;
 
@@ -182,6 +206,7 @@ class Property
      * @var bool
      *
      * @ORM\Column(name="productConservation", type="boolean")
+     * @Gedmo\Versioned
      */
     private $productConservation;
 
@@ -189,11 +214,13 @@ class Property
      * @var string
      *
      * @ORM\Column(name="productConservationDetails", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $productConservationDetails;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      *
      * @var string
      *
@@ -206,6 +233,7 @@ class Property
     * @var Member
     *
     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Properties", cascade={"persist","detach"})
+    * @Gedmo\Versioned
     */
     private $Member;
 

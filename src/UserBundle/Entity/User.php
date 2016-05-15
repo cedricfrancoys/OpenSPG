@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
@@ -24,6 +25,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * })
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks
+ * @Gedmo\Loggable
  */
 class User extends BaseUser
 {
@@ -38,6 +40,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     * @Gedmo\Versioned
      */
     protected $name;
 
@@ -45,6 +48,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=100)
+     * @Gedmo\Versioned
      */
     protected $surname;
 
@@ -52,6 +56,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=25, nullable=true)
+     * @Gedmo\Versioned
      */
     protected $phone;
 
@@ -59,6 +64,7 @@ class User extends BaseUser
     * @var Node
     *
     * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
+    * @Gedmo\Versioned
     */
     protected $Node;
 
@@ -66,6 +72,7 @@ class User extends BaseUser
     * @var Producer
     *
     * @ORM\OneToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+    * @Gedmo\Versioned
     */
     protected $Producer;
 
@@ -73,11 +80,13 @@ class User extends BaseUser
     * @var Consumer
     *
     * @ORM\OneToOne(targetEntity="\ConsumerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+    * @Gedmo\Versioned
     */
     protected $Consumer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      *
      * @var string
      *

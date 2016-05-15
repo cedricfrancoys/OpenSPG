@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Table(name="visit")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\VisitRepository")
  * @Gedmo\Uploadable(path="downloads/visits", appendNumber=true)
+ * @Gedmo\Loggable
  */
 class Visit
 {
@@ -28,6 +29,7 @@ class Visit
      * @var \DateTime
      *
      * @ORM\Column(name="visitDate", type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $visitDate;
 
@@ -42,6 +44,7 @@ class Visit
      * @var \DateTime
      *
      * @ORM\Column(name="startTime", type="time", nullable=true)
+     * @Gedmo\Versioned
      */
     private $startTime;
 
@@ -49,6 +52,7 @@ class Visit
      * @var \DateTime
      *
      * @ORM\Column(name="endTime", type="time", nullable=true)
+     * @Gedmo\Versioned
      */
     private $endTime;
 
@@ -56,6 +60,7 @@ class Visit
      * @var \ProducerBundle\Entity\Member
      *
      * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","detach"})
+     * @Gedmo\Versioned
      */
     private $Producer;
 
@@ -63,6 +68,7 @@ class Visit
      * @var \ProducerBundle\Entity\Property
      *
      * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", inversedBy="Visits", cascade={"persist","detach"})
+     * @Gedmo\Versioned
      */
     private $Property;
 
@@ -70,6 +76,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="didFertilize", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $didFertilize;
 
@@ -77,6 +84,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="fertlizeWith", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $fertlizeWith;
 
@@ -84,6 +92,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="fertilizeQty", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $fertilizeQty;
 
@@ -91,6 +100,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="fertilizeOrigin", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $fertilizeOrigin;
 
@@ -98,6 +108,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="usesFoliarFertilizer", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $usesFoliarFertilizer;
 
@@ -105,6 +116,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="usesFoliarFertilizerWhich", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $usesFoliarFertilizerWhich;
 
@@ -112,6 +124,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="fertilizerObservations", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $fertilizerObservations;
 
@@ -126,6 +139,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="productionOberservation", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $productionOberservation;
 
@@ -133,6 +147,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="doesSoilConservation", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $doesSoilConservation;
 
@@ -140,6 +155,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scGreenManure", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scGreenManure;
 
@@ -147,6 +163,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scMulching", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scMulching;
 
@@ -154,6 +171,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scNotPlow", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scNotPlow;
 
@@ -161,6 +179,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scHerbsState", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scHerbsState;
 
@@ -168,6 +187,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scHerbsDistribution", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scHerbsDistribution;
 
@@ -175,6 +195,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="scHerbsControl", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scHerbsControl;
 
@@ -182,6 +203,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="scOberservations", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $scOberservations;
 
@@ -189,6 +211,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="pcPests", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcPests;
 
@@ -196,6 +219,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="pcControl", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcControl;
 
@@ -203,6 +227,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="pcPrevention", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcPrevention;
 
@@ -210,6 +235,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="pcOberservations", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcOberservations;
 
@@ -217,6 +243,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="pcPestsCrops", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcPestsCrops;
 
@@ -224,6 +251,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="pcPestsDamage", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $pcPestsDamage;
 
@@ -231,6 +259,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="doesAssociations", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $doesAssociations;
 
@@ -238,6 +267,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="associations", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $associations;
 
@@ -245,6 +275,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="doesRotations", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $doesRotations;
 
@@ -252,6 +283,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="rotations", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $rotations;
 
@@ -259,6 +291,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="distanceToNeighbour", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $distanceToNeighbours;
 
@@ -266,6 +299,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="steepBankStatus", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $steepBankStatus;
 
@@ -273,6 +307,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="steepBankStatusReason", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $steepBankStatusReason;
 
@@ -280,6 +315,7 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="hedgesBarriersExists", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $hedgesBarriersExists;
 
@@ -287,6 +323,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="hedgesBarriersExistsReason", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $hedgesBarriersExistsReason;
 
@@ -294,6 +331,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="PruningRests", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $pruningRests;
 
@@ -301,6 +339,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="AgroquimicPresence", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $agroquimicPresence;
 
@@ -308,6 +347,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="PlasticWaste", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $plasticWaste;
 
@@ -315,6 +355,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="AgroquimicPackaging", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $agroquimicPackaging;
 
@@ -322,6 +363,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="PesticideSupsition", type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $pesticideSupsition;
 
@@ -329,6 +371,7 @@ class Visit
      * @var string
      *
      * @ORM\Column(name="observations", type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $observations;
 
@@ -336,12 +379,14 @@ class Visit
      * @var bool
      *
      * @ORM\Column(name="accepted", type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $accepted;
 
     /**
      * @ORM\Column(name="document", nullable=true)
      * @Gedmo\UploadableFilePath
+     * @Gedmo\Versioned
      */
     private $document;
     private $newFileUpload = false;

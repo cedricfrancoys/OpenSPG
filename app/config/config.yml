@@ -72,6 +72,13 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        mappings:
+            gedmo_loggable:
+                type: annotation
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
+                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -119,6 +126,7 @@ stof_doctrine_extensions:
             blameable: true
             timestampable: true
             uploadable: true
+            loggable: true
     uploadable:
         default_file_path:       %kernel.root_dir%/../web/downloads
         mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter

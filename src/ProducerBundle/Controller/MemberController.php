@@ -21,7 +21,7 @@ use ProducerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
 /**
- * @Route("/members/producer")
+ * @Route("/productor")
  */
 class MemberController extends Controller
 {

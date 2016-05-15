@@ -15,7 +15,7 @@ use ProducerBundle\Entity\Property;
 use ProducerBundle\Form\PropertyType;
 
 /**
- * @Route("/members/producer/property")
+ * @Route("/productor/propiedad")
  */
 class PropertyController extends Controller
 {

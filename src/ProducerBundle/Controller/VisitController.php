@@ -14,7 +14,7 @@ use ProducerBundle\Form\VisitType;
 use ProducerBundle\Form\SignMeUpType;
 
 /**
- * @Route("/members/producer/visit")
+ * @Route("/productor/visita")
  * @Security("has_role('ROLE_PRODUCER')")
  */
 class VisitController extends Controller

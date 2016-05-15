@@ -23,7 +23,7 @@ class ProducerControllerTest extends WebTestCase
 
     public function testIndex()
     {
-        $crawler = $this->client->request('GET', '/gestion/producer/');
+        $crawler = $this->client->request('GET', '/gestion/productor/');
 
         // 302 Redirect expected (redirect to login page)
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode(), 'Before log-in into "/gestion/producer/", it should redirect.');

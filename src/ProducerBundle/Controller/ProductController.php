@@ -24,7 +24,7 @@ use ProducerBundle\Form\FamilyType;
 use ProducerBundle\Form\VarietyType;
 
 /**
- * @Route("/members/producer/product")
+ * @Route("/productor/producto")
  */
 class ProductController extends Controller
 {

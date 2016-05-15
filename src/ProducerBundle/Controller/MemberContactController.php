@@ -20,7 +20,7 @@ use ProducerBundle\Entity\Stock;
 use ProducerBundle\Entity\Member;
 
 /**
- * @Route("/members/productores/contacto")
+ * @Route("/productor/contacto")
  */
 class MemberContactController extends Controller
 {

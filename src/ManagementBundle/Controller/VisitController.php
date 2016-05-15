@@ -84,7 +84,8 @@ class VisitController extends Controller
         $data = array(
             'visits' => $visits,
             'producers' => $producers,
-            'properties' => $properties
+            'properties' => $properties,
+            'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:Visit:index.html.twig', $data);
@@ -141,7 +142,8 @@ class VisitController extends Controller
         }
 
         return $this->render('ManagementBundle:Visit:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -188,7 +190,8 @@ class VisitController extends Controller
         }
 
         return $this->render('ManagementBundle:Visit:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

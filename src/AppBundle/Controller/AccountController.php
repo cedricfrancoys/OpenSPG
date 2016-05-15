@@ -17,12 +17,12 @@ class AccountController extends Controller
     {
         $user = $this->getUser();
         $roles = $user->getRoles();
-        if(in_array('ROLE_MANAGER', $roles)){
-            return $this->redirectToRoute('management_default_index');
-        }else if(in_array('ROLE_PRODUCER', $roles)){
+        if(in_array('ROLE_PRODUCER', $roles)){
             return $this->redirectToRoute('producer_member_index');
         }else if(in_array('ROLE_CONSUMER', $roles)){
             return $this->redirectToRoute('consumer_member_index');
+        }else if(in_array('ROLE_MANAGEMENT', $roles) || in_array('ROLE_ADMIN', $roles)){
+            return $this->redirectToRoute('management_default_index');
         }
 
         throw new AccessDeniedException();

@@ -125,18 +125,21 @@
 			<thead>
 				<tr>
 					<th>{{"Date"|trans({},"visit")}}</th>
-					<th>{{"Producer"|trans({},"visit")}}</th>
-					<th>{{"Property"|trans({},"visit")}}</th>
 					<th>{{"Result"|trans({},"visit")}}</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for visit in visits %}
 					<tr>
-						<td>{{visit.visitDate is null ? '--' : visit.visitDate|date('d/m/Y')}}</td>
-						<td>{{visit.Producer}}</td>
-						<td>{{visit.Property}}</td>
-						<td>{{visit.accepted}}</td>
+						<td><a href="{{ path('producer_publicproducervisit_show', {'id':visit.Producer.id,'visit_id':visit.id}) }}">{{visit.visitDate is null ? '--' : visit.visitDate|date('d/m/Y')}}</a></td>
+						<td>{% if visit.accepted is null %}
+								{{ "pending"|trans({},'visit') }}
+							{% elseif visit.accepted == true %}
+								{{ "accepted"|trans({},'visit') }}
+							{% else %}
+								{{ "rejected"|trans({},'visit') }}
+							{% endif %}
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

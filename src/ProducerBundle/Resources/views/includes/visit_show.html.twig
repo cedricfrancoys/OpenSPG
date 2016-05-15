@@ -1,0 +1,226 @@
+<table class="table">
+	<tbody>
+		<tr class="legend">
+			<td colspan="2">{{"1.- Information about the visit"|trans({},"visit")}}</td>
+		</tr>
+    		<tr>
+    			<td>{{ "Producer"|trans({},'visit') }}:</td>
+    			<td>
+    				<a href="{{ path('producer_producer_show', {'id':visit.Producer.id}) }}">{{ visit.Producer }}</a>
+    			</td>
+    		</tr>
+    		<tr>
+	    			<td>{{ "Property"|trans({},'visit') }}:</td>
+	    			<td><a href="{{ path('producer_publicproperty_show', {'id':visit.property.id}) }}">{{visit.property}}</a></td>
+	    		</tr>
+    		<tr>
+    			<td style="width:400px;">{{ "Visit date"|trans({},'visit') }}:</td>
+    			<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+    		</tr>
+    		<tr>
+    			<td>{{ "Participants"|trans({},'visit') }}:</td>
+    			<td>
+    				{% for participant in visit.Participants %}
+    					{{ participant }}<br />
+    				{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>{{ "Start time"|trans({},'visit') }}:</td>
+    			<td>{{visit.startTime is null ? 'pending'|trans({},'visit') : visit.startTime|date('H:i')}}</td>
+    		</tr>
+    		{% if visit.accepted is not null %}
+	    		<tr>
+	    			<td>{{ "End time"|trans({},'visit') }}:</td>
+	    			<td>{{visit.endTime is null ? 'pending'|trans({},'visit') : visit.endTime|date('H:i')}}</td>
+	    		</tr>
+    		<tr class="legend">
+    			<td colspan="2">{{ "2.- Fertilizers"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td>{{ "Did fertilize"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.didFertilize %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		{% if visit.didFertilize %}
+		    		<tr>
+		    			<td>{{ "Fertlize with"|trans({},'visit') }}:</td>
+		    			<td>{{visit.fertlizeWith}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Fertilize qty"|trans({},'visit') }}:</td>
+		    			<td>{{visit.fertilizeQty}}</td>
+		    		</tr>
+		    		<tr>
+		    			<td>{{ "Fertilize origin"|trans({},'visit') }}:</td>
+		    			<td>{{visit.fertilizeOrigin}}</td>
+		    		</tr>
+		    	{% endif %}
+		    	<tr>
+	    			<td>{{ "Uses foliar fertilizer"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.usesFoliarFertilizer %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		{% if visit.usesFoliarFertilizer %}
+	    			<tr>
+		    			<td>{{ "Uses foliar fertilizer which"|trans({},'visit') }}:</td>
+		    			<td>{{ visit.usesFoliarFertilizerWhich }}</td>
+		    		</tr>
+	    		{% endif %}
+	    		<tr>
+	    			<td>{{ "Fertilizer observations"|trans({},'visit') }}:</td>
+	    			<td>{{visit.fertilizerObservations}}</td>
+	    		</tr>
+	    	<tr class="legend">
+    			<td colspan="2">{{ "3.- Vegetal production"|trans({},'visit') }}</td>
+    		</tr>
+	    		{% for product in visit.Production %}
+	    			<tr>
+	    				<td colspan="2">
+	    					<strong>{{ product.name }}</strong>: {{ product.estimatedYield }}
+	    					{% if product.originLocal %} - {{ "Local variety"|trans({},'visit') }}{% endif %}
+	    					{% if product.originComercial %} - {{ "Comercial variety"|trans({},'visit') }}{% endif %}
+	    					{% if product.originOwn %} - {{ "Own"|trans({},'visit') }}{% endif %}
+	    					{% if product.originBought %} - {{ "Bought"|trans({},'visit') }}{% endif %}
+	    					{% if product.originReference %} - {{ product.originReference }}{% endif %}
+	    				</td>
+    				</tr>
+				{% endfor %}
+				<tr>
+	    			<td>{{ "Production observation"|trans({},'visit') }}:</td>
+	    			<td>{{visit.productionOberservation}}</td>
+	    		</tr>
+    		<tr class="legend">
+    			<td colspan="2">{{ "4.- Soil and grass management"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td colspan="2"><strong>{{ "Does soil conservation"|trans({},'visit') }}</strong>:</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc green manure"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scGreenManure %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc mulching"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scMulching %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc not plow"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scNotPlow %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td colspan="2"><strong>Respecto a la hierba del suelo</strong>:</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc herbs state"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scHerbsState %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc herbs distribution"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scHerbsDistribution %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc herbs control"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.scHerbsControl %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Sc oberservations"|trans({},'visit') }}:</td>
+	    			<td>{{visit.scOberservations}}</td>
+	    		</tr>
+	    	<tr class="legend">
+    			<td colspan="2">{{ "5.- Pest and disease management"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td>{{ "Pc pests"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcPests}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pc pests crops"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcPestsCrops}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pc pests damage"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcPestsDamage}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pc control"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcControl}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pc prevention"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcPrevention}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pc oberservations"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pcOberservations}}</td>
+	    		</tr>
+	    	<tr class="legend">
+    			<td colspan="2">{{ "6. In respect to biodiversity (spatial and temporal handling)"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td>{{ "Does associations"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.doesAssociations %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		{% if visit.doesAssociations %}
+	    			<tr>
+		    			<td>{{ "Associations"|trans({},'visit') }}:</td>
+		    			<td>{{ visit.associations }}</td>
+		    		</tr>
+	    		{% endif %}
+	    		<tr>
+	    			<td>{{ "Does rotations"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.doesRotations %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		{% if visit.doesRotations %}
+	    			<tr>
+		    			<td>{{ "Rotations"|trans({},'visit') }}:</td>
+		    			<td>{{ visit.rotations }}</td>
+		    		</tr>
+	    		{% endif %}
+	    	<tr class="legend">
+    			<td colspan="2">{{ "7.- In respect to neighbours and land limits"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td>{{ "Steep bank status"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.steepBankStatus %}Adecuado{% else %}No adecuado{% endif %}</td>
+	    		</tr>
+	    		{% if not visit.steepBankStatus and visit.steepBankStatusReason %}
+	    			<tr>
+		    			<td>&nbsp;&nbsp;&nbsp;&nbsp;{{ "Steep bank status reason"|trans({},'visit') }}:</td>
+		    			<td>{{ visit.steepBankStatusReason }}</td>
+		    		</tr>
+	    		{% endif %}
+	    		<tr>
+	    			<td>{{ "Hedges barriers exists"|trans({},'visit') }}:</td>
+	    			<td>{% if visit.hedgesBarriersExists %}Si{% else %}No{% endif %}</td>
+	    		</tr>
+	    		{% if visit.hedgesBarriersExistsReason %}
+		    		<tr>
+			    		<td>&nbsp;&nbsp;&nbsp;&nbsp;{% if visit.hedgesBarriersExists %}{{ "Why"|trans({},'visit') }}{% else %}{{ "Hedges barriers exists reason"|trans({},'visit') }}{% endif %}:</td>
+			    		<td>{{ visit.hedgesBarriersExistsReason }}</td>
+			    	</tr>
+			    {% endif %}
+	    	<tr class="legend">
+    			<td colspan="2">{{ "8.- Various"|trans({},'visit') }}</td>
+    		</tr>
+    			<tr>
+	    			<td>{{ "Pruning rests"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pruningRests}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Agroquimic presence"|trans({},'visit') }}:</td>
+	    			<td>{{visit.agroquimicPresence}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Plastic waste"|trans({},'visit') }}:</td>
+	    			<td>{{visit.plasticWaste}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Agroquimic packaging"|trans({},'visit') }}:</td>
+	    			<td>{{visit.agroquimicPackaging}}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>{{ "Pesticide supsition"|trans({},'visit') }}:</td>
+	    			<td>{{visit.pesticideSupsition}}</td>
+	    		</tr>
+	    	{% endif %}
+	</tbody>
+</table>

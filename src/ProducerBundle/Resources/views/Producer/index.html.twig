@@ -14,7 +14,6 @@
 				<thead>
 					<tr>
 						<th>{{"Name"|trans({},"producer")}}</th>
-						<th>{{"Surname"|trans({},"producer")}}</th>
 						<th>{{"Phone"|trans({},"producer")}}</th>
 						<th>{{"Node"|trans({},"producer")}}</th>
 						<th>&nbsp;</th>
@@ -23,8 +22,7 @@
 				<tbody>
 					{% for producer in producers %}
 						<tr>
-							<td>{{producer.User.name}}</td>
-							<td>{{producer.User.surname}}</td>
+							<td><a href="{{ path('producer_producer_show', {'id':producer.id}) }}">{{producer.User.name}} {{producer.User.surname}}</a></td>
 							<td>{{producer.User.phone}}</td>
 							<td>{{producer.User.Node}}</td>
 							<td>

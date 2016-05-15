@@ -35,7 +35,10 @@ class PropertyType extends AbstractType
             ->add('certified')
             ->add('certifiedYear')
             ->add('certifiedProvider')
-            ->add('lastAgroquimicUsage', 'date')
+            ->add('lastAgroquimicUsage', 'date', array(
+                'required' => false,
+                'placeholder' => 'Nunca'
+            ))
             ->add('fertilizer')
             ->add('phytosanitary')
             ->add('ownerLivesHere')

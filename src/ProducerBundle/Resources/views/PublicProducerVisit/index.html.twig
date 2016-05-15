@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visits"|trans({},"visit")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visits"|trans({},"visit")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Date"|trans({},"visit")}}</th>
+						<th>{{"Property"|trans({},"visit")}}</th>
+						<th>{{"Status"|trans({},"visit")}}</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for visit in visits %}
+						{% if visit.accepted %}
+							{% set row = 'success' %}
+							{% set title = 'Accepted' %}
+						{% elseif visit.accepted is not null %}
+							{% set row = 'danger' %}
+							{% set title = 'Rejected' %}
+						{% else %}
+							{% set row = 'warning' %}
+							{% set title = 'Pending' %}
+						{% endif %}
+						<tr>
+							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+							<td>{{visit.Property}}</td>
+							<td>{{title|trans({},'visit')}}</td>
+							<td><a href="{{ path('producer_publicproducervisit_show',{"id":visit.id}) }}" class="btn btn-success">{{"show"|trans({},"table")}}</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

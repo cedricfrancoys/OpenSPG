@@ -35,7 +35,8 @@ class PublicPropertyController extends Controller
         $properties = $em->getRepository('ProducerBundle:Property')->findAll();
 
         $data = array(
-            'properties' => $properties
+            'properties' => $properties,
+            'menu' => 'producer'
         );
 
         return $this->render('ProducerBundle:PublicProperty:index.html.twig', $data);
@@ -53,7 +54,8 @@ class PublicPropertyController extends Controller
 
         $data = array(
             'property' => $property,
-            'visits' => $property->getVisits()
+            'visits' => $property->getVisits(),
+            'menu' => 'producer'
         );
 
         return $this->render('ProducerBundle:PublicProperty:show.html.twig', $data);

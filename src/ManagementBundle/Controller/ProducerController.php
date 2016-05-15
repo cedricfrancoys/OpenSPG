@@ -47,7 +47,8 @@ class ProducerController extends Controller
         $producers = $em->getRepository('UserBundle:User')->getUsersByRole('ROLE_PRODUCER', $currentMember->getNode(), 'Producer');
 
         $data = array(
-            'producers' => $producers
+            'producers' => $producers,
+            'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:Producer:index.html.twig', $data);
@@ -102,7 +103,8 @@ class ProducerController extends Controller
         }
 
         return $this->render('ManagementBundle:Producer:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -148,7 +150,8 @@ class ProducerController extends Controller
         }
 
         return $this->render('ManagementBundle:Producer:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -198,7 +201,8 @@ class ProducerController extends Controller
             $session->set('confirmation/management/producer/remove', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

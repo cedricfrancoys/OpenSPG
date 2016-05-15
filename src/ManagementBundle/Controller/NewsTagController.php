@@ -46,7 +46,8 @@ class NewsTagController extends Controller
         $tags = $em->getRepository('NewsBundle:Tags')->findAll();
 
         $data = array(
-            'tags' => $tags
+            'tags' => $tags,
+            'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:NewsTag:index.html.twig', $data);
@@ -97,7 +98,8 @@ class NewsTagController extends Controller
         }
 
         return $this->render('ManagementBundle:NewsTag:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -144,7 +146,8 @@ class NewsTagController extends Controller
         }
 
         return $this->render('ManagementBundle:NewsTag:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

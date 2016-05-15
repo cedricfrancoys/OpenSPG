@@ -45,7 +45,8 @@ class ManagerController extends Controller
         $managers = $manager->getUsersByRole('ROLE_MANAGEMENT');
 
         $data = array(
-            'managers' => $managers
+            'managers' => $managers,
+            'menu' => 'management'
         );
 
         return $data;
@@ -99,7 +100,8 @@ class ManagerController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -137,7 +139,8 @@ class ManagerController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -185,7 +188,8 @@ class ManagerController extends Controller
             $session->set('confirmation/management/manager/remove', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

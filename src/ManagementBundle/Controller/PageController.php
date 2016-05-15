@@ -51,7 +51,8 @@ class PageController extends Controller
             ->getResult();
 
         $data = array(
-            'pages' => $pages
+            'pages' => $pages,
+            'menu' => 'management'
         );
 
         return $data;
@@ -112,7 +113,8 @@ class PageController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -161,7 +163,8 @@ class PageController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -211,7 +214,8 @@ class PageController extends Controller
             $session->set('confirmation/management/fee/markPaid', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

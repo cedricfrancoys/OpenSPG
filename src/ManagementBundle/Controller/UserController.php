@@ -42,7 +42,8 @@ class UserController extends Controller
         $users = $em->getRepository('UserBundle:User')->getAll($currentMember->getNode());
 
         $data = array(
-            'users' => $users
+            'users' => $users,
+            'menu' => 'management'
         );
 
         return $data;
@@ -83,7 +84,8 @@ class UserController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'user' => $user
+            'user' => $user,
+            'menu' => 'management'
         );
     }
 
@@ -130,7 +132,8 @@ class UserController extends Controller
             $session->set('confirmation/management/user/delete', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }
@@ -227,6 +230,6 @@ class UserController extends Controller
             $trans->trans('The user has been made a manager!', array(), 'management')
         );
 
-        return new RedirectResponse($this->generateUrl('management_management_edit', array('id'=>$user->getId())));
+        return new RedirectResponse($this->generateUrl('management_manager_edit', array('id'=>$user->getId())));
     }
 }

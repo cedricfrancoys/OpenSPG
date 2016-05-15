@@ -45,7 +45,8 @@ class NewsController extends Controller
         $news = $em->getRepository('NewsBundle:News')->findAll();
 
         $data = array(
-            'news' => $news
+            'news' => $news,
+            'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:News:index.html.twig', $data);
@@ -95,7 +96,8 @@ class NewsController extends Controller
         }
 
         return $this->render('ManagementBundle:News:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -141,7 +143,8 @@ class NewsController extends Controller
         }
 
         return $this->render('ManagementBundle:News:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

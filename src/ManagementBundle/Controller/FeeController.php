@@ -56,7 +56,8 @@ class FeeController extends Controller
 
         $data = array(
             'fees' => $fees,
-            'users' => $users
+            'users' => $users,
+            'menu' => 'management'
         );
 
         return $data;
@@ -109,7 +110,8 @@ class FeeController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -156,7 +158,8 @@ class FeeController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -206,7 +209,8 @@ class FeeController extends Controller
             $session->set('confirmation/management/fee/markPaid', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

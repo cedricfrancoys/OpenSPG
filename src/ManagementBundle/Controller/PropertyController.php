@@ -76,7 +76,8 @@ class PropertyController extends Controller
 
         return array(
             'properties' => $properties,
-            'users' => $users
+            'users' => $users,
+            'menu' => 'management'
         );
     }
 
@@ -129,7 +130,7 @@ class PropertyController extends Controller
 
         return array(
             'form' => $form->createView(),
-            // 'producer' => $producer
+            'menu' => 'management'
         );
     }
 
@@ -170,7 +171,8 @@ class PropertyController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -224,7 +226,8 @@ class PropertyController extends Controller
             $session->set('confirmation/management/property/delete', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

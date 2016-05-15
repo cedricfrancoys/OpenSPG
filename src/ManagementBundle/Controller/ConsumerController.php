@@ -48,7 +48,8 @@ class ConsumerController extends Controller
         $consumers = $manager->getUsersByRole('ROLE_CONSUMER', 'Consumer');
 
         $data = array(
-            'consumers' => $consumers
+            'consumers' => $consumers,
+            'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:Consumer:index.html.twig', $data);
@@ -101,7 +102,8 @@ class ConsumerController extends Controller
         }
 
         return $this->render('ManagementBundle:Consumer:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -148,7 +150,8 @@ class ConsumerController extends Controller
         }
 
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         );
     }
 
@@ -196,7 +199,8 @@ class ConsumerController extends Controller
             $session->set('confirmation/management/consumer/remove', $confirmation_key);
 
             return array(
-                'confirmation_key' => $confirmation_key
+                'confirmation_key' => $confirmation_key,
+                'menu' => 'management'
             );
         }
     }

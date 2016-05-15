@@ -62,7 +62,8 @@ class NodeController extends Controller
         }
 
         return $this->render('ManagementBundle:Node:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

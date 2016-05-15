@@ -84,6 +84,7 @@ class ProductController extends Controller
             'families' => $families,
             'groups' => $groups,
             'varieties' => $varieties,
+            'menu' => 'management'
         );
 
         return $data;
@@ -172,7 +173,8 @@ class ProductController extends Controller
         }
 
         return $this->render('ManagementBundle:Product:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -209,7 +211,8 @@ class ProductController extends Controller
         }
 
         return $this->render('ManagementBundle:Product:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

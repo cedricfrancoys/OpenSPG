@@ -60,7 +60,8 @@ class StockController extends Controller
 
         $data = array(
             'products' => $products,
-            'producers' => $producers
+            'producers' => $producers,
+            'menu' => 'management'
         );
 
         return $data;
@@ -101,7 +102,8 @@ class StockController extends Controller
         }
 
         return $this->render('ManagementBundle:Stock:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 
@@ -138,7 +140,8 @@ class StockController extends Controller
         }
 
         return $this->render('ManagementBundle:Stock:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'menu' => 'management'
         ));
     }
 }

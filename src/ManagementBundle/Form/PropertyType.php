@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Doctrine\ORM\EntityRepository;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PropertyType extends AbstractType
 {
@@ -79,11 +81,12 @@ class PropertyType extends AbstractType
             ->add('surroundingProblems', null, array(
                 'help' => 'surrounding problems help'
             ))
-            ->add('sketch', FileType::class, array(
-                'image_path' => 'webPath',
-                'allow_remove' => false,
+            ->add('sketchFile', VichImageType::class, array(
                 'required' => false,
                 'help' => 'sketch help'
+            ))
+            ->add('documentFile', VichFileType::class, array(
+                'required' => false
             ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',

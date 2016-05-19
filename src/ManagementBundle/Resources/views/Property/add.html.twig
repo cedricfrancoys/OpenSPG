@@ -11,43 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
-			{{ form_row(form.Member) }}
-			<fieldset>
-				<legend>{{"Property data"|trans({},"property")}}</legend>
-				{{ form_row(form.areaName) }}	
-				{{ form_row(form.address) }}	
-				{{ form_row(form.regNr) }}	
-				{{ form_row(form.name) }}	
-				{{ form_row(form.tenure) }}	
-				{{ form_row(form.size) }}	
-			</fieldset>
-			<fieldset>
-				<legend>{{"General information"|trans({},"property")}}</legend>
-				{{ form_row(form.previousUses) }}	
-				{{ form_row(form.waterTypeOrigin) }}	
-				{{ form_row(form.crops) }}	
-				{{ form_row(form.certified) }}	
-				{{ form_row(form.certifiedYear) }}	
-				{{ form_row(form.certifiedProvider) }}	
-				{{ form_row(form.lastAgroquimicUsage) }}	
-				{{ form_row(form.fertilizer) }}	
-				{{ form_row(form.phytosanitary) }}	
-				{{ form_row(form.ownerLivesHere) }}	
-				{{ form_row(form.ownerDistance) }}	
-				{{ form_row(form.workforce) }}	
-			</fieldset>
-			<fieldset>
-				<legend>{{"Products"|trans({},"property")}}</legend>
-				{{ form_row(form.productSellingDistance) }}	
-				{{ form_row(form.productSellingTime) }}	
-				{{ form_row(form.productConservation) }}	
-				{{ form_row(form.productConservationDetails) }}	
-			</fieldset>
-			<fieldset>
-				<legend>{{"Environment data"|trans({},"property")}}</legend>
-				{{ form_row(form.surroundings) }}	
-				{{ form_row(form.surroundingProblems) }}
-			</fieldset>
+			{{ include('ProducerBundle:Property:base_form.html.twig') }}
 		{{ form_end(form) }}
 	</div>
 

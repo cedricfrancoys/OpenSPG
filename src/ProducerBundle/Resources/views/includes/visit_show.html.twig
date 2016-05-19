@@ -221,6 +221,12 @@
 	    			<td>{{ "Pesticide supsition"|trans({},'visit') }}:</td>
 	    			<td>{{visit.pesticideSupsition}}</td>
 	    		</tr>
+	    		{% if visit.document %}
+					<tr>
+						<td>{{"Document"|trans({},'visit')}}:</td>
+						<td><a href="/{{ visit.webPath }}">{{"Download document"|trans({},'visit')}}</a></td>
+					</tr>
+			{% endif %}
 	    	{% endif %}
 	</tbody>
 </table>

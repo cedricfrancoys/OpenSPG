@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -13,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="property")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\PropertyRepository")
+ * @Vich\Uploadable
  * @Gedmo\Loggable
  */
 class Property
@@ -219,15 +221,20 @@ class Property
     private $productConservationDetails;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, name="sketch", nullable=true)
      * @Gedmo\Versioned
      *
      * @var string
-     *
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png", "image/tiff" })
      */
     protected $sketch;
-    protected $file;
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="property_sketch", fileNameProperty="sketch")
+     * 
+     * @var File
+     */
+    private $sketchFile;
 
     /**
     * @var Member
@@ -243,6 +250,35 @@ class Property
      * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Visit", mappedBy="Property", cascade={"persist","detach"})
      */
     private $Visits;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="document", nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $document;
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="property_document", fileNameProperty="document")
+     * 
+     * @var File
+     */
+    private $documentFile;
+
+        /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Visits = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -861,126 +897,55 @@ class Property
     }
 
     /**
-     * @param UploadedFile $image
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
      *
-     * @return User
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $sketch
+     *
+     * @return Property
      */
-    public function setSketch(UploadedFile $sketch = null)
+    public function setSketchFile(File $sketch = null)
     {
-        if( null === $sketch ) return $this;
-        
+        $this->sketchFile = $sketch;
+
+        if ($sketch) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getSketchFile()
+    {
+        return $this->sketchFile;
+    }
+
+    /**
+     * @param string $sketch
+     *
+     * @return Property
+     */
+    public function setSketch($sketch)
+    {
         $this->sketch = $sketch;
 
         return $this;
     }
 
     /**
-     * @return UploadedFile
+     * @return string
      */
     public function getSketch()
     {
-        $path = $this->getRootPath().'/web/imgs/sketches/'.$this->sketch;
-        return (!$this->sketch || !file_exists($path))
-            ? null 
-            : new File($path);
-        // return $this->image;
-    }
-
-    protected function getRootPath(){
-        return dirname(dirname(dirname(dirname(__FILE__))));
-    }
-
-    /**
-     * Called before saving the entity
-     * 
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {   
-        if (null !== $this->sketch) {
-            // do whatever you want to generate a unique name
-            $this->file = $this->sketch;
-            $filename = sha1(uniqid(mt_rand(), true));
-            $this->sketch = $filename.'.'.$this->file->guessExtension();
-        }
-    }
-
-    /**
-     * Called before entity removal
-     *
-     * @ORM\PreRemove()
-     */
-    public function removeUpload()
-    {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file); 
-        }
-    }
-
-    /**
-     * Called after entity persistence
-     *
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        // The file property can be empty if the field is not required
-        if (null === $this->file) {
-            return;
-        }
-
-        // Use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->file->move(
-            $this->getUploadRootDir(),
-            $this->sketch
-        );
-
-        // Set the path property to the filename where you've saved the file
-        //$this->path = $this->file->getClientOriginalName();
-
-        // Clean up the file property as you won't need it anymore
-        $this->file = null;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->sketch
-            ? null
-            : $this->getUploadRootDir();
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->sketch
-            ? null
-            : $this->getUploadDir().'/'.$this->sketch;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'imgs/sketches';
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->Visits = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->sketch;
     }
 
     /**
@@ -1015,5 +980,81 @@ class Property
     public function getVisits()
     {
         return $this->Visits;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $document
+     *
+     * @return Property
+     */
+    public function setDocumentFile(File $document = null)
+    {
+        $this->documentFile = $document;
+
+        if ($document) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getDocumentFile()
+    {
+        return $this->documentFile;
+    }
+
+    /**
+     * @param string $document
+     *
+     * @return Property
+     */
+    public function setDocument($document)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Property
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

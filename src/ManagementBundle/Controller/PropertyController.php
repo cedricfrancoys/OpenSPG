@@ -25,7 +25,7 @@ use ManagementBundle\Form\PropertyType;
 use ProducerBundle\Entity\Member;
 
 /**
- * @Route("/producer/property")
+ * @Route("/productor/propiedad")
  */
 class PropertyController extends Controller
 {
@@ -109,6 +109,12 @@ class PropertyController extends Controller
 
         if ($form->isValid()) {
             $em->persist($property);
+
+            if ($property->getDocumentFile()) {
+                $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
+                $uploadableManager->markEntityToUpload($property, $property->getDocumentFile());
+            }
+
             $em->flush();
 
             $session = $this->get('session');

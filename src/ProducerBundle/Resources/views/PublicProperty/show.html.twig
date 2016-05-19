@@ -117,7 +117,13 @@
 		{% if property.sketch %}
 			<div class="row row-underline">
 				<div class="col-lg-3">{{"Sketch"|trans({},'property')}}:</div>
-				<div class="col-lg-9"><img src="{{ property.sketch }}" /></div>
+				<div class="col-lg-9"><img src="/downloads/properties/sketch/{{ property.sketch }}" /></div>
+			</div>
+		{% endif %}
+		{% if property.document %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Document"|trans({},'property')}}:</div>
+				<div class="col-lg-9"><a href="/downloads/properties/{{ property.document }}">{{"Download document"|trans({},'property')}}</a></div>
 			</div>
 		{% endif %}
 		<h3 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Visitas</h3>

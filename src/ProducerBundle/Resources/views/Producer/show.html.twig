@@ -21,10 +21,16 @@
 					<div class="col-lg-3">{{"Name"|trans({},'producer')}}:</div>
 					<div class="col-lg-9">{{ producer.User.name }} {{ producer.User.surname }}</a></div>
 				</div>
-				<div class="row row-underline">
-					<div class="col-lg-3">{{"Email"|trans({},'producer')}}:</div>
-					<div class="col-lg-9"><a href="mailto:{{ producer.User.email }}">{{ producer.User.email }}</a></div>
-				</div>
+				{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+					<div class="row row-underline">
+						<div class="col-lg-3">{{"Email"|trans({},'producer')}}:</div>
+						<div class="col-lg-9"><a href="mailto:{{ producer.User.email }}">{{ producer.User.email }}</a></div>
+					</div>
+					<div class="row row-underline">
+						<div class="col-lg-3">{{"Phone"|trans({},'user')}}:</div>
+						<div class="col-lg-9">{{ producer.User.phone }}</div>
+					</div>
+				{% endif %}
 				<h3 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Propiedades</h3>
 				<table class="table table-striped">
 					<thead>

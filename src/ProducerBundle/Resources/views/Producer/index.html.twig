@@ -14,7 +14,9 @@
 				<thead>
 					<tr>
 						<th>{{"Name"|trans({},"producer")}}</th>
-						<th>{{"Phone"|trans({},"producer")}}</th>
+						{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+							<th>{{"Phone"|trans({},"producer")}}</th>
+						{% endif %}
 						<th>{{"Node"|trans({},"producer")}}</th>
 						<th>&nbsp;</th>
 					</tr>
@@ -23,7 +25,9 @@
 					{% for producer in producers %}
 						<tr>
 							<td><a href="{{ path('producer_producer_show', {'id':producer.id}) }}">{{producer.User.name}} {{producer.User.surname}}</a></td>
-							<td>{{producer.User.phone}}</td>
+							{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+								<td>{{producer.User.phone}}</td>
+							{% endif %}
 							<td>{{producer.User.Node}}</td>
 							<td>
 								<a href="{{ path('producer_contact_index', {"from":"producer_producer_index", "producer_id":producer.id}) }}" title="Contactar productor"><span class="glyphicon glyphicon-envelope action contactProducer" aria-hidden="true"></span></a>

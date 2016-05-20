@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"ConsumerP"|trans({},"consumer")}}{% endblock %}
+
+{% block pageTitleText %}{{"ConsumerP"|trans({},"consumer")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"consumer")}}</th>
+						<th>{{"Phone"|trans({},"consumer")}}</th>
+						<th>{{"Node"|trans({},"consumer")}}</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for consumer in consumers %}
+						<tr>
+							<td><a href="{{ path('consumer_consumer_show', {'id':consumer.id}) }}">{{consumer.User.name}} {{consumer.User.surname}}</a></td>
+							<td>{{consumer.User.phone}}</td>
+							<td>{{consumer.User.Node}}</td>
+							<td>
+								<a href="{{ path('consumer_contact_index', {"from":"consumer_consumer_index", "consumer_id":consumer.id}) }}" title="Contactar consumidor"><span class="glyphicon glyphicon-envelope action contactconsumer" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">{{ "No consumers available"|trans({},'consumer') }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/styles.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

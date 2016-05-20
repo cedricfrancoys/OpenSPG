@@ -1,24 +1,24 @@
 <?php
-namespace ProducerBundle\Event;
+namespace UserBundle\Event;
  
 use Symfony\Component\EventDispatcher\Event;
-use \Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class ProducerEventSubscriber
+class ConsumerEventSubscriber
 {
     protected $em;
     protected $mailer;
     protected $twig;
     protected $translator;
 
-    public function onProducerCreated(Event $event)
+    public function onConsumerCreated(Event $event)
     {
-        $producer = $event->getProducer();
+        $consumer = $event->getConsumer();
 
         $subscribers = $this->getSubscribedUsers();
 
         foreach ($subscribers as $subscriber) {
-            $this->sendEmail($subscriber, $producer);
+            $this->sendEmail($subscriber, $consumer);
         }
     }
 
@@ -54,27 +54,27 @@ class ProducerEventSubscriber
     {
         $em = $this->em;
 
-        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewProducer'=>true));
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewConsumer'=>true));
     }
 
-    protected function sendEmail($subscriber, $producer)
+    protected function sendEmail($subscriber, $consumer)
     {
         $trans = $this->translator;
         $tpl = $this->twig;
 
-        $producerUser = $producer->getUser();
+        $consumerUser = $consumer->getUser();
 
         $message = \Swift_Message::newInstance()
-            ->setSubject($trans->trans('New.producer.email.subject', array(), 'user'))
+            ->setSubject($trans->trans('New.consumer.email.subject', array(), 'user'))
             ->setFrom('noreply@raac.tobeonthe.net')
             ->setTo($subscriber->getEmail())
             ->setBody(
                 $tpl->render(
-                    'UserBundle:Emails:newProducer.html.twig',
+                    'UserBundle:Emails:newConsumer.html.twig',
                     array(
                         'name' => $subscriber->getName(),
-                        'producer_name' => $producerUser->getName() . ' ' . $producerUser->getSurname(),
-                        'producer_id' => $producer->getId(),
+                        'consumer_name' => $consumerUser->getName() . ' ' . $consumerUser->getSurname(),
+                        'consumer_id' => $consumer->getId(),
                         'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
                     )
                 ),

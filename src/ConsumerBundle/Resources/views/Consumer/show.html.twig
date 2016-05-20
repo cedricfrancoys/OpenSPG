@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ consumer.User.name }}{% endblock %}
+
+{% block pageTitleText %}{{ consumer.User.name }}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+		<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Ficha del consumidor</h2>
+		<div class="row">
+			{% if consumer.User.webPath %}	
+				<div class="col-lg-3">
+					<img src="/{{ consumer.User.webPath }}" class="profileImage">
+				</div>
+			{% endif %}
+			<div class="col-lg-9">
+				<div class="row row-underline">
+					<div class="col-lg-3">{{"Name"|trans({},'user')}}:</div>
+					<div class="col-lg-9">{{ consumer.User.name }} {{ consumer.User.surname }}</a></div>
+				</div>
+				<div class="row row-underline">
+					<div class="col-lg-3">{{"Email"|trans({},'user')}}:</div>
+					<div class="col-lg-9"><a href="mailto:{{ consumer.User.email }}">{{ consumer.User.email }}</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/producer.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

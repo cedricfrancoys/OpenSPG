@@ -14,3 +14,12 @@ services:
             - [setFosUserManager, ["@fos_user.user_manager"]]
             - [setFosEventDispatcher, ["@event_dispatcher"]]
             - [setMailer, ["@mailer"]]
+    user.events.consumer:
+        class: UserBundle\Event\ConsumerEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+            - ["setMailer", ["@mailer"]]
+            - [setTwig, ["@twig"]]
+            - [setTranslator, ["@translator"]]
+        tags:
+            - {name:"kernel.event_listener", event:"user.events.consumerCreated", method:"onConsumerCreated"}

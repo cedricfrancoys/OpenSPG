@@ -35,6 +35,10 @@
 								<a href="{{ path('management_consumer_remove', {"id":consumer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a></td>
 							</td>
 						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">{{ "No consumers available"|trans({},'consumer') }}</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

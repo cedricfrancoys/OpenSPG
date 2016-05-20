@@ -23,6 +23,8 @@ use ConsumerBundle\Entity\Member;
 use ManagementBundle\Form\ConsumerType;
 use UserBundle\Entity\User;
 
+use UserBundle\Event\ConsumerEvent;
+
 /**
  * @Route("/consumidor")
  */
@@ -81,19 +83,23 @@ class ConsumerController extends Controller
             $userCreated = $manager->createUser($consumer->getUser(), $form, $request->request->get('consumer'), array('ROLE_MEMBER','ROLE_CONSUMER'));
             if($userCreated)
             {
+                $event = new ConsumerEvent($consumer);
+                $dispatcher = $this->get('event_dispatcher'); 
+                $dispatcher->dispatch('user.events.consumerCreated', $event);
+
                 $session = $this->get('session');
                 $trans = $this->get('translator');
 
                 // add flash messages
                 $session->getFlashBag()->add(
                     'success',
-                    $trans->trans('The consumer data has been updated!', array(), 'management')
+                    $trans->trans('The consumer has been created!', array(), 'management')
                 );
 
                 if ($form->get('saveAndClose')->isClicked()) {
                     $url = $this->generateUrl('management_consumer_index');
                 }else{
-                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$user->getId()));
+                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$consumer->getId()));
                 }
                 $response = new RedirectResponse($url);
 

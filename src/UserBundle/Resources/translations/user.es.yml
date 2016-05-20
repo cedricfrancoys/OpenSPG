@@ -43,3 +43,11 @@ NewProducerEmailContent: >
   <p>Saludos del equipo del SPG</p>
 NewProducerEmailFooter: >
   Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.
+New.consumer.email.subject: Ha habido una nueva alta de consumidor en el SPG
+NewConsumerEmailContent: >
+  <p>Hola %name%</p>
+  <p>En el sistema del SPG se ha dado de alta un nuevo Consumidor<br />
+  Su nombre es %consumer_name% y puedes ver su ficha en <a href="%showLink%">este enlace</a></p>
+  <p>Saludos del equipo del SPG</p>
+NewConsumerEmailFooter: >
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.

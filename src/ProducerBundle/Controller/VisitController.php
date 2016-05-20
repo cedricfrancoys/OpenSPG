@@ -15,7 +15,6 @@ use ProducerBundle\Form\SignMeUpType;
 
 /**
  * @Route("/productor/visita")
- * @Security("has_role('ROLE_PRODUCER')")
  */
 class VisitController extends Controller
 {
@@ -54,6 +53,7 @@ class VisitController extends Controller
 
     /**
      * @Route("/{id}")
+     * @Security("has_role('ROLE_PRODUCER')")
      */
     public function showAction(Request $request, Visit $visit)
     {

@@ -74,6 +74,7 @@ class Contact
     * @var \AppBundle\Entity\Contact
     *
     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Contact")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     private $Parent;
 

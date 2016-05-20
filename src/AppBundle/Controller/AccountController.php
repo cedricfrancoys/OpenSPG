@@ -16,6 +16,9 @@ class AccountController extends Controller
     public function indexAction(Request $request)
     {
         $user = $this->getUser();
+        if (null === $user) {
+            throw new AccessDeniedException();
+        }
         $roles = $user->getRoles();
         if(in_array('ROLE_PRODUCER', $roles)){
             return $this->redirectToRoute('producer_member_index');

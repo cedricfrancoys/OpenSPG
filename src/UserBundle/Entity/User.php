@@ -64,6 +64,7 @@ class User extends BaseUser
     * @var Node
     *
     * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     * @Gedmo\Versioned
     */
     protected $Node;

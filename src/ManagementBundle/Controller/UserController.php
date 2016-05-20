@@ -18,7 +18,7 @@ use ProducerBundle\Entity\Member as Producer;
 use ConsumerBundle\Entity\Member as Consumer;
 
 /**
- * @Route("/user")
+ * @Route("/usuario")
  */
 class UserController extends Controller
 {

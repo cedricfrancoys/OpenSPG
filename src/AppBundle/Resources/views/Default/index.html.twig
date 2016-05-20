@@ -120,7 +120,9 @@
 	<script type="text/javascript">
 		var myCenter=new google.maps.LatLng(36.892011,-3.245017);
 		{% for node in nodes %}
-			var pointer{{node.id}} = new google.maps.LatLng({{node.Location.latitude}},{{node.Location.longitude}});
+			{% if node.Location is not null %}
+				var pointer{{node.id}} = new google.maps.LatLng({{node.Location.latitude}},{{node.Location.longitude}});
+			{% endif %}
 		{% endfor %}
 		var marker;
 		function initialize()
@@ -132,17 +134,19 @@
 			  };
 			var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 			{% for node in nodes %}
-				marker{{node.id}}=new google.maps.Marker({
-				  position:pointer{{node.id}}
-				});
-				marker{{node.id}}.setMap(map);
-				var infowindow{{node.id}} = new google.maps.InfoWindow({
-				  content:"{{node.name}}"
-				});
-				google.maps.event.addListener(marker{{node.id}}, 'click', function() {
-				  infowindow{{node.id}}.open(map,marker{{node.id}});
-				});
-				infowindow{{node.id}}.open(map,marker{{node.id}});
+				{% if node.Location is not null %}
+					marker{{node.id}}=new google.maps.Marker({
+					  position:pointer{{node.id}}
+					});
+					marker{{node.id}}.setMap(map);
+					var infowindow{{node.id}} = new google.maps.InfoWindow({
+					  content:"{{node.name}}"
+					});
+					google.maps.event.addListener(marker{{node.id}}, 'click', function() {
+					  infowindow{{node.id}}.open(map,marker{{node.id}});
+					});
+					infowindow{{node.id}}.open(map,marker{{node.id}});
+				{% endif %}
 			{% endfor %}
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);

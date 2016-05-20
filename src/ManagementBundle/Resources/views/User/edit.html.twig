@@ -25,9 +25,7 @@
 				<a href="{{ path('management_user_makemanager', {"id": user.id}) }}" class="btn btn-success btn-makeManager">{{"Make manager"|trans({},"management")}}</a>
 			{% endif %}
 		</div>
-	    {{ form_start(form) }}
-			{{ form_errors(form) }}
-		{{ form_end(form) }}
+	    {{ include('UserBundle:User:base_form.html.twig') }}
 	</div>
 
 {% endblock %}

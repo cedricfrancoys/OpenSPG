@@ -45,9 +45,23 @@ class MemberType extends AbstractType
                 $form->add('password', 'password');
             }
 
-            $form->add('enabled', null, array(
-                'required' => false
-            ));
+            $form
+                ->add('receiveEmailNewProducer', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailNewConsumer', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailNewVisit', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailCompletedVisit', null, array(
+                    'required' => false
+                ))
+                ->add('enabled', null, array(
+                    'required' => false
+                ))
+            ;
 
             if( !$user || null === $user->getId() ){
                 $form->add('sendEmail', 'checkbox', array(

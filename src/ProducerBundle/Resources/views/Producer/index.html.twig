@@ -29,6 +29,10 @@
 								<a href="{{ path('producer_contact_index', {"from":"producer_producer_index", "producer_id":producer.id}) }}" title="Contactar productor"><span class="glyphicon glyphicon-envelope action contactProducer" aria-hidden="true"></span></a>
 							</td>
 						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">{{ "No producers available"|trans({},'producer') }}</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

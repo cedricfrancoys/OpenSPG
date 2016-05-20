@@ -31,3 +31,15 @@ RegistrationEmailContent: >
   <p>Para hacer login accede al siguiente enlace: <a href="%loginLink%">%loginLink%</a></p>
   <p></p>
   <p>Saludos del equipo del SPG</p>
+Receive email new producer: Recibir email para altas de productores
+Receive email new consumer: Recibir email para altas de consumidores
+Receive email new visit: Recibir email para nuevas visitas
+Receive email completed visit: Recibir email para visitas completadas
+New.producer.email.subject: Ha habido una nueva alta de productor en el SPG
+NewProducerEmailContent: >
+  <p>Hola %name%</p>
+  <p>En el sistema del SPG se ha dado de alta un nuevo productor<br />
+  Su nombre es %producer_name% y puedes ver su ficha en <a href="%showLink%">este enlace</a></p>
+  <p>Saludos del equipo del SPG</p>
+NewProducerEmailFooter: >
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.

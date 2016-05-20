@@ -26,13 +26,26 @@ class ProfileType extends AbstractType
                 'allow_remove' => false,
                 'required' => false
             ))
+            ->add('receiveEmailNewProducer', null, array(
+                'required' => false
+            ))
+            ->add('receiveEmailNewConsumer', null, array(
+                'required' => false
+            ))
+            ->add('receiveEmailNewVisit', null, array(
+                'required' => false
+            ))
+            ->add('receiveEmailCompletedVisit', null, array(
+                'required' => false
+            ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'UserBundle\Entity\User'
+	        'data_class' => 'UserBundle\Entity\User',
+            'translation_domain' => 'user'
 	    ));
 	}
 }

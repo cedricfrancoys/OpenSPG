@@ -103,6 +103,38 @@ class User extends BaseUser
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
+     *
+     * @var bool
+     */
+    private $receiveEmailNewProducer = true;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
+     *
+     * @var bool
+     */
+    private $receiveEmailNewConsumer = true;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
+     *
+     * @var bool
+     */
+    private $receiveEmailNewVisit = true;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
+     *
+     * @var bool
+     */
+    private $receiveEmailCompletedVisit = true;
+
     public function __construct()
     {
         parent::__construct();
@@ -396,5 +428,101 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set receiveEmailNewProducer
+     *
+     * @param boolean $receiveEmailNewProducer
+     *
+     * @return User
+     */
+    public function setReceiveEmailNewProducer($do)
+    {
+        $this->receiveEmailNewProducer = $do;
+
+        return $this;
+    }
+
+    /**
+     * Get receiveEmailNewProducer
+     *
+     * @return bool
+     */
+    public function getReceiveEmailNewProducer()
+    {
+        return $this->receiveEmailNewProducer;
+    }
+
+    /**
+     * Set receiveEmailNewConsumer
+     *
+     * @param boolean $receiveEmailNewConsumer
+     *
+     * @return User
+     */
+    public function setReceiveEmailNewConsumer($do)
+    {
+        $this->receiveEmailNewConsumer = $do;
+
+        return $this;
+    }
+
+    /**
+     * Get receiveEmailNewConsumer
+     *
+     * @return bool
+     */
+    public function getReceiveEmailNewConsumer()
+    {
+        return $this->receiveEmailNewConsumer;
+    }
+
+    /**
+     * Set receiveEmailNewVisit
+     *
+     * @param boolean $receiveEmailNewVisit
+     *
+     * @return User
+     */
+    public function setReceiveEmailNewVisit($do)
+    {
+        $this->receiveEmailNewVisit = $do;
+
+        return $this;
+    }
+
+    /**
+     * Get receiveEmailNewVisit
+     *
+     * @return bool
+     */
+    public function getReceiveEmailNewVisit()
+    {
+        return $this->receiveEmailNewVisit;
+    }
+
+    /**
+     * Set receiveEmailCompletedVisit
+     *
+     * @param boolean $receiveEmailCompletedVisit
+     *
+     * @return User
+     */
+    public function setReceiveEmailCompletedVisit($do)
+    {
+        $this->receiveEmailCompletedVisit = $do;
+
+        return $this;
+    }
+
+    /**
+     * Get receiveEmailCompletedVisit
+     *
+     * @return bool
+     */
+    public function getReceiveEmailCompletedVisit()
+    {
+        return $this->receiveEmailCompletedVisit;
     }
 }

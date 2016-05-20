@@ -23,6 +23,8 @@ use ProducerBundle\Entity\Member;
 use ManagementBundle\Form\ProducerType;
 use UserBundle\Entity\User;
 
+use ProducerBundle\Event\ProducerEvent;
+
 /**
  * @Route("/productor")
  */
@@ -82,13 +84,17 @@ class ProducerController extends Controller
             $userCreated = $manager->createUser($producer->getUser(), $form, $userFormData, array('ROLE_MEMBER','ROLE_PRODUCER'));
             if($userCreated)
             {
+                $event = new ProducerEvent($producer, 'add');
+                $dispatcher = $this->get('event_dispatcher'); 
+                $dispatcher->dispatch('producer.events.producerCreated', $event);
+
                 $session = $this->get('session');
                 $trans = $this->get('translator');
 
                 // add flash messages
                 $session->getFlashBag()->add(
                     'success',
-                    $trans->trans('The producer data has been updated!', array(), 'management')
+                    $trans->trans('The producer has been created!', array(), 'management')
                 );
 
                 if ($form->get('saveAndClose')->isClicked()) {

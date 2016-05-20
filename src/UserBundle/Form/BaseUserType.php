@@ -49,9 +49,23 @@ class BaseUserType extends AbstractType
                 $form->add('password', PasswordType::class);
             }
 
-            $form->add('enabled', null, array(
-                'required' => false
-            ));
+            $form
+                ->add('receiveEmailNewProducer', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailNewConsumer', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailNewVisit', null, array(
+                    'required' => false
+                ))
+                ->add('receiveEmailCompletedVisit', null, array(
+                    'required' => false
+                ))
+                ->add('enabled', null, array(
+                    'required' => false
+                ))
+            ;
 
             if( !$user || null === $user->getId() ){
                 $form->add('sendEmail', CheckboxType::class, array(
@@ -62,23 +76,25 @@ class BaseUserType extends AbstractType
             }
 
 
-            $form->add('save', SubmitType::class, array(
-                'translation_domain' => 'messages',
-                'attr' => array('btn'=>'buttons')
-            ))
-            ->add('saveAndClose', SubmitType::class, array(
-                'translation_domain' => 'messages',
-                'attr' => array('btn'=>'buttons')
-            ))
-            ->add('cancel', ResetType::class, array(
-                'translation_domain' => 'messages',
-                'attr' => array(
-                    'btn' => 'buttons',
-                    'class' => 'btn-danger cancel-btn',
-                    'data-path' => $options['data-path']
-                ),
-                'label' => 'Close'
-            ));
+            $form
+                ->add('save', SubmitType::class, array(
+                    'translation_domain' => 'messages',
+                    'attr' => array('btn'=>'buttons')
+                ))
+                ->add('saveAndClose', SubmitType::class, array(
+                    'translation_domain' => 'messages',
+                    'attr' => array('btn'=>'buttons')
+                ))
+                ->add('cancel', ResetType::class, array(
+                    'translation_domain' => 'messages',
+                    'attr' => array(
+                        'btn' => 'buttons',
+                        'class' => 'btn-danger cancel-btn',
+                        'data-path' => $options['data-path']
+                    ),
+                    'label' => 'Close'
+                ))
+            ;
         });
     }
     

@@ -116,7 +116,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/profile/")
+     * @Route("/perfil/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
     public function profileAction(Request $request){

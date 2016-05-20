@@ -20,13 +20,6 @@ class ProfileType extends AbstractType
             ->add('User', BaseProfileType::class, array(
                 'label' => false
             ))
-            // ->add('Properties', CollectionType::class, array(
-            //     'entry_type' => PropertyType::class,
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false
-            // ))
-            
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array('btn'=>'buttons')

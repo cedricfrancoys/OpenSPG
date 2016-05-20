@@ -28,3 +28,12 @@ services:
             - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
         tags:
             - {name:"kernel.event_listener", event:"producer.events.visitPersisted", method:"onVisitSaved"}
+    producer.events.producer:
+        class: ProducerBundle\Event\ProducerEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+            - ["setMailer", ["@mailer"]]
+            - [setTwig, ["@twig"]]
+            - [setTranslator, ["@translator"]]
+        tags:
+            - {name:"kernel.event_listener", event:"producer.events.producerCreated", method:"onProducerCreated"}

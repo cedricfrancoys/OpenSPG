@@ -38,6 +38,10 @@
 								<a href="{{ path('management_visit_index', {"filter[producer]":producer.id}) }}" class="btn btn-default">{{"Visits"|trans({},"management")}}</a>
 							</td>
 						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">{{ "No producers available"|trans({},'producer') }}</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

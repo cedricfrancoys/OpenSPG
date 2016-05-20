@@ -107,11 +107,11 @@ class VisitController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $visit = new Visit();
-        $visit->setVisitDate(new \DateTime());
-        $visit->setStartTime(new \DateTime());
-        $endTime = new \DateTime();
-        $endTime->add(new \DateInterval('PT4H'));
-        $visit->setEndTime($endTime);
+        // $visit->setVisitDate(new \DateTime());
+        // $visit->setStartTime(new \DateTime());
+        // $endTime = new \DateTime();
+        // $endTime->add(new \DateInterval('PT4H'));
+        // $visit->setEndTime($endTime);
 
         $form = $this->createForm(VisitType::class, $visit);
 

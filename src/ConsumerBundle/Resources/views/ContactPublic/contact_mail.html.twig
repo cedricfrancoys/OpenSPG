@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ "New contact request received"|trans({},'contact') }}</title>
+</head>
+<body>
+	<div class="container">
+		<h4>{{ "New contact request received"|trans({},'contact') }}</h4>
+		<p>{{ "Data"|trans({},'contact') }}:</p>
+		<p>
+			<strong>{{ "Name"|trans({},'contact') }}:</strong> {{ contact.name }}<br />
+			<strong>{{ "Email"|trans({},'contact') }}:</strong> {{ contact.email }}<br />
+			<strong>{{ "Message"|trans({},'contact') }}:</strong> {{ contact.message }}<br />
+			<strong>{{ "Received"|trans({},'contact') }}:</strong> {{ contact.received|date('d/m/Y H:i') }}
+		</p>
+		<p>
+			Saludos,<br />
+			El sistema
+		</p>
+	</div>
+</body>
+</html>

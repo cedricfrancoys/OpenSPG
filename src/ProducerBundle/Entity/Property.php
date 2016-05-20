@@ -266,7 +266,7 @@ class Property
     private $documentFile;
 
         /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */

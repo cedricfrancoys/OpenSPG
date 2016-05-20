@@ -34,7 +34,7 @@ class SignMeUpType extends AbstractType
                 'attr' => array(
                     'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'producer_visit_index'
+                    'data-path' => 'producer_visitpublic_index'
                 ),
                 'label' => 'Close'
             ))

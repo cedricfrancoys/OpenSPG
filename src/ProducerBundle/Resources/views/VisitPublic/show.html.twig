@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visit"|trans({},"visit")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+    	{% for type, messages in app.session.flashbag.all() %}
+			{% for message in messages %}
+				<div class="alert alert-{{ type }}">{{ message }}</div>
+			{% endfor %}
+		{% endfor %}
+	    {{ include('ProducerBundle:includes:visit_show.html.twig') }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/producer/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

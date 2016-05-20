@@ -17,7 +17,7 @@ use ConsumerBundle\Form\ContactType;
 use ConsumerBundle\Form\ReplyContactType;
 
 /**
- * @Route("/members/consumidores/contacto")
+ * @Route("/consumidor/contacto")
  */
 class ContactController extends Controller
 {

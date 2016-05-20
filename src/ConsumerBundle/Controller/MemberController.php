@@ -20,10 +20,13 @@ use ConsumerBundle\Form\ProfileType;
 use ConsumerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
+/**
+ * @Route("/consumidor")
+ */
 class MemberController extends Controller
 {
     /**
-     * @Route("/members/consumer/", options={"expose":true})
+     * @Route("/", options={"expose":true})
      * @Security("has_role('ROLE_CONSUMER')")
      */
     public function indexAction()
@@ -40,7 +43,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/members/consumer/register/")
+     * @Route("registro/")
      */
     public function registerAction(Request $request)
     {
@@ -109,7 +112,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/members/consumer/profile/")
+     * @Route("perfil/")
      * @Security("has_role('ROLE_CONSUMER')")
      */
     public function profileAction(Request $request){

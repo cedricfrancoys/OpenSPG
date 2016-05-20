@@ -51,3 +51,12 @@ NewConsumerEmailContent: >
   <p>Saludos del equipo del SPG</p>
 NewConsumerEmailFooter: >
   Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.
+New.visit.email.subject: Ha habido una nueva alta de visita en el SPG
+NewVisitEmailContent: >
+  <p>Hola %name%</p>
+  <p>En el sistema del SPG se ha dado de alta una nueva Visita<br />
+  Vamos a visitar "%property_name%" de %producer_name%... puedes ver la ficha en <a href="%showLink%">este enlace</a><br />
+  Para participar en la visita accede <a href="%participateLink%">aquí</a></p>
+  <p>Saludos del equipo del SPG</p>
+NewVisitEmailFooter: >
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.

@@ -23,3 +23,12 @@ services:
             - [setTranslator, ["@translator"]]
         tags:
             - {name:"kernel.event_listener", event:"user.events.consumerCreated", method:"onConsumerCreated"}
+    user.events.visit:
+        class: UserBundle\Event\VisitEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+            - ["setMailer", ["@mailer"]]
+            - [setTwig, ["@twig"]]
+            - [setTranslator, ["@translator"]]
+        tags:
+            - {name:"kernel.event_listener", event:"producer.events.visitPersisted", method:"onVisitSaved"}

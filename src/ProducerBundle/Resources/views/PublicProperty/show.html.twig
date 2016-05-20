@@ -26,10 +26,12 @@
 			<div class="col-lg-3">{{"Address"|trans({},'property')}}:</div>
 			<div class="col-lg-9">{{ property.address }}</div>
 		</div>
-		<div class="row row-underline">
-			<div class="col-lg-3">{{"Email"|trans({},'property')}}:</div>
-			<div class="col-lg-9"><a href="mailto:{{ property.Member.User.email }}">{{ property.Member.User.email }}</a></div>
-		</div>
+		{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+			<div class="row row-underline">
+				<div class="col-lg-3">{{"Email"|trans({},'property')}}:</div>
+				<div class="col-lg-9"><a href="mailto:{{ property.Member.User.email }}">{{ property.Member.User.email }}</a></div>
+			</div>
+		{% endif %}
 		<div class="row row-underline">
 			<div class="col-lg-3">{{"Tenure"|trans({},'property')}}:</div>
 			<div class="col-lg-9">{{ property.tenure }}</div>

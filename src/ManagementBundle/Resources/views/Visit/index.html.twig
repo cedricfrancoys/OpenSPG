@@ -62,6 +62,10 @@
 							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
 							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
 						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">{{ "No visits available"|trans({},'visit') }}</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

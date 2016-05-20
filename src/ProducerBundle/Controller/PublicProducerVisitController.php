@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use ProducerBundle\Entity\Visit;
 use ProducerBundle\Form\VisitType;
 use ProducerBundle\Form\SignMeUpType;
-use Producer\Entity\Member;
+use ProducerBundle\Entity\Member;
 
 /**
  * @Route("/productores/{id}/visitas")

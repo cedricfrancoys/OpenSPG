@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-use VisitBundle\Form\BaseVisitType;
+use ProducerBundle\Form\BaseVisitType;
 
 class VisitType extends BaseVisitType
 {

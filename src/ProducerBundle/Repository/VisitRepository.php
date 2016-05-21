@@ -26,6 +26,7 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
             return $this
             ->createQueryBuilder('v')
             ->where('v.visitDate IS NULL OR v.visitDate > :today')
+            ->orderBy('v.visitDate', 'ASC')
             ->setParameter('today', new \DateTime())
             ->setMaxResults(10)
             ->getQuery()

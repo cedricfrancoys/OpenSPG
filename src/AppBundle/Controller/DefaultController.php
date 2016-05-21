@@ -16,28 +16,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $nodes = $em->getRepository('NodeBundle:Node')->findAll();
 
-        $upcomingVisits = $em->getRepository('ProducerBundle:Visit')
-            ->createQueryBuilder('v')
-            ->where('v.visitDate IS NULL OR v.visitDate > :today')
-            ->setParameter('today', new \DateTime())
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $upcomingVisits = $em->getRepository('ProducerBundle:Visit')->getUpcoming();
 
-        $stocks = $em->getRepository('ProducerBundle:Stock')
-            ->createQueryBuilder('s')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $stocks = $em->getRepository('ProducerBundle:Stock')->getNewest();
 
-        $news = $em->getRepository('NewsBundle:News')
-            ->createQueryBuilder('n')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-        ;        
+        $news = $em->getRepository('NewsBundle:News')->getNewest();
 
         $data = array(
             'products' => $stocks,

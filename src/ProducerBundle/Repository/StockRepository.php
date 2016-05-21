@@ -12,9 +12,7 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function findbyUser(\FOS\UserBundle\Model\UserInterface $user)
 	{
-		$em = $this->getEntityManager();
-
-		$q = $em->createQuery(
+		$q = $this->createQuery(
 			'SELECT
 				s
 			FROM
@@ -27,5 +25,15 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
 		$q->setParameter('user', $user);
 
 		return $q->getResult();
+	}
+
+	public function getNewest()
+	{
+		return $this
+            ->createQueryBuilder('s')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
 	}
 }

@@ -10,4 +10,26 @@ namespace ProducerBundle\Repository;
  */
 class VisitRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getVisitsForParticipant($participant)
+	{
+		return $this
+            ->createQueryBuilder('v')
+            ->leftJoin('v.Participants', 'p')
+            ->where('p = :user')
+            ->setParameter('user', $participant)
+            ->getQuery()
+            ->getResult();
+	}
+
+      public function getUpcoming()
+      {
+            return $this
+            ->createQueryBuilder('v')
+            ->where('v.visitDate IS NULL OR v.visitDate > :today')
+            ->setParameter('today', new \DateTime())
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+      }
 }

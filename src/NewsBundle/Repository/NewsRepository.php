@@ -10,4 +10,12 @@ namespace NewsBundle\Repository;
  */
 class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getNewest(){
+		return $this
+            ->createQueryBuilder('n')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ; 
+	}
 }

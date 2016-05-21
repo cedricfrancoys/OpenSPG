@@ -34,13 +34,7 @@ class VisitController extends Controller
         $breadcrumbs->addItem("Visits", $this->get("router")->generate("consumer_visit_index"));
 
         $em = $this->getDoctrine()->getManager();
-        $visits = $em->getRepository('ProducerBundle:Visit')
-            ->createQueryBuilder('v')
-            ->leftJoin('v.Participants', 'p')
-            ->where('p = :user')
-            ->setParameter('user', $this->getUser())
-            ->getQuery()
-            ->getResult();
+        $visits = $em->getRepository('ProducerBundle:Visit')->getVisitsForParticipant($this->getUser());
 
         $data = array(
             'menu' => 'account',

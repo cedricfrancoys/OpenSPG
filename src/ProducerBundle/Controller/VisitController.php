@@ -103,7 +103,7 @@ class VisitController extends Controller
                 $dispatcher->dispatch('producer.events.visitCompleted', $event);
             }
 
-            $url = $this->generateUrl('producer_visit_edit');
+            $url = $this->generateUrl('producer_visit_edit', array('id'=>$visit->getId()));
             $response = new RedirectResponse($url);
 
             return $response;

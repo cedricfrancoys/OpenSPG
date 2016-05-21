@@ -20,6 +20,8 @@ use ConsumerBundle\Form\ProfileType;
 use ConsumerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
+use UserBundle\Event\ConsumerEvent;
+
 /**
  * @Route("/consumidor")
  */
@@ -94,6 +96,10 @@ class MemberController extends Controller
 
             $em->persist($member);
             $em->flush();
+
+            $consumerEvent = new ConsumerEvent($consumer);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('user.events.consumerCreated', $consumerEvent);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('consumer_member_profile');

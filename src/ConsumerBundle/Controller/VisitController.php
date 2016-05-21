@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use ProducerBundle\Entity\Visit;
 use ConsumerBundle\Form\VisitType;
 
+use ProducerBundle\Event\VisitEvent;
+
 /**
  * @Route("/members/consumidor/visitas")
  */
@@ -75,6 +77,8 @@ class VisitController extends Controller
         $breadcrumbs->addItem("Visits", $this->get("router")->generate("consumer_visit_index"));
         $breadcrumbs->addItem("Edit", $this->get("router")->generate("consumer_visit_edit",array('id'=>$visit->getId())));
 
+        $visitAccepted = $visit->getAccepted();
+
         $form = $this->createForm(VisitType::class, $visit);
 
         $form->handleRequest($request);
@@ -84,6 +88,12 @@ class VisitController extends Controller
 
             $em->persist($visit);
             $em->flush();
+
+            if ($visit->getAccepted() !== null && $visitAccepted === null) {
+                $event = new VisitEvent($visit, 'edit');
+                $dispatcher = $this->get('event_dispatcher');
+                $dispatcher->dispatch('producer.events.visitCompleted', $event);
+            }
 
             $url = $this->generateUrl('consumer_visit_edit');
             $response = new RedirectResponse($url);

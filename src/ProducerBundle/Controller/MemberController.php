@@ -20,6 +20,8 @@ use ProducerBundle\Form\ProfileType;
 use ProducerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
 
+use ProducerBundle\Event\ProducerEvent;
+
 /**
  * @Route("/productor")
  */
@@ -98,6 +100,10 @@ class MemberController extends Controller
 
             $em->persist($member);
             $em->flush();
+
+            $producerEvent = new ProducerEvent($producer, 'add');
+            $dispatcher = $this->get('event_dispatcher'); 
+            $dispatcher->dispatch('producer.events.producerCreated', $producerEvent);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('producer_member_profile');

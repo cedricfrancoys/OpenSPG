@@ -10,12 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use ProducerBundle\Entity\Visit;
+
 use ConsumerBundle\Form\VisitType;
 
 use ProducerBundle\Event\VisitEvent;
 
 /**
- * @Route("/members/consumidor/visitas")
+ * @Route("/consumidor/visitas")
  */
 class VisitController extends Controller
 {

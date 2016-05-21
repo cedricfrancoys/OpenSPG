@@ -17,7 +17,7 @@ use ProducerBundle\Entity\Member;
 use ProducerBundle\Event\VisitEvent;
 
 /**
- * @Route("/visits")
+ * @Route("/visitas")
  */
 class VisitController extends Controller
 {
@@ -93,7 +93,6 @@ class VisitController extends Controller
 
     /**
      * @Route("/add")
-     * @Route("/producer/{producer_id}/add", name="management_visit_add2")
      * @Security("has_role('ROLE_MANAGEMENT')")
      */
     public function addAction(Request $request)

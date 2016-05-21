@@ -84,6 +84,7 @@ jQuery(document).ready(function() {
                 var p = container.data('prototype');
                 p = p.replace(/__name__/g, index);
                 container.append(p);
+                container.children('div:last').find('input:first').focus();
                 ++index;
                 return false;
             });

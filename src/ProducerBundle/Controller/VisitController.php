@@ -101,7 +101,7 @@ class VisitController extends Controller
                 $trans->trans('You have been added to the visit!', array(), 'visit')
             );
 
-            $url = $this->generateUrl('producer_visit_show', array('id'=>$visit->getId()));
+            $url = $this->generateUrl('producer_visitpublic_show', array('id'=>$visit->getId()));
             $response = new RedirectResponse($url);
 
             return $response;

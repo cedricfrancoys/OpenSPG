@@ -148,7 +148,7 @@ class ConsumerController extends Controller
             if ($form->get('saveAndClose')->isClicked()) {
                     $url = $this->generateUrl('management_consumer_index');
                 }else{
-                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$user->getId()));
+                    $url = $this->generateUrl('management_consumer_edit', array('id'=>$consumer->getId()));
                 }
             $response = new RedirectResponse($url);
 

@@ -100,8 +100,8 @@
 					<tbody>
 						{% for visit in upcomingVisits %}
 							<tr>
-								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}">{{visit.Producer}}</a></td>
-								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}">{{visit.Property.name}}</a></td>
+								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}" title="Ver ficha del productor">{{visit.Producer}}</a></td>
+								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}" title="Ver ficha de la propiedad">{{visit.Property.name}}</a></td>
 								<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
 								<td>
 									{% if app.user and not visit.isParticipant(app.user) %}

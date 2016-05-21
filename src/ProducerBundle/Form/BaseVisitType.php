@@ -3,6 +3,7 @@
 namespace ProducerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -55,11 +56,27 @@ class BaseVisitType extends AbstractType
                 },
                 'placeholder' => 'Choose a property'
             ))
-            ->add('didFertilize')
+            ->add('didFertilize', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
             ->add('fertlizeWith')
             ->add('fertilizeQty')
             ->add('fertilizeOrigin')
-            ->add('usesFoliarFertilizer')
+            ->add('usesFoliarFertilizer', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
             ->add('usesFoliarFertilizerWhich')
             ->add('fertilizerObservations')
             ->add('Production', CollectionType::class, array(
@@ -87,16 +104,72 @@ class BaseVisitType extends AbstractType
             ))
             ->add('productionOberservation')
             // ->add('doesSoilConservation')
-            ->add('scGreenManure')
-            ->add('scMulching')
-            ->add('scNotPlow')
-            ->add('scHerbsState')
-            ->add('scHerbsDistribution')
-            ->add('scHerbsControl')
+            ->add('scGreenManure', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
+            ->add('scMulching', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
+            ->add('scNotPlow', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
+            ->add('scHerbsState', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
+            ->add('scHerbsDistribution', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
+            ->add('scHerbsControl', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
             ->add('scOberservations', null, array(
                 'required' => false
             ))
-            ->add('pcPests')
+            ->add('pcPests', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
+            ))
             ->add('pcControl', null, array(
                 'required' => false
             ))
@@ -112,26 +185,50 @@ class BaseVisitType extends AbstractType
             ->add('pcPestsDamage', null, array(
                 'required' => false
             ))
-            ->add('doesAssociations', null, array(
-                'required' => false
+            ->add('doesAssociations', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
             ))
             ->add('associations', null, array(
                 'required' => false
             ))
-            ->add('doesRotations', null, array(
-                'required' => false
+            ->add('doesRotations', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
             ))
             ->add('rotations', null, array(
                 'required' => false
             ))
-            ->add('steepBankStatus', null, array(
-                'required' => false
+            ->add('steepBankStatus', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Correcto' => true,
+                    'incorrecto' => false
+                )
             ))
             ->add('steepBankStatusReason', null, array(
                 'required' => false
             ))
-            ->add('hedgesBarriersExists', null, array(
-                'required' => false
+            ->add('hedgesBarriersExists', ChoiceType::class, array(
+                'required' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Si' => true,
+                    'No' => false
+                )
             ))
             ->add('hedgesBarriersExistsReason', null, array(
                 'required' => false
@@ -166,7 +263,16 @@ class BaseVisitType extends AbstractType
 	{
 	    $resolver->setDefaults(array(
 	        'data_class' => 'ProducerBundle\Entity\Visit',
-            'translation_domain' => 'visit'
+            'translation_domain' => 'visit',
+            'validation_groups' => function (FormInterface $form) {
+                $data = $form->getData();
+
+                if (null !== $data->getAccepted()) {
+                    return array('completed','default');
+                }
+
+                return array('default');
+            }
 	    ));
 	}
 }

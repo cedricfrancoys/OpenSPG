@@ -5,6 +5,7 @@ namespace ProducerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Visit
@@ -30,6 +31,7 @@ class Visit
      *
      * @ORM\Column(name="visitDate", type="date", nullable=true)
      * @Gedmo\Versioned
+     * @Assert\NotNull(groups={"completed"})
      */
     private $visitDate;
 
@@ -45,6 +47,7 @@ class Visit
      *
      * @ORM\Column(name="startTime", type="time", nullable=true)
      * @Gedmo\Versioned
+     * @Assert\NotNull(groups={"completed"})
      */
     private $startTime;
 
@@ -61,6 +64,7 @@ class Visit
      *
      * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","detach"})
      * @Gedmo\Versioned
+     * Assert\NotBlank()
      */
     private $Producer;
 
@@ -69,6 +73,7 @@ class Visit
      *
      * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Property", inversedBy="Visits", cascade={"persist","detach"})
      * @Gedmo\Versioned
+     * Assert\NotBlank()
      */
     private $Property;
 

@@ -26,10 +26,12 @@ class VisitCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $properties = $em->getRepository('ProducerBundle:Property')->findAll();
+        $counter = 0;
         foreach ($properties as $property) {
         	$visits = $em->getRepository('ProducerBundle:Visit')->findBy(array('Property'=>$property));
         	if (!count($visits)) {
         		$this->createVisit($property);
+                ++$counter;
         		continue;
         	}
         	$hasCurrentVisit = false;
@@ -42,10 +44,11 @@ class VisitCommand extends ContainerAwareCommand
         	}
         	if (!$hasCurrentVisit) {
         		$this->createVisit($property);
+                ++$counter;
         	}
         }
 
-        $output->writeln('Visits have been created');
+        $output->writeln($counter . ' visits have been created');
     }
 
     protected function createVisit(Property $property)

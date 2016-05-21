@@ -25,11 +25,13 @@ class FeeCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $users = $em->getRepository('UserBundle:User')->findAll();
+        $counter = 0;
         foreach ($users as $user) {
         	if(!$user->hasRole('ROLE_MEMBER')) continue;
         	$fees = $em->getRepository('FeeBundle:Fee')->findBy(array('User'=>$user));
         	if (!count($fees)) {
         		$this->createFee($user);
+                ++$counter;
         		continue;
         	}
         	$hasCurrentFee = false;
@@ -42,10 +44,11 @@ class FeeCommand extends ContainerAwareCommand
         	}
         	if (!$hasCurrentFee) {
         		$this->createFee($user);
+                ++$counter;
         	}
         }
 
-        $output->writeln('Fees have been created');
+        $output->writeln($counter . ' fees have been created');
     }
 
     protected function createFee(User $user)

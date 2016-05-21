@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use ProducerBundle\Entity\Visit;
 
 use ConsumerBundle\Form\VisitType;
@@ -78,6 +80,10 @@ class VisitController extends Controller
         $breadcrumbs->addItem("Visits", $this->get("router")->generate("consumer_visit_index"));
         $breadcrumbs->addItem("Edit", $this->get("router")->generate("consumer_visit_edit",array('id'=>$visit->getId())));
 
+        if (!$this->checkEditAllowed($visit)) {
+            throw new AccessDeniedException();
+        }
+
         $visitAccepted = $visit->getAccepted();
 
         $form = $this->createForm(VisitType::class, $visit);
@@ -106,5 +112,18 @@ class VisitController extends Controller
             'form' => $form->createView(),
             'menu' => 'account'
         ));
+    }
+
+    protected function checkEditAllowed(Visit $visit)
+    {
+        $participants = $visit->getParticipants();
+        
+        foreach ($participants as $participant) {
+            if ($participant === $this->getUser()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

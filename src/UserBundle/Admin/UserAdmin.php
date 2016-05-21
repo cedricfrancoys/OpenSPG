@@ -2,14 +2,14 @@
 
 namespace UserBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'user';
 

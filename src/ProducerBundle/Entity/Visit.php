@@ -1164,6 +1164,23 @@ class Visit
     }
 
     /**
+     * Checks whether the given user is participant of the visit
+     *
+     * @param User
+     * @return bool
+     */
+    public function isParticipant($user)
+    {
+        $participants = $this->getParticipants();
+        foreach ($participants as $participant) {
+            if ($participant === $user) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Set accepted
      *
      * @param boolean $accepted

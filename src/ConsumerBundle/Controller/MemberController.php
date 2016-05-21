@@ -45,7 +45,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("registro/")
+     * @Route("/registro")
      */
     public function registerAction(Request $request)
     {
@@ -118,7 +118,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("perfil/")
+     * @Route("/perfil")
      * @Security("has_role('ROLE_CONSUMER')")
      */
     public function profileAction(Request $request){

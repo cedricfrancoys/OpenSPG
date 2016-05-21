@@ -65,9 +65,21 @@ class BaseVisitType extends AbstractType
                     'No' => false
                 )
             ))
-            ->add('fertlizeWith')
-            ->add('fertilizeQty')
-            ->add('fertilizeOrigin')
+            ->add('fertlizeWith', null, array(
+                'attr' => array(
+                    'class' => 'visit_didFertilize_yes'
+                )
+            ))
+            ->add('fertilizeQty', null, array(
+                'attr' => array(
+                    'class' => 'visit_didFertilize_yes'
+                )
+            ))
+            ->add('fertilizeOrigin', null, array(
+                'attr' => array(
+                    'class' => 'visit_didFertilize_yes'
+                )
+            ))
             ->add('usesFoliarFertilizer', ChoiceType::class, array(
                 'required' => false,
                 'expanded' => true,
@@ -77,7 +89,11 @@ class BaseVisitType extends AbstractType
                     'No' => false
                 )
             ))
-            ->add('usesFoliarFertilizerWhich')
+            ->add('usesFoliarFertilizerWhich', null, array(
+                'attr' => array(
+                    'class' => 'visit_usesFoliarFertilizer_yes'
+                )
+            ))
             ->add('fertilizerObservations')
             ->add('Production', CollectionType::class, array(
                 'label' => false,
@@ -171,19 +187,31 @@ class BaseVisitType extends AbstractType
                 )
             ))
             ->add('pcControl', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_pcPests_yes'
+                )
             ))
             ->add('pcPrevention', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_pcPests_yes'
+                )
             ))
             ->add('pcOberservations', null, array(
                 'required' => false
             ))
             ->add('pcPestsCrops', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_pcPests_yes'
+                )
             ))
             ->add('pcPestsDamage', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_pcPests_yes'
+                )
             ))
             ->add('doesAssociations', ChoiceType::class, array(
                 'required' => false,
@@ -195,7 +223,10 @@ class BaseVisitType extends AbstractType
                 )
             ))
             ->add('associations', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_doesAssociations_yes'
+                )
             ))
             ->add('doesRotations', ChoiceType::class, array(
                 'required' => false,
@@ -207,7 +238,10 @@ class BaseVisitType extends AbstractType
                 )
             ))
             ->add('rotations', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_doesRotations_yes'
+                )
             ))
             ->add('steepBankStatus', ChoiceType::class, array(
                 'required' => false,
@@ -231,7 +265,10 @@ class BaseVisitType extends AbstractType
                 )
             ))
             ->add('hedgesBarriersExistsReason', null, array(
-                'required' => false
+                'required' => false,
+                'attr' => array(
+                    'class' => 'visit_hedgesBarriersExists_yes'
+                )
             ))
             ->add('pruningRests', null, array(
                 'required' => false

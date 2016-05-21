@@ -167,12 +167,12 @@ class UserManager
   /**
   * @deprecated
   */
-  public function getUsersByRole($role, $makeSureFieldIsNotNull = false)
+  public function getUsersByRole($role, $makeSureFieldIsNotNull = false, $makeSureFieldIsNull = false)
   {
     return $this
       ->orm
       ->getRepository('UserBundle:User')
-      ->getUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull)
+      ->getUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull, $makeSureFieldIsNull)
     ;
   }
 

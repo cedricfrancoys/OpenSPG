@@ -7,7 +7,7 @@ namespace UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getUsersByRole($role, $node, $makeSureFieldIsNotNull = false)
+	public function getUsersByRole($role, $node, $makeSureFieldIsNotNull = false, $makeSureFieldIsNull = false)
 	{
 	    $sql = $this
 	      ->createQueryBuilder('u')
@@ -21,6 +21,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
 	    if( $makeSureFieldIsNotNull ){
 	      $sql->andWhere("u.{$makeSureFieldIsNotNull} IS NOT NULL");
+	    }
+	    if( $makeSureFieldIsNotNull ){
+	      $sql->andWhere("u.{$makeSureFieldIsNull} IS NULL");
 	    }
 
 	    $query = $sql->getQuery();

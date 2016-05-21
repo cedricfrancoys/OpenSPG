@@ -47,7 +47,7 @@ class ConsumerController extends Controller
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
         $manager = $this->get('users.manager.user');
-        $consumers = $manager->getUsersByRole('ROLE_CONSUMER', 'Consumer');
+        $consumers = $manager->getUsersByRole('ROLE_CONSUMER', 'Consumer', 'Producer');
 
         $data = array(
             'consumers' => $consumers,

@@ -2,6 +2,8 @@
 
 namespace ProducerBundle\Repository;
 
+use NodeBundle\Entity\Node;
+
 /**
  * PropertyRepository
  *
@@ -27,5 +29,18 @@ class PropertyRepository extends \Doctrine\ORM\EntityRepository
 		$q->setParameter('user', $user);
 
 		return $q->getResult();
+	}
+
+	public function getByNode(Node $node)
+	{
+		return $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('m.User', 'u')
+            ->andWhere('u.Node = :node')
+            ->setParameter('node', $node)
+            ->getQuery()
+            ->getResult();
 	}
 }

@@ -37,49 +37,12 @@ class VisitController extends Controller
 
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser());
 
-        $sql = $em
-            ->getRepository('ProducerBundle:Visit')
-            ->createQueryBuilder('v')
-            ->select('v,p')
-            ->leftJoin('v.Producer', 'p')
-            ->leftJoin('p.User', 'u')
-            ->leftJoin('v.Property', 'pr')
-            ->andWhere('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode());
-
-        if($filter = $request->get('filter')){
-            $filter = array_merge(
-                array(
-                    'producer' => 0,
-                    'property' => 0
-                ),
-                $filter
-            );
-            if ($filter['producer']) {
-                $sql->andWhere('u.id = :user')
-                    ->setParameter('user', $filter['producer']);
-            }
-            if ($filter['property']) {
-                $sql->andWhere('pr.id = :property')
-                    ->setParameter('property', $filter['property']);
-            }
-        }
-
-        $query = $sql->getQuery();
-        $visits = $query->getResult();
+        $visits = $em->getRepository('ProducerBundle:Visit')->getFiltered($currentMember, (array)$request->get('filter'));
 
         $manager = $this->get('users.manager.user');
         $producers = $manager->getUsersByRole('ROLE_PRODUCER');
-        $properties = $em
-            ->getRepository('ProducerBundle:Property')
-            ->createQueryBuilder('p')
-            ->select('p')
-            ->leftJoin('p.Member', 'm')
-            ->leftJoin('m.User', 'u')
-            ->andWhere('u.Node = :node')
-            ->setParameter('node', $currentMember->getNode())
-            ->getQuery()
-            ->getResult();
+        // @ToDo Refactor into Repository
+        $properties = $em->getRepository('ProducerBundle:Property')->getByNode($currentMember->getNode());
 
         $data = array(
             'visits' => $visits,

@@ -2,6 +2,8 @@
 
 namespace ProducerBundle\Repository;
 
+use UserBundle\Entity\User;
+
 /**
  * VisitRepository
  *
@@ -32,5 +34,37 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult()
         ;
+      }
+
+      public function getFiltered(User $currentMember, array $filter)
+      {
+            $sql = $this
+                  ->createQueryBuilder('v')
+                  ->select('v,p')
+                  ->leftJoin('v.Producer', 'p')
+                  ->leftJoin('p.User', 'u')
+                  ->leftJoin('v.Property', 'pr')
+                  ->andWhere('u.Node = :node')
+                  ->setParameter('node', $currentMember->getNode())
+            ;
+
+            $filter = array_merge(
+                array(
+                    'producer' => 0,
+                    'property' => 0
+                ),
+                $filter
+            );
+            if ($filter['producer']) {
+                $sql->andWhere('u.id = :user')
+                    ->setParameter('user', $filter['producer']);
+            }
+            if ($filter['property']) {
+                $sql->andWhere('pr.id = :property')
+                    ->setParameter('property', $filter['property']);
+            }
+
+            $query = $sql->getQuery();
+            return $query->getResult();
       }
 }

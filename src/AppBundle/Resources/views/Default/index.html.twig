@@ -104,7 +104,7 @@
 								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}" title="Ver ficha de la propiedad">{{visit.Property.name}}</a></td>
 								<td><a href="{{ path('producer_visitpublic_show',{"id":visit.id}) }}" title="Ver ficha de la visita">{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</a></td>
 								<td>
-									{% if app.user and not visit.isParticipant(app.user) %}
+									{% if app.user and not visit.isParticipant(app.user) and not visit.isOwner(app.user) %}
 										<a class="btn btn-success" href="{{ path('producer_visit_signmeup',{"id":visit.id}) }}">{{"Sign me up"|trans({},'visit')}}</a>
 									{% endif %}
 								</td>

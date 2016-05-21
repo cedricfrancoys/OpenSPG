@@ -1098,6 +1098,11 @@ class Visit
         return $this->Producer;
     }
 
+    public function isOwner($user)
+    {
+        return ($this->getProducer()->getUser() === $user);
+    }
+
     /**
      * Set property
      *

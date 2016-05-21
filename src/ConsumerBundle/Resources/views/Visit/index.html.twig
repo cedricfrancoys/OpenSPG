@@ -44,6 +44,10 @@
 								{% endif %}
 							</td>
 						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">{{ "No visits available"|trans({},'visit') }}</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>

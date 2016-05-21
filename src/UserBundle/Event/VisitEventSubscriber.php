@@ -14,7 +14,6 @@ class VisitEventSubscriber
     public function onVisitSaved(Event $event)
     {
         $visit = $event->getVisit();
-        $producer = $visit->getProducer();
         $action = $event->getAction();
 
         if ($action == 'add') {
@@ -22,6 +21,16 @@ class VisitEventSubscriber
             foreach ($subscribers as $subscriber) {
                 $this->sendEmail($subscriber, $visit);
             }
+        }
+    }
+
+    public function onVisitCompleted(Event $event)
+    {
+        $visit = $event->getVisit();
+
+        $subscribers = $this->getCompletedSubscribedUsers();
+        foreach ($subscribers as $subscriber) {
+            $this->sendEmailCompleted($subscriber, $visit);
         }
     }
 
@@ -75,6 +84,44 @@ class VisitEventSubscriber
             ->setBody(
                 $tpl->render(
                     'UserBundle:Emails:newVisit.html.twig',
+                    array(
+                        'name' => $subscriber->getName(),
+                        'visit' => $visit,
+                        'producer' => $producer,
+                        'producer_name' => $visitUser->getName().' '.$visitUser->getSurname(),
+                        'property' => $property,
+                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
+                    )
+                ),
+                'text/html'
+            )
+        ;
+        $this->mailer->send($message);
+    }
+
+    protected function getCompletedSubscribedUsers()
+    {
+        $em = $this->em;
+
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailCompletedVisit'=>true));
+    }
+
+    protected function sendEmailCompleted($subscriber, $visit)
+    {
+        $trans = $this->translator;
+        $tpl = $this->twig;
+
+        $producer = $visit->getProducer();
+        $visitUser = $producer->getUser();
+        $property = $visit->getProperty();
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($trans->trans('Completed.visit.email.subject', array(), 'user'))
+            ->setFrom('hello@raac.tobeonthe.net')
+            ->setTo($subscriber->getEmail())
+            ->setBody(
+                $tpl->render(
+                    'UserBundle:Emails:completedVisit.html.twig',
                     array(
                         'name' => $subscriber->getName(),
                         'visit' => $visit,

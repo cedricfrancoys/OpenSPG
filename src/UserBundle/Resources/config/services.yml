@@ -32,3 +32,4 @@ services:
             - [setTranslator, ["@translator"]]
         tags:
             - {name:"kernel.event_listener", event:"producer.events.visitPersisted", method:"onVisitSaved"}
+            - {name:"kernel.event_listener", event:"producer.events.visitCompleted", method:"onVisitCompleted"}

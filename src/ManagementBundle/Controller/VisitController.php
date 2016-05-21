@@ -107,11 +107,6 @@ class VisitController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $visit = new Visit();
-        // $visit->setVisitDate(new \DateTime());
-        // $visit->setStartTime(new \DateTime());
-        // $endTime = new \DateTime();
-        // $endTime->add(new \DateInterval('PT4H'));
-        // $visit->setEndTime($endTime);
 
         $form = $this->createForm(VisitType::class, $visit);
 
@@ -130,6 +125,9 @@ class VisitController extends Controller
             $event = new VisitEvent($visit, 'add');
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch('producer.events.visitPersisted', $event);
+            if ($visit->getAccepted() !== null) {
+                $dispatcher->dispatch('producer.events.visitCompleted', $event);
+            }
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_visit_index');
@@ -161,6 +159,8 @@ class VisitController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $visitAccepted = $visit->getAccepted();
+
         $form = $this->createForm(VisitType::class, $visit);
 
         $form->handleRequest($request);
@@ -178,6 +178,9 @@ class VisitController extends Controller
             $event = new VisitEvent($visit, 'edit');
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch('producer.events.visitPersisted', $event);
+            if ($visit->getAccepted() !== null && $visitAccepted === null) {
+                $dispatcher->dispatch('producer.events.visitCompleted', $event);
+            }
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_visit_index');

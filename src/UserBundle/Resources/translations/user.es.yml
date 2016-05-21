@@ -60,3 +60,12 @@ NewVisitEmailContent: >
   <p>Saludos del equipo del SPG</p>
 NewVisitEmailFooter: >
   Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.
+Completed.visit.email.subject: Se ha completado una visita en el SPG
+CompletedVisitEmailContent: >
+  <p>Hola %name%</p>
+  <p>En el sistema del SPG se ha completado una Visita<br />
+  La visita fue a "%property_name%" de %producer_name% el %visit_date%... puedes ver la ficha en <a href="%showLink%">este enlace</a><br />
+  La visita ha sido calificada como <strong>%accepted%</strong>.
+  <p>Saludos del equipo del SPG</p>
+CompletedVisitEmailFooter: >
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.

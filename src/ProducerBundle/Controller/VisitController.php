@@ -70,14 +70,76 @@ class VisitController extends Controller
     }
 
     /**
+     * @Route("/{id}/edit")
+     * @Security("has_role('ROLE_PRODUCER')")
+     */
+    public function editAction(Request $request, Visit $visit){
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+        $breadcrumbs->addItem("Edit", $this->get("router")->generate("producer_visit_edit",array('id'=>$visit->getId())));
+
+        if (!$this->checkEditAllowed($visit)) {
+            throw new AccessDeniedException();
+        }
+
+        $visitAccepted = $visit->getAccepted();
+
+        $form = $this->createForm(VisitType::class, $visit);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($visit);
+            $em->flush();
+
+            if ($visit->getAccepted() !== null && $visitAccepted === null) {
+                $event = new VisitEvent($visit, 'edit');
+                $dispatcher = $this->get('event_dispatcher');
+                $dispatcher->dispatch('producer.events.visitCompleted', $event);
+            }
+
+            $url = $this->generateUrl('producer_visit_edit');
+            $response = new RedirectResponse($url);
+
+            return $response;
+        }
+
+        return $this->render('ProducerBundle:Visit:edit.html.twig', array(
+            'form' => $form->createView(),
+            'menu' => 'account'
+        ));
+    }
+
+    protected function checkEditAllowed(Visit $visit)
+    {
+        if ($visit->getProducer()->getUser() === $this->getUser()) {
+            return true;
+        }
+
+        $participants = $visit->getParticipants();
+        
+        foreach ($participants as $participant) {
+            if ($participant === $this->getUser()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @Route("/{id}/signMeUp")
      */
     public function signMeUpAction(Visit $visit, Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My Account", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visit_index"));
+        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visitpublic_index"));
         $breadcrumbs->addItem("Sign me up", $this->get("router")->generate("producer_visit_signmeup", array('id'=>$visit->getId())));
 
         $form = $this->createForm(SignMeUpType::class, null);

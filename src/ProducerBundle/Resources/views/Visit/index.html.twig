@@ -32,10 +32,13 @@
 							{% set title = 'Pending' %}
 						{% endif %}
 						<tr>
-							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+							<td><a href="{{ path('producer_visit_edit',{"id":visit.id}) }}" title="Edit visit">{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</a></td>
 							<td>{{visit.Property}}</td>
 							<td>{{title|trans({},'visit')}}</td>
-							<td><a href="{{ path('producer_visit_show',{"id":visit.id}) }}" class="btn btn-success">{{"show"|trans({},"table")}}</a></td>
+							<td>
+								<a href="{{ path('producer_visit_show',{"id":visit.id}) }}" class="btn btn-success">{{"show"|trans({},"table")}}</a>
+								<a href="{{ path('producer_visit_edit',{"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>

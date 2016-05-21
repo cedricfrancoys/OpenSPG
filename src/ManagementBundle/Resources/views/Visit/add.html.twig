@@ -11,77 +11,7 @@
     <div class="container">
 	    {{ form_start(form) }}
 			{{ form_errors(form) }}
-			<fieldset>
-				<legend>{{"1.- Information about the visit"|trans({},"visit")}}</legend>
-				{{ form_row(form.visitDate) }}
-				{{ form_row(form.Participants) }}
-				{{ form_row(form.startTime) }}
-				{{ form_row(form.endTime) }}
-				{{ form_row(form.Producer) }}
-				{{ form_row(form.Property) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"2.- Fertilizers"|trans({},"visit")}}</legend>
-				{{ form_row(form.didFertilize) }}
-				{{ form_row(form.fertlizeWith) }}
-				{{ form_row(form.fertilizeQty) }}
-				{{ form_row(form.fertilizeOrigin) }}
-				{{ form_row(form.usesFoliarFertilizer) }}
-				{{ form_row(form.usesFoliarFertilizerWhich) }}
-				{{ form_row(form.fertilizerObservations) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"3.- Vegetal production"|trans({},"visit")}}</legend>
-				{{ form_row(form.Production) }}
-				{{ form_row(form.productionOberservation) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"4.- Soil and grass management"|trans({},"visit")}}</legend>
-				<h5>Hace o hizo prácticas de conservación del suelo?</h5>
-				{{ form_row(form.didFertilize) }}
-				{{ form_row(form.scGreenManure) }}
-				{{ form_row(form.scMulching) }}
-				{{ form_row(form.scNotPlow) }}
-				<h5>Respecto a la hierba del suelo:</h5>
-				{{ form_row(form.scHerbsState) }}
-				{{ form_row(form.scHerbsDistribution) }}
-				{{ form_row(form.scHerbsControl) }}
-				{{ form_row(form.scOberservations) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"5.- Pest and disease management"|trans({},"visit")}}</legend>
-				{{ form_row(form.pcPests) }}
-				{{ form_row(form.pcPestsCrops) }}
-				{{ form_row(form.pcPestsDamage) }}
-				{{ form_row(form.pcControl) }}
-				{{ form_row(form.pcPrevention) }}
-				{{ form_row(form.pcOberservations) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"6. In respect to biodiversity (spatial and temporal handling)"|trans({},"visit")}}</legend>
-				{{ form_row(form.doesAssociations) }}
-				{{ form_row(form.associations) }}
-				{{ form_row(form.doesRotations) }}
-				{{ form_row(form.rotations) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"7.- In respect to neighbours and land limits"|trans({},"visit")}}</legend>
-				{{ form_row(form.steepBankStatus) }}
-				{{ form_row(form.steepBankStatusReason) }}
-				{{ form_row(form.hedgesBarriersExists) }}
-				{{ form_row(form.hedgesBarriersExistsReason) }}
-			</fieldset>
-			<fieldset>
-				<legend>{{"8.- Various"|trans({},"visit")}}</legend>
-				{{ form_row(form.pruningRests) }}
-				{{ form_row(form.agroquimicPresence) }}
-				{{ form_row(form.plasticWaste) }}
-				{{ form_row(form.agroquimicPackaging) }}
-				{{ form_row(form.pesticideSupsition) }}
-			</fieldset>
-			{{ form_row(form.observations) }}
-			{{ form_row(form.document) }}
-			{{ form_row(form.accepted) }}
+			{{ include('ProducerBundle:Visit:base_form.html.twig') }}
 		{{ form_end(form) }}
 	</div>
 

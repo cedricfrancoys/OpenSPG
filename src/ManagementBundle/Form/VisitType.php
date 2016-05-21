@@ -35,7 +35,7 @@ class VisitType extends BaseVisitType
                 'attr' => array(
                     'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'manager_visit_index'
+                    'data-path' => 'management_visit_index'
                 ),
                 'label' => 'Close'
             ))

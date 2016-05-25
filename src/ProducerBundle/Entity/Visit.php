@@ -396,6 +396,23 @@ class Visit
     private $document;
     private $newFileUpload = false;
 
+    /**
+     * @var \ProducerBundle\Entity\RejectApproval
+     *
+     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\RejectApproval", mappedBy="Visit", cascade={"persist"})
+     */
+    private $RejectApproval;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Participants = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->RejectApproval = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Production = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -1131,13 +1148,6 @@ class Visit
     {
         return $this->Property;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->Participants = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add participant
@@ -1588,5 +1598,39 @@ class Visit
     public function getWebPath()
     {
         return $this->document;
+    }
+
+    /**
+     * Add rejectApproval
+     *
+     * @param \ProducerBundle\Entity\RejectApproval $rejectApproval
+     *
+     * @return Visit
+     */
+    public function addRejectApproval(\ProducerBundle\Entity\RejectApproval $rejectApproval)
+    {
+        $this->RejectApproval[] = $rejectApproval;
+
+        return $this;
+    }
+
+    /**
+     * Remove rejectApproval
+     *
+     * @param \ProducerBundle\Entity\RejectApproval $rejectApproval
+     */
+    public function removeRejectApproval(\ProducerBundle\Entity\RejectApproval $rejectApproval)
+    {
+        $this->RejectApproval->removeElement($rejectApproval);
+    }
+
+    /**
+     * Get rejectApproval
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRejectApproval()
+    {
+        return $this->RejectApproval;
     }
 }

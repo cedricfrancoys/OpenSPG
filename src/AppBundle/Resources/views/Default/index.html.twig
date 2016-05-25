@@ -84,6 +84,40 @@
 		</div>
 	{% endif %}
 
+	{% if pendingApprovalVisits|length %}
+		<div class="container">
+			<div class="row">
+				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Visits pending approval"|trans({},'visit')}}</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>{{"Producer"|trans({},'visit')}}</th>
+							<th>{{"Property"|trans({},'visit')}}</th>
+							<th>{{"Visit date"|trans({},'visit')}}</th>
+							<th>{{"Will be accepted automatically on"|trans({},'visit')}}</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for visit in pendingApprovalVisits %}
+							<tr>
+								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}" title="Ver ficha del productor">{{visit.Producer}}</a></td>
+								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}" title="Ver ficha de la propiedad">{{visit.Property.name}}</a></td>
+								<td><a href="{{ path('producer_visitpublic_show',{"id":visit.id}) }}" title="Ver ficha de la visita">{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</a></td>
+								<td><a href="{{ path('producer_visitpublic_rejectapproval',{"id":visit.id}) }}" title="{{ "Reject approval"|trans({},'visit') }}">{{visit.visitDate|date_modify('+14 day')|date('d/m/Y')}}</a></td>
+								<td>
+									{% if app.user %}
+										<a class="btn btn-danger" href="{{ path('producer_visitpublic_rejectapproval',{"id":visit.id}) }}">{{"Reject approval"|trans({},'visit')}}</a>
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endif %}
+
 	{% if upcomingVisits|length %}
 		<div class="container">
 			<div class="row">

@@ -88,3 +88,17 @@ accepted: Aceptado
 rejected: rechazado
 Download document: Descargar documento
 No visits available: No hay visitas para mostrar en el listado
+Visits pending approval: Visitas pendientes de aprobación
+Will be accepted automatically on: Será aceptado automáticamente el
+Reject approval: Vetar aprobación
+Reason: Razón
+Your rejection has been recorded!: Tu veto ha sido grabado!
+Manual.approval.reminder.email.subject: Recordadorio de aceptación manual
+Manual.approval.reminder.email.content: >
+  <p>Hola %name%</p>
+  <p>Este es un recordatorio de que hay pendiente una aceptación manual de un productor debido a que ha habido un veto.<br />
+  Teniendo en cuenta este veto, un gestor debe decidir si aprobar o rechazar definitivamente la aprobación del productor.<br />
+  Sigue estos enlaces para <a href="%approveLink%">aprobar</a> o <a href="%rejectLink%">rechazar</a>.</p>
+  <p>Saludos del equipo del SPG</p>
+Manual.approval.reminder.footer: >
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.

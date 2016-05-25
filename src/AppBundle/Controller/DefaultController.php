@@ -17,6 +17,7 @@ class DefaultController extends Controller
         $nodes = $em->getRepository('NodeBundle:Node')->findAll();
 
         $upcomingVisits = $em->getRepository('ProducerBundle:Visit')->getUpcoming();
+        $pendingApprovalVisits = $em->getRepository('ProducerBundle:Visit')->getPendingApproval();
 
         $stocks = $em->getRepository('ProducerBundle:Stock')->getNewest();
 
@@ -27,7 +28,8 @@ class DefaultController extends Controller
             'nodes' => $nodes,
             'menu' => 'home',
             'upcomingVisits' => $upcomingVisits,
-            'news' => $news
+            'news' => $news,
+            'pendingApprovalVisits' => $pendingApprovalVisits
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);

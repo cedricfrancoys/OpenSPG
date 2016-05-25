@@ -23,48 +23,95 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
 	}
 
-      public function getUpcoming()
-      {
-            return $this
-            ->createQueryBuilder('v')
-            ->where('v.visitDate IS NULL OR v.visitDate > :today')
-            ->orderBy('v.visitDate', 'ASC')
-            ->setParameter('today', new \DateTime())
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+  	public function getUpcoming()
+  	{
+      	return $this
+	        ->createQueryBuilder('v')
+	        ->where('v.visitDate IS NULL OR v.visitDate > :today')
+	        ->orderBy('v.visitDate', 'ASC')
+	        ->setParameter('today', new \DateTime())
+	        ->setMaxResults(10)
+	        ->getQuery()
+	        ->getResult()
+    	;
+  	}
+
+  	public function getPendingApproval()
+  	{
+      	$start = new \DateTime();
+      	$start->setTime(0,0,0);
+      	$start->modify('-2 weeks');
+
+      	$today = new \DateTime();
+
+      	return $this
+      		->createQueryBuilder('v')
+	        ->select('v, p')
+	        ->leftJoin('v.Producer', 'p')
+	        ->where('v.visitDate IS NOT NULL AND v.visitDate < :today AND v.visitDate > :start')
+	        ->andWhere('p.activeAsProducer = :active')
+	        ->orderBy('v.visitDate', 'ASC')
+	        ->setParameter('today',$today)
+	        ->setParameter('start',$start)
+	        ->setParameter('active',0)
+	        ->setMaxResults(10)
+	        ->getQuery()
+	        ->getResult()
+    	;
+  	}
+
+    public function getApprovable()
+    {
+        $start = new \DateTime();
+        $start->setTime(0,0,0);
+        $start->modify('-2 weeks');
+
+        return $this
+      		->createQueryBuilder('v')
+	        ->select('v, p, ra')
+	        ->leftJoin('v.Producer', 'p')
+	        ->leftJoin('v.RejectApproval', 'ra')
+	        ->where('v.visitDate IS NOT NULL AND v.visitDate < :start')
+	        ->andWhere('p.activeAsProducer = :active')
+	        // ->andWhere('ra.id IS NULL')
+	        ->orderBy('v.visitDate', 'ASC')
+	        ->setParameter('start',$start)
+	        ->setParameter('active',0)
+	        ->getQuery()
+	        ->getResult()
+	    ;
+    }
+
+  	public function getFiltered(User $currentMember, array $filter)
+  	{
+        $sql = $this
+	        ->createQueryBuilder('v')
+	        ->select('v,p')
+	        ->leftJoin('v.Producer', 'p')
+	        ->leftJoin('p.User', 'u')
+	        ->leftJoin('v.Property', 'pr')
+	        ->andWhere('u.Node = :node')
+	        ->orderBy('v.visitDate', 'DESC')
+	        ->setParameter('node', $currentMember->getNode())
         ;
-      }
 
-      public function getFiltered(User $currentMember, array $filter)
-      {
-            $sql = $this
-                  ->createQueryBuilder('v')
-                  ->select('v,p')
-                  ->leftJoin('v.Producer', 'p')
-                  ->leftJoin('p.User', 'u')
-                  ->leftJoin('v.Property', 'pr')
-                  ->andWhere('u.Node = :node')
-                  ->setParameter('node', $currentMember->getNode())
-            ;
+        $filter = array_merge(
+            array(
+                'producer' => 0,
+                'property' => 0
+            ),
+            $filter
+        );
+        if ($filter['producer']) {
+            $sql->andWhere('u.id = :user')
+                ->setParameter('user', $filter['producer']);
+        }
+        if ($filter['property']) {
+            $sql->andWhere('pr.id = :property')
+                ->setParameter('property', $filter['property']);
+        }
 
-            $filter = array_merge(
-                array(
-                    'producer' => 0,
-                    'property' => 0
-                ),
-                $filter
-            );
-            if ($filter['producer']) {
-                $sql->andWhere('u.id = :user')
-                    ->setParameter('user', $filter['producer']);
-            }
-            if ($filter['property']) {
-                $sql->andWhere('pr.id = :property')
-                    ->setParameter('property', $filter['property']);
-            }
-
-            $query = $sql->getQuery();
-            return $query->getResult();
-      }
+        $query = $sql->getQuery();
+        return $query->getResult();
+  	}
 }

@@ -42,4 +42,25 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 	      ->getQuery()
 	      ->getResult();
 	}
+
+	/**
+	* Returns the managers for a given Node
+	*
+	* @var \NodeBundle\Entity\Node $node The node object by which we will filter the Managers
+	*
+	* @return Doctrine\Common\Collections\ArrayCollection
+	*/
+	public function getNodeManagers(\NodeBundle\Entity\Node $node)
+	{
+		$role = \UserBundle\Entity\User::ROLE_MANAGER;
+		return $this
+			->createQueryBuilder('u')
+		    ->select('u')
+		    ->where('u.Node = :node')
+		    ->andWhere('u.roles LIKE :role')
+		    ->setParameter('node', $node)
+		    ->setParameter('role', "%{$role}%")
+		    ->getQuery()
+		    ->getResult();
+	}
 }

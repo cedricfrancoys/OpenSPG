@@ -13,7 +13,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction()
     {

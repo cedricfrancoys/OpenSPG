@@ -29,6 +29,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class User extends BaseUser
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_MANAGER = 'ROLE_MANAGER';
+    const ROLE_PRODUCER = 'ROLE_PRODUCER';
+    const ROLE_CONSUMER = 'ROLE_CONSUMER';
+    const ROLE_MEMBER = 'ROLE_MEMBER';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

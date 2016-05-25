@@ -26,7 +26,7 @@ class ManagerController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template
      */
     public function indexAction()
@@ -42,7 +42,7 @@ class ManagerController extends Controller
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
         $manager = $this->get('users.manager.user');
-        $managers = $manager->getUsersByRole('ROLE_MANAGEMENT');
+        $managers = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_MANAGER);
 
         $data = array(
             'managers' => $managers,
@@ -54,7 +54,7 @@ class ManagerController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function addAction(Request $request)
@@ -76,7 +76,7 @@ class ManagerController extends Controller
         if ($form->isValid()) {
             $manager = $this->get('users.manager.user');
             $manager->setCurrentUser($this->getUser());
-            $userCreated = $manager->createUser($user, $form, $request->request->get('manager'), array('ROLE_MEMBER','ROLE_MANAGEMENT'));
+            $userCreated = $manager->createUser($user, $form, $request->request->get('manager'), array(\UserBundle\Entity\User::ROLE_MEMBER,\UserBundle\Entity\User::ROLE_MANAGER));
             if($userCreated)
             {
                 $session = $this->get('session');
@@ -107,7 +107,7 @@ class ManagerController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function editAction(user $manager, Request $request)
@@ -146,7 +146,7 @@ class ManagerController extends Controller
 
     /**
      * @Route("/{id}/remove")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function removeAction(User $user, Request $request)
@@ -171,7 +171,7 @@ class ManagerController extends Controller
                 throw new AccessDeniedException();
             }
 
-            $user->removeRole('ROLE_MANAGEMENT');
+            $user->removeRole(\UserBundle\Entity\User::ROLE_MANAGER);
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();

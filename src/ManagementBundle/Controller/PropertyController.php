@@ -31,7 +31,7 @@ class PropertyController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -72,7 +72,7 @@ class PropertyController extends Controller
         $properties = $query->getResult();
 
         $manager = $this->get('users.manager.user');
-        $users = $manager->getUsersByRole('ROLE_PRODUCER');
+        $users = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_PRODUCER);
 
         return array(
             'properties' => $properties,
@@ -83,7 +83,7 @@ class PropertyController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function addAction(Request $request)
@@ -142,7 +142,7 @@ class PropertyController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function editAction(Property $property, Request $request)
@@ -184,7 +184,7 @@ class PropertyController extends Controller
 
     /**
      * @Route("/{id}/delete")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      * @ParamConverter("producer", class="ProducerBundle:Member", options={"id" = "producer_id"})
      */

@@ -21,7 +21,7 @@
 			{% if not user.hasRole('ROLE_PRODUCER')  or user.Producer is null %}
 				<a href="{{ path('management_user_makeproducer', {"id": user.id}) }}" class="btn btn-success btn-makeProducer">{{"Make producer"|trans({},"producer")}}</a>
 			{% endif %}
-			{% if not user.hasRole('ROLE_MANAGEMENT') %}
+			{% if not user.hasRole('ROLE_MANAGER') %}
 				<a href="{{ path('management_user_makemanager', {"id": user.id}) }}" class="btn btn-success btn-makeManager">{{"Make manager"|trans({},"management")}}</a>
 			{% endif %}
 		</div>

@@ -40,7 +40,7 @@ class ProducerControllerTest extends WebTestCase
         $session = $this->client->getContainer()->get('session');
 
         $firewall = 'main';
-        $token = new UsernamePasswordToken($this->getUserEntity(), null, $firewall, array('ROLE_MANAGEMENT'));
+        $token = new UsernamePasswordToken($this->getUserEntity(), null, $firewall, array('ROLE_MANAGER'));
         $this->container->get('security.token_storage')->setToken($token);
         $session->set('_security_'.$firewall, serialize($token));
         $session->save();
@@ -56,7 +56,7 @@ class ProducerControllerTest extends WebTestCase
     	$user->setUsername('producer');
     	$user->setName('Producer');
     	$user->setSurname('Producer');
-    	$user->addRole('ROLE_MANAGEMENT');
+    	$user->addRole('ROLE_MANAGER');
 
     	return $user;
     }

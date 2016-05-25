@@ -23,7 +23,7 @@ class VisitController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction(Request $request)
     {
@@ -40,7 +40,7 @@ class VisitController extends Controller
         $visits = $em->getRepository('ProducerBundle:Visit')->getFiltered($currentMember, (array)$request->get('filter'));
 
         $manager = $this->get('users.manager.user');
-        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
+        $producers = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_PRODUCER);
         // @ToDo Refactor into Repository
         $properties = $em->getRepository('ProducerBundle:Property')->getByNode($currentMember->getNode());
 
@@ -56,7 +56,7 @@ class VisitController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -109,7 +109,7 @@ class VisitController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Visit $visit, Request $request)
     {

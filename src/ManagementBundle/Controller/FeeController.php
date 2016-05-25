@@ -26,7 +26,7 @@ class FeeController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template
      */
     public function indexAction()
@@ -52,7 +52,7 @@ class FeeController extends Controller
             ->getResult();
 
         $manager = $this->get('users.manager.user');
-        $users = $manager->getUsersByRole('ROLE_MEMBER');
+        $users = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_MEMBER);
 
         $data = array(
             'fees' => $fees,
@@ -65,7 +65,7 @@ class FeeController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function addAction(Request $request)
@@ -117,7 +117,7 @@ class FeeController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function editAction(Fee $fee, Request $request)
@@ -165,7 +165,7 @@ class FeeController extends Controller
 
     /**
      * @Route("/{id}/markPaid")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function markPaidAction(Fee $fee, Request $request)

@@ -24,7 +24,7 @@ class UserController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template
      */
     public function indexAction()
@@ -51,7 +51,7 @@ class UserController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function editAction(user $user, Request $request)
@@ -91,7 +91,7 @@ class UserController extends Controller
 
     /**
      * @Route("/{id}/remove")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function deleteAction(User $user, Request $request)
@@ -140,7 +140,7 @@ class UserController extends Controller
 
     /**
      * @Route("/{id}/makeProducer")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function makeProducerAction(User $user, Request $request)
@@ -149,7 +149,7 @@ class UserController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        $user->addRole('ROLE_PRODUCER');
+        $user->addRole(\UserBundle\Entity\User::ROLE_PRODUCER);
 
         if( $user->getProducer() ){
             $producer = $user->getProducer();
@@ -175,7 +175,7 @@ class UserController extends Controller
 
     /**
      * @Route("/{id}/makeConsumer")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function makeConsumerAction(User $user, Request $request)
@@ -184,7 +184,7 @@ class UserController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        $user->addRole('ROLE_CONSUMER');
+        $user->addRole(\UserBundle\Entity\User::ROLE_CONSUMER);
 
         if( $user->getConsumer() ){
             $consumer = $user->getConsumer();
@@ -209,7 +209,7 @@ class UserController extends Controller
 
     /**
      * @Route("/{id}/makeManager")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function makeManagerAction(User $user, Request $request)
@@ -218,7 +218,7 @@ class UserController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        $user->addRole('ROLE_MANAGEMENT');
+        $user->addRole(\UserBundle\Entity\User::ROLE_MANAGER);
 
         $em->persist($user);
 

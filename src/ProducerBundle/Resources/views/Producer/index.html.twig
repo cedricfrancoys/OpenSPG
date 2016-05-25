@@ -14,7 +14,7 @@
 				<thead>
 					<tr>
 						<th>{{"Name"|trans({},"producer")}}</th>
-						{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+						{% if app.user and (app.user.hasRole('ROLE_MANAGER') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
 							<th>{{"Phone"|trans({},"producer")}}</th>
 						{% endif %}
 						<th>{{"Node"|trans({},"producer")}}</th>
@@ -25,7 +25,7 @@
 					{% for producer in producers %}
 						<tr>
 							<td><a href="{{ path('producer_producer_show', {'id':producer.id}) }}">{{producer.User.name}} {{producer.User.surname}}</a></td>
-							{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+							{% if app.user and (app.user.hasRole('ROLE_MANAGER') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
 								<td>{{producer.User.phone}}</td>
 							{% endif %}
 							<td>{{producer.User.Node}}</td>

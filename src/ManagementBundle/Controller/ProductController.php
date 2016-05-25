@@ -15,7 +15,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductGroup;
 use ProductBundle\Entity\Family;
+use UserBundle\Entity\User;
 use ProductBundle\Entity\Variety;
+
 use ManagementBundle\Form\ProductType;
 
 /**
@@ -25,7 +27,7 @@ class ProductController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -92,7 +94,7 @@ class ProductController extends Controller
 
     /**
      * @Route("/getFamilies/{group}", options={"expose"=true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function getFamiliesAction(Request $request, ProductGroup $group)
     {
@@ -116,7 +118,7 @@ class ProductController extends Controller
 
     /**
      * @Route("/getVarieties/{family}", options={"expose"=true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function getVarietiesAction(Request $request, Family $family)
     {
@@ -140,7 +142,7 @@ class ProductController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -180,7 +182,7 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Product $product, Request $request)
     {

@@ -50,28 +50,28 @@ class UserAdmin extends AbstractAdmin
         $roles = $subject->getRoles();
 
         $formMapper
-                ->add('ROLE_ADMIN', 'checkbox', array(
+                ->add(\UserBundle\Entity\User::ROLE_ADMIN, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Admin',
-                    'data' => in_array('ROLE_ADMIN', $roles),
+                    'data' => in_array(\UserBundle\Entity\User::ROLE_ADMIN, $roles),
                     'required' => false
                 ))
-                ->add('ROLE_PRODUCER', 'checkbox', array(
+                ->add(\UserBundle\Entity\User::ROLE_PRODUCER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Producer',
-                    'data' => in_array('ROLE_PRODUCER', $roles),
+                    'data' => in_array(\UserBundle\Entity\User::ROLE_PRODUCER, $roles),
                     'required' => false
                 ))
-                ->add('ROLE_CONSUMER', 'checkbox', array(
+                ->add(\UserBundle\Entity\User::ROLE_CONSUMER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Consumer',
-                    'data' => in_array('ROLE_CONSUMER', $roles),
+                    'data' => in_array(\UserBundle\Entity\User::ROLE_CONSUMER, $roles),
                     'required' => false
                 ))
-                ->add('ROLE_MANAGEMENT', 'checkbox', array(
+                ->add(\UserBundle\Entity\User::ROLE_MANAGER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Management',
-                    'data' => in_array('ROLE_MANAGEMENT', $roles),
+                    'data' => in_array(\UserBundle\Entity\User::ROLE_MANAGER, $roles),
                     'required' => false
                 ))
             ->end();
@@ -97,10 +97,10 @@ class UserAdmin extends AbstractAdmin
     public function prePersist($data)
     {
         $roles = array();
-        ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
-        ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
-        ($this->getForm()->get('ROLE_CONSUMER')->getData()) ? $roles[] = 'ROLE_CONSUMER' : false;
-        ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_ADMIN)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_ADMIN : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_PRODUCER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_PRODUCER : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_CONSUMER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_CONSUMER : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_MANAGER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_MANAGER : false;
         $data->setRoles($roles);
     }
     public function postPersist($data)
@@ -112,10 +112,10 @@ class UserAdmin extends AbstractAdmin
     public function preUpdate($data)
     {
         $roles = array();
-        ($this->getForm()->get('ROLE_ADMIN')->getData()) ? $roles[] = 'ROLE_ADMIN' : false;
-        ($this->getForm()->get('ROLE_PRODUCER')->getData()) ? $roles[] = 'ROLE_PRODUCER' : false;
-        ($this->getForm()->get('ROLE_CONSUMER')->getData()) ? $roles[] = 'ROLE_CONSUMER' : false;
-        ($this->getForm()->get('ROLE_MANAGEMENT')->getData()) ? $roles[] = 'ROLE_MANAGEMENT' : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_ADMIN)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_ADMIN : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_PRODUCER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_PRODUCER : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_CONSUMER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_CONSUMER : false;
+        ($this->getForm()->get(\UserBundle\Entity\User::ROLE_MANAGER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_MANAGER : false;
         $data->setRoles($roles);
     }
 

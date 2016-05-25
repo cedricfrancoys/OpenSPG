@@ -28,7 +28,7 @@ class PageController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template
      */
     public function indexAction()
@@ -60,7 +60,7 @@ class PageController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function addAction(Request $request)
@@ -120,7 +120,7 @@ class PageController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function editAction(Page $page, Request $request)
@@ -170,7 +170,7 @@ class PageController extends Controller
 
     /**
      * @Route("/{id}/markPaid")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function markPaidAction(Fee $fee, Request $request)

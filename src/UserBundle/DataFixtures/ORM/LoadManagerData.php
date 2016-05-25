@@ -18,7 +18,7 @@ class LoadManagerData extends AbstractFixture implements OrderedFixtureInterface
         $user->setName('Manager');
         $user->setSurname('Manager');
         $user->setPhone('123 456 789');
-        $user->addRole('ROLE_MANAGEMENT');
+        $user->addRole(\UserBundle\Entity\User::ROLE_MANAGER);
         $user->setEnabled(true);
         $user->setNode($this->getReference('node'));
 

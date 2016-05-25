@@ -30,7 +30,7 @@ class NewsController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction()
     {
@@ -54,7 +54,7 @@ class NewsController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -103,7 +103,7 @@ class NewsController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(News $news, Request $request)
     {

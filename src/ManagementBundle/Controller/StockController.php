@@ -21,7 +21,7 @@ class StockController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -56,7 +56,7 @@ class StockController extends Controller
         $products = $query->getResult();
 
         $manager = $this->get('users.manager.user');
-        $producers = $manager->getUsersByRole('ROLE_PRODUCER');
+        $producers = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_PRODUCER);
 
         $data = array(
             'products' => $products,
@@ -69,7 +69,7 @@ class StockController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -109,7 +109,7 @@ class StockController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Stock $stock, Request $request)
     {

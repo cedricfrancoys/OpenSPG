@@ -20,11 +20,11 @@ class AccountController extends Controller
             throw new AccessDeniedException();
         }
         $roles = $user->getRoles();
-        if(in_array('ROLE_PRODUCER', $roles)){
+        if(in_array(\UserBundle\Entity\User::ROLE_PRODUCER, $roles)){
             return $this->redirectToRoute('producer_member_index');
-        }else if(in_array('ROLE_CONSUMER', $roles)){
+        }else if(in_array(\UserBundle\Entity\User::ROLE_CONSUMER, $roles)){
             return $this->redirectToRoute('consumer_member_index');
-        }else if(in_array('ROLE_MANAGEMENT', $roles) || in_array('ROLE_ADMIN', $roles)){
+        }else if(in_array(\UserBundle\Entity\User::ROLE_MANAGER, $roles) || in_array(\UserBundle\Entity\User::ROLE_ADMIN, $roles)){
             return $this->redirectToRoute('management_default_index');
         }
 

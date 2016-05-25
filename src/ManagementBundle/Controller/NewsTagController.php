@@ -30,7 +30,7 @@ class NewsTagController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction()
     {
@@ -55,7 +55,7 @@ class NewsTagController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -105,7 +105,7 @@ class NewsTagController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Tags $tags, Request $request)
     {

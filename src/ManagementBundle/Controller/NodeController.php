@@ -20,7 +20,7 @@ class NodeController extends Controller
 {
     /**
      * @Route("/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request)
     {

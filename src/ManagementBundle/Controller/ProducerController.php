@@ -32,7 +32,7 @@ class ProducerController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction()
     {
@@ -42,11 +42,9 @@ class ProducerController extends Controller
         $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
 
-        $currentMember = $this->getUser();
-
         $em = $this->getDoctrine()->getManager();
 
-        $producers = $em->getRepository('UserBundle:User')->getUsersByRole('ROLE_PRODUCER', $currentMember->getNode(), 'Producer');
+        $producers = $em->getRepository('UserBundle:User')->getUsersByRole(\UserBundle\Entity\User::ROLE_PRODUCER, $this->getUser()->getNode(), 'Producer');
 
         $data = array(
             'producers' => $producers,
@@ -58,7 +56,7 @@ class ProducerController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -81,7 +79,7 @@ class ProducerController extends Controller
             $manager->setCurrentUser($this->getUser());
             $userFormData = $request->request->get('producer');
             $userFormData = $userFormData['User'];
-            $userCreated = $manager->createUser($producer->getUser(), $form, $userFormData, array('ROLE_MEMBER','ROLE_PRODUCER'));
+            $userCreated = $manager->createUser($producer->getUser(), $form, $userFormData, array(\UserBundle\Entity\User::ROLE_MEMBER,\UserBundle\Entity\User::ROLE_PRODUCER));
             if($userCreated)
             {
                 $event = new ProducerEvent($producer, 'add');
@@ -116,7 +114,7 @@ class ProducerController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Member $producer, Request $request)
     {
@@ -165,7 +163,7 @@ class ProducerController extends Controller
 
     /**
      * @Route("/{id}/remove")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function removeAction(User $user, Request $request)

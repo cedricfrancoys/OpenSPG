@@ -32,7 +32,7 @@ class ConsumerController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction()
     {
@@ -47,7 +47,7 @@ class ConsumerController extends Controller
         $currentMember = $em->getRepository('UserBundle:User')->find($this->getUser()->getId());
 
         $manager = $this->get('users.manager.user');
-        $consumers = $manager->getUsersByRole('ROLE_CONSUMER', 'Consumer', 'Producer');
+        $consumers = $manager->getUsersByRole(\UserBundle\Entity\User::ROLE_CONSUMER, 'Consumer', 'Producer');
 
         $data = array(
             'consumers' => $consumers,
@@ -59,7 +59,7 @@ class ConsumerController extends Controller
 
     /**
      * @Route("/add")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function addAction(Request $request)
     {
@@ -80,7 +80,7 @@ class ConsumerController extends Controller
         if ($form->isValid()) {
             $manager = $this->get('users.manager.user');
             $manager->setCurrentUser($this->getUser());
-            $userCreated = $manager->createUser($consumer->getUser(), $form, $request->request->get('consumer'), array('ROLE_MEMBER','ROLE_CONSUMER'));
+            $userCreated = $manager->createUser($consumer->getUser(), $form, $request->request->get('consumer'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_CONSUMER));
             if($userCreated)
             {
                 $event = new ConsumerEvent($consumer);
@@ -115,7 +115,7 @@ class ConsumerController extends Controller
 
     /**
      * @Route("/{id}/edit")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template
      */
     public function editAction(Member $consumer, Request $request)
@@ -163,7 +163,7 @@ class ConsumerController extends Controller
 
     /**
      * @Route("/{id}/remove")
-     * @Security("has_role('ROLE_MANAGEMENT')")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Template()
      */
     public function removeAction(User $user, Request $request)
@@ -188,7 +188,7 @@ class ConsumerController extends Controller
                 throw new AccessDeniedException();
             }
 
-            $user->removeRole('ROLE_CONSUMER');
+            $user->removeRole(\UserBundle\Entity\User::ROLE_CONSUMER);
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();

@@ -21,7 +21,7 @@
 					<div class="col-lg-3">{{"Name"|trans({},'user')}}:</div>
 					<div class="col-lg-9">{{ consumer.User.name }} {{ consumer.User.surname }}</a></div>
 				</div>
-				{% if app.user and (app.user.hasRole('ROLE_MANAGEMENT') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
+				{% if app.user and (app.user.hasRole('ROLE_MANAGER') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
 					<div class="row row-underline">
 						<div class="col-lg-3">{{"Email"|trans({},'user')}}:</div>
 						<div class="col-lg-9"><a href="mailto:{{ consumer.User.email }}">{{ consumer.User.email }}</a></div>

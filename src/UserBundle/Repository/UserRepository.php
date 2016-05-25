@@ -22,7 +22,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 	    if( $makeSureFieldIsNotNull ){
 	      $sql->andWhere("u.{$makeSureFieldIsNotNull} IS NOT NULL");
 	    }
-	    if( $makeSureFieldIsNotNull ){
+	    if( $makeSureFieldIsNull ){
 	      $sql->andWhere("u.{$makeSureFieldIsNull} IS NULL");
 	    }
 

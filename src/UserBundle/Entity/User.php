@@ -45,7 +45,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Gedmo\Versioned
      */
     protected $name;
@@ -53,7 +53,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="surname", type="string", length=100)
+     * @ORM\Column(name="surname", type="string", length=100, nullable=true)
      * @Gedmo\Versioned
      */
     protected $surname;

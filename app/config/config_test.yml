@@ -1,6 +1,12 @@
 imports:
     - { resource: config_dev.yml }
 
+doctrine:
+    dbal:
+        dbname:   "spg2"
+        user:     "spg2"
+        password: "ich2000"
+
 framework:
     test: ~
     session:

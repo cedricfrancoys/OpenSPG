@@ -17,3 +17,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Host data to be used by commands
+    router.request_context.host: spg.mac
+    router.request_context.scheme: http

@@ -81,7 +81,7 @@ class MemberController extends Controller
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
             $pUser = $request->request->get('consumerRegistration');
-            $pUser = $pUser['Member']['User'];
+            $pUser = $pUser['User'];
             $user->setEmail($pUser['email']);
             $user->setPlainPassword($pUser['password']['first']);
             $user->setUsername($pUser['username']);

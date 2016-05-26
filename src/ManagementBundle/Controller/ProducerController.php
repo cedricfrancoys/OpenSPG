@@ -86,6 +86,10 @@ class ProducerController extends Controller
                 $dispatcher = $this->get('event_dispatcher'); 
                 $dispatcher->dispatch('producer.events.producerCreated', $event);
 
+                if ($producer->getActiveAsProducer()) {
+                    $dispatcher->dispatch('producer.events.producerApproved', $event);
+                }
+
                 $session = $this->get('session');
                 $trans = $this->get('translator');
 
@@ -124,6 +128,8 @@ class ProducerController extends Controller
         $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
         $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit",array('id'=>$producer->getId())));
 
+        $wereApproved = $producer->getActiveAsProducer();
+
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ProducerType::class, $producer);
@@ -133,6 +139,13 @@ class ProducerController extends Controller
         if ($form->isValid()) {
             $em->persist($producer);
             $em->flush();
+
+            $event = new ProducerEvent($producer, 'edit');
+            $dispatcher = $this->get('event_dispatcher'); 
+
+            if ($producer->getActiveAsProducer() && !$wereApproved) {
+                $dispatcher->dispatch('producer.events.producerApproved', $event);
+            }
 
             $session = $this->get('session');
             $trans = $this->get('translator');

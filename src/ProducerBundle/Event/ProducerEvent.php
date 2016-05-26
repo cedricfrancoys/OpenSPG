@@ -13,7 +13,7 @@ class ProducerEvent extends Event
     protected $action;
 
     protected $actions = array(
-    	'add', 'edit', 'delete'
+    	'add', 'edit', 'delete', 'event'
     );
 
     public function __construct(Member $producer, $action)

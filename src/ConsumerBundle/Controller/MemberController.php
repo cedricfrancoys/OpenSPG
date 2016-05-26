@@ -85,6 +85,9 @@ class MemberController extends Controller
             $user->setEmail($pUser['email']);
             $user->setPlainPassword($pUser['password']['first']);
             $user->setUsername($pUser['username']);
+            $user->setName($pUser['name']);
+            $user->setSurname($pUser['surname']);
+            $user->setPhone($pUser['phone']);
             
             $user->addRole('ROLE_MEMBER');
             $user->addRole('ROLE_CONSUMER');

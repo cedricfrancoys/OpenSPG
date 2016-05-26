@@ -15,7 +15,7 @@
 					<tr>
 						<th>{{"Title"|trans({},"page")}}</th>
 						<th>{{"Path"|trans({},"page")}}</th>
-						<th><a href="{{ path('management_page_add') }}" class="btn btn-default">{{"Add"|trans({},"table")}}</a></th>
+						<th><a href="{{ path('management_page_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,7 +24,7 @@
 							<td>{{page.title}}</td>
 							<td>{{page.path}}</td>
 							<td>
-								<a href="{{ path('management_page_edit', {"id":page.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_page_edit', {"id":page.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
 							</td>
 						</tr>
 					{% endfor %}

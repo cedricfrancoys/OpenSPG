@@ -11,18 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route as Orm_Route;
-
 use PageBundle\Entity\Page;
+
 use ManagementBundle\Form\PageType;
 
 /**
- * @Route("/pages")
+ * @Route("/paginas")
  */
 class PageController extends Controller
 {
@@ -84,15 +78,8 @@ class PageController extends Controller
             $page->setCreatedBy($this->getUser());
             $page->setUpdatedAt(new \DateTime());
             $page->setUpdatedBy($this->getUser());
+            
             $em->persist($page);
-
-            $route = new Orm_Route();
-            $route->setName($page->getName());
-            $route->setDefault('_controller', 'PageBundle:Default:index');
-            $route->setRouteContent($page);
-            $route->setVariablePattern($page->getPath());
-            $em->persist($route);
-
             $em->flush();
 
             $session = $this->get('session');

@@ -31,7 +31,7 @@ class PageType extends AbstractType
                 'attr' => array(
                     'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'manager_page_index'
+                    'data-path' => 'management_page_index'
                 ),
                 'label' => 'Close'
             ))

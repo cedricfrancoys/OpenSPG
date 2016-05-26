@@ -6,11 +6,6 @@ news:
     resource: "@NewsBundle/Controller/"
     type:     annotation
     prefix:   /
-page:
-    resource: "@PageBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 fee:
     resource: "@FeeBundle/Controller/"
     type:     annotation
@@ -30,11 +25,6 @@ user:
     resource: "@UserBundle/Controller/"
     type:     annotation
     prefix:   /
-# member:
-#     resource: "@MemberBundle/Controller/"
-#     type:     annotation
-#     prefix:   /
-
 producer:
     resource: "@ProducerBundle/Controller/"
     type:     annotation
@@ -62,3 +52,7 @@ _bazinga_jstranslation:
     resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+page:
+    resource: "@PageBundle/Controller/"
+    type:     annotation
+    prefix:   /

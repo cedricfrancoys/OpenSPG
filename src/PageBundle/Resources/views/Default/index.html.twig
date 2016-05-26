@@ -1,1 +1,22 @@
-Hello World!
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block pageTitleText %}{{ page.title }}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+	    {{ page.content|raw }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

@@ -45,7 +45,7 @@
                             <li{% if menu == 'home' %} class="active"{% endif %}><a href="{{ path('homepage') }}">{{"Home"|trans({})}}</a></li>
                             <li{% if menu == 'product' %} class="active"{% endif %}><a href="{{ path('product_public_index') }}">{{"Products"|trans({},"product")}}</a></li>
                             <li{% if menu == 'producer' %} class="active"{% endif %}><a href="{{ path('producer_producer_index') }}">{{"Producers"|trans({},"producer")}}</a></li>
-                            <li{% if menu == 'about' %} class="active"{% endif %}><a href="{{ path('app_default_about') }}">{{"The PGS"|trans({})}}</a></li>
+                            <li{% if menu == 'about' %} class="active"{% endif %}><a href="{{ path('page_default_index',{'path':'el_spg'}) }}">{{"The PGS"|trans({})}}</a></li>
                             <li{% if menu == 'contact' %} class="active"{% endif %}><a href="{{ path('app_contact_index') }}">{{"Contact"|trans({})}}</a></li>
                             <li{% if menu == 'documentos' %} class="active"{% endif %}><a href="{{ path('app_document_index') }}">{{"Documents"|trans({})}}</a></li>
                           </ul>
@@ -84,8 +84,8 @@
         {% block footer %}
             <footer>
                 <div class="container">
-                    <p class="pull-right">Alojado en <a href="http://poqueiraweb.com/es/" target="_blank">PoqueiraWeb</a> &middot; <a href="#">Back to top</a></p>
-                    <p><a href="{{ path('app_default_legal') }}">{% trans %}Legal{% endtrans %}</a> &middot; <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.es_ES" target="_blank"><img src="/imgs/creative_commons.png"></a></p>
+                    <p class="pull-right"><a href="#">Back to top</a></p>
+                    <p><a href="{{ path('page_default_index',{'path':'legal'}) }}">{% trans %}Legal{% endtrans %}</a> &middot; <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.es_ES" target="_blank"><img src="/imgs/creative_commons.png"></a></p>
                 </div>
             </footer>
         {% endblock %}

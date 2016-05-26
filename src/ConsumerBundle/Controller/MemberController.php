@@ -72,46 +72,31 @@ class MemberController extends Controller
         }
 
         $form = $this->createForm(RegistrationType::class, $member);
-        // $form->setData($user);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+            $myUserManager = $this->get('users.manager.user');
+            $userCreated = $myUserManager->createUser($member->getUser(), $form, $request->request->get('consumerRegistration'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_CONSUMER));
 
-            $pUser = $request->request->get('consumerRegistration');
-            $pUser = $pUser['User'];
-            $user->setEmail($pUser['email']);
-            $user->setPlainPassword($pUser['password']['first']);
-            $user->setUsername($pUser['username']);
-            $user->setName($pUser['name']);
-            $user->setSurname($pUser['surname']);
-            $user->setPhone($pUser['phone']);
-            
-            $user->addRole('ROLE_MEMBER');
-            $user->addRole('ROLE_CONSUMER');
-            $userManager->updateUser($user);
+            if ($userCreated) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($member);
+                $em->flush();
 
-            $em = $this->getDoctrine()->getManager();
+                $consumerEvent = new ConsumerEvent($member);
+                $dispatcher = $this->get('event_dispatcher');
+                $dispatcher->dispatch('user.events.consumerCreated', $consumerEvent);
 
-            $member->setUser($user);
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('consumer_member_profile');
+                    $response = new RedirectResponse($url);
+                }
 
-            $em->persist($member);
-            $em->flush();
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($member->getUser(), $request, $response));
 
-            $consumerEvent = new ConsumerEvent($consumer);
-            $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('user.events.consumerCreated', $consumerEvent);
-
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('consumer_member_profile');
-                $response = new RedirectResponse($url);
+                return $response;   
             }
-
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
         }
 
         return $this->render('ConsumerBundle:Member:register.html.twig', array(

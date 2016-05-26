@@ -68,4 +68,5 @@ CompletedVisitEmailContent: >
   La visita ha sido calificada como <strong>%accepted%</strong>.
   <p>Saludos del equipo del SPG</p>
 CompletedVisitEmailFooter: >
-  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.
+  Para no seguir recibiendo emails, accede a <a href="%profileLink%">tu cuenta</a> y desactiva los servicios que no quieras seguir recibiendo.Repeat Password: Repite contraseña
+The username already exists: El nombre de usuario ya existe

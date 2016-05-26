@@ -189,7 +189,7 @@ class UserManager
       try{
         $form->get('username')->addError(new FormError('The username already exists'));
       }catch(\OutOfBoundsException $e){
-        $form->get('User')->get('username')->addError(new FormError('The username already exists'));
+        $form->get('User')->get('username')->addError(new FormError($this->translator->trans('The username already exists',array(),'user')));
       }
       return false;
     }
@@ -208,11 +208,17 @@ class UserManager
     $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
     $pUser = (array_key_exists('User', $formData)) ? $formData['User'] : $formData;
 
-    $user->setPlainPassword($pUser['password']);
+    if( is_array($pUser['password']) ){
+    	$user->setPlainPassword($pUser['password']['first']);
+    }else{
+    	$user->setPlainPassword($pUser['password']);
+    }
     foreach ($roles as $role) {
       $user->addRole($role);
     }
-    $user->setNode($this->currentUser->getNode());
+    if( $this->currentUser instanceof User ){
+    	$user->setNode($this->currentUser->getNode());
+    }
 
     $this->orm->persist($user);
     $this->orm->flush();

@@ -77,7 +77,7 @@ class MemberController extends Controller
 
         if ($form->isValid()) {
             $myUserManager = $this->get('users.manager.user');
-            $userCreated = $myUserManager->createUser($member->getUser(), $form, $request->request->get('consumerRegistration'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_CONSUMER));
+            $userCreated = $myUserManager->createUser($member->getUser(), $form, $request->request->get('consumerRegistration'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_CONSUMER), true);
 
             if ($userCreated) {
                 $em = $this->getDoctrine()->getManager();

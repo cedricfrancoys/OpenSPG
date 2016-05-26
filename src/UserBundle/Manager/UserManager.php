@@ -183,7 +183,7 @@ class UserManager
       ->getAll();
   }
 
-  public function createUser(User $user, $form, array $formData, array $roles)
+  public function createUser(User $user, $form, array $formData, array $roles, $activate = false)
   {
     if($this->checkIsDuplicate($formData)){
       try{
@@ -218,6 +218,9 @@ class UserManager
     }
     if( $this->currentUser instanceof User ){
     	$user->setNode($this->currentUser->getNode());
+    }
+    if ($activate) {
+    	$user->setEnabled(true);
     }
 
     $this->orm->persist($user);

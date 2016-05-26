@@ -95,7 +95,7 @@ class MemberController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $member->getMember()->setUser($user);
+            $member->setUser($user);
 
             $em->persist($member);
             $em->flush();
@@ -116,7 +116,7 @@ class MemberController extends Controller
 
         return $this->render('ConsumerBundle:Member:register.html.twig', array(
             'form' => $form->createView(),
-            'menu'=> 'registration'
+            'menu'=> 'register'
         ));
     }
 

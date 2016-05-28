@@ -150,5 +150,5 @@ vich_uploader:
         media:
             uri_prefix:         /downloads
             upload_destination: %kernel.root_dir%/../web/downloads
-            namer:              vich_uploader.namer_origname
+            namer:              media.namer
             delete_on_update:   false

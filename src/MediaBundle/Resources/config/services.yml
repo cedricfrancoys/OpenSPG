@@ -1,0 +1,3 @@
+services:
+  media.namer:
+    class: MediaBundle\Naming\MediaNamer

@@ -81,6 +81,12 @@ class Media
     private $modifiedAt;
 
     /**
+     * @ORM\Column(type="string", length=255, name="filename")
+     * @Gedmo\Versioned
+     */
+    private $filename;
+
+    /**
      * @ORM\Column(type="string", length=255, name="media", nullable=true)
      * @Gedmo\Versioned
      */
@@ -331,5 +337,29 @@ class Media
     public function getMediaFile()
     {
         return $this->mediaFile;
+    }
+
+    /**
+     * Set filename
+     *
+     * @param string $filename
+     *
+     * @return Media
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 }

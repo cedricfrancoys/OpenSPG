@@ -19,7 +19,7 @@
 			</div>
 			{% for item in media %}
 				<div class="media-item">
-					<img src="{{ vich_uploader_asset(item.media, 'image') }}" alt="{{ item.title }}" />
+					<img src="{{ vich_uploader_asset(item, 'mediaFile') }}" alt="{{ item.title }}" />
 					<span class="media-name">{{ item.title }}</span>
 				</div>
 			{% else %}

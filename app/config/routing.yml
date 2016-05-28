@@ -56,3 +56,7 @@ page:
     resource: "@PageBundle/Controller/"
     type:     annotation
     prefix:   /
+media:
+    resource: "@MediaBundle/Controller/"
+    type:     annotation
+    prefix:   /

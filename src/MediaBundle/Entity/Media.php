@@ -28,27 +28,34 @@ class Media
 
     const MIMES = array(
         'application/msword' => array(
-            'type' => self::TYPE_DOCUMENT
+            'type' => self::TYPE_DOCUMENT,
+            'icon' => 'file_extension_doc.png'
         ),
         'application/pdf' => array(
-            'type' => self::TYPE_DOCUMENT
+            'type' => self::TYPE_DOCUMENT,
+            'icon' => 'file_extension_pdf.png'
         ),
 
         'image/jpeg' => array(
-            'type' => self::TYPE_IMAGE
+            'type' => self::TYPE_IMAGE,
+            'icon' => 'file_extension_jpg.png'
         ),
         'image/pjpeg' => array(
-            'type' => self::TYPE_IMAGE
+            'type' => self::TYPE_IMAGE,
+            'icon' => 'file_extension_jpg.png'
         ),
         'image/png' => array(
-            'type' => self::TYPE_IMAGE
+            'type' => self::TYPE_IMAGE,
+            'icon' => 'file_extension_png.png'
         ),
         'image/gif' => array(
-            'type' => self::TYPE_IMAGE
+            'type' => self::TYPE_IMAGE,
+            'icon' => 'file_extension_gif.png'
         ),
 
         'application/octet-stream' => array(
-            'type' => self::TYPE_FILE  
+            'type' => self::TYPE_FILE,
+            'icon' => 'Crystal_Clear_mimetype_binary.png'
         )
     );
 

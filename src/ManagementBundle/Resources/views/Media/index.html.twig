@@ -19,7 +19,9 @@
 			</div>
 			{% for item in media %}
 				<div class="media-item">
-					<img src="{% if app.environment == 'dev' %}/app_dev.php{% endif %}/media/view/{{ item.slug }}" alt="{{ item.title }}" />
+					<div class="media-img">
+						<img src="{% if app.environment == 'dev' %}/app_dev.php{% endif %}/media/view/{{ item.slug }}" alt="{{ item.title }}" />
+					</div>
 					<span class="media-name">{{ item.title }}</span>
 				</div>
 			{% else %}

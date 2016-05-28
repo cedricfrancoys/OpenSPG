@@ -1,0 +1,20 @@
+.media-item{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	display: inline-block;
+	height: 100px;
+	text-align: center;
+	width: 100px;
+}
+.media-img{
+	cursor: pointer;
+	line-height: 98px;
+	height: 98px;
+}
+.media-img.selected{
+	background-color: #ccc;
+}
+.media-img > img{
+	max-height: 100px;
+	max-width: 100px;
+}

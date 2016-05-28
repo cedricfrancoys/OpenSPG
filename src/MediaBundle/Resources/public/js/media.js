@@ -9,4 +9,7 @@ jQuery(document).ready(function() {
         var modal = $('#upload_modal');
         modal.modal('show');
     }
+    $('.media-img').on('click',function(e){
+        $(this).toggleClass('selected');
+    });
 });

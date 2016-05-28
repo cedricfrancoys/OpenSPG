@@ -1,3 +1,9 @@
 services:
   media.namer:
     class: MediaBundle\Naming\MediaNamer
+  media.events.upload:
+        class: MediaBundle\Event\UploadEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+        tags:
+            - {name:"kernel.event_listener", event:"vich_uploader.post_upload", method:"onPostUpload"}

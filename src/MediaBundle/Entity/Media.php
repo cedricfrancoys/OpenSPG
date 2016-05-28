@@ -19,6 +19,39 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Media
 {
+
+    const TYPE_IMAGE = 'Image';
+    const TYPE_DOCUMENT = 'Document';
+    const TYPE_VIDEO = 'Video';
+    const TYPE_AUDIO = 'Audio';
+    const TYPE_FILE = 'File';
+
+    const MIMES = array(
+        'application/msword' => array(
+            'type' => self::TYPE_DOCUMENT
+        ),
+        'application/pdf' => array(
+            'type' => self::TYPE_DOCUMENT
+        ),
+
+        'image/jpeg' => array(
+            'type' => self::TYPE_IMAGE
+        ),
+        'image/pjpeg' => array(
+            'type' => self::TYPE_IMAGE
+        ),
+        'image/png' => array(
+            'type' => self::TYPE_IMAGE
+        ),
+        'image/gif' => array(
+            'type' => self::TYPE_IMAGE
+        ),
+
+        'application/octet-stream' => array(
+            'type' => self::TYPE_FILE  
+        )
+    );
+
     /**
      * @var int
      *
@@ -40,7 +73,7 @@ class Media
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"media"})
+     * @Gedmo\Slug(fields={"filename"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      * @Gedmo\Versioned
      */
@@ -100,6 +133,46 @@ class Media
      * @var File
      */
     private $mediaFile;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="filesize", type="integer", nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $filesize;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mime", type="string", length=30, nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $mime;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="width", type="smallint", nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $width;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="height", type="smallint", nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $height;
 
 
     public function __construct() {
@@ -361,5 +434,125 @@ class Media
     public function getFilename()
     {
         return $this->filename;
+    }
+
+    /**
+     * Set filesize
+     *
+     * @param integer $filesize
+     *
+     * @return Media
+     */
+    public function setFilesize($filesize)
+    {
+        $this->filesize = $filesize;
+
+        return $this;
+    }
+
+    /**
+     * Get filesize
+     *
+     * @return integer
+     */
+    public function getFilesize()
+    {
+        return $this->filesize;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Media
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set mime
+     *
+     * @param string $mime
+     *
+     * @return Media
+     */
+    public function setMime($mime)
+    {
+        $this->mime = $mime;
+
+        return $this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return string
+     */
+    public function getMime()
+    {
+        return $this->mime;
+    }
+
+    /**
+     * Set width
+     *
+     * @param integer $width
+     *
+     * @return Media
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set height
+     *
+     * @param integer $height
+     *
+     * @return Media
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return integer
+     */
+    public function getHeight()
+    {
+        return $this->height;
     }
 }

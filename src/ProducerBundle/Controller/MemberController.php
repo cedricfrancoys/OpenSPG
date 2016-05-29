@@ -97,6 +97,15 @@ class MemberController extends Controller
 
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($member->getUser(), $request, $response));
 
+                $session = $this->get('session');
+                $trans = $this->get('translator');
+
+                // add flash messages
+                $session->getFlashBag()->add(
+                    'success',
+                    $trans->trans('Your signup has been successfull!', array(), 'user')
+                );
+
                 return $response;   
             }
         }

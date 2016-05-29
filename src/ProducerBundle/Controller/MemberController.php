@@ -103,7 +103,7 @@ class MemberController extends Controller
                 // add flash messages
                 $session->getFlashBag()->add(
                     'success',
-                    $trans->trans('Your signup has been successfull!', array(), 'user')
+                    $trans->trans('Your signup has been successfull', array(), 'user')
                 );
 
                 return $response;   

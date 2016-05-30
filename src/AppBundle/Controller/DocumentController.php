@@ -48,6 +48,18 @@ class DocumentController extends Controller
                 'description' => '',
                 'file' => 'guia_de_visita.pdf',
                 'updated' => new \DateTime('17.04.2016')
+            ),
+            array(
+                'name' => 'Logo (Fichero GIMP)',
+                'description' => '',
+                'file' => 'logo.xcf',
+                'updated' => new \DateTime('30.05.2016')
+            ),
+            array(
+                'name' => 'Logo (Fichero PNG)',
+                'description' => '',
+                'file' => 'logo.png',
+                'updated' => new \DateTime('30.05.2016')
             )
         );
     }

@@ -34,4 +34,23 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Default:index.html.twig', $data);
     }
+
+    /**
+     * @Route("/sendTestEmail")
+     */
+    public function sendTestEmailAction()
+    {
+        $mailer = $this->getContainer()->get('mailer');
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Test Email')
+            ->setFrom('hello@raac.tobeonthe.net')
+            ->setTo('mhauptma73@gmail.com')
+            ->setBody(
+                'Simple teste message',
+                'text/html'
+            )
+        ;
+        $mailer->send($message);
+    }    
 }

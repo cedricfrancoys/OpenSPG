@@ -17,10 +17,10 @@ jQuery(document).ready(function() {
 
 function onCertified(){
 	if($('#property_certified').prop('checked')){
-		$('#property_certifiedYear').closest('div.form-group').show()
+		$('#property_certifiedYears').closest('div.form-group').show()
 		$('#property_certifiedProvider').closest('div.form-group').show()
 	}else{
-		$('#property_certifiedYear').closest('div.form-group').hide()
+		$('#property_certifiedYears').closest('div.form-group').hide()
 		$('#property_certifiedProvider').closest('div.form-group').hide()
 	}
 }

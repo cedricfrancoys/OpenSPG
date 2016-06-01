@@ -125,12 +125,12 @@ class Property
     private $certified;
 
     /**
-     * @var int
+     * @var array
      *
-     * @ORM\Column(name="certifiedYear", type="integer", nullable=true)
+     * @ORM\Column(name="certifiedYear", type="array", nullable=true)
      * @Gedmo\Versioned
      */
-    private $certifiedYear;
+    private $certifiedYears;
 
     /**
      * @var string
@@ -587,13 +587,13 @@ class Property
     /**
      * Set certifiedYear
      *
-     * @param integer $certifiedYear
+     * @param array $certifiedYears
      *
      * @return Property
      */
-    public function setCertifiedYear($certifiedYear)
+    public function setCertifiedYears(array $certifiedYear)
     {
-        $this->certifiedYear = $certifiedYear;
+        $this->certifiedYears = $certifiedYear;
 
         return $this;
     }
@@ -601,11 +601,11 @@ class Property
     /**
      * Get certifiedYear
      *
-     * @return int
+     * @return array
      */
-    public function getCertifiedYear()
+    public function getCertifiedYears()
     {
-        return $this->certifiedYear;
+        return $this->certifiedYears;
     }
 
     /**

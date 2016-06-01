@@ -4,7 +4,7 @@ imports:
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
+            type: fingers_crossed
             action_level: error
             excluded_404s:
                 - ^/

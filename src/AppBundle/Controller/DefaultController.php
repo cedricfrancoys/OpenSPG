@@ -40,7 +40,7 @@ class DefaultController extends Controller
      */
     public function sendTestEmailAction()
     {
-        $mailer = $this->getContainer()->get('mailer');
+        $mailer = $this->get('mailer');
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Test Email')

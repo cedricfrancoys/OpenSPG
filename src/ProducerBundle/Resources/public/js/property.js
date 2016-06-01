@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 });
 
 function onCertified(){
-	if($('#property_certified').attr('checked')){
+	if($('#property_certified').prop('checked')){
 		$('#property_certifiedYear').closest('div.form-group').show()
 		$('#property_certifiedProvider').closest('div.form-group').show()
 	}else{
@@ -25,14 +25,14 @@ function onCertified(){
 	}
 }
 function onOwnerLivesHere(){
-	if($('#property_ownerLivesHere').attr('checked')){
+	if($('#property_ownerLivesHere').prop('checked')){
 		$('#property_ownerDistance').closest('div.form-group').hide()
 	}else{
 		$('#property_ownerDistance').closest('div.form-group').show()
 	}
 }
 function onPropertyProductConservation(){
-	if($('#property_productConservation').attr('checked')){
+	if($('#property_productConservation').prop('checked')){
 		$('#property_productConservationDetails').closest('div.form-group').show()
 	}else{
 		$('#property_productConservationDetails').closest('div.form-group').hide()

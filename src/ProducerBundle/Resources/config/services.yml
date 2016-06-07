@@ -36,6 +36,7 @@ services:
             - ["setMailer", ["@mailer"]]
             - [setTwig, ["@twig"]]
             - [setTranslator, ["@translator"]]
+            - [setLogManager, ["@app.manager.log"]]
         tags:
             - {name:"kernel.event_listener", event:"producer.events.producerCreated", method:"onProducerCreated"}
 

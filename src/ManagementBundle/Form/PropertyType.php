@@ -12,7 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
+
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -24,6 +26,12 @@ class PropertyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = date('Y');
+        $lastTenYears = array();
+        for ($i=$year; $i > $year-50 ; $i--) { 
+            $lastTenYears[$i] = $i;
+        }
+
         $builder
             ->add('Member', EntityType::class, array(
                 'class' => 'ProducerBundle:Member',
@@ -60,7 +68,10 @@ class PropertyType extends AbstractType
                 'help' => 'crops help'
             ))
             ->add('certified')
-            ->add('certifiedYear')
+            ->add('certifiedYears', ChoiceType::class, array(
+                'choices' => $lastTenYears,
+                'multiple' => true
+            ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', DateType::class, array(
                 'placeholder' => 'Never',

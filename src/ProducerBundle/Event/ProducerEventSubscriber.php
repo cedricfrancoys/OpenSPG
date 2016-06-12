@@ -3,6 +3,7 @@ namespace ProducerBundle\Event;
  
 use Symfony\Component\EventDispatcher\Event;
 use \Symfony\Component\Translation\TranslatorInterface;
+use AppBundle\Manager\LogManager;
 
 class ProducerEventSubscriber
 {
@@ -10,9 +11,12 @@ class ProducerEventSubscriber
     protected $mailer;
     protected $twig;
     protected $translator;
+    protected $log;
 
     public function onProducerCreated(Event $event)
     {
+        $this->log->log('ProducerEventSubscriber:onProducerCreated', 'Execting listener...');
+
         $producer = $event->getProducer();
 
         $subscribers = $this->getSubscribedUsers();
@@ -39,6 +43,16 @@ class ProducerEventSubscriber
     public function setTranslator(TranslatorInterface $trans) {
         $this->translator = $trans;
     }
+    /**
+       * Set the log manager
+       *
+       * @param logManager $log
+       * @return void
+       */
+    public function setLogManager(LogManager $log) {
+        $this->log = $log;
+    }
+
 
     /**
        * Set twig
@@ -82,5 +96,7 @@ class ProducerEventSubscriber
             )
         ;
         $this->mailer->send($message);
+
+        $this->log->log('ProducerEventSubscriber:sendEmail', 'Sent email to ' . $subscriber->getEmail());
     }
 }

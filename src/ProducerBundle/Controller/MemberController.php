@@ -76,43 +76,38 @@ class MemberController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
-            $pUser = $request->request->get('producerRegistration');
-            $pUser = $pUser['User'];
-            $user->setEmail($pUser['email']);
-            $user->setPlainPassword($pUser['password']['first']);
-            $user->setUsername($pUser['username']);
-            $user->setName($pUser['name']);
-            $user->setSurname($pUser['surname']);
-            $user->setPhone($pUser['phone']);
-            
-            $user->addRole('ROLE_MEMBER');
-            $user->addRole('ROLE_CONSUMER');
-            $user->addRole('ROLE_PRODUCER');
-            $userManager->updateUser($user);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $member->setUser($user);
             $member->setActiveAsProducer(false);
 
-            $em->persist($member);
-            $em->flush();
+            $myUserManager = $this->get('users.manager.user');
+            $userCreated = $myUserManager->createUser($member->getUser(), $form, $request->request->get('producerRegistration'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_CONSUMER, \UserBundle\Entity\User::ROLE_PRODUCER), true);
 
-            $producerEvent = new ProducerEvent($producer, 'add');
-            $dispatcher = $this->get('event_dispatcher'); 
-            $dispatcher->dispatch('producer.events.producerCreated', $producerEvent);
+            if ($userCreated) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($member);
+                $em->flush();
 
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('producer_member_profile');
-                $response = new RedirectResponse($url);
+                $producerEvent = new ProducerEvent($member, 'add');
+                $dispatcher = $this->get('event_dispatcher'); 
+                $dispatcher->dispatch('producer.events.producerCreated', $producerEvent);
+
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('producer_member_profile');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($member->getUser(), $request, $response));
+
+                $session = $this->get('session');
+                $trans = $this->get('translator');
+
+                // add flash messages
+                $session->getFlashBag()->add(
+                    'success',
+                    $trans->trans('Your signup has been successfull', array(), 'user')
+                );
+
+                return $response;   
             }
-
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
         }
 
         return $this->render('ProducerBundle:Member:register.html.twig', array(

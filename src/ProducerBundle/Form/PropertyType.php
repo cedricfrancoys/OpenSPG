@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormView;
 
 class PropertyType extends AbstractType
@@ -16,6 +17,12 @@ class PropertyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = date('Y');
+        $lastTenYears = array();
+        for ($i=$year; $i > $year-50 ; $i--) { 
+            $lastTenYears[$i] = $i;
+        }
+
         $builder
             ->add('areaName')
             ->add('address')
@@ -33,7 +40,10 @@ class PropertyType extends AbstractType
             ->add('surroundingProblems')
             ->add('crops')
             ->add('certified')
-            ->add('certifiedYear')
+            ->add('certifiedYears', ChoiceType::class, array(
+                'choices' => $lastTenYears,
+                'multiple' => true
+            ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', 'date', array(
                 'required' => false,

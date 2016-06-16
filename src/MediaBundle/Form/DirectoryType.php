@@ -7,27 +7,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
-class MediaType extends AbstractType
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
+class DirectoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('title', null, array(
-                'required' => true
-            ))
-            ->add('mediaFile', VichImageType::class, array(
-                'required' => true
-            ))
             ->add('parent', HiddenType::class, array(
-                'required' => true,
-                'mapped' => false,
-                'data' => $options['parent']
+                'required' => false
+            ))
+            ->add('filename', null, array(
+                'required' => true
             ))
         ;
     }
@@ -35,9 +31,8 @@ class MediaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MediaBundle\Entity\Media',
-            'translation_domain' => 'media',
-            'parent' => '/'
+            'data_class' => 'MediaBundle\\Entity\\Media',
+            'translation_domain' => 'media'
         ));
     }
 }

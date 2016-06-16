@@ -5,6 +5,7 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use MediaBundle\Entity\Media;
 
 use MediaBundle\Form\MediaType;
+use MediaBundle\Form\DirectoryType;
 
 /**
  * @Route("/media")
@@ -33,22 +35,52 @@ class MediaController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $media = $em->getRepository('MediaBundle:Media')->findAll();
+        $media = $em->getRepository('MediaBundle:Media')->getContent();
 
         $item = new Media();
 
         $uploadForm = $this->createForm(MediaType::class, $item, array(
             'action' => $this->generateUrl('management_media_upload'),
-            'validation_groups' => array('Default','upload')
+            'validation_groups' => array('Default','upload'),
+            'parent' => '/'
+        ));
+
+        $directory = new Media();
+        $directory->setType(Media::TYPE_DIRECTORY);
+        $createDirForm = $this->createForm(DirectoryType::class, $directory, array(
+            'action' => $this->generateUrl('management_media_createdir'),
+            'validation_groups' => array('Default','create')
         ));
 
         $data = array(
             'media' => $media,
             'uploadForm' => $uploadForm->createView(),
+            'createDirForm' => $createDirForm->createView(),
             'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:Media:index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/load", options={"expose":true})
+     * @Security("has_role('ROLE_MANAGER')")
+     */
+    public function load(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $path = $request->query->get('path');
+
+        $parent = $em->getRepository('MediaBundle:Media')->find($path);
+        $media = $em->getRepository('MediaBundle:Media')->children($parent, true);
+
+        $response = new JsonResponse();
+        $response->setData(array(
+            'media' => $media
+        ));
+
+        return $response;
     }
 
     /**
@@ -66,8 +98,10 @@ class MediaController extends Controller
 
         $media = $em->getRepository('MediaBundle:Media')->findAll();
 
-        $item = new Media();
+        $post_data = $request->request->get('media');
 
+        $item = new Media();
+        $item->parent = $this->normalizeParent($post_data['parent']);
         $uploadForm = $this->createForm(MediaType::class, $item, array(
             'action' => $this->generateUrl('management_media_upload'),
             'validation_groups' => array('Default','upload')
@@ -75,9 +109,26 @@ class MediaController extends Controller
 
         $uploadForm->handleRequest($request);
 
+        $directory = new Media();
+        $directory->setType(Media::TYPE_DIRECTORY);
+        $createDirForm = $this->createForm(DirectoryType::class, $directory, array(
+            'action' => $this->generateUrl('management_media_createdir'),
+            'validation_groups' => array('Default','create'),
+            'parent' => '/'
+        ));
+
         if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
             $em->persist($item);
             $em->flush();
+
+            $session = $this->get('session');
+            $trans = $this->get('translator');
+
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('File has been uploaded!', array(), 'media')
+            );
 
             $url = $this->generateUrl('management_media_index');
             $response = new RedirectResponse($url);
@@ -88,9 +139,84 @@ class MediaController extends Controller
         $data = array(
             'media' => $media,
             'uploadForm' => $uploadForm->createView(),
+            'createDirForm' => $createDirForm->createView(),
             'menu' => 'management'
         );
 
         return $this->render('ManagementBundle:Media:index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/createDir")
+     * @Security("has_role('ROLE_MANAGER')")
+     */
+    public function createDirAction(Request $request)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
+        $breadcrumbs->addItem("Media", $this->get("router")->generate("management_media_index"));
+        $breadcrumbs->addItem("Create directory", $this->get("router")->generate("management_media_createdir"));
+
+        $em = $this->getDoctrine()->getManager();
+
+        $media = $em->getRepository('MediaBundle:Media')->findAll();
+
+        $item = new Media();
+        $uploadForm = $this->createForm(MediaType::class, $item, array(
+            'action' => $this->generateUrl('management_media_upload'),
+            'validation_groups' => array('Default','upload')
+        ));
+
+        $directory = new Media();
+        $directory->setType(Media::TYPE_DIRECTORY);
+        $createDirForm = $this->createForm(DirectoryType::class, $directory, array(
+            'action' => $this->generateUrl('management_media_createdir'),
+            'validation_groups' => array('Default','create')
+        ));
+
+        $createDirForm->handleRequest($request);
+
+        if ($createDirForm->isSubmitted() && $createDirForm->isValid()) {
+            $directory->setTitle($directory->getFilename());
+            $directory->setMime('inode/directory');
+            $post_data = $request->request->get('directory');
+            $directory->setMedia($directory->getFilename());
+            $em->persist($directory);
+            $em->flush();
+
+            $session = $this->get('session');
+            $trans = $this->get('translator');
+
+            // add flash messages
+            $session->getFlashBag()->add(
+                'success',
+                $trans->trans('Directory has been created!', array(), 'media')
+            );
+
+            $url = $this->generateUrl('management_media_index');
+            $response = new RedirectResponse($url);
+
+            return $response;
+        }
+
+        $data = array(
+            'media' => $media,
+            'uploadForm' => $uploadForm->createView(),
+            'createDirForm' => $createDirForm->createView(),
+            'menu' => 'management'
+        );
+
+        return $this->render('ManagementBundle:Media:index.html.twig', $data);
+    }
+
+    protected function normalizeParent($parent)
+    {
+        $parent = substr($parent, 1);
+        if (strlen($parent) && substr($parent, -1) !== '/') {
+            $parent .= '/';
+        }
+
+        return $parent;
     }
 }

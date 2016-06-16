@@ -1,6 +1,8 @@
 services:
   media.namer:
     class: MediaBundle\Naming\MediaNamer
+  media.directory_namer:
+    class: MediaBundle\Naming\MediaDirectoryNamer
   media.events.upload:
         class: MediaBundle\Event\UploadEventSubscriber
         calls:

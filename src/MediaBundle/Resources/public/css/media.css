@@ -18,3 +18,7 @@
 	max-height: 100px;
 	max-width: 100px;
 }
+.media-action button{
+	float: right;
+	margin-left: 5px;
+}

@@ -80,6 +80,12 @@ doctrine:
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
                 alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
                 is_bundle: false
+            gedmo_tree:
+                type: annotation
+                prefix: Gedmo\Tree\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                alias: GedmoTree # (optional) it will default to the name set for the mapping
+                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -124,6 +130,7 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+            tree: true
             blameable: true
             timestampable: true
             uploadable: true
@@ -151,4 +158,5 @@ vich_uploader:
             uri_prefix:         /downloads
             upload_destination: %kernel.root_dir%/../web/downloads
             namer:              media.namer
+            directory_namer:    media.directory_namer
             delete_on_update:   false

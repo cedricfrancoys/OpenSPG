@@ -16,6 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="MediaBundle\Repository\MediaRepository")
  * @Vich\Uploadable
  * @Gedmo\Loggable
+ * @Gedmo\Tree(type="nested")
  */
 class Media
 {
@@ -25,6 +26,7 @@ class Media
     const TYPE_VIDEO = 'Video';
     const TYPE_AUDIO = 'Audio';
     const TYPE_FILE = 'File';
+    const TYPE_DIRECTORY = 'Directory';
 
     const MIMES = array(
         'application/msword' => array(
@@ -56,6 +58,11 @@ class Media
         'application/octet-stream' => array(
             'type' => self::TYPE_FILE,
             'icon' => 'Crystal_Clear_mimetype_binary.png'
+        ),
+
+        'inode/directory' => array(
+            'type' => self::TYPE_DIRECTORY,
+            'icon' => 'folder.png'
         )
     );
 
@@ -71,16 +78,16 @@ class Media
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @Gedmo\Versioned
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"upload"})
      */
     private $title;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"filename"})
+     * @Gedmo\Slug(fields={"media"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      * @Gedmo\Versioned
      */
@@ -180,6 +187,44 @@ class Media
      * @Gedmo\Versioned
      */
     private $height;
+
+        /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Media", inversedBy="children")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
 
     public function __construct() {
@@ -561,5 +606,159 @@ class Media
     public function getHeight()
     {
         return $this->height;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     *
+     * @return Media
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     *
+     * @return Media
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     *
+     * @return Media
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param Media $root
+     *
+     * @return Media
+     */
+    public function setRoot(Media $root = null)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get root
+     *
+     * @return Media
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Media $parent
+     *
+     * @return Media
+     */
+    public function setParent(Media $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Media
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param Media $child
+     *
+     * @return Media
+     */
+    public function addChild(Media $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param Media $child
+     */
+    public function removeChild(Media $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

@@ -74,6 +74,12 @@ class UserAdmin extends AbstractAdmin
                     'data' => in_array(\UserBundle\Entity\User::ROLE_MANAGER, $roles),
                     'required' => false
                 ))
+                ->add(\UserBundle\Entity\User::ROLE_VISITGROUP, 'checkbox', array(
+                    'mapped' => false,
+                    'label' => 'Visit Group',
+                    'data' => in_array(\UserBundle\Entity\User::ROLE_VISITGROUP, $roles),
+                    'required' => false
+                ))
             ->end();
     }
 

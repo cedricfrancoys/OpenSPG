@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Visit Group"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Visit Group"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="highlightSection">
+		<div class="container">
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="alert alert-{{ type }}">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{"Name"|trans({},"management")}}</th>
+						<th>{{"Surname"|trans({},"management")}}</th>
+						<th>{{"Phone"|trans({},"management")}}</th>
+						<th><a href="{{ path('management_visitgroup_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{user.name}}</td>
+							<td>{{user.surname}}</td>
+							<td>{{user.phone}}</td>
+							<td>
+								<a href="{{ path('management_visitgroup_edit', {"id":user.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+								<a href="{{ path('management_visitgroup_remove', {"id":user.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

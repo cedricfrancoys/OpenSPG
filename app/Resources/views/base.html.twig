@@ -43,8 +43,9 @@
                         <div class="navbar-collapse collapse">
                           <ul class="nav navbar-nav">
                             <li{% if menu == 'home' %} class="active"{% endif %}><a href="{{ path('homepage') }}">{{"Home"|trans({})}}</a></li>
-                            <li{% if menu == 'product' %} class="active"{% endif %}><a href="{{ path('product_public_index') }}">{{"Products"|trans({},"product")}}</a></li>
+                            {# <li{% if menu == 'product' %} class="active"{% endif %}><a href="{{ path('product_public_index') }}">{{"Products"|trans({},"product")}}</a></li> #}
                             <li{% if menu == 'producer' %} class="active"{% endif %}><a href="{{ path('producer_producer_index') }}">{{"Producers"|trans({},"producer")}}</a></li>
+                            <li{% if menu == 'consumer' %} class="active"{% endif %}><a href="{{ path('consumer_consumer_index') }}">{{"Consumers"|trans({},"consumer")}}</a></li>
                             <li{% if menu == 'about' %} class="active"{% endif %}><a href="{{ path('page_default_index',{'path':'el_spg'}) }}">{{"The PGS"|trans({})}}</a></li>
                             <li{% if menu == 'contact' %} class="active"{% endif %}><a href="{{ path('app_contact_index') }}">{{"Contact"|trans({})}}</a></li>
                             <li{% if menu == 'documentos' %} class="active"{% endif %}><a href="{{ path('app_document_index') }}">{{"Documents"|trans({})}}</a></li>

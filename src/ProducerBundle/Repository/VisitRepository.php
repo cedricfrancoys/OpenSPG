@@ -36,6 +36,19 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
     	;
   	}
 
+    public function getLatest()
+    {
+        return $this
+          ->createQueryBuilder('v')
+          ->where('v.visitDate IS NOT NULL OR v.visitDate < :today')
+          ->orderBy('v.visitDate', 'DESC')
+          ->setParameter('today', new \DateTime())
+          ->setMaxResults(10)
+          ->getQuery()
+          ->getResult()
+      ;
+    }
+
   	public function getPendingApproval()
   	{
       	$start = new \DateTime();

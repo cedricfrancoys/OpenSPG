@@ -150,6 +150,34 @@
 		</div>
 	{% endif %}
 
+	{% if latestVisits|length %}
+		<div class="container">
+			<div class="row">
+				<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">{{"Latest visits"|trans({},'visit')}}</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>{{"Producer"|trans({},'visit')}}</th>
+							<th>{{"Property"|trans({},'visit')}}</th>
+							<th>{{"Visit date"|trans({},'visit')}}</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for visit in latestVisits %}
+							<tr>
+								<td><a href="{{ path('producer_producer_show',{"id":visit.Producer.id}) }}" title="Ver ficha del productor">{{visit.Producer}}</a></td>
+								<td><a href="{{ path('producer_publicproperty_show',{"id":visit.Property.id}) }}" title="Ver ficha de la propiedad">{{visit.Property.name}}</a></td>
+								<td><a href="{{ path('producer_visitpublic_show',{"id":visit.id}) }}" title="Ver ficha de la visita">{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</a></td>
+								<td>&nbsp;</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endif %}
+
 	<script	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false"></script>
 	<script type="text/javascript">
 		var myCenter=new google.maps.LatLng(36.892011,-3.245017);

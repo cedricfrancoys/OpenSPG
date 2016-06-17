@@ -40,7 +40,7 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this
           ->createQueryBuilder('v')
-          ->where('v.visitDate IS NOT NULL OR v.visitDate < :today')
+          ->where('v.visitDate IS NOT NULL AND v.visitDate < :today')
           ->orderBy('v.visitDate', 'DESC')
           ->setParameter('today', new \DateTime())
           ->setMaxResults(10)

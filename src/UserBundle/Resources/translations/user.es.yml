@@ -73,3 +73,13 @@ The choosen user already exists! Please choose a different one.: El usuario eleg
 Repeat Password: Repite contraseña
 The username already exists: El nombre de usuario ya existe
 Your signup has been successfull: Tu alta se ha realizado con éxito
+resetting:
+  reset:
+    title: 'Nueva contraseña'
+  request:
+    explain: Pon tu nombre de usuario y te mandaremos un enlace para confirmar la solicitud al email que has indicado al darte de alta.
+    already_done: 'Solicitud ya enviada'
+  sending_email: 'Enviando el email'
+  check_email: 'Un email ha sido enviado a %email%. Contiene un enlace de activación que debes seguir para restablecer tu contraseña.'
+  password_already_requested: 'La contraseña para este usuario ya ha sido solicitada en las últimas 24 horas. Si no te ha llegado el email, por favor revisa la carpeta de spam o correo no solicitado.'
+Forgot password?: ¿Has olvidado tu contraseña?

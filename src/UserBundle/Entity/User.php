@@ -21,6 +21,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *          column=@ORM\Column(
  *              nullable = true
  *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="username",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="usernameCanonical",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="password",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
  *      )
  * })
  * @ORM\Table(name="fos_user")
@@ -31,9 +46,11 @@ class User extends BaseUser
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_MANAGER = 'ROLE_MANAGER';
+    const ROLE_VISITGROUP = 'ROLE_VISITGROUP';
     const ROLE_PRODUCER = 'ROLE_PRODUCER';
     const ROLE_CONSUMER = 'ROLE_CONSUMER';
     const ROLE_MEMBER = 'ROLE_MEMBER';
+    const ROLE_GUEST = 'ROLE_GUEST';
 
     /**
      * @ORM\Id

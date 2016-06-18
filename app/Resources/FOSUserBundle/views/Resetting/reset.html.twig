@@ -1,0 +1,8 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block pageTitleText %}{% trans from "user" %}resetting.reset.title{% endtrans %}{% endblock %}
+{% block title %}{% trans from "user" %}resetting.reset.title{% endtrans %}{% endblock %}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock fos_user_content %}

@@ -232,4 +232,30 @@ class UserController extends Controller
 
         return new RedirectResponse($this->generateUrl('management_manager_edit', array('id'=>$user->getId())));
     }
+
+    /**
+     * @Route("/{id}/makeVisitGroupMember")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @Template()
+     */
+    public function makeVisitGroupMemberAction(User $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->get('session');
+        $trans = $this->get('translator');
+
+        $user->addRole(\UserBundle\Entity\User::ROLE_VISITGROUP);
+
+        $em->persist($user);
+
+        $em->flush();
+
+        // add flash messages
+        $session->getFlashBag()->add(
+            'success',
+            $trans->trans('The user has been made a visit group member!', array(), 'management')
+        );
+
+        return new RedirectResponse($this->generateUrl('management_visitgroup_edit', array('id'=>$user->getId())));
+    }
 }

@@ -1,0 +1,12 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block pageTitleText %}{% trans from "user" %}resetting.sending_email{% endtrans %}{% endblock %}
+{% block title %}{% trans from "user" %}resetting.sending_email{% endtrans %}{% endblock %}
+
+{% block fos_user_content %}
+<p>
+{{ 'resetting.check_email'|trans({'%email%': email}, 'user') }}
+</p>
+{% endblock %}

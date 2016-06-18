@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{"Edit guest"|trans({},"management")}}{% endblock %}
+
+{% block pageTitleText %}{{"Edit guest"|trans({},"management")}}{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+
+    <div class="container">
+    	{% for type, messages in app.session.flashbag.all() %}
+			{% for message in messages %}
+				<div class="alert alert-{{ type }}">{{ message }}</div>
+			{% endfor %}
+		{% endfor %}
+		<div class="action-buttons">
+			<a href="{{ path('management_guest_add') }}" class="btn btn-success btn-add">{{"New guest"|trans({},"management")}}</a>
+		</div>
+	    {{ form_start(form) }}
+			{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 'bundles/management/css/edit.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}	
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'management' }) }}"></script>
+	{% javascripts
+        'bundles/management/js/edit.js'
+        'bundles/app/js/forms.js'%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

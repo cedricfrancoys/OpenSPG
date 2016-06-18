@@ -105,7 +105,7 @@ class ProducerManager
       	$this->orm->persist($this->producer);
       	$this->orm->flush();
 
-      	$event = new ProducerEvent($producer, 'event');
+      	$event = new ProducerEvent($this->producer, 'event');
       	$dispatcher = $this->eventDispatcher; 
 
       	if (!$wereApproved) {

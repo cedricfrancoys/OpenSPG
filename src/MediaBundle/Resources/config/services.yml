@@ -9,3 +9,8 @@ services:
             - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
         tags:
             - {name:"kernel.event_listener", event:"vich_uploader.post_upload", method:"onPostUpload"}
+  media.form.type.directory:
+        class: MediaBundle\Form\DirectoryType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

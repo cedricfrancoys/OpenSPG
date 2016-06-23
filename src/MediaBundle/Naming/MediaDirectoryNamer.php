@@ -16,9 +16,6 @@ class MediaDirectoryNamer implements DirectoryNamerInterface
 	
 	public function directoryName($object, PropertyMapping $mapping)
     {
-        dump($object);
-        dump($mapping);
-
         $directory = array();
 
         $parent = $object->parent;

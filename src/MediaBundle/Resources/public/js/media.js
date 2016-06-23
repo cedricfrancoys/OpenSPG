@@ -61,6 +61,7 @@ function loadContent(filename, id){
                     var div = $('<div class="media-item"></div>');
                     div.data('type', value.type);
                     div.data('filename', value.filename);
+                    div.data('id', value.id)
                     var div2 = $('<div class="media-img"></div>');
                     div.append(div2);
                     div2.append('<img src="'+dev+'/media/view/'+value.slug+'" alt="'+value.title+'" />');

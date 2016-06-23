@@ -35,14 +35,13 @@ class MediaController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $media = $em->getRepository('MediaBundle:Media')->getContent();
+        $media = $em->getRepository('MediaBundle:Media')->children(null, true, 'type');
 
         $item = new Media();
 
         $uploadForm = $this->createForm(MediaType::class, $item, array(
             'action' => $this->generateUrl('management_media_upload'),
-            'validation_groups' => array('Default','upload'),
-            'parent' => '/'
+            'validation_groups' => array('Default','upload')
         ));
 
         $directory = new Media();
@@ -73,7 +72,7 @@ class MediaController extends Controller
         $path = $request->query->get('path');
 
         $parent = $em->getRepository('MediaBundle:Media')->find($path);
-        $media = $em->getRepository('MediaBundle:Media')->children($parent, true);
+        $media = $em->getRepository('MediaBundle:Media')->childrenHierarchy($parent, true);
 
         $response = new JsonResponse();
         $response->setData(array(
@@ -101,7 +100,6 @@ class MediaController extends Controller
         $post_data = $request->request->get('media');
 
         $item = new Media();
-        $item->parent = $this->normalizeParent($post_data['parent']);
         $uploadForm = $this->createForm(MediaType::class, $item, array(
             'action' => $this->generateUrl('management_media_upload'),
             'validation_groups' => array('Default','upload')
@@ -113,8 +111,7 @@ class MediaController extends Controller
         $directory->setType(Media::TYPE_DIRECTORY);
         $createDirForm = $this->createForm(DirectoryType::class, $directory, array(
             'action' => $this->generateUrl('management_media_createdir'),
-            'validation_groups' => array('Default','create'),
-            'parent' => '/'
+            'validation_groups' => array('Default','create')
         ));
 
         if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
@@ -208,15 +205,5 @@ class MediaController extends Controller
         );
 
         return $this->render('ManagementBundle:Media:index.html.twig', $data);
-    }
-
-    protected function normalizeParent($parent)
-    {
-        $parent = substr($parent, 1);
-        if (strlen($parent) && substr($parent, -1) !== '/') {
-            $parent .= '/';
-        }
-
-        return $parent;
     }
 }

@@ -14,3 +14,8 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+  media.form.type.media:
+        class: MediaBundle\Form\MediaType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

@@ -67,7 +67,7 @@ class MediaController extends Controller
      * @Route("/load", options={"expose":true})
      * @Security("has_role('ROLE_MANAGER')")
      */
-    public function load(Request $request)
+    public function loadAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -79,6 +79,31 @@ class MediaController extends Controller
         $response = new JsonResponse();
         $response->setData(array(
             'media' => $media
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @Route("/details", options={"expose":true})
+     * @Security("has_role('ROLE_MANAGER')")
+     */
+    public function detailsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $path = $request->query->get('path');
+
+        $media = $em->getRepository('MediaBundle:Media')->find($path);
+        $path = $em->getRepository('MediaBundle:Media')->getPath($media);
+        foreach ($path as $value) {
+            $pathArray[] = [$value->getMedia(), $value->getId()];
+        }
+
+        $response = new JsonResponse();
+        $response->setData(array(
+            'media' => $media->toArray(),
+            'path' => $pathArray
         ));
 
         return $response;
@@ -120,6 +145,9 @@ class MediaController extends Controller
             $em->persist($item);
             $em->flush();
 
+            $em->getRepository('MediaBundle:Media')->reorder($item->getParent(), 'filename');
+            $em->getRepository('MediaBundle:Media')->reorder($item->getParent(), 'type');
+
             $session = $this->get('session');
             $trans = $this->get('translator');
 
@@ -129,7 +157,12 @@ class MediaController extends Controller
                 $trans->trans('File has been uploaded!', array(), 'media')
             );
 
-            $url = $this->generateUrl('management_media_index');
+            $data = array(
+                'path' => $item->getParent()->getId(),
+                'uploaded' => $item->getId()
+            );
+
+            $url = $this->generateUrl('management_media_index', $data);
             $response = new RedirectResponse($url);
 
             return $response;
@@ -184,6 +217,9 @@ class MediaController extends Controller
             $em->persist($directory);
             $em->flush();
 
+            $em->getRepository('MediaBundle:Media')->reorder($directory->getParent(), 'filename');
+            $em->getRepository('MediaBundle:Media')->reorder($directory->getParent(), 'type');
+
             $session = $this->get('session');
             $trans = $this->get('translator');
 
@@ -193,7 +229,11 @@ class MediaController extends Controller
                 $trans->trans('Directory has been created!', array(), 'media')
             );
 
-            $url = $this->generateUrl('management_media_index');
+            $data = array(
+                'path' => $directory->getId()
+            );
+
+            $url = $this->generateUrl('management_media_index', $data);
             $response = new RedirectResponse($url);
 
             return $response;

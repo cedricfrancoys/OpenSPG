@@ -37,7 +37,8 @@ jQuery(document).ready(function() {
         filename.pop();
         filename = filename.join('/');
         dirs.pop();
-        loadContent(filename, dirs[dirs.length-1]);
+        var dir = dirs.pop();
+        loadContent(filename, dir);
     });
     $('#download').on('click', function(e){
         if(this.disabled){
@@ -57,10 +58,35 @@ jQuery(document).ready(function() {
             document.location.href = Routing.generate('management_media_download', {"ids":ids});
         }
     });
+    if (window.location.search) {
+        var search = (window.location.search[0] === '?') ? window.location.search.substring(1) : window.location.search;
+        search = search.split('&');
+        var params = {};
+        $.each(search, function(index, value){
+            var t = value.split('=');
+            params[t[0]] = t[1];
+        });
+        if (params.path) {
+            $.get(
+                Routing.generate('management_media_details', {"path":params.path}),
+                function(data){
+                    var path = '';
+                    $.each(data.path, function(index,value){
+                        path += '/' + value[0];
+                        dirs.push(value[1]);
+                    });
+                    dirs.pop();
+                    loadContent(path, params.path);
+                }
+            );
+        }
+    }
 });
 
 function loadContent(filename, id){
-    dirs.push(id);
+    if(id){
+        dirs.push(id);
+    }
     $('#media-container div.media-item').remove();
     $('#media-container span.media-noContent').remove();
     if( filename.indexOf('/') !== -1){

@@ -42,6 +42,6 @@ class ResettingController extends BaseResettingController
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
         $breadcrumbs->addItem("Reset password", $this->get("router")->generate("fos_user_resetting_request"));
 
-        return parent::checkEmailAction($request, $token);
+        return parent::resetAction($request, $token);
     }
 }

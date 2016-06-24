@@ -39,12 +39,17 @@ class PropertyType extends AbstractType
             ->add('surroundings')
             ->add('surroundingProblems')
             ->add('crops')
-            ->add('certified')
+            ->add('certified', null, array(
+                'required' => false
+            ))
             ->add('certifiedYears', ChoiceType::class, array(
                 'choices' => $lastTenYears,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ))
-            ->add('certifiedProvider')
+            ->add('certifiedProvider', null, array(
+                'required' => false
+            ))
             ->add('lastAgroquimicUsage', 'date', array(
                 'required' => false,
                 'placeholder' => 'Nunca'

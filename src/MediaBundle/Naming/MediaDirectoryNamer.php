@@ -25,7 +25,6 @@ class MediaDirectoryNamer implements DirectoryNamerInterface
     public function directoryName($object, PropertyMapping $mapping)
     {
         $directory = $this->manager->getRepository('MediaBundle:Media')->getPathArray($object->getParent());
-        dump($directory);
 
         return '/' . join('/',$directory);
     }

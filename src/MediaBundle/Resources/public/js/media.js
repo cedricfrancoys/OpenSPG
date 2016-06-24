@@ -20,6 +20,11 @@ jQuery(document).ready(function() {
             loadContent(par.data('filename'), par.data('id'));
         }else{
             $(this).toggleClass('selected');
+            if($('#media-container .media-img.selected').size()){
+                $('#download').attr('disabled', false);
+            }else{
+                $('#download').attr('disabled', true);
+            }
         }
     });
     $('#level-up').on('click', function(e){
@@ -33,6 +38,24 @@ jQuery(document).ready(function() {
         filename = filename.join('/');
         dirs.pop();
         loadContent(filename, dirs[dirs.length-1]);
+    });
+    $('#download').on('click', function(e){
+        if(this.disabled){
+            return;
+        }
+        if($('#media-container .media-img.selected').size() == 1){
+            var img = $('#media-container .media-img.selected');
+            var par = img.closest('div.media-item');
+            var id = par.data('id');
+            document.location.href = Routing.generate('management_media_download', {"id":id});
+        }else{
+            var ids = [];
+            $('#media-container .media-img.selected').each(function(){
+                var par = $(this).closest('div.media-item');
+                ids.push(par.data('id'));
+            });
+            document.location.href = Routing.generate('management_media_download', {"ids":ids});
+        }
     });
 });
 

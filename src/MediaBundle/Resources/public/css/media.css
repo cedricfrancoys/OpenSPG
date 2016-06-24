@@ -21,6 +21,7 @@
 .media-action button{
 	float: right;
 	margin-left: 5px;
+	margin-top: -20px;
 }
 .media-name{
 	display: block;

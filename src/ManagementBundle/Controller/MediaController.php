@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -205,5 +207,46 @@ class MediaController extends Controller
         );
 
         return $this->render('ManagementBundle:Media:index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/download", options={"expose":true})
+     * @Security("has_role('ROLE_MANAGER')")
+     */
+    public function downloadAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $id = $request->query->get('id');
+        $ids = $request->query->get('ids');
+
+        if($id){
+            $media = $em->getRepository('MediaBundle:Media')->find($id);
+            $directory = $em->getRepository('MediaBundle:Media')->getPathArray($media);
+            $file = join('/', $directory);
+            $filename = $media->getFilename();
+        }else if(is_array($ids) && count($ids)){
+            $medias = $em->getRepository('MediaBundle:Media')->findById($ids);
+            $zip = new \ZipArchive();
+            $file = 'Archivos-'.time().".zip";
+            $filename = $file;
+            $zip->open(dirname(dirname(dirname(__DIR__))).'/web/downloads/' . $file,  \ZipArchive::CREATE);
+            foreach ($medias as $media) {
+                $directory = $em->getRepository('MediaBundle:Media')->getPathArray($media);
+                $fileToAdd = dirname(dirname(dirname(__DIR__))).'/web/downloads/' . join('/', $directory);
+                $zip->addFromString(basename($fileToAdd),  file_get_contents($fileToAdd)); 
+            }
+            $zip->close();
+        }
+
+        $filePath = dirname(dirname(dirname(__DIR__))).'/web/downloads/' . $file;
+
+        $response = new BinaryFileResponse($filePath);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
     }
 }

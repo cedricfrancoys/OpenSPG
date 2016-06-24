@@ -5,6 +5,7 @@ namespace MediaBundle\Naming;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 use Vich\UploaderBundle\Util\Transliterator;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
+use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -14,17 +15,17 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class MediaDirectoryNamer implements DirectoryNamerInterface
 {
 	
-	public function directoryName($object, PropertyMapping $mapping)
-    {
-        $directory = array();
+	private $manager;
 
-        $parent = $object->parent;
-        $parent = explode('/', $parent);
-        foreach ($parent as $v) {
-        	if ($v) {
-        		$directory[] = $v;
-        	}
-        }
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    public function directoryName($object, PropertyMapping $mapping)
+    {
+        $directory = $this->manager->getRepository('MediaBundle:Media')->getPathArray($object->getParent());
+        dump($directory);
 
         return '/' . join('/',$directory);
     }

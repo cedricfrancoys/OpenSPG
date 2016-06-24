@@ -3,6 +3,7 @@ services:
     class: MediaBundle\Naming\MediaNamer
   media.directory_namer:
     class: MediaBundle\Naming\MediaDirectoryNamer
+    arguments: ["@doctrine.orm.entity_manager"]
   media.events.upload:
         class: MediaBundle\Event\UploadEventSubscriber
         calls:

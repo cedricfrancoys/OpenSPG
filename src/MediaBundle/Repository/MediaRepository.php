@@ -40,4 +40,16 @@ class MediaRepository extends NestedTreeRepository
 
 	    return $items;
 	}
+
+	public function getPathArray(Media $node)
+	{
+		$nodes = $this->getPath($node);
+
+		$path = [];
+		foreach ($nodes as $node) {
+			$path[] = $node->getMedia();
+		}
+
+		return $path;
+	}
 }

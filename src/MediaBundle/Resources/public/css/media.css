@@ -22,3 +22,8 @@
 	float: right;
 	margin-left: 5px;
 }
+.media-name{
+	display: block;
+    height: 20px;
+    overflow: hidden;
+}

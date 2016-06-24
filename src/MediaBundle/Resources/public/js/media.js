@@ -65,7 +65,7 @@ function loadContent(filename, id){
                     var div2 = $('<div class="media-img"></div>');
                     div.append(div2);
                     div2.append('<img src="'+dev+'/media/view/'+value.slug+'" alt="'+value.title+'" />');
-                    div.append('<span class="media-name">'+value.title+'</span>');
+                    div.append('<span class="media-name" title="'+value.title+'">'+value.title+'</span>');
                     $('#media-container').append(div);
                 });
             }

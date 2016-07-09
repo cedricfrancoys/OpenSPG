@@ -89,6 +89,19 @@ jQuery(document).ready(function() {
                 return false;
             });
     });
+
+    $('div.modal.media').each(function(){
+        var id = $(this).data('parent');
+        var container = $(this).find('.media-body div.panel').first();
+        var options = {
+            allowUpload: $(this).data('allowupload')
+        };
+        // if (options.allowUpload) {
+        //     $(container).find('div.media-header').remove();
+        //     $(container).append('<div class="media-header"><div class="media-action"><button ng-click="tab = \'upload\'" type="button" id="upload-file" class="btn-default btn btn-add">Subir fichero</button></div></div>');
+        // }
+        loadContent(id, container);
+    });
 });
 
 // Public: Constructor
@@ -186,3 +199,39 @@ RandomPassword.prototype.trim = function(s) {
     else
         return s.trim();
 };
+
+function loadContent(id, container){
+    var dev = (document.location.pathname.indexOf('app_dev.php') !== -1) ? '/app_dev.php' : '';
+    var parentContainer = $(container).closest('div.modal');
+    var options = {
+        showDirs: $(parentContainer).data('showdirs')
+    };
+    $.get(
+        Routing.generate('app_media_load', {path:id}),
+        function(data){
+            $(container).find('div.media-item').remove();
+            $(container).find('span.media-noContent').remove();
+            var media = data.media;
+            if (!media.length) {
+                $(container).append('<span class="media-noContent">'+Translator.trans('No media available', {}, 'media')+'</span>');
+            }else{
+                $.each(media, function(key, value){
+                    if( value.type != 'Directory' || (value.type == 'Directory' && options.showDirs) ){
+                        var div = $('<div class="media-item"></div>');
+                        div.data('type', value.type);
+                        div.data('filename', value.filename);
+                        div.data('id', value.id)
+                        var div2 = $('<div class="media-img"></div>');
+                        div.append(div2);
+                        div2.append('<img src="'+dev+'/media/view/'+value.slug+'" alt="'+value.title+'" />');
+                        div.append('<span class="media-name" title="'+value.title+'">'+value.title+'</span>');
+                        $(container).append(div);
+                    }
+                });
+                if (!$(container).find('div.media-item').size()) {
+                    $(container).append('<span class="media-noContent">'+Translator.trans('No media available', {}, 'media')+'</span>');
+                }
+            }
+        }
+    );
+}

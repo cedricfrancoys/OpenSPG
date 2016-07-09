@@ -11,12 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+// use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
-use Vich\UploaderBundle\Form\Type\VichFileType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use MediaBundle\Form\Type\FileType;
 
 class PropertyType extends AbstractType
 {
@@ -70,7 +69,8 @@ class PropertyType extends AbstractType
             ->add('certified')
             ->add('certifiedYears', ChoiceType::class, array(
                 'choices' => $lastTenYears,
-                'multiple' => true
+                'multiple' => true,
+                'choice_translation_domain' => false
             ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', DateType::class, array(
@@ -92,12 +92,18 @@ class PropertyType extends AbstractType
             ->add('surroundingProblems', null, array(
                 'help' => 'surrounding problems help'
             ))
-            ->add('sketchFile', VichImageType::class, array(
+            ->add('sketch', FileType::class, array(
                 'required' => false,
-                'help' => 'sketch help'
+                'help' => 'sketch help',
+                'delete' => true,
+                'parent' => 'properties/sketches',
+                'uploadForm' => true
             ))
-            ->add('documentFile', VichFileType::class, array(
-                'required' => false
+            ->add('document', FileType::class, array(
+                'required' => false,
+                'delete' => true,
+                'parent' => 'properties',
+                'uploadForm' => true
             ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',

@@ -124,6 +124,10 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+    assets:
+        uploader_map:
+            input: "%kernel.root_dir%/../src/AppBundle/Resources/public/js/angular-file-upload.min.js.map"
+            output: js/angular-file-upload.min.js.map
 
 stof_doctrine_extensions:
     default_locale: en_US

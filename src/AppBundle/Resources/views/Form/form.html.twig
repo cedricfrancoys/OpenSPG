@@ -43,3 +43,61 @@
         {{- form_rest(form) -}}
     </div>
 {%- endblock form_widget_compound -%}
+
+{%- block media_file_widget -%}
+    <div>
+        {% if file %}
+            <img class="form-fileimage" src="/app_dev.php/media/view/{{file}}" />
+            <span class="form-filename">{{filename}}</span>
+            <button class="button button-default form-action-edit-file">{{"Edit file"|trans()}}</button>
+        {% else %}
+            <button class="button button-default form-action-add-file" type="button" data-toggle="modal" data-target="#media_modal_{{name}}">{{"Add file"|trans()}}</button>
+        {% endif %}
+        {% if delete and file %}
+            <button class="button button-danger form-action-delete-file">{{"Delete file"|trans()}}</button>
+        {% endif %}
+    </div>
+
+    <div class="modal fade media" id="media_modal_{{name}}" tabindex="1" role="dialog" data-parent="{{ parent }}" data-showdirs="false" data-allowupload="true" ng-init="tab = 'files'">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ "Select file"|trans({},'media') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="media-header">
+                        <div class="media-action">
+                            <button ng-click="tab = 'upload'" type="button" id="upload-file" class="btn-default btn btn-add" ng-hide="tab === 'upload'">Subir fichero</button>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <div class="panel" ng-show="tab === 'files'"></div>
+                        <div class="panel" ng-show="tab === 'upload'" ng-controller="MediaController as mediaCtrl">
+                            <input type="file" nv-file-select uploader="uploader"/><br/>
+                            <input type="hidden" name="parent" value="{{ parent }}" ng-model="mediaCtrl.data.parent">
+                            <ul>
+                                <li ng-repeat="item in uploader.queue">
+                                    Name: <span ng-bind="item.file.name"></span><br/>
+                                    <button ng-click="item.upload()">upload</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
+                    <button type="button" class="btn btn-primary selectBtn" id="selectBtn" ng-hide="tab === 'upload'">{{"Select file"|trans({},'media')}}</button>
+                    <button type="button" class="btn btn-primary uploadBtn" id="uploadBtn" ng-show="tab === 'upload'">{{"Upload file"|trans({},'media')}}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{%- endblock media_file_widget -%}
+
+{% block widget_attributes %}
+    {{ parent() }}
+    {% spaceless %}
+        {% if angular is defined and angular %}ng-model="data['{{ full_name }}']" {% endif %}{# we add Angular ng-model #}
+    {% endspaceless %}
+{% endblock widget_attributes %}

@@ -2,7 +2,7 @@
     {% set menu = '' %}
 {% endif %}
 <!DOCTYPE html>
-<html lang="{{ app.request.locale|split('_')[0] }}">
+<html lang="{{ app.request.locale|split('_')[0] }}" ng-app="OpenSPG">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="body">
+        <div class="body" ng-controller="BaseCtrl">
         {% block body %}
            
             {% block navbar %}
@@ -81,6 +81,7 @@
             {% endblock %}
 
         {% endblock %}
+            <div id="ng-spinner" class="render" ng-cloak ng-if="$root.spinner"></div>
         </div>
         
         {% block footer %}
@@ -94,7 +95,15 @@
 
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-            {% javascripts '@AppBundle/Resources/public/js/*' %}
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+            <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+            {% javascripts '@AppBundle/Resources/public/js/bootstrap.min.js'
+                '@AppBundle/Resources/public/js/ui-bootstrap-tpls.min.js'
+                '@AppBundle/Resources/public/js/angular-file-upload.min.js'
+                '@AppBundle/Resources/public/js/angular.init.js'
+                '@AppBundle/Resources/public/js/typeahead.jquery.js'
+                '@AppBundle/Resources/public/js/forms.js'
+                '@AppBundle/Resources/public/js/holder.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             {% javascripts

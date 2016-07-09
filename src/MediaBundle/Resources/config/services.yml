@@ -20,3 +20,8 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+  media.form.type.file:
+        class: MediaBundle\Form\Type\FileType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

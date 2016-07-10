@@ -3,8 +3,7 @@ angular.module('OpenSPG', [
         'angularFileUpload'
     ])
     .controller('BaseCtrl', ['$rootScope', BaseCtrl])
-    .controller('MediaController', ['$rootScope', 'FileUploader', MediaController])
-    	.directive('input', function ($parse) {
+    .directive('input', function ($parse) {
 	  return {
 	    restrict: 'E',
 	    require: '?ngModel',
@@ -14,7 +13,9 @@ angular.module('OpenSPG', [
 	      }
 	    }
 	  };
-	});
+	})
+    .controller('MediaController', ['$rootScope', 'FileUploader', MediaController])
+    ;
 ;
 
 function BaseCtrl($rootScope) {
@@ -23,17 +24,22 @@ function BaseCtrl($rootScope) {
 
 function MediaController($scope, FileUploader) {
     this.data = {};
+    this.tab = 'files';
     $scope.uploader = new FileUploader();
     $scope.uploader.url = Routing.generate('media_media_upload');
     $scope.uploader.alias = 'media[mediaFile]';
     $scope.uploader.autoUpload = true;
-    $scope.uploader.formData = {
-    	media: {
-    		parent: this.data.parent
-    	}
-    };
-    console.info($scope.uploader.formData);
+    var $this = this;
+    console.info($this.data);
+    $scope.uploader.onAfterAddingFile = function(){
+    	console.info($this.data);
+    	$scope.uploader.formData = {
+	    	media: {
+	    		parent: $this.data.parent
+	    	}
+	    };
+    }
     $scope.uploader.onCompleteAll = function(){
-    	$scope.tab = 'files';
+    	$this.tab = 'files';
     };
 }

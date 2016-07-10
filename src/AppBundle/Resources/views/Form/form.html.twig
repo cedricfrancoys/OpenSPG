@@ -58,7 +58,7 @@
         {% endif %}
     </div>
 
-    <div class="modal fade media" id="media_modal_{{name}}" tabindex="1" role="dialog" data-parent="{{ parent }}" data-showdirs="false" data-allowupload="true" ng-init="tab = 'files'">
+    <div class="modal fade media" id="media_modal_{{name}}" tabindex="1" role="dialog" data-parent="{{ parent }}" data-showdirs="false" data-allowupload="true" ng-controller="MediaController as mediaCtrl">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,12 +68,12 @@
                 <div class="modal-body">
                     <div class="media-header">
                         <div class="media-action">
-                            <button ng-click="tab = 'upload'" type="button" id="upload-file" class="btn-default btn btn-add" ng-hide="tab === 'upload'">Subir fichero</button>
+                            <button ng-click="mediaCtrl.tab = 'upload'" type="button" id="upload-file" class="btn-default btn btn-add" ng-hide="mediaCtrl.tab === 'upload'">Subir fichero</button>
                         </div>
                     </div>
                     <div class="media-body">
-                        <div class="panel" ng-show="tab === 'files'"></div>
-                        <div class="panel" ng-show="tab === 'upload'" ng-controller="MediaController as mediaCtrl">
+                        <div class="panel" ng-show="mediaCtrl.tab === 'files'"></div>
+                        <div class="panel" ng-show="mediaCtrl.tab === 'upload'">
                             <input type="file" nv-file-select uploader="uploader"/><br/>
                             <input type="hidden" name="parent" value="{{ parent }}" ng-model="mediaCtrl.data.parent">
                             <ul>
@@ -87,8 +87,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"|trans({})}}</button>
-                    <button type="button" class="btn btn-primary selectBtn" id="selectBtn" ng-hide="tab === 'upload'">{{"Select file"|trans({},'media')}}</button>
-                    <button type="button" class="btn btn-primary uploadBtn" id="uploadBtn" ng-show="tab === 'upload'">{{"Upload file"|trans({},'media')}}</button>
+                    <button type="button" class="btn btn-primary selectBtn" id="selectBtn" ng-hide="mediaCtrl.tab === 'upload'">{{"Select file"|trans({},'media')}}</button>
+                    <button type="button" class="btn btn-primary uploadBtn" id="uploadBtn" ng-show="mediaCtrl.tab === 'upload'">{{"Upload file"|trans({},'media')}}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

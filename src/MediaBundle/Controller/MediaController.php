@@ -51,14 +51,12 @@ class MediaController extends Controller
      */
     public function uploadAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Media", $this->get("router")->generate("management_media_index"));
-
         $em = $this->getDoctrine()->getManager();
 
-        $media = $em->getRepository('MediaBundle:Media')->findAll();
+        $media = $request->request->get('media');
+        $parent = $request->request->get('parent');
+
+        $parentNode = $em->getRepository('MediaBundle:Media')->find($parent);
 
         $post_data = $request->request->get('media');
 

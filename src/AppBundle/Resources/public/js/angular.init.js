@@ -27,16 +27,12 @@ function MediaController($scope, FileUploader) {
     this.tab = 'files';
     $scope.uploader = new FileUploader();
     $scope.uploader.url = Routing.generate('media_media_upload');
-    $scope.uploader.alias = 'media[mediaFile]';
+    $scope.uploader.alias = 'media';
     $scope.uploader.autoUpload = true;
     var $this = this;
-    console.info($this.data);
-    $scope.uploader.onAfterAddingFile = function(){
-    	console.info($this.data);
-    	$scope.uploader.formData = {
-	    	media: {
-	    		parent: $this.data.parent
-	    	}
+    $scope.uploader.onAfterAddingFile = function(item){
+    	item.formData = {
+	    	parent: $this.data.parent
 	    };
     }
     $scope.uploader.onCompleteAll = function(){

@@ -4,15 +4,13 @@ namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
-use FOS\UserBundle\Controller\ResettingController as BaseResettingController;
-
-class ResettingController extends BaseResettingController
+class ResettingController extends Controller
 {
     /**
      * @Route("/login/reset")

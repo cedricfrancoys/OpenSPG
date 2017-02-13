@@ -3,6 +3,7 @@
 namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -11,9 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use FOS\UserBundle\Controller\RegistrationController as BaseRegistrationController;
-
-class RegistrationController extends BaseRegistrationController
+class RegistrationController extends Controller
 {
     /**
      * @Route("/register")

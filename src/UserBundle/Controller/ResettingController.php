@@ -3,12 +3,21 @@
 namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Controller\ResettingController as BaseResettingController;
 
 class ResettingController extends BaseResettingController
 {
+    /**
+     * @Route("/login/reset")
+     * @Template()
+     */
     public function requestAction()
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");

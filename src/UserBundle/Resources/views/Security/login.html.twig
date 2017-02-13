@@ -1,0 +1,46 @@
+{% extends 'UserBundle:partials:layout.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block pageTitleText %}{{"Login"|trans({},"user")}}{% endblock %}
+
+{% block user_content %}
+
+    {{ parent() }}
+
+    {% if error is defined and error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path("user_security_check") }}" method="post" class="login">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="form-group">
+            <label for="username">{{ 'Username'|trans({},"user") }}</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">{{ 'Password'|trans({},"user") }}</label>
+            <input type="password" id="password" name="_password" required="required" class="form-control" />
+            <a href="{{ path('user_resetting_request') }}" class="forgot-password">{{"Forgot password?"|trans({},'user')}}</a>
+        </div>
+
+        <div class="checkbox">
+            <label for="remember_me"><input type="checkbox" id="remember_me" name="_remember_me" value="on" />{{ 'Remember me'|trans({},"user") }}</label>
+        </div>
+
+        <input type="submit" id="_submit" name="_submit" value="{{ 'Enter'|trans({},"user") }}"  />
+    </form>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/user/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}  
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -10,11 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use \Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Form\FormError;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use Symfony\Component\Form\Exception\OutOfBoundsException;
 
 use UserBundle\Entity\User;
@@ -50,16 +45,6 @@ class UserManager
    * @var Twig
    */
   private $twig;
-
-  /**
-   * @var Object
-   */
-  private $fos_user_manager;
-
-  /**
-   * @var Object
-   */
-  private $fos_event_dispatcher;
 
   /**
    * @var Object
@@ -135,26 +120,6 @@ class UserManager
   }
 
   /**
-   * Set FOS User Manager
-   *
-   * @param Object $mng
-   * @return void
-   */
-  public function setFosUserManager($mng) {
-    $this->fos_user_manager = $mng;
-  }
-
-  /**
-   * Set FOS Event Dispatcher
-   *
-   * @param Object $dispatcher
-   * @return void
-   */
-  public function setFosEventDispatcher($dispatcher) {
-    $this->fos_event_dispatcher = $dispatcher;
-  }
-
-  /**
    * Set Mailer
    *
    * @param Object $mailer
@@ -194,19 +159,17 @@ class UserManager
       return false;
     }
 
-    /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-    $userManager = $this->fos_user_manager;
-    /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    $dispatcher = $this->fos_event_dispatcher;
-    $event = new GetResponseUserEvent($user, $this->request);
-    $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-    if (null !== $event->getResponse()) {
-        return $event->getResponse();
-    }
+    // @ToDo Registartion init
+    // $event = new GetResponseUserEvent($user, $this->request);
+    // $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+    // if (null !== $event->getResponse()) {
+    //     return $event->getResponse();
+    // }
 
-    $event = new FormEvent($form, $this->request);
-    $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-    $pUser = (array_key_exists('User', $formData)) ? $formData['User'] : $formData;
+    // @ToDo On user registartion success
+    // $event = new FormEvent($form, $this->request);
+    // $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+    // $pUser = (array_key_exists('User', $formData)) ? $formData['User'] : $formData;
 
     if( is_array($pUser['password']) ){
     	$user->setPlainPassword($pUser['password']['first']);

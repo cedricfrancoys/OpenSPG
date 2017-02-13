@@ -11,8 +11,6 @@ services:
             - [setRequest, ["@request_stack"]]
             - [setTwig, ["@twig"]]
             - [setTranslator, ["@translator"]]
-            - [setFosUserManager, ["@fos_user.user_manager"]]
-            - [setFosEventDispatcher, ["@event_dispatcher"]]
             - [setMailer, ["@mailer"]]
     user.events.consumer:
         class: UserBundle\Event\ConsumerEventSubscriber
@@ -33,3 +31,15 @@ services:
         tags:
             - {name:"kernel.event_listener", event:"producer.events.visitPersisted", method:"onVisitSaved"}
             - {name:"kernel.event_listener", event:"producer.events.visitCompleted", method:"onVisitCompleted"}
+    user.manager.login:
+        class: UserBundle\Manager\LoginManager
+        arguments:
+            - "@security.token_storage"
+            - "@security.user_checker"
+            - "@security.authentication.session_strategy"
+            - "@request_stack"
+            - null
+    user.db_user_provider:
+        class: UserBundle\Security\User\DbUserProvider
+        arguments:
+            - "@doctrine.orm.entity_manager"

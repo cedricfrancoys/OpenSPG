@@ -3,25 +3,77 @@
 namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
+use Symfony\Component\Security\Core\Security;
 
-class SecurityController extends BaseSecurityController
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+class SecurityController extends Controller
 {
+
+    protected $firewall_name = 'main';
+    
+    /**
+     * @Route("/login")
+     * @Template()
+     */
     public function loginAction(Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Login", $this->get("router")->generate("fos_user_security_login"));
+        $breadcrumbs->addItem("Login", $this->get("router")->generate("user_security_login"));
 
-        $response = parent::LoginAction($request);
-        
-        $content = $response->getcontent();
-        $loginLink = $this->generateUrl('fos_user_security_login');
-        $content = str_replace('<li><a href="'.$loginLink.'"', '<li class="active"><a href="'.$loginLink.'"', $content);
-        $response->setContent($content);
+        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
+        $session = $request->getSession();
 
-        return $response;
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $csrfToken = $this->has('security.csrf.token_manager')
+            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
+            : null;
+
+        return array(
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => $csrfToken,
+        );
     }
+
+    /**
+     * @Route("/login/check")
+     * @Method("POST")
+     */
+    public function checkAction(Request $request)
+    {
+        // try{
+        //     $loginMgr = $this->get('user.manager.login');
+        //     $loginMgr->logInUser($this->firewall_name, $this->getUser(), $request);
+
+        // } catch (AccountStatusException $ex) {
+        //     // We simply do not authenticate users which do not pass the user
+        //     // checker (not enabled, expired, etc.).
+        // }
+
+        return new RedirectResponse($this->router->generate('app_default_index'));
+    }
+
+    /**
+     * @Route("/logout")
+     * @Template()
+     */
+    public function logoutAction(Request $request)
+    {}
 }

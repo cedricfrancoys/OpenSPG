@@ -57,10 +57,10 @@
                                         <li{% if menu == 'management' %} class="active"{% endif %}><a href="{{ path('management_default_index') }}">{{ "Management"|trans({},'management') }}</a></li>
                                     {% endif %}
                                     <li{% if menu == 'account' %} class="active"{% endif %}><a href="{{ path('app_account_index') }}">{% trans %}My Account{% endtrans %}</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}Log out{% endtrans %}</a></li>
+                                    <li><a href="{{ path('user_security_logout') }}">{% trans %}Log out{% endtrans %}</a></li>
                                 {% else %}
-                                    <li{% if menu == 'login' %} class="active"{% endif %}><a href="{{ path('fos_user_security_login') }}">{% trans %}Log in{% endtrans %}</a></li>
-                                    <li{% if menu == 'register' %} class="active"{% endif %}><a href="{{ path('fos_user_registration_register') }}">{% trans %}Register{% endtrans %}</a></li>
+                                    <li{% if menu == 'login' %} class="active"{% endif %}><a href="{{ path('user_security_login') }}">{% trans %}Log in{% endtrans %}</a></li>
+                                    <li{% if menu == 'register' %} class="active"{% endif %}><a href="{{ path('user_registration_register') }}">{% trans %}Register{% endtrans %}</a></li>
                                 {% endif %}
                           </ul>
                         </div>

@@ -3,16 +3,22 @@
 namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseRegistrationController;
 
 class RegistrationController extends BaseRegistrationController
 {
+    /**
+     * @Route("/register")
+     * @Template()
+     */
     public function registerAction(Request $request)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");

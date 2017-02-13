@@ -83,3 +83,5 @@ resetting:
   check_email: 'Un email ha sido enviado a %email%. Contiene un enlace de activación que debes seguir para restablecer tu contraseña.'
   password_already_requested: 'La contraseña para este usuario ya ha sido solicitada en las últimas 24 horas. Si no te ha llegado el email, por favor revisa la carpeta de spam o correo no solicitado.'
 Forgot password?: ¿Has olvidado tu contraseña?
+Remember me: Recuérdame
+Enter: Entrar

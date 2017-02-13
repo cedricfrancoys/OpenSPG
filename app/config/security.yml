@@ -3,7 +3,8 @@
 security:
 
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        UserBundle\Entity\UserInterface: 
+            algorithm: bcrypt
 
     role_hierarchy:
         ROLE_PRODUCER: ROLE_MEMBER
@@ -14,14 +15,15 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
+        user_db:
+            id: user.db_user_provider
 
     firewalls:
         main:
             pattern: ^/
             form_login:
-                provider: fos_userbundle
+                check_path: /login/check
+                provider: user_db
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true

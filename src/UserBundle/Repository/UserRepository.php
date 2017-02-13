@@ -63,4 +63,25 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 		    ->getQuery()
 		    ->getResult();
 	}
+
+	/**
+	* Returns a list of latest registered users
+	*
+	* @var \NodeBundle\Entity\Node $node The node object by which we will filter the list
+	* @var int The maximum number of results
+	*
+	* @return Doctrine\Common\Collections\ArrayCollection
+	*/
+	public function getLatest(\NodeBundle\Entity\Node $node, $maxResults = 5)
+	{
+		return $this
+			->createQueryBuilder('u')
+		    ->select('u')
+		    ->where('u.Node = :node')
+		    ->setParameter('node', $node)
+		    ->orderBy('u.registered, u.lastLogin', 'DESC')
+		    ->setMaxResults($maxResults)
+		    ->getQuery()
+		    ->getResult();
+	}
 }

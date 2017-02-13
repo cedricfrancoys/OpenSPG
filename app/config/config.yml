@@ -124,7 +124,7 @@ stof_doctrine_extensions:
             uploadable: true
             loggable: true
     uploadable:
-        default_file_path:       %kernel.root_dir%/../web/downloads
+        default_file_path:       "%kernel.root_dir%/../web/downloads"
         mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
         default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
 
@@ -136,9 +136,9 @@ vich_uploader:
     mappings:
         property_sketch:
             uri_prefix:         /downloads/properties/sketches
-            upload_destination: %kernel.root_dir%/../web/downloads/properties/sketches
+            upload_destination: "%kernel.root_dir%/../web/downloads/properties/sketches"
             namer:              vich_uploader.namer_origname
         property_document:
             uri_prefix:         /downloads/properties
-            upload_destination: %kernel.root_dir%/../web/downloads/properties
+            upload_destination: "%kernel.root_dir%/../web/downloads/properties"
             namer:              vich_uploader.namer_origname

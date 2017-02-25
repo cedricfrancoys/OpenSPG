@@ -5,7 +5,9 @@ namespace ProducerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +23,7 @@ class BaseVisitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitDate', 'date', array(
+            ->add('visitDate', DateType::class, array(
                 'placeholder' => 'Not yet defined',
                 'required' => false
             ))
@@ -33,11 +35,11 @@ class BaseVisitType extends AbstractType
                 'multiple' => true,
                 'required' => false
             ))
-            ->add('startTime', 'time', array(
+            ->add('startTime', TimeType::class, array(
                 'placeholder' => 'Not yet defined',
                 'required' => false
             ))
-            ->add('endTime', 'time', array(
+            ->add('endTime', TimeType::class, array(
                 'placeholder' => 'Not yet defined',
                 'required' => false
             ))

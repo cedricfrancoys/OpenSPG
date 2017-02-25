@@ -23,9 +23,15 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $node = null;
+        if ($this->getUser()) {
+            $node = $this->getUser()->getNode();
+        }
+
         return $this->render('ManagementBundle:Default:index.html.twig', array(
             'menu' => 'management',
-            'users' => $em->getRepository('UserBundle:User')->getLatest($this->getUser()->getNode(), 5)
+            'users' => $em->getRepository('UserBundle:User')->getLatest($node, 5),
+            'visits' => $em->getRepository('ProducerBundle:Visit')->getLatestByNode(5, $node)
         ));
     }
 }

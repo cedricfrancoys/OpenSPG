@@ -36,14 +36,31 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
     	;
   	}
 
-    public function getLatest()
+    public function getLatest($maxResults = 10)
     {
         return $this
           ->createQueryBuilder('v')
           ->where('v.visitDate IS NOT NULL AND v.visitDate < :today')
           ->orderBy('v.visitDate', 'DESC')
           ->setParameter('today', new \DateTime())
-          ->setMaxResults(10)
+          ->setMaxResults($maxResults)
+          ->getQuery()
+          ->getResult()
+      ;
+    }
+
+    public function getLatestByNode($maxResults = 10, $node = null)
+    {
+        return $this
+          ->createQueryBuilder('v')
+          ->leftJoin('v.Property', 'p')
+          ->leftJoin('p.Member', 'm')
+          ->leftJoin('m.User', 'u')
+          ->where('v.visitDate IS NOT NULL AND v.visitDate < :today')
+          // ->andWhere('u.Node', $node)
+          ->orderBy('v.visitDate', 'DESC')
+          ->setParameter('today', new \DateTime())
+          ->setMaxResults($maxResults)
           ->getQuery()
           ->getResult()
       ;

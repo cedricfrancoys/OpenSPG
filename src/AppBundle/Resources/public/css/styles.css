@@ -99,3 +99,9 @@ footer{
 .media.list a::before {
   content: "» ";
 }
+
+/*** Dashboard fixes ***/
+.sidebar{
+	position: relative;
+	top: -21px;
+}

@@ -43,4 +43,20 @@ class PropertyRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
 	}
+
+	public function getLatestByNode($maxResults = 10, Node $node = null)
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('m.User', 'u')
+            ->andWhere('u.Node = :node')
+            ->orderBy('p.created', 'DESC')
+            ->setParameter('node', $node)
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

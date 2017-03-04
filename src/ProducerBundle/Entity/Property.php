@@ -265,7 +265,7 @@ class Property
      */
     private $documentFile;
 
-        /**
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
@@ -273,11 +273,19 @@ class Property
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->Visits = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     public function __toString()
@@ -1056,5 +1064,29 @@ class Property
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Property
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

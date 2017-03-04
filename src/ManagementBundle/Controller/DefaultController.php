@@ -31,7 +31,8 @@ class DefaultController extends Controller
         return $this->render('ManagementBundle:Default:index.html.twig', array(
             'menu' => 'management',
             'users' => $em->getRepository('UserBundle:User')->getLatest($node, 5),
-            'visits' => $em->getRepository('ProducerBundle:Visit')->getLatestByNode(5, $node)
+            'visits' => $em->getRepository('ProducerBundle:Visit')->getLatestByNode(5, $node),
+            'properties' => $em->getRepository('ProducerBundle:Property')->getLatestByNode(5, $node)
         ));
     }
 }

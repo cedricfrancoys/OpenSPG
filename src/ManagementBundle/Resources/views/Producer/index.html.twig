@@ -8,47 +8,50 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			{% for type, messages in app.session.flashbag.all() %}
-				{% for message in messages %}
-					<div class="alert alert-{{ type }}">{{ message }}</div>
-				{% endfor %}
-			{% endfor %}
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Name"|trans({},"producer")}}</th>
-						<th>{{"Surname"|trans({},"producer")}}</th>
-						<th style="min-width:100px;">{{"Phone"|trans({},"producer")}}</th>
-						<th>{{"Email"|trans({},"producer")}}</th>
-						<th style="min-width:160px;"><a href="{{ path('management_producer_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for producer in producers %}
-						<tr class="row-{% if producer.Producer.activeAsProducer %}success{% else %}danger{% endif %}">
-							<td>{{producer.name}}</td>
-							<td>{{producer.surname}}</td>
-							<td>{{producer.phone}}</td>
-							<td>{{producer.email}}</td>
-							<td><a href="{{ path('management_producer_edit', {"id":producer.Producer.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_producer_remove', {"id":producer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
-								<a href="{{ path('management_property_index', {"filter[Member]":producer.id}) }}" class="btn btn-default">{{"Properties"|trans({},"management")}}</a>
-								<a href="{{ path('management_visit_index', {"filter[producer]":producer.id}) }}" class="btn btn-default">{{"Visits"|trans({},"management")}}</a>
-							</td>
-						</tr>
-					{% else %}
-						<tr>
-							<td colspan="5">{{ "No producers available"|trans({},'producer') }}</td>
-						</tr>
+	<div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
 					{% endfor %}
-				</tbody>
-			</table>
-			<div class="legend">
-				<span class="title">{{ "Legend"|trans({},"table") }}:</span>
-				<span class="legend legend-success">{{ "Active"|trans({},"producer") }}</span>
-				<span class="legend legend-danger">{{ "Inactive"|trans({},"producer") }}</span>
+				{% endfor %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>{{"Name"|trans({},"producer")}}</th>
+							<th>{{"Surname"|trans({},"producer")}}</th>
+							<th style="min-width:100px;">{{"Phone"|trans({},"producer")}}</th>
+							<th>{{"Email"|trans({},"producer")}}</th>
+							<th style="min-width:160px;"><a href="{{ path('management_producer_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for producer in producers %}
+							<tr class="row-{% if producer.Producer.activeAsProducer %}success{% else %}danger{% endif %}">
+								<td>{{producer.name}}</td>
+								<td>{{producer.surname}}</td>
+								<td>{{producer.phone}}</td>
+								<td>{{producer.email}}</td>
+								<td><a href="{{ path('management_producer_edit', {"id":producer.Producer.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+									<a href="{{ path('management_producer_remove', {"id":producer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a>
+									<a href="{{ path('management_property_index', {"filter[Member]":producer.id}) }}" class="btn btn-default">{{"Properties"|trans({},"management")}}</a>
+									<a href="{{ path('management_visit_index', {"filter[producer]":producer.id}) }}" class="btn btn-default">{{"Visits"|trans({},"management")}}</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5">{{ "No producers available"|trans({},'producer') }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<div class="legend">
+					<span class="title">{{ "Legend"|trans({},"table") }}:</span>
+					<span class="legend legend-success">{{ "Active"|trans({},"producer") }}</span>
+					<span class="legend legend-danger">{{ "Inactive"|trans({},"producer") }}</span>
+				</div>
 			</div>
 		</div>
 	</div>

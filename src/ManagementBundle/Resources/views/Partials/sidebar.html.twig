@@ -1,0 +1,36 @@
+<div class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-sidebar">
+		<li class="{% if app.request.get('_route') in ['management_default_index'] %}active{% endif %}">
+			<a href="{{ path('management_default_index') }}">{% trans from "management" %}Dashboard{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['management_producer_index','management_producer_add','management_producer_edit','management_producer_remove'] %}active{% endif %}">
+			<a href="{{ path('management_producer_index') }}">{% trans from "management" %}Producers{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['management_consumer_index','management_consumer_add','management_consumer_edit','management_consumer_remove'] %}active{% endif %}">
+			<a href="{{ path('management_consumer_index') }}">{% trans from "management" %}Consumers{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_manager_index','management_manager_add','management_manager_edit','management_manager_remove'] %}active{% endif %}">
+			<a href="{{ path('management_manager_index') }}">{% trans from "management" %}Manager{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_visitgroup_index','management_visitgroup_edit'] %}active{% endif %}">
+			<a href="{{ path('management_visitgroup_index') }}">{% trans from "management" %}Visit Group{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_guest_index','management_guest_add','management_guest_edit'] %}active{% endif %}">
+			<a href="{{ path('management_guest_index') }}">{% trans from "management" %}Guests{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_user_index','management_user_delete','management_user_edit'] %}active{% endif %}">
+			<a href="{{ path('management_user_index') }}">{% trans from "management" %}Users{% endtrans %}</a></li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<li class="{% if app.request.get('_route') in ['management_news_index','management_news_add','management_news_edit'] %}active{% endif %}">
+			<a href="{{ path('management_news_index') }}">{% trans from "management" %}News{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_property_index','management_property_add','management_property_edit','management_property_delete'] %}active{% endif %}">
+			<a href="{{ path('management_property_index') }}">{% trans from "management" %}Properties{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_stock_index','management_stock_add','management_stock_edit','management_product_add'] %}active{% endif %}">
+			<a href="{{ path('management_stock_index') }}">{% trans from "management" %}Products/Stock{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_visit_index','management_visit_add','management_visit_edit'] %}active{% endif %}">
+			<a href="{{ path('management_visit_index') }}">{% trans from "management" %}Visits{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_fee_index','management_fee_add','management_fee_edit','management_fee_markpaid'] %}active{% endif %}">
+			<a href="{{ path('management_fee_index') }}">{% trans from "management" %}Fees{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') == 'management_node_edit' %}active{% endif %}">
+			<a href="{{ path('management_node_edit') }}">{% trans from "management" %}Node{% endtrans %}</a></li>
+		<li class="{% if app.request.get('_route') in ['management_page_index','management_page_add','management_page_edit'] %}active{% endif %}">
+			<a href="{{ path('management_page_index') }}">{% trans from "management" %}Pages{% endtrans %}</a></li>
+	</ul>
+</div>

@@ -8,40 +8,43 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			{% for type, messages in app.session.flashbag.all() %}
-				{% for message in messages %}
-					<div class="alert alert-{{ type }}">{{ message }}</div>
-				{% endfor %}
-			{% endfor %}
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Name"|trans({},"user")}}</th>
-						<th>{{"Surname"|trans({},"user")}}</th>
-						<th style="min-width:160px;">{{"Phone"|trans({},"user")}}</th>
-						<th>{{"Email"|trans({},"user")}}</th>
-						<th>{{"Roles"|trans({},"user")}}</th>
-						<th style="min-width:160px;">&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for user in users %}
-						<tr>
-							<td>{{user.name}}</td>
-							<td>{{user.surname}}</td>
-							<td>{{user.phone}}</td>
-							<td>{{user.email}}</td>
-							<td>{{user.roles|join(", ")}}</td>
-							<td>
-								<a href="{{ path('management_user_edit', {"id":user.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_user_delete', {"id":user.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
-							</td>
-						</tr>
+    <div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
 					{% endfor %}
-				</tbody>
-			</table>
+				{% endfor %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>{{"Name"|trans({},"user")}}</th>
+							<th>{{"Surname"|trans({},"user")}}</th>
+							<th style="min-width:160px;">{{"Phone"|trans({},"user")}}</th>
+							<th>{{"Email"|trans({},"user")}}</th>
+							<th>{{"Roles"|trans({},"user")}}</th>
+							<th style="min-width:160px;">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{user.name}}</td>
+								<td>{{user.surname}}</td>
+								<td>{{user.phone}}</td>
+								<td>{{user.email}}</td>
+								<td>{{user.roles|join(", ")}}</td>
+								<td>
+									<a href="{{ path('management_user_edit', {"id":user.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+									<a href="{{ path('management_user_delete', {"id":user.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 

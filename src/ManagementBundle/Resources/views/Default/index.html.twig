@@ -10,29 +10,8 @@
 
     <div class="container">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li class="active"><a href="{{ path('management_default_index') }}">{% trans from "management" %}Dashboard{% endtrans %}</a></li>
-					<li><a href="{{ path('management_producer_index') }}">{% trans from "management" %}Producers{% endtrans %}</a></li>
-					<li><a href="{{ path('management_consumer_index') }}">{% trans from "management" %}Consumers{% endtrans %}</a></li>
-					<li><a href="{{ path('management_manager_index') }}">{% trans from "management" %}Manager{% endtrans %}</a></li>
-					<li><a href="{{ path('management_visitgroup_index') }}">{% trans from "management" %}Visit Group{% endtrans %}</a></li>
-					<li><a href="{{ path('management_guest_index') }}">{% trans from "management" %}Guests{% endtrans %}</a></li>
-					<li><a href="{{ path('management_user_index') }}">{% trans from "management" %}Users{% endtrans %}</a></li>
-				</ul>
-				<ul class="nav nav-sidebar">
-					<li><a href="{{ path('management_news_index') }}">{% trans from "management" %}News{% endtrans %}</a></li>
-					<li><a href="{{ path('management_property_index') }}">{% trans from "management" %}Properties{% endtrans %}</a></li>
-					<li><a href="{{ path('management_stock_index') }}">{% trans from "management" %}Products/Stock{% endtrans %}</a></li>
-					<li><a href="{{ path('management_visit_index') }}">{% trans from "management" %}Visits{% endtrans %}</a></li>
-					<li><a href="{{ path('management_fee_index') }}">{% trans from "management" %}Fees{% endtrans %}</a></li>
-					<li><a href="{{ path('management_node_edit') }}">{% trans from "management" %}Node{% endtrans %}</a></li>
-					<li><a href="{{ path('management_page_index') }}">{% trans from "management" %}Pages{% endtrans %}</a></li>
-				</ul>
-			</div>
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
-				<h1 class="page-header">{% trans from "management" %}Dashboard{% endtrans %}</h1>
-
 				<h2>{% trans from "management" %}Latest user registrations{% endtrans %}</h2>
 				<div class="table-responsive">
 					<table class="table table-striped">

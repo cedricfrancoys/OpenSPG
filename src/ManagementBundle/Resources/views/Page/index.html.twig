@@ -8,28 +8,31 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Title"|trans({},"page")}}</th>
-						<th>{{"Path"|trans({},"page")}}</th>
-						<th><a href="{{ path('management_page_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for page in pages %}
+    <div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td>{{page.title}}</td>
-							<td>{{page.path}}</td>
-							<td>
-								<a href="{{ path('management_page_edit', {"id":page.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
-							</td>
+							<th>{{"Title"|trans({},"page")}}</th>
+							<th>{{"Path"|trans({},"page")}}</th>
+							<th><a href="{{ path('management_page_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{% for page in pages %}
+							<tr>
+								<td>{{page.title}}</td>
+								<td>{{page.path}}</td>
+								<td>
+									<a href="{{ path('management_page_edit', {"id":page.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 

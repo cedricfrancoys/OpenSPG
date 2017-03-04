@@ -9,15 +9,20 @@
 	{{ parent() }}
 
     <div class="container">
-	    <form method="post">
-	    	{% trans %}
-	    		<h2>Are you sure you want to remove the "producer" status from the selected user?</h2>
-	    		<p>The user will not be deleted, but will have removed all "consumer" privileges. You can reassign the status again when needed.</p>
-	    	{% endtrans %}
-	    	<input type="submit" value="{{ "Remove"|trans({},"management") }}" />
-	    	<input type="button" value="{{ "Cancel" }}" onclick="document.location.href = '{{ path("management_producer_index") }}'" />
-	    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
-	    </form>
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+			    <form method="post">
+			    	{% trans %}
+			    		<h2>Are you sure you want to remove the "producer" status from the selected user?</h2>
+			    		<p>The user will not be deleted, but will have removed all "consumer" privileges. You can reassign the status again when needed.</p>
+			    	{% endtrans %}
+			    	<input type="submit" value="{{ "Remove"|trans({},"management") }}" />
+			    	<input type="button" value="{{ "Cancel" }}" onclick="document.location.href = '{{ path("management_producer_index") }}'" />
+			    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
+			    </form>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

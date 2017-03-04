@@ -8,40 +8,43 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			{% for type, messages in app.session.flashbag.all() %}
-				{% for message in messages %}
-					<div class="alert alert-{{ type }}">{{ message }}</div>
-				{% endfor %}
-			{% endfor %}
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Name"|trans({},"user")}}</th>
-						<th>{{"Surname"|trans({},"user")}}</th>
-						<th>{{"Phone"|trans({},"user")}}</th>
-						<th><a href="{{ path('management_consumer_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for consumer in consumers %}
-						<tr>
-							<td>{{consumer.name}}</td>
-							<td>{{consumer.surname}}</td>
-							<td>{{consumer.phone}}</td>
-							<td>
-								<a href="{{ path('management_consumer_edit', {"id":consumer.Consumer.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_consumer_remove', {"id":consumer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a></td>
-							</td>
-						</tr>
-					{% else %}
-						<tr>
-							<td colspan="4">{{ "No consumers available"|trans({},'consumer') }}</td>
-						</tr>
+    <div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
 					{% endfor %}
-				</tbody>
-			</table>
+				{% endfor %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>{{"Name"|trans({},"user")}}</th>
+							<th>{{"Surname"|trans({},"user")}}</th>
+							<th>{{"Phone"|trans({},"user")}}</th>
+							<th><a href="{{ path('management_consumer_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for consumer in consumers %}
+							<tr>
+								<td>{{consumer.name}}</td>
+								<td>{{consumer.surname}}</td>
+								<td>{{consumer.phone}}</td>
+								<td>
+									<a href="{{ path('management_consumer_edit', {"id":consumer.Consumer.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+									<a href="{{ path('management_consumer_remove', {"id":consumer.id}) }}" class="btn btn-danger">{{"remove"|trans({},"table")}}</a></td>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">{{ "No consumers available"|trans({},'consumer') }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 

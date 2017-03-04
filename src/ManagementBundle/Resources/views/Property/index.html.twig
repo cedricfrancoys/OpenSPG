@@ -12,82 +12,85 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			{% for type, messages in app.session.flashbag.all() %}
-				{% for message in messages %}
-					<div class="alert alert-{{ type }}">{{ message }}</div>
-				{% endfor %}
-			{% endfor %}
-			<div class="filter">
-				<form method="get">
-					{{"Filter"|trans()}}: 
-					<select name="filter[Member]">
-						{% set filter = app.request.get('filter')|default({"Member":0}) %}
-						<option value="">{{"Producer"|trans({},"management")}}</option>
-						{% for user in users %}
-							<option value="{{user.id}}"{% if filter.Member == user.id %} selected="selected"{% endif %}>{{user.name}} {{user.surname}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="{{"Apply"|trans()}}" />
-				</form>
-			</div>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						{# {% if not producer.id %} #}
-							<th>{{"Producer"|trans({},"property")}}</th>	
-						{# {% endif %} #}
-						<th>{{"Name"|trans({},"property")}}</th>
-						<th>{{"Area"|trans({},"property")}}</th>
-						<th>{{"Address"|trans({},"property")}}</th>
-						<th>{{"Last Visit"|trans({},"property")}}</th>
-						<th><a href="{{ path('management_property_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for property in properties %}
-						{% set visits = property.Visits %}
-						{% if visits|length %}
-							{% set lastVisit = visits[0] %}
-							{% if lastVisit.accepted %}
-								{% set visitStatus = "accepted" %}
-							{% elseif lastVisit.accepted is null %}
-								{% set visitStatus = "pending" %}
-							{% else %}
-								{% set visitStatus = "denied" %}
-							{% endif %}
-							{% if lastVisit.accepted is null %}
-								{% if visits|length > 1 %}
-									{% set lastVisit = visits[1] %}
-								{% endif %}
-							{% endif %}
-						{% else %}
-							{% set lastVisit = {"accepted":null,"visitDate":null} %}
-							{% set visitStatus = "pending" %}
-						{% endif %}
-						<tr class="row-{% if visitStatus == "accepted" %}success{% elseif visitStatus == "denied" %}danger{% else %}warning{% endif %}">
-							{# {% if not producer.id %} #}
-								<td>{{property.Member.User}}</td>
-							{# {% endif %} #}
-							<td>{{property.name}}</td>
-							<td>{{property.areaName}}</td>
-							<td>{{property.address}}</td>
-							<td>{{lastVisit.visitDate is empty ? "--" : lastVisit.visitDate|date('d/m/Y')}}</td>
-							<td><a href="{{ path('management_property_edit', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
-								<a href="{{ path('management_property_delete', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
-								<a href="{{ path('management_visit_index', {"filter[property]":property.id}) }}" class="btn btn-default">{{"visits"|trans({},"management")}}</a>
-							</td>
-						</tr>
+    <div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
 					{% endfor %}
-				</tbody>
-			</table>
-			<div class="legend">
-				<span class="title">{{ "Legend"|trans({},"table") }}:</span>
-				{{ "Visit"|trans({},"visit") }}
-				<span class="legend legend-success">{{ "acceptedF"|trans({},"visit") }}</span>
-				<span class="legend legend-danger">{{ "rejectedF"|trans({},"visit") }}</span>
-				<span class="legend legend-warning">{{ "pending"|trans({},"visit") }}</span>
+				{% endfor %}
+				<div class="filter">
+					<form method="get">
+						{{"Filter"|trans()}}: 
+						<select name="filter[Member]">
+							{% set filter = app.request.get('filter')|default({"Member":0}) %}
+							<option value="">{{"Producer"|trans({},"management")}}</option>
+							{% for user in users %}
+								<option value="{{user.id}}"{% if filter.Member == user.id %} selected="selected"{% endif %}>{{user.name}} {{user.surname}}</option>
+							{% endfor %}
+						</select>
+						<input type="submit" value="{{"Apply"|trans()}}" />
+					</form>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							{# {% if not producer.id %} #}
+								<th>{{"Producer"|trans({},"property")}}</th>	
+							{# {% endif %} #}
+							<th>{{"Name"|trans({},"property")}}</th>
+							<th>{{"Area"|trans({},"property")}}</th>
+							<th>{{"Address"|trans({},"property")}}</th>
+							<th>{{"Last Visit"|trans({},"property")}}</th>
+							<th><a href="{{ path('management_property_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for property in properties %}
+							{% set visits = property.Visits %}
+							{% if visits|length %}
+								{% set lastVisit = visits[0] %}
+								{% if lastVisit.accepted %}
+									{% set visitStatus = "accepted" %}
+								{% elseif lastVisit.accepted is null %}
+									{% set visitStatus = "pending" %}
+								{% else %}
+									{% set visitStatus = "denied" %}
+								{% endif %}
+								{% if lastVisit.accepted is null %}
+									{% if visits|length > 1 %}
+										{% set lastVisit = visits[1] %}
+									{% endif %}
+								{% endif %}
+							{% else %}
+								{% set lastVisit = {"accepted":null,"visitDate":null} %}
+								{% set visitStatus = "pending" %}
+							{% endif %}
+							<tr class="row-{% if visitStatus == "accepted" %}success{% elseif visitStatus == "denied" %}danger{% else %}warning{% endif %}">
+								{# {% if not producer.id %} #}
+									<td>{{property.Member.User}}</td>
+								{# {% endif %} #}
+								<td>{{property.name}}</td>
+								<td>{{property.areaName}}</td>
+								<td>{{property.address}}</td>
+								<td>{{lastVisit.visitDate is empty ? "--" : lastVisit.visitDate|date('d/m/Y')}}</td>
+								<td><a href="{{ path('management_property_edit', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a>
+									<a href="{{ path('management_property_delete', {"producer_id":property.Member.id,"id":property.id}) }}" class="btn btn-danger">{{"delete"|trans({},"table")}}</a>
+									<a href="{{ path('management_visit_index', {"filter[property]":property.id}) }}" class="btn btn-default">{{"visits"|trans({},"management")}}</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<div class="legend">
+					<span class="title">{{ "Legend"|trans({},"table") }}:</span>
+					{{ "Visit"|trans({},"visit") }}
+					<span class="legend legend-success">{{ "acceptedF"|trans({},"visit") }}</span>
+					<span class="legend legend-danger">{{ "rejectedF"|trans({},"visit") }}</span>
+					<span class="legend legend-warning">{{ "pending"|trans({},"visit") }}</span>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -8,72 +8,75 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			<div class="filter">
-				<form method="get">
-					{{"Filter"|trans()}}: 
-					{% set filter = app.request.get('filter')|default({"producer":0,"property":0}) %}
-					{% if filter.producer is not defined %}
-						{% set filter = filter|merge({"producer":0}) %}
-					{% endif %}
-					<select name="filter[producer]">
-						<option value="">{{"Producer"|trans({},"management")}}</option>
-						{% for producer in producers %}
-							<option value="{{producer.id}}"{% if filter.producer == producer.id %} selected="selected"{% endif %}>{{producer.name}} {{producer.surname}}</option>
-						{% endfor %}
-					</select>
-					{% if filter.property is not defined %}
-						{% set filter = filter|merge({"property":0}) %}
-					{% endif %}
-					<select name="filter[property]">
-						<option value="">{{"Property"|trans({},"management")}}</option>
-						{% for property in properties %}
-							<option value="{{property.id}}"{% if filter.property == property.id %} selected="selected"{% endif %}>{{property.name}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="{{"Apply"|trans()}}" />
-				</form>
-			</div>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Producer"|trans({},"visit")}}</th>
-						<th>{{"Property"|trans({},"visit")}}</th>
-						<th>{{"Date"|trans({},"visit")}}</th>
-						<th><a href="{{ path('management_visit_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for visit in visits %}
-						{% if visit.accepted %}
-							{% set row = 'success' %}
-							{% set title = 'Accepted' %}
-						{% elseif visit.accepted is not null %}
-							{% set row = 'danger' %}
-							{% set title = 'Rejected' %}
-						{% else %}
-							{% set row = 'warning' %}
-							{% set title = 'Pending' %}
+    <div class="container">
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				<div class="filter">
+					<form method="get">
+						{{"Filter"|trans()}}: 
+						{% set filter = app.request.get('filter')|default({"producer":0,"property":0}) %}
+						{% if filter.producer is not defined %}
+							{% set filter = filter|merge({"producer":0}) %}
 						{% endif %}
-						<tr class="row-{{ row }}" title="{{ title|trans({},'visit') }}">
-							<td>{{visit.Producer}}</td>
-							<td>{{visit.Property.name}}</td>
-							<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
-							<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
-						</tr>
-					{% else %}
+						<select name="filter[producer]">
+							<option value="">{{"Producer"|trans({},"management")}}</option>
+							{% for producer in producers %}
+								<option value="{{producer.id}}"{% if filter.producer == producer.id %} selected="selected"{% endif %}>{{producer.name}} {{producer.surname}}</option>
+							{% endfor %}
+						</select>
+						{% if filter.property is not defined %}
+							{% set filter = filter|merge({"property":0}) %}
+						{% endif %}
+						<select name="filter[property]">
+							<option value="">{{"Property"|trans({},"management")}}</option>
+							{% for property in properties %}
+								<option value="{{property.id}}"{% if filter.property == property.id %} selected="selected"{% endif %}>{{property.name}}</option>
+							{% endfor %}
+						</select>
+						<input type="submit" value="{{"Apply"|trans()}}" />
+					</form>
+				</div>
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td colspan="4">{{ "No visits available"|trans({},'visit') }}</td>
+							<th>{{"Producer"|trans({},"visit")}}</th>
+							<th>{{"Property"|trans({},"visit")}}</th>
+							<th>{{"Date"|trans({},"visit")}}</th>
+							<th><a href="{{ path('management_visit_add') }}" class="btn btn-success">{{"Add"|trans({},"table")}}</a></th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<div class="legend">
-				<span class="title">{{ "Legend"|trans({},"table") }}:</span>
-				<span class="legend legend-success">{{ "acceptedF"|trans({},"visit") }}</span>
-				<span class="legend legend-danger">{{ "rejectedF"|trans({},"visit") }}</span>
-				<span class="legend legend-warning">{{ "pending"|trans({},"visit") }}</span>
+					</thead>
+					<tbody>
+						{% for visit in visits %}
+							{% if visit.accepted %}
+								{% set row = 'success' %}
+								{% set title = 'Accepted' %}
+							{% elseif visit.accepted is not null %}
+								{% set row = 'danger' %}
+								{% set title = 'Rejected' %}
+							{% else %}
+								{% set row = 'warning' %}
+								{% set title = 'Pending' %}
+							{% endif %}
+							<tr class="row-{{ row }}" title="{{ title|trans({},'visit') }}">
+								<td>{{visit.Producer}}</td>
+								<td>{{visit.Property.name}}</td>
+								<td>{{visit.visitDate is null ? 'pending'|trans({},'visit') : visit.visitDate|date('d/m/Y')}}</td>
+								<td><a href="{{ path('management_visit_edit', {"id":visit.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">{{ "No visits available"|trans({},'visit') }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<div class="legend">
+					<span class="title">{{ "Legend"|trans({},"table") }}:</span>
+					<span class="legend legend-success">{{ "acceptedF"|trans({},"visit") }}</span>
+					<span class="legend legend-danger">{{ "rejectedF"|trans({},"visit") }}</span>
+					<span class="legend legend-warning">{{ "pending"|trans({},"visit") }}</span>
+				</div>
 			</div>
 		</div>
 	</div>

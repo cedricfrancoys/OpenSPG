@@ -9,26 +9,31 @@
 	{{ parent() }}
 
     <div class="container">
-    	{% for type, messages in app.session.flashbag.all() %}
-			{% for message in messages %}
-				<div class="alert alert-{{ type }}">{{ message }}</div>
-			{% endfor %}
-		{% endfor %}
-		<div class="action-buttons">
-			{% if not user.hasRole('ROLE_CONSUMER') or user.Consumer is null %}
-				<a href="{{ path('management_user_makeconsumer', {"id": user.id}) }}" class="btn btn-success btn-makeConsumer">{{"Make consumer"|trans({},"consumer")}}</a>
-			{% endif %}
-			{% if not user.hasRole('ROLE_PRODUCER')  or user.Producer is null %}
-				<a href="{{ path('management_user_makeproducer', {"id": user.id}) }}" class="btn btn-success btn-makeProducer">{{"Make producer"|trans({},"producer")}}</a>
-			{% endif %}
-			{% if not user.hasRole('ROLE_MANAGER') %}
-				<a href="{{ path('management_user_makemanager', {"id": user.id}) }}" class="btn btn-success btn-makeManager">{{"Make manager"|trans({},"management")}}</a>
-			{% endif %}
-			{% if not user.hasRole('ROLE_VISITGROUP') %}
-				<a href="{{ path('management_user_makevisitgroupmember', {"id": user.id}) }}" class="btn btn-success btn-makeVisitGroup">{{"Make visit group memebr"|trans({},"management")}}</a>
-			{% endif %}
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+		    	{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
+					{% endfor %}
+				{% endfor %}
+				<div class="action-buttons">
+					{% if not user.hasRole('ROLE_CONSUMER') or user.Consumer is null %}
+						<a href="{{ path('management_user_makeconsumer', {"id": user.id}) }}" class="btn btn-success btn-makeConsumer">{{"Make consumer"|trans({},"consumer")}}</a>
+					{% endif %}
+					{% if not user.hasRole('ROLE_PRODUCER')  or user.Producer is null %}
+						<a href="{{ path('management_user_makeproducer', {"id": user.id}) }}" class="btn btn-success btn-makeProducer">{{"Make producer"|trans({},"producer")}}</a>
+					{% endif %}
+					{% if not user.hasRole('ROLE_MANAGER') %}
+						<a href="{{ path('management_user_makemanager', {"id": user.id}) }}" class="btn btn-success btn-makeManager">{{"Make manager"|trans({},"management")}}</a>
+					{% endif %}
+					{% if not user.hasRole('ROLE_VISITGROUP') %}
+						<a href="{{ path('management_user_makevisitgroupmember', {"id": user.id}) }}" class="btn btn-success btn-makeVisitGroup">{{"Make visit group memebr"|trans({},"management")}}</a>
+					{% endif %}
+				</div>
+			    {{ include('UserBundle:User:base_form.html.twig') }}
+			</div>
 		</div>
-	    {{ include('UserBundle:User:base_form.html.twig') }}
 	</div>
 
 {% endblock %}

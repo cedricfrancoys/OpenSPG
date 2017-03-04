@@ -9,14 +9,19 @@
 	{{ parent() }}
 
     <div class="container">
-	    {{ form_start(form) }}
-			{{ form_errors(form) }}
-			{{ form_row(form.Product) }}
-			{{ form_row(form.amount) }}
-			{{ form_row(form.price) }}
-			{{ form_row(form.unit) }}
-			{{ form_row(form.caduce) }}
-		{{ form_end(form) }}
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+			    {{ form_start(form) }}
+					{{ form_errors(form) }}
+					{{ form_row(form.Product) }}
+					{{ form_row(form.amount) }}
+					{{ form_row(form.price) }}
+					{{ form_row(form.unit) }}
+					{{ form_row(form.caduce) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

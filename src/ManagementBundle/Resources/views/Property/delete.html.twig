@@ -9,14 +9,19 @@
 	{{ parent() }}
 
     <div class="container">
-	    <form method="post">
-	    	{% trans %}
-	    		<h2>Are you sure you want to delete the selected property?</h2>
-	    		<p>Doing so is undoable and will convert related items to orphans in order to keep organizational data.</p>
-	    	{% endtrans %}
-	    	<input type="submit" value="{{ "Delete forever" }}" />
-	    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
-	    </form>
+		<div class="row">
+			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+			    <form method="post">
+			    	{% trans %}
+			    		<h2>Are you sure you want to delete the selected property?</h2>
+			    		<p>Doing so is undoable and will convert related items to orphans in order to keep organizational data.</p>
+			    	{% endtrans %}
+			    	<input type="submit" value="{{ "Delete forever" }}" />
+			    	<input type="hidden" name="confirmation_key" value="{{ confirmation_key }}" />
+			    </form>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

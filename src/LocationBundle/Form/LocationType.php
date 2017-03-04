@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use mhauptma73\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class LocationType extends AbstractType
 {
@@ -17,7 +18,7 @@ class LocationType extends AbstractType
                 'default_lat' => '37.06394430056685',
                 'default_lng' => '-3.09814453125',
                 'map_width' => 600,
-                'type' => 'hidden'
+                'type' => HiddenType::class
             ))
             ;
     }

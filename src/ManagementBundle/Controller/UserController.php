@@ -4,8 +4,10 @@ namespace ManagementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use UserBundle\Entity\User;
 use ManagementBundle\Form\UserType;
+use UserBundle\Form\ChangePasswordType;
 
 use ProducerBundle\Entity\Member as Producer;
 use ConsumerBundle\Entity\Member as Consumer;
@@ -82,11 +85,45 @@ class UserController extends Controller
             return $response;
         }
 
+        $change_password_form = $this->createForm(ChangePasswordType::class, $user, array(
+            'action' => $this->generateUrl('management_user_changepassword', array('id'=>$user->getId()))
+        ));
+
         return array(
             'form' => $form->createView(),
             'user' => $user,
-            'menu' => 'management'
+            'menu' => 'management',
+            'change_password_form' => $change_password_form->createView()
         );
+    }
+
+    /**
+     * @Route("/{id}/changePassword")
+     * @Method({"POST"})
+     * @Security("has_role('ROLE_MANAGER')")
+     * @Template()
+     */
+    public function changePasswordAction(user $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(ChangePasswordType::class, $user, array(
+            'action' => $this->generateUrl('management_user_changepassword', array('id'=>$user->getId()))
+        ));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+
+            $response = new JsonResponse(array('status'=>'ok'));
+
+            return $response;
+        }
+
+        throw new Exception("Error Processing Request", 1);
+        
     }
 
     /**

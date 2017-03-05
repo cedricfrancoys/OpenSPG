@@ -37,3 +37,19 @@
 #visit_Production > .form-group > label{
 	display: none;
 }
+
+.form-group.change-password{
+	position: relative;
+}
+a#change-password{
+	position: absolute;
+	right: 0;
+	top: 25px;
+}
+span.message{
+
+}
+span.message-success{
+	color: #5cb85c;
+	font-weight: bold;
+}

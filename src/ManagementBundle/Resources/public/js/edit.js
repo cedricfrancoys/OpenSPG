@@ -31,6 +31,19 @@ jQuery(document).ready(function() {
     	);
     });
 
-    // Visits
-    
+    $('.section-user.action-edit form div.form-group').first().after(
+        '<div class="form-group change-password"><label class="control-label" for="user_password">Contraseña</label><span class="form-control password">****</span><a id="change-password" class="btn-default btn" data-toggle="modal" data-target="#change-password-modal">Cambiar conraseña</a></div>'
+    );
+    $('#change_password_submit').on('click', function(evt){
+        $.post(
+            $('form[name=change_password]').attr('action'),
+            $('form[name=change_password]').serialize()
+        ).done(function(data){
+            $('#change-password-modal').modal('hide');
+            $('#change-password').after('<span class="message message-success hide-again">Contraseña cambiada con éxito!</span>');
+            setTimeout(function(){
+              $('.hide-again').remove();
+            }, 5000);
+        });
+    });
 });

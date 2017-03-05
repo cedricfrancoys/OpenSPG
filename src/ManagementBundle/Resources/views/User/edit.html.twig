@@ -8,7 +8,7 @@
 
 	{{ parent() }}
 
-    <div class="container">
+    <div class="container section-user action-edit">
 		<div class="row">
 			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
@@ -28,13 +28,33 @@
 						<a href="{{ path('management_user_makemanager', {"id": user.id}) }}" class="btn btn-success btn-makeManager">{{"Make manager"|trans({},"management")}}</a>
 					{% endif %}
 					{% if not user.hasRole('ROLE_VISITGROUP') %}
-						<a href="{{ path('management_user_makevisitgroupmember', {"id": user.id}) }}" class="btn btn-success btn-makeVisitGroup">{{"Make visit group memebr"|trans({},"management")}}</a>
+						<a href="{{ path('management_user_makevisitgroupmember', {"id": user.id}) }}" class="btn btn-success btn-makeVisitGroup">{{"Make visit group member"|trans({},"management")}}</a>
 					{% endif %}
 				</div>
 			    {{ include('UserBundle:User:base_form.html.twig') }}
 			</div>
 		</div>
 	</div>
+
+	<div id="change-password-modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Cambiar contraseña</h4>
+				</div>
+				<div class="modal-body">
+					{{ form_start(change_password_form) }}
+						{{ form_errors(change_password_form) }}
+					{{ form_end(change_password_form) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button id="change_password_submit" type="button" class="btn btn-primary">Cambiar contraseña</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 {% endblock %}
 
@@ -48,8 +68,7 @@
 	{{ parent() }}
 	<script src="{{ url('bazinga_jstranslation_js', { 'domain': 'management' }) }}"></script>
 	{% javascripts
-        'bundles/management/js/edit.js'
-        'bundles/app/js/forms.js'%}
+        'bundles/management/js/edit.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

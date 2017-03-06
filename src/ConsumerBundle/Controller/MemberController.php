@@ -33,15 +33,7 @@ class MemberController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("consumer_member_index"));
-
-        $data = array(
-            'menu' => 'account'
-        );
-
-        return $this->render('ConsumerBundle:Member:index.html.twig', $data);
+        return new RedirectResponse($this->get("router")->generate("consumer_member_profile"));
     }
 
     /**

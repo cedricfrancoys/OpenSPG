@@ -1,0 +1,21 @@
+<div class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-sidebar">
+		<li class="title">
+			{% trans from "consumer" %}My Data{% endtrans %}
+		</li>
+		<li class="{% if app.request.get('_route') in ['consumer_member_profile'] %}active{% endif %}">
+			<a href="{{ path('consumer_member_profile') }}">{% trans from "consumer" %}Profile{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['consumer_visit_index','consumer_visit_edit','consumer_visit_show'] %}active{% endif %}">
+			<a href="{{ path('consumer_visit_index') }}">{% trans from "consumer" %}Visits{% endtrans %}</a>
+		</li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<li class="title">
+			{% trans from "consumer" %}Communication{% endtrans %}
+		</li>
+		<li class="{% if app.request.get('_route') in ['consumer_contact_index'] %}active{% endif %}">
+			<a href="{{ path('consumer_contact_index') }}">{% trans from "consumer" %}Messages{% endtrans %}</a>
+		</li>
+	</ul>
+</div>

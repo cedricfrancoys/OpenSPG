@@ -10,7 +10,7 @@ namespace ConsumerBundle\Repository;
  */
 class MemberRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getUser(\FOS\UserBundle\Model\UserInterface $user)
+	public function getUser(\UserBundle\Entity\User $user)
 	{
 		$em = $this->getEntityManager();
 

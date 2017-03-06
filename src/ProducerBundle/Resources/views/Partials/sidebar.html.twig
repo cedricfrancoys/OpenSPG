@@ -1,0 +1,27 @@
+<div class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-sidebar">
+		<li class="title">
+			{% trans from "producer" %}My Data{% endtrans %}
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_member_profile'] %}active{% endif %}">
+			<a href="{{ path('producer_member_profile') }}">{% trans from "producer" %}Profile{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_property_index','producer_property_add','producer_property_edit'] %}active{% endif %}">
+			<a href="{{ path('producer_property_index') }}">{% trans from "producer" %}Properties{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_stock_index','producer_stock_add','producer_stock_edit','producer_product_add','producer_product_edit'] %}active{% endif %}">
+			<a href="{{ path('producer_stock_index') }}">{% trans from "producer" %}Products/Stock{% endtrans %}</a>
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_visit_index','producer_visit_edit','producer_visit_show'] %}active{% endif %}">
+			<a href="{{ path('producer_visit_index') }}">{% trans from "producer" %}Visits{% endtrans %}</a>
+		</li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<li class="title">
+			{% trans from "producer" %}Communication{% endtrans %}
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_membercontact_index'] %}active{% endif %}">
+			<a href="{{ path('producer_membercontact_index') }}">{% trans from "producer" %}Messages{% endtrans %}</a>
+		</li>
+	</ul>
+</div>

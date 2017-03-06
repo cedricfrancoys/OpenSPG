@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormView;
 
 class PropertyType extends AbstractType
@@ -50,7 +51,7 @@ class PropertyType extends AbstractType
             ->add('certifiedProvider', null, array(
                 'required' => false
             ))
-            ->add('lastAgroquimicUsage', 'date', array(
+            ->add('lastAgroquimicUsage', DateType::class, array(
                 'required' => false,
                 'placeholder' => 'Nunca'
             ))

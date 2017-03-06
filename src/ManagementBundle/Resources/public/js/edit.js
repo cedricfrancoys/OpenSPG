@@ -32,7 +32,7 @@ jQuery(document).ready(function() {
     });
 
     $('.section-user.action-edit form div.form-group').first().after(
-        '<div class="form-group change-password"><label class="control-label" for="user_password">Contraseña</label><span class="form-control password">****</span><a id="change-password" class="btn-default btn" data-toggle="modal" data-target="#change-password-modal">Cambiar conraseña</a></div>'
+        '<div class="form-group change-password"><label class="control-label" for="user_password">Contraseña</label><span class="form-control password">****</span><a id="change-password" class="btn-default btn" data-toggle="modal" data-target="#change-password-modal">Cambiar contraseña</a></div>'
     );
     $('#change_password_submit').on('click', function(evt){
         $.post(

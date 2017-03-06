@@ -8,31 +8,34 @@
 
 	{{ parent() }}
 
-    <div class="highlightSection">
-		<div class="container">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>{{"Product"|trans({},"stock")}}</th>
-						<th>{{"Stock"|trans({},"stock")}}</th>
-						<th>{{"Price"|trans({},"stock")}}</th>
-						<th>
-							<a href="{{ path('producer_stock_add') }}" class="btn btn-success">{{"Add stock"|trans({},"stock")}}</a>
-							<a href="{{ path('producer_product_add') }}" class="btn btn-success">{{"Add product"|trans({},"stock")}}</a>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for product in products %}
+    <div class="container">
+		<div class="row">
+			{{ include('ProducerBundle:Partials:sidebar.html.twig') }}
+			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td>{{product.Product.name}}</td>
-							<td>{{product.amount}}{{product.unit}}</td>
-							<td>{{product.price}} €/{{product.unit}}</td>
-							<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
+							<th>{{"Product"|trans({},"stock")}}</th>
+							<th>{{"Stock"|trans({},"stock")}}</th>
+							<th>{{"Price"|trans({},"stock")}}</th>
+							<th>
+								<a href="{{ path('producer_stock_add') }}" class="btn btn-success">{{"Add stock"|trans({},"stock")}}</a>
+								<a href="{{ path('producer_product_add') }}" class="btn btn-success">{{"Add product"|trans({},"stock")}}</a>
+							</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<td>{{product.Product.name}}</td>
+								<td>{{product.amount}}{{product.unit}}</td>
+								<td>{{product.price}} €/{{product.unit}}</td>
+								<td><a href="{{ path('producer_stock_edit', {"id":product.id}) }}" class="btn btn-success">{{"edit"|trans({},"table")}}</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 

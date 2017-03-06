@@ -105,3 +105,7 @@ footer{
 	position: relative;
 	top: -21px;
 }
+.sidebar .title{
+	font-weight: bold;
+	padding-left: 8px;
+}

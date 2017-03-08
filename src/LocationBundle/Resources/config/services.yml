@@ -4,3 +4,7 @@ services:
     arguments: [~, LocationBundle\Entity\Location, SonataAdminBundle:CRUD]
     tags:
       - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+  form.type.maps:
+    class: LocationBundle\Form\MapType
+    tags:
+      - { name: form.type, alias: maps }

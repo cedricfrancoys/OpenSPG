@@ -4,9 +4,9 @@ namespace LocationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use mhauptma73\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
+use LocationBundle\Form\MapType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class LocationType extends AbstractType
@@ -14,7 +14,7 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('LatLng', GoogleMapType::class, array(
+            ->add('LatLng', MapType::class, array(
                 'default_lat' => '37.06394430056685',
                 'default_lng' => '-3.09814453125',
                 'map_width' => 600,
@@ -23,7 +23,7 @@ class LocationType extends AbstractType
             ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'LocationBundle\Entity\Location'

@@ -47,7 +47,7 @@ class NodeController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($node);
             $em->flush();
 

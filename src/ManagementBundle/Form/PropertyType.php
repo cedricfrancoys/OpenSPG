@@ -18,6 +18,8 @@ use Doctrine\ORM\EntityRepository;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
+use LocationBundle\Form\LocationType;
+
 class PropertyType extends AbstractType
 {
     /**
@@ -53,6 +55,7 @@ class PropertyType extends AbstractType
             ->add('areaName')
             ->add('address')
             ->add('regNr')
+            ->add('Location', LocationType::class)
             ->add('name', null, array(
                 'attr' => array(
                     'class' => 'nameField'

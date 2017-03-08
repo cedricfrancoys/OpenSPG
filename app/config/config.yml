@@ -7,7 +7,7 @@ imports:
     - { resource: "@ProducerBundle/Resources/config/services.yml" }
     # - { resource: "@MemberBundle/Resources/config/services.yml" }
     - { resource: "@NodeBundle/Resources/config/services.yml" }
-    - { resource: "@LocationBundle/Resources/config/services.yml" }
+    # - { resource: "@LocationBundle/Resources/config/services.yml" }
     - { resource: "@CartBundle/Resources/config/services.yml" }
     - { resource: "@ManagementBundle/Resources/config/services.yml" }
     - { resource: "@FeeBundle/Resources/config/services.yml" }
@@ -52,7 +52,7 @@ twig:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
         - 'bootstrap_3_layout.html.twig'
         - 'AppBundle:Form:form.html.twig'
-        - 'OhGoogleMapFormTypeBundle:Form:fields.html.twig'
+        - 'LocationBundle:Form:fields.html.twig'
         - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration

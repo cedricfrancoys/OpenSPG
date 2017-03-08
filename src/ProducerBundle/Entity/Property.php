@@ -45,6 +45,13 @@ class Property
     private $address;
 
     /**
+    * @var Location
+    *
+    * @ORM\OneToOne(targetEntity="\LocationBundle\Entity\Location", cascade={"persist"})
+    */
+    private $Location;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="regNr", type="string", length=25, nullable=true)
@@ -1088,5 +1095,29 @@ class Property
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \LocationBundle\Entity\Location $location
+     *
+     * @return Property
+     */
+    public function setLocation(\LocationBundle\Entity\Location $location = null)
+    {
+        $this->Location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \LocationBundle\Entity\Location
+     */
+    public function getLocation()
+    {
+        return $this->Location;
     }
 }

@@ -41,7 +41,6 @@ class AppKernel extends Kernel
             new LocationBundle\LocationBundle(),
             new CartBundle\CartBundle(),
 
-            new mhauptma73\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             new ManagementBundle\ManagementBundle(),
             new FeeBundle\FeeBundle(),
             new PageBundle\PageBundle(),

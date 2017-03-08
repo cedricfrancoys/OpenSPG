@@ -47,7 +47,7 @@ class MapType extends AbstractType
             'default_lng'    => -0.1245, // the starting position on the map
             'include_jquery' => false,   // jquery needs to be included above the field (ie not at the bottom of the page)
             'include_gmaps_js'=>true,     // is this the best place to include the google maps javascript?
-            'data_class' => LocationType::class
+            // 'data_class' => 'LocationBundle\Entity\Location' // Don't use it... saving doesn't work with that property set
         ));
     }
 

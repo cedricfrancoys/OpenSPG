@@ -30,6 +30,7 @@
 	{% stylesheets 'bundles/management/css/edit.css'
 					'bundles/producer/css/property.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
@@ -39,7 +40,7 @@
 	{% javascripts
         'bundles/management/js/edit.js'
         'bundles/producer/js/property.js'
-        '@OhGoogleMapFormTypeBundle/Resources/public/js/jquery.ohgooglemaps.js' %}
+        'bundles/location/js/jquery.maps.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

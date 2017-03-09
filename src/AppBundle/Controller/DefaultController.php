@@ -19,6 +19,7 @@ class DefaultController extends Controller
         $upcomingVisits = $em->getRepository('ProducerBundle:Visit')->getUpcoming();
         $latestVisits = $em->getRepository('ProducerBundle:Visit')->getLatest();
         $pendingApprovalVisits = $em->getRepository('ProducerBundle:Visit')->getPendingApproval();
+        $properties = $em->getRepository('ProducerBundle:Property')->getPropertiesWithLocation();
 
         $stocks = $em->getRepository('ProducerBundle:Stock')->getNewest();
 
@@ -31,7 +32,8 @@ class DefaultController extends Controller
             'upcomingVisits' => $upcomingVisits,
             'latestVisits' => $latestVisits,
             'news' => $news,
-            'pendingApprovalVisits' => $pendingApprovalVisits
+            'pendingApprovalVisits' => $pendingApprovalVisits,
+            'properties' => $properties
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);

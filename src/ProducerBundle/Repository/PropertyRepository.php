@@ -59,4 +59,16 @@ class PropertyRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function getPropertiesWithLocation()
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.Member', 'm')
+            ->leftJoin('m.User', 'u')
+            ->andWhere('p.Location IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    }
 }

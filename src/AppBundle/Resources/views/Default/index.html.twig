@@ -178,27 +178,29 @@
 		</div>
 	{% endif %}
 
-	<script src="https://openlayers.org/en/v4.0.1/build/ol.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script type="text/javascript">
-		var map = new ol.Map({
-			target: 'googleMap',
-			layers: [
-			new ol.layer.Tile({
-				source: new ol.source.OSM()
-			})
-			],
-			view: new ol.View({
-				center: ol.proj.fromLonLat([34.89,-4.24]),
-				zoom: 5
-			})
-		});
+		var mymap = L.map('googleMap').setView([36.892011,-3.245017], 10);
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			maxZoom: 18,
+			id: 'mapbox.satellite',
+			accessToken: 'pk.eyJ1IjoibWhhdXB0bWE3MyIsImEiOiJjajAxdm95cnUwMDhuMzNsdTEzcTlzYm55In0.PWU0PhdQ-GsakOmJyrXYPw'
+		}).addTo(mymap);
+		{% for property in properties %}
+			{% if property.Location is not null %}
+				var marker{{property.id}} = L.marker([{{property.Location.latitude}}, {{property.Location.longitude}}]).addTo(mymap);
+				marker{{property.id}}.bindPopup("{{property.name}}").openPopup();
+			{% endif %}
+		{% endfor %}
+
 	</script>
 
 {% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 {% endblock %}	
 {% block javascripts %}
 	{{ parent() }}

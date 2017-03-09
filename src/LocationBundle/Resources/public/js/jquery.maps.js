@@ -22,38 +22,59 @@
 
 		this.map_el = map_el;
 
-		this.geocoder = new google.maps.Geocoder();
+		// this.geocoder = new google.maps.Geocoder();
 
 	}
 
 	MapType.prototype = {
 		initMap : function(center) {
 
-			var center = new google.maps.LatLng(this.settings.default_lat, this.settings.default_lng);
+			// var center = new google.maps.LatLng(this.settings.default_lat, this.settings.default_lng);
+			var center = {
+				latlng: [36.892011,-3.245017]
+			};
+			var lat = this.settings.lat_field.val();
+			var lon = this.settings.lng_field.val();
+			if (lat && lon) {
+				center = {
+				latlng: [lat,lon]
+			};
+			}
 
 			var mapOptions = {
 				zoom: this.settings.default_zoom,
 				center: center,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: 'mapbox.mapbox-streets-v7',
+				accessToken: 'pk.eyJ1IjoibWhhdXB0bWE3MyIsImEiOiJjajAxdm95cnUwMDhuMzNsdTEzcTlzYm55In0.PWU0PhdQ-GsakOmJyrXYPw'
 			};
 			
 			var $this = this;
 			
-			this.map =  new google.maps.Map(this.map_el[0], mapOptions);
+			// this.map =  new google.maps.Map(this.map_el[0], mapOptions);
+			this.map = L.map(this.map_el[0]).setView([this.settings.default_lat,this.settings.default_lng], mapOptions.zoom);
 
-			this.addMarker(center);
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				maxZoom: 18,
+				id: mapOptions.mapTypeId,
+				accessToken: mapOptions.accessToken
+			}).addTo(this.map);
 
-			google.maps.event.addListener(this.marker, "dragend", function(event) {
+			this.setMarker(center);
 
-				var point = $this.marker.getPosition();
-				$this.map.panTo(point);
-				$this.updateLocation(point);
+			this.map.on('click', function(e){$this.setMarker(e);});
 
-			});
+			// google.maps.event.addListener(this.marker, "dragend", function(event) {
 
-			google.maps.event.addListener(this.map, 'click', function(event) {
-				$this.insertMarker(event.latLng);
-			});
+			// 	var point = $this.marker.getPosition();
+			// 	$this.map.panTo(point);
+			// 	$this.updateLocation(point);
+
+			// });
+
+			// google.maps.event.addListener(this.map, 'click', function(event) {
+			// 	$this.insertMarker(event.latLng);
+			// });
 
 			this.settings.search_action_el.click($.proxy(this.searchAddress, $this));
 			
@@ -64,15 +85,28 @@
 			e.preventDefault();
 			var $this = this;
 			var address = this.settings.search_input_el.val();
-			this.geocoder.geocode( { 'address': address}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					$this.map.setCenter(results[0].geometry.location);
-					$this.map.setZoom(16);
-					$this.insertMarker(results[0].geometry.location);
-				} else {
-					$this.settings.error_callback(status);
+			// this.geocoder.geocode( { 'address': address}, function(results, status) {
+			// 	if (status == google.maps.GeocoderStatus.OK) {
+			// 		$this.map.setCenter(results[0].geometry.location);
+			// 		$this.map.setZoom(16);
+			// 		$this.insertMarker(results[0].geometry.location);
+			// 	} else {
+			// 		$this.settings.error_callback(status);
+			// 	}
+			// });
+			var $this = this;
+			$.get(
+				'http://nominatim.openstreetmap.org/search?format=json&countrycodes=es&q=' + address,
+				function(data){
+					$.each(data, function(i,v){
+						var marker = {
+							latlng: [v.lat,v.lon],
+							zoom: 12
+						};
+						$this.setMarker(marker);
+					});
 				}
-			});
+			);
 		},
 
 		currentPosition : function(e){
@@ -98,21 +132,27 @@
 		},
 
 		updateLocation : function (location){
-			this.settings.lat_field.val(location.lat());
-			this.settings.lng_field.val(location.lng());
+			this.settings.lat_field.val(location.latlng[0]);
+			this.settings.lng_field.val(location.latlng[1]);
 			this.settings.callback(location, this);
 		},
 
-		addMarker : function(center) {
-			if(this.marker){
-				this.marker.setMap(this.map);
-				this.marker.setPosition(center);
+		setMarker : function(marker) {
+			var latlng = (marker.latlng) ? marker : marker.latlng;
+			if (!(latlng.latlng instanceof Array)) {
+				latlng = {
+					latlng: [latlng.latlng.lat,latlng.latlng.lng]
+				};
+			}
+			if( !this.marker ){
+				this.marker = L.marker(latlng.latlng).addTo(this.map);
 			}else{
-				this.marker = new google.maps.Marker({
-					map: this.map,
-					position: center,
-					draggable: true
-				});
+				this.marker.setLatLng(latlng.latlng);
+				if (latlng.zoom) {
+					this.map.setZoom(latlng.zoom);
+				}
+				this.map.panTo(latlng.latlng);
+				this.updateLocation(latlng);
 			}
 		},
 

@@ -29,7 +29,6 @@
 	MapType.prototype = {
 		initMap : function(center) {
 
-			// var center = new google.maps.LatLng(this.settings.default_lat, this.settings.default_lng);
 			var center = {
 				latlng: [36.892011,-3.245017]
 			};
@@ -37,8 +36,8 @@
 			var lon = this.settings.lng_field.val();
 			if (lat && lon) {
 				center = {
-				latlng: [lat,lon]
-			};
+					latlng: [lat,lon]
+				};
 			}
 
 			var mapOptions = {
@@ -47,34 +46,40 @@
 				mapTypeId: 'mapbox.mapbox-streets-v7',
 				accessToken: 'pk.eyJ1IjoibWhhdXB0bWE3MyIsImEiOiJjajAxdm95cnUwMDhuMzNsdTEzcTlzYm55In0.PWU0PhdQ-GsakOmJyrXYPw'
 			};
-			
-			var $this = this;
-			
-			// this.map =  new google.maps.Map(this.map_el[0], mapOptions);
-			this.map = L.map(this.map_el[0]).setView([this.settings.default_lat,this.settings.default_lng], mapOptions.zoom);
+			this.map = L.map(this.map_el[0], {
+				zoomControl: true, 
+				maxZoom: 20,
+				center: center.latlng,
+				zoom: this.settings.default_zoom,
+				layers: [Spain_UnidadAdministrativa,Spain_PNOA_Ortoimagen]
+			});
 
-			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-				maxZoom: 18,
-				id: mapOptions.mapTypeId,
-				accessToken: mapOptions.accessToken
-			}).addTo(this.map);
+			var baselayers = {
+				"PNOA Máx. Actualidad": Spain_PNOA_Ortoimagen,
+				"Mapas IGN": Spain_MapasrasterIGN,
+				"IGN Base": Spain_IGNBase,
+				"MDT Elevaciones": Spain_MDT_Elevaciones,
+				"Catastro": Spain_Catastro
+			};
+
+			var overlayers = {
+				"Unidades administrativas": Spain_UnidadAdministrativa
+			};
+
+			L.control.layers(
+				baselayers, 
+				overlayers,
+				{
+					collapsed:false,
+					zoom: this.settings.default_zoom
+				})
+			.addTo(this.map);
 
 			this.setMarker(center);
 
+			var $this = this;
+
 			this.map.on('click', function(e){$this.setMarker(e);});
-
-			// google.maps.event.addListener(this.marker, "dragend", function(event) {
-
-			// 	var point = $this.marker.getPosition();
-			// 	$this.map.panTo(point);
-			// 	$this.updateLocation(point);
-
-			// });
-
-			// google.maps.event.addListener(this.map, 'click', function(event) {
-			// 	$this.insertMarker(event.latLng);
-			// });
 
 			this.settings.search_action_el.click($.proxy(this.searchAddress, $this));
 			
@@ -85,15 +90,6 @@
 			e.preventDefault();
 			var $this = this;
 			var address = this.settings.search_input_el.val();
-			// this.geocoder.geocode( { 'address': address}, function(results, status) {
-			// 	if (status == google.maps.GeocoderStatus.OK) {
-			// 		$this.map.setCenter(results[0].geometry.location);
-			// 		$this.map.setZoom(16);
-			// 		$this.insertMarker(results[0].geometry.location);
-			// 	} else {
-			// 		$this.settings.error_callback(status);
-			// 	}
-			// });
 			var $this = this;
 			$.get(
 				'http://nominatim.openstreetmap.org/search?format=json&countrycodes=es&q=' + address,
@@ -144,16 +140,29 @@
 					latlng: [latlng.latlng.lat,latlng.latlng.lng]
 				};
 			}
+			var $this = this;
 			if( !this.marker ){
-				this.marker = L.marker(latlng.latlng).addTo(this.map);
-			}else{
-				this.marker.setLatLng(latlng.latlng);
-				if (latlng.zoom) {
-					this.map.setZoom(latlng.zoom);
-				}
-				this.map.panTo(latlng.latlng);
-				this.updateLocation(latlng);
-			}
+				this.marker = L.marker(
+					latlng.latlng,
+					{
+						draggable: true
+					}
+				)
+				.addTo(this.map)
+				.on('dragend', function(e){
+					var location = {
+						latlng: [e.target._latlng.lat,e.target._latlng.lng]
+					}
+					$this.updateLocation(location);
+				});
+			}// }else{
+			// 	this.marker.setLatLng(latlng.latlng);
+			// 	if (latlng.zoom) {
+			// 		this.map.setZoom(latlng.zoom);
+			// 	}
+			// 	this.map.panTo(latlng.latlng);
+			// 	this.updateLocation(latlng);
+			// }
 		},
 
 		insertMarker : function (position) {

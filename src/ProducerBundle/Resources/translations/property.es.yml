@@ -1,6 +1,11 @@
 Area name: Zona
 Address: Dirección
+Certified years: Años certificados
+Document file: Documento (PDF)
+Lat lng: Latitud/Longitud
+Location: Ubicación
 Reg nr: Registro
+Sketch file: Fichero mapa
 Name: Nombre
 Tenure: Régimen de tenencia
 Size: Superficie (m2)
@@ -30,10 +35,8 @@ Product selling time: Tiempo que tardan los productos desde su recolección hast
 Product selling time public: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
 Product conservation: ¿Utiliza algún método de conservación?
 Product conservation details: Detalles sobre la conservación
-
 Add property: Añadir propiedad
 Property: Propiedad
-
 Property data: Datos de la propiedad
 General information: Datos generales de la unidad productiva
 Products: Productos

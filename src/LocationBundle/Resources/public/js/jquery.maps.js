@@ -48,7 +48,6 @@
 			};
 			this.map = L.map(this.map_el[0], {
 				zoomControl: true, 
-				maxZoom: 20,
 				center: center.latlng,
 				zoom: this.settings.default_zoom,
 				layers: [Spain_UnidadAdministrativa,Spain_PNOA_Ortoimagen]
@@ -79,7 +78,7 @@
 
 			var $this = this;
 
-			this.map.on('click', function(e){$this.setMarker(e);});
+			// this.map.on('click', function(e){$this.setMarker(e);});
 
 			this.settings.search_action_el.click($.proxy(this.searchAddress, $this));
 			
@@ -155,14 +154,14 @@
 					}
 					$this.updateLocation(location);
 				});
-			}// }else{
-			// 	this.marker.setLatLng(latlng.latlng);
-			// 	if (latlng.zoom) {
-			// 		this.map.setZoom(latlng.zoom);
-			// 	}
-			// 	this.map.panTo(latlng.latlng);
-			// 	this.updateLocation(latlng);
-			// }
+			}else{
+				this.marker.setLatLng(latlng.latlng);
+				if (latlng.zoom) {
+					this.map.setZoom(latlng.zoom);
+				}
+				this.map.panTo(latlng.latlng);
+				this.updateLocation(latlng);
+			}
 		},
 
 		insertMarker : function (position) {

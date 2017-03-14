@@ -47,7 +47,7 @@ class MapType extends AbstractType
             'default_lng'    => -0.1245, // the starting position on the map
             'include_jquery' => false,   // jquery needs to be included above the field (ie not at the bottom of the page)
             'include_gmaps_js'=>true,     // is this the best place to include the google maps javascript?
-            // 'data_class' => 'LocationBundle\Entity\Location' // Don't use it... saving doesn't work with that property set
+            'markerTitleField'=>false    // Defines if there is a field from which we can update the title of the displayed marker
         ));
     }
 
@@ -64,6 +64,7 @@ class MapType extends AbstractType
             $view->vars['default_lng'] = $options['default_lng']; 
             $view->vars['include_jquery'] = $options['include_jquery']; 
             $view->vars['include_gmaps_js'] = $options['include_gmaps_js'];
+            $view->vars['markerTitleField'] = ($options['markerTitleField'])?$options['markerTitleField']:'false';
     }
 
     public function getParent()

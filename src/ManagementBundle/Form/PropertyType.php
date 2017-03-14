@@ -55,11 +55,13 @@ class PropertyType extends AbstractType
             ->add('areaName')
             ->add('address')
             ->add('regNr')
-            ->add('Location', LocationType::class)
             ->add('name', null, array(
                 'attr' => array(
                     'class' => 'nameField'
                 )
+            ))
+            ->add('Location', LocationType::class, array(
+                'markerTitleField' => 'name'
             ))
             ->add('tenure')
             ->add('size')
@@ -73,7 +75,8 @@ class PropertyType extends AbstractType
             ->add('certified')
             ->add('certifiedYears', ChoiceType::class, array(
                 'choices' => $lastTenYears,
-                'multiple' => true
+                'multiple' => true,
+                'translation_domain' => false
             ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', DateType::class, array(

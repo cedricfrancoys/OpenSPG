@@ -78,11 +78,27 @@
 
 			var $this = this;
 
-			// this.map.on('click', function(e){$this.setMarker(e);});
-
 			this.settings.search_action_el.click($.proxy(this.searchAddress, $this));
 			
 			this.settings.current_position_el.click($.proxy(this.currentPosition, $this));
+
+			this.checkMarkerTitle();
+		},
+
+		checkMarkerTitle: function(){
+			if (this.settings.markerTitleField && this.marker) {
+				var frm = $(this.settings.search_input_el).parents('form').first();
+				var frm_name = $(frm).attr('name');
+				var titleFld = frm_name + '_' + this.settings.markerTitleField;
+				var title = $('#'+titleFld).val();
+				if( title != '' ){
+					this.marker.bindTooltip(title).openTooltip();
+				}
+				if (typeof this.checkingTitleFld === 'undefined') {
+					$('#'+titleFld).on('change', $.proxy(this.checkMarkerTitle, this));
+					this.checkingTitleFld = true;
+				}
+			}
 		},
 
 		searchAddress : function (e){
@@ -154,7 +170,7 @@
 						latlng: [e.target._latlng.lat,e.target._latlng.lng]
 					}
 					$this.updateLocation(location);
-				});
+				})
 			}else{
 				this.marker.setLatLng(latlng.latlng);
 				if (latlng.zoom) {
@@ -223,7 +239,8 @@
 		  'default_zoom'       : ogm.default_zoom,
 		  'lat_field'          : $('#'+ogm.lat_field),
 		  'lng_field'          : $('#'+ogm.lng_field),
-		  'callback'           : maps_callback
+		  'callback'           : maps_callback,
+		  'markerTitleField'   : ogm.markerTitleField
 		});
 	});
 

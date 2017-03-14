@@ -18,7 +18,9 @@ class LocationType extends AbstractType
                 'default_lat' => '37.06394430056685',
                 'default_lng' => '-3.09814453125',
                 'map_width' => 600,
-                'type' => HiddenType::class
+                'type' => HiddenType::class,
+                'label' => false,
+                'markerTitleField' => $options['markerTitleField']
             ))
             ;
     }
@@ -26,7 +28,8 @@ class LocationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LocationBundle\Entity\Location'
+            'data_class' => 'LocationBundle\Entity\Location',
+            'markerTitleField' => false
         ));
     }
 }

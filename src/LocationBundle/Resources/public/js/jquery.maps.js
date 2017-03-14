@@ -111,10 +111,11 @@
 			if ( navigator.geolocation ) {
 				navigator.geolocation.getCurrentPosition ( 
 					function(position) {
-						var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-						$this.insertMarker(clientPosition);
-						$this.map.setCenter(clientPosition);
-						$this.map.setZoom(16);
+						console.log(position);
+						var latlng = {
+							latlng: [position.coords.latitude, position.coords.longitude]
+						}
+						$this.setMarker(latlng);
 					}, 
 					function(error) {
 						$this.settings.error_callback(error);

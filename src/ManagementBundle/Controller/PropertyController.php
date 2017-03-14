@@ -107,7 +107,7 @@ class PropertyController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($property);
 
             if ($property->getDocumentFile()) {
@@ -162,7 +162,7 @@ class PropertyController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($property);
             $em->flush();
 

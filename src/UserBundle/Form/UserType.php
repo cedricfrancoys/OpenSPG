@@ -4,9 +4,7 @@ namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserType extends AbstractType
 {
@@ -22,16 +20,16 @@ class UserType extends AbstractType
             ->add('image', null, array(
                 'image_path' => 'webPath',
                 'allow_remove' => false,
-                'required' => false
+                'required' => false,
             ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'UserBundle\Entity\User',
-            'translation_domain' => 'user'
-	    ));
-	}
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'UserBundle\Entity\User',
+            'translation_domain' => 'user',
+        ));
+    }
 }

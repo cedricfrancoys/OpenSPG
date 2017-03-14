@@ -5,7 +5,6 @@ namespace ProductBundle\Form\DataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-
 use ProductBundle\Entity\Family;
 
 class FamilyTransformer implements DataTransformerInterface
@@ -20,7 +19,8 @@ class FamilyTransformer implements DataTransformerInterface
     /**
      * Transforms an object (Family) to a string.
      *
-     * @param  Family|null $group
+     * @param Family|null $group
+     *
      * @return string
      */
     public function transform($family)
@@ -35,9 +35,11 @@ class FamilyTransformer implements DataTransformerInterface
     /**
      * Transforms a string to an object (Family).
      *
-     * @param  string $Family name
+     * @param string $Family name
+     *
      * @return Family|null
-     * @throws TransformationFailedException if object (Family) is not found.
+     *
+     * @throws TransformationFailedException if object (Family) is not found
      */
     public function reverseTransform($name)
     {

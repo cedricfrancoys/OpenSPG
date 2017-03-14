@@ -6,10 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 use AppBundle\Entity\Contact;
 use AppBundle\Form\ContactType;
-
 use AppBundle\Util\Util;
 
 class ContactController extends Controller
@@ -19,9 +17,9 @@ class ContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Contact", $this->get("router")->generate("app_contact_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Contact', $this->get('router')->generate('app_contact_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -54,7 +52,7 @@ class ContactController extends Controller
 
         $data = array(
             'form' => $form->createView(),
-            'menu' => 'contact'
+            'menu' => 'contact',
         );
 
         return $this->render('AppBundle:Contact:index.html.twig', $data);

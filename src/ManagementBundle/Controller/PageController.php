@@ -5,14 +5,10 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use PageBundle\Entity\Page;
-
 use ManagementBundle\Form\PageType;
 
 /**
@@ -27,11 +23,10 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Page", $this->get("router")->generate("management_page_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Page', $this->get('router')->generate('management_page_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -46,7 +41,7 @@ class PageController extends Controller
 
         $data = array(
             'pages' => $pages,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -59,11 +54,11 @@ class PageController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Page", $this->get("router")->generate("management_page_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_page_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Page', $this->get('router')->generate('management_page_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_page_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -78,7 +73,7 @@ class PageController extends Controller
             $page->setCreatedBy($this->getUser());
             $page->setUpdatedAt(new \DateTime());
             $page->setUpdatedBy($this->getUser());
-            
+
             $em->persist($page);
             $em->flush();
 
@@ -93,15 +88,16 @@ class PageController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_page_index');
-            }else{
-                $url = $this->generateUrl('management_page_edit', array('id'=>$page->getId()));
+            } else {
+                $url = $this->generateUrl('management_page_edit', array('id' => $page->getId()));
             }
+
             return new RedirectResponse($url);
         }
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -112,11 +108,11 @@ class PageController extends Controller
      */
     public function editAction(Page $page, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Page", $this->get("router")->generate("management_page_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_page_edit",array('id'=>$page->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Page', $this->get('router')->generate('management_page_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_page_edit', array('id' => $page->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -141,8 +137,8 @@ class PageController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_page_index');
-            }else{
-                $url = $this->generateUrl('management_page_edit', array('id'=>$page->getId()));
+            } else {
+                $url = $this->generateUrl('management_page_edit', array('id' => $page->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -151,7 +147,7 @@ class PageController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -162,11 +158,11 @@ class PageController extends Controller
      */
     public function markPaidAction(Fee $fee, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Fees", $this->get("router")->generate("management_fee_index"));
-        $breadcrumbs->addItem("Mark as paid", $this->get("router")->generate("management_fee_markpaid",array('id'=>$fee->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Fees', $this->get('router')->generate('management_fee_index'));
+        $breadcrumbs->addItem('Mark as paid', $this->get('router')->generate('management_fee_markpaid', array('id' => $fee->getId())));
 
         if (!$fee) {
             throw $this->createNotFoundException('Fee not found');
@@ -175,11 +171,11 @@ class PageController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/fee/markPaid')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/fee/markPaid')) {
             $session->remove('confirmation/management/fee/markPaid');
 
             $user = $fee->getUser();
-            if ($user->getNode() !== $this->getUser()->getNode()){
+            if ($user->getNode() !== $this->getUser()->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -196,13 +192,13 @@ class PageController extends Controller
             );
 
             return new RedirectResponse($this->generateUrl('management_fee_index'));
-        }else{
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/fee/markPaid', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }

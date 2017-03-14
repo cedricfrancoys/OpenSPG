@@ -3,10 +3,9 @@
 namespace ConsumerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Member
+ * Member.
  *
  * @ORM\Table(name="consumer")
  * @ORM\Entity(repositoryClass="ConsumerBundle\Repository\MemberRepository")
@@ -23,19 +22,19 @@ class Member
     protected $id;
 
     /**
-    * @var User
-    *
-    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist","remove"}, mappedBy="Consumer")
-    */
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist","remove"}, mappedBy="Consumer")
+     */
     protected $User;
 
     public function __toString()
     {
-        return ($this->getUser()) ? $this->getUser()->getName() . ' ' . $this->getUser()->getSurname() : '';
+        return ($this->getUser()) ? $this->getUser()->getName().' '.$this->getUser()->getSurname() : '';
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -45,14 +44,14 @@ class Member
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -67,7 +66,7 @@ class Member
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */

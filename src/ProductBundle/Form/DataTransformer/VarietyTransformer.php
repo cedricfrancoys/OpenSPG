@@ -5,7 +5,6 @@ namespace ProductBundle\Form\DataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-
 use ProductBundle\Entity\Variety;
 
 class VarietyTransformer implements DataTransformerInterface
@@ -20,7 +19,8 @@ class VarietyTransformer implements DataTransformerInterface
     /**
      * Transforms an object (variety) to a string.
      *
-     * @param  variety|null $group
+     * @param variety|null $group
+     *
      * @return string
      */
     public function transform($variety)
@@ -35,9 +35,11 @@ class VarietyTransformer implements DataTransformerInterface
     /**
      * Transforms a string to an object (variety).
      *
-     * @param  string $Variety name
+     * @param string $Variety name
+     *
      * @return Variety|null
-     * @throws TransformationFailedException if object (Variety) is not found.
+     *
+     * @throws TransformationFailedException if object (Variety) is not found
      */
     public function reverseTransform($name)
     {

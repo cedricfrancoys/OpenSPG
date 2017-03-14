@@ -191,28 +191,28 @@ class User implements UserInterface
     protected $phone;
 
     /**
-    * @var Node
-    *
-    * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
-    * @ORM\JoinColumn(onDelete="SET NULL")
-    * @Gedmo\Versioned
-    */
+     * @var Node
+     *
+     * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Gedmo\Versioned
+     */
     protected $Node;
 
     /**
-    * @var Producer
-    *
-    * @ORM\OneToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
-    * @Gedmo\Versioned
-    */
+     * @var Producer
+     *
+     * @ORM\OneToOne(targetEntity="\ProducerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+     * @Gedmo\Versioned
+     */
     protected $Producer;
 
     /**
-    * @var Consumer
-    *
-    * @ORM\OneToOne(targetEntity="\ConsumerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
-    * @Gedmo\Versioned
-    */
+     * @var Consumer
+     *
+     * @ORM\OneToOne(targetEntity="\ConsumerBundle\Entity\Member", cascade={"persist","remove"}, inversedBy="User")
+     * @Gedmo\Versioned
+     */
     protected $Consumer;
 
     /**
@@ -285,11 +285,11 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return $this->getName() . ' ' . $this->getSurname();
+        return $this->getName().' '.$this->getSurname();
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -303,7 +303,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -313,7 +313,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set surname
+     * Set surname.
      *
      * @param string $surname
      *
@@ -327,7 +327,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get surname
+     * Get surname.
      *
      * @return string
      */
@@ -337,7 +337,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
      *
@@ -351,7 +351,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
      * @return string
      */
@@ -361,7 +361,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set node
+     * Set node.
      *
      * @param \NodeBundle\Entity\Node $node
      *
@@ -375,7 +375,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get node
+     * Get node.
      *
      * @return \NodeBundle\Entity\Node
      */
@@ -385,7 +385,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set producer
+     * Set producer.
      *
      * @param \ProducerBundle\Entity\Member $producer
      *
@@ -399,7 +399,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get producer
+     * Get producer.
      *
      * @return \ProducerBundle\Entity\Member
      */
@@ -409,7 +409,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set consumer
+     * Set consumer.
      *
      * @param \ConsumerBundle\Entity\Member $consumer
      *
@@ -423,7 +423,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get consumer
+     * Get consumer.
      *
      * @return \ConsumerBundle\Entity\Member
      */
@@ -439,8 +439,10 @@ class User implements UserInterface
      */
     public function setImage(UploadedFile $image = null)
     {
-        if( null === $image ) return $this;
-        
+        if (null === $image) {
+            return $this;
+        }
+
         $this->image = $image;
 
         return $this;
@@ -452,24 +454,26 @@ class User implements UserInterface
     public function getImage()
     {
         $path = $this->getRootPath().'/web/imgs/user_imgs/'.$this->image;
+
         return (!$this->image || !file_exists($path))
-            ? null 
+            ? null
             : new File($path);
         // return $this->image;
     }
 
-    protected function getRootPath(){
+    protected function getRootPath()
+    {
         return dirname(dirname(dirname(dirname(__FILE__))));
     }
 
     /**
-     * Called before saving the entity
-     * 
+     * Called before saving the entity.
+     *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function preUpload()
-    {   
+    {
         if (null !== $this->image && !is_string($this->image)) {
             // do whatever you want to generate a unique name
             $this->file = $this->image;
@@ -479,19 +483,19 @@ class User implements UserInterface
     }
 
     /**
-     * Called before entity removal
+     * Called before entity removal.
      *
      * @ORM\PreRemove()
      */
     public function removeUpload()
     {
         if ($file = $this->getAbsolutePath()) {
-            unlink($file); 
+            unlink($file);
         }
     }
 
     /**
-     * Called after entity persistence
+     * Called after entity persistence.
      *
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
@@ -549,7 +553,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -563,7 +567,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -573,9 +577,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set receiveEmailNewProducer
+     * Set receiveEmailNewProducer.
      *
-     * @param boolean $receiveEmailNewProducer
+     * @param bool $receiveEmailNewProducer
      *
      * @return User
      */
@@ -587,7 +591,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get receiveEmailNewProducer
+     * Get receiveEmailNewProducer.
      *
      * @return bool
      */
@@ -597,9 +601,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set receiveEmailNewConsumer
+     * Set receiveEmailNewConsumer.
      *
-     * @param boolean $receiveEmailNewConsumer
+     * @param bool $receiveEmailNewConsumer
      *
      * @return User
      */
@@ -611,7 +615,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get receiveEmailNewConsumer
+     * Get receiveEmailNewConsumer.
      *
      * @return bool
      */
@@ -621,9 +625,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set receiveEmailNewVisit
+     * Set receiveEmailNewVisit.
      *
-     * @param boolean $receiveEmailNewVisit
+     * @param bool $receiveEmailNewVisit
      *
      * @return User
      */
@@ -635,7 +639,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get receiveEmailNewVisit
+     * Get receiveEmailNewVisit.
      *
      * @return bool
      */
@@ -645,9 +649,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set receiveEmailCompletedVisit
+     * Set receiveEmailCompletedVisit.
      *
-     * @param boolean $receiveEmailCompletedVisit
+     * @param bool $receiveEmailCompletedVisit
      *
      * @return User
      */
@@ -659,7 +663,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get receiveEmailCompletedVisit
+     * Get receiveEmailCompletedVisit.
      *
      * @return bool
      */
@@ -1104,16 +1108,17 @@ class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setLocked($boolean){
+    public function setLocked($boolean)
+    {
         $this->locked = $boolean;
 
         return $this;
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -1121,9 +1126,9 @@ class User implements UserInterface
     }
 
     /**
-     * Get locked
+     * Get locked.
      *
-     * @return boolean
+     * @return bool
      */
     public function getLocked()
     {
@@ -1131,9 +1136,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set expired
+     * Set expired.
      *
-     * @param boolean $expired
+     * @param bool $expired
      *
      * @return User
      */
@@ -1145,9 +1150,9 @@ class User implements UserInterface
     }
 
     /**
-     * Get expired
+     * Get expired.
      *
-     * @return boolean
+     * @return bool
      */
     public function getExpired()
     {
@@ -1155,7 +1160,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set expiresAt
+     * Set expiresAt.
      *
      * @param \DateTime $expiresAt
      *
@@ -1169,7 +1174,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get expiresAt
+     * Get expiresAt.
      *
      * @return \DateTime
      */
@@ -1179,9 +1184,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set credentialsExpired
+     * Set credentialsExpired.
      *
-     * @param boolean $credentialsExpired
+     * @param bool $credentialsExpired
      *
      * @return User
      */
@@ -1193,9 +1198,9 @@ class User implements UserInterface
     }
 
     /**
-     * Get credentialsExpired
+     * Get credentialsExpired.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCredentialsExpired()
     {
@@ -1203,7 +1208,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set credentialsExpireAt
+     * Set credentialsExpireAt.
      *
      * @param \DateTime $credentialsExpireAt
      *
@@ -1217,7 +1222,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get credentialsExpireAt
+     * Get credentialsExpireAt.
      *
      * @return \DateTime
      */
@@ -1227,7 +1232,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set registered
+     * Set registered.
      *
      * @param \DateTime $registered
      *
@@ -1241,7 +1246,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get registered
+     * Get registered.
      *
      * @return \DateTime
      */

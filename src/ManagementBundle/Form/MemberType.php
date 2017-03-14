@@ -5,21 +5,17 @@ namespace ManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-
-use \UserBundle\Form\ProfileType as pProfileType;
 
 class MemberType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,61 +24,60 @@ class MemberType extends AbstractType
             ->add('name')
             ->add('surname')
             ->add('phone', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('email', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('image', FileType::class, array(
                 'image_path' => 'webPath',
                 'allow_remove' => false,
-                'required' => false
+                'required' => false,
             ));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $user = $event->getData();
             $form = $event->getForm();
 
-            if( !$user || null === $user->getId() ){
+            if (!$user || null === $user->getId()) {
                 $form->add('password', PasswordType::class);
             }
 
             $form
                 ->add('receiveEmailNewProducer', null, array(
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('receiveEmailNewConsumer', null, array(
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('receiveEmailNewVisit', null, array(
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('receiveEmailCompletedVisit', null, array(
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('enabled', null, array(
-                    'required' => false
+                    'required' => false,
                 ))
             ;
 
-            if( !$user || null === $user->getId() ){
+            if (!$user || null === $user->getId()) {
                 $form->add('sendEmail', CheckboxType::class, array(
                     'label' => 'Send Email',
                     'mapped' => false,
-                    'required' => false
+                    'required' => false,
                 ));
             }
         });
-
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
+            'data_class' => 'UserBundle\Entity\User',
         ));
     }
 }

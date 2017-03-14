@@ -3,12 +3,11 @@
 namespace AppBundle\Util;
 
 use Symfony\Component\Translation\DataCollectorTranslator;
-
 use AppBundle\Entity\Contact;
 
 class Util
 {
-    static function sendReceivedMail(Contact $contact, DataCollectorTranslator $trans, \Swift_Mailer $mailer, \Twig_Environment $template)
+    public static function sendReceivedMail(Contact $contact, DataCollectorTranslator $trans, \Swift_Mailer $mailer, \Twig_Environment $template)
     {
         $subject = $trans->trans('New contact request received', array(), 'contact');
 
@@ -20,7 +19,7 @@ class Util
                 $template->render(
                     'AppBundle:Contact:admin_mail.html.twig',
                     array(
-                        'contact' => $contact
+                        'contact' => $contact,
                     )
                 ),
                 'text/html'

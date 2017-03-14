@@ -1,6 +1,7 @@
 <?php
+
 namespace UserBundle\Event;
- 
+
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -38,26 +39,29 @@ class VisitEventSubscriber
     {
         $this->em = $em;
     }
+
     public function setMailer($mailer)
     {
         $this->mailer = $mailer;
     }
+
     /**
-       * Set the translator
-       *
-       * @param TranslatorInterface $trans
-       * @return void
-       */
-    public function setTranslator(TranslatorInterface $trans) {
+     * Set the translator.
+     *
+     * @param TranslatorInterface $trans
+     */
+    public function setTranslator(TranslatorInterface $trans)
+    {
         $this->translator = $trans;
-    }   
+    }
+
     /**
-       * Set twig
-       *
-       * @param Twig_Environment $twig
-       * @return void
-    */
-    public function setTwig(\Twig_Environment $twig) {
+     * Set twig.
+     *
+     * @param Twig_Environment $twig
+     */
+    public function setTwig(\Twig_Environment $twig)
+    {
         $this->twig = $twig;
     }
 
@@ -65,7 +69,7 @@ class VisitEventSubscriber
     {
         $em = $this->em;
 
-        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewVisit'=>true));
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewVisit' => true));
     }
 
     protected function sendEmail($subscriber, $visit)
@@ -90,7 +94,7 @@ class VisitEventSubscriber
                         'producer' => $producer,
                         'producer_name' => $visitUser->getName().' '.$visitUser->getSurname(),
                         'property' => $property,
-                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
+                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile',
                     )
                 ),
                 'text/html'
@@ -103,7 +107,7 @@ class VisitEventSubscriber
     {
         $em = $this->em;
 
-        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailCompletedVisit'=>true));
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailCompletedVisit' => true));
     }
 
     protected function sendEmailCompleted($subscriber, $visit)
@@ -128,7 +132,7 @@ class VisitEventSubscriber
                         'producer' => $producer,
                         'producer_name' => $visitUser->getName().' '.$visitUser->getSurname(),
                         'property' => $property,
-                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
+                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile',
                     )
                 ),
                 'text/html'

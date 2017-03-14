@@ -5,7 +5,7 @@ namespace CartBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Cart
+ * Cart.
  *
  * @ORM\Table(name="cart")
  * @ORM\Entity(repositoryClass="CartBundle\Repository\CartRepository")
@@ -22,10 +22,10 @@ class Cart
     private $id;
 
     /**
-    * @var Product
-    *
-    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Stock")
-    */
+     * @var Product
+     *
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Stock")
+     */
     protected $Product;
 
     /**
@@ -36,10 +36,10 @@ class Cart
     private $amount;
 
     /**
-    * @var User
-    *
-    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-    */
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     */
     protected $User;
 
     /**
@@ -56,14 +56,13 @@ class Cart
      */
     private $modified = null;
 
-
     public function __construct()
     {
         $this->created = new \DateTime();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -73,7 +72,7 @@ class Cart
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
      *
@@ -87,7 +86,7 @@ class Cart
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -97,7 +96,7 @@ class Cart
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
      *
@@ -111,7 +110,7 @@ class Cart
     }
 
     /**
-     * Get created
+     * Get created.
      *
      * @return \DateTime
      */
@@ -121,7 +120,7 @@ class Cart
     }
 
     /**
-     * Set modified
+     * Set modified.
      *
      * @param \DateTime $modified
      *
@@ -135,7 +134,7 @@ class Cart
     }
 
     /**
-     * Get modified
+     * Get modified.
      *
      * @return \DateTime
      */
@@ -145,7 +144,7 @@ class Cart
     }
 
     /**
-     * Set product
+     * Set product.
      *
      * @param \ProducerBundle\Entity\Stock $product
      *
@@ -159,7 +158,7 @@ class Cart
     }
 
     /**
-     * Get product
+     * Get product.
      *
      * @return \ProducerBundle\Entity\Stock
      */
@@ -169,7 +168,7 @@ class Cart
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -183,7 +182,7 @@ class Cart
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */

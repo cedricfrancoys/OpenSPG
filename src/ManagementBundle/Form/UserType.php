@@ -3,14 +3,13 @@
 namespace ManagementBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
-
 use UserBundle\Form\BaseUserType;
 
 class UserType extends BaseUserType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

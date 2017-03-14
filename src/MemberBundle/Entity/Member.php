@@ -5,8 +5,8 @@ namespace MemberBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Member
-*
+ * Member.
+ *
  * @ORM\Table(name="member")
  * @ORM\Entity(repositoryClass="MemberBundle\Repository\MemberRepository")
  */
@@ -43,27 +43,26 @@ class Member
     protected $phone;
 
     /**
-    * @var User
-    *
-    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User")
-    */
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User")
+     */
     protected $User;
 
     /**
-    * @var Node
-    *
-    * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
-    */
+     * @var Node
+     *
+     * @ORM\ManyToOne(targetEntity="\NodeBundle\Entity\Node")
+     */
     protected $Node;
 
     public function __toString()
     {
-        return $this->getName() . ' ' . $this->getSurname();
+        return $this->getName().' '.$this->getSurname();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -73,7 +72,7 @@ class Member
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -87,7 +86,7 @@ class Member
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -97,7 +96,7 @@ class Member
     }
 
     /**
-     * Set surname
+     * Set surname.
      *
      * @param string $surname
      *
@@ -111,7 +110,7 @@ class Member
     }
 
     /**
-     * Get surname
+     * Get surname.
      *
      * @return string
      */
@@ -121,7 +120,7 @@ class Member
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -135,7 +134,7 @@ class Member
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */
@@ -145,7 +144,7 @@ class Member
     }
 
     /**
-     * Set node
+     * Set node.
      *
      * @param \NodeBundle\Entity\Node $node
      *
@@ -159,7 +158,7 @@ class Member
     }
 
     /**
-     * Get node
+     * Get node.
      *
      * @return \NodeBundle\Entity\Node
      */

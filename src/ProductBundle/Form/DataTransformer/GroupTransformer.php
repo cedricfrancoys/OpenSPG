@@ -5,7 +5,6 @@ namespace ProductBundle\Form\DataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-
 use ProductBundle\Entity\ProductGroup;
 
 class GroupTransformer implements DataTransformerInterface
@@ -20,7 +19,8 @@ class GroupTransformer implements DataTransformerInterface
     /**
      * Transforms an object (Group) to a string.
      *
-     * @param  ProductGroup|null $group
+     * @param ProductGroup|null $group
+     *
      * @return string
      */
     public function transform($group)
@@ -35,9 +35,11 @@ class GroupTransformer implements DataTransformerInterface
     /**
      * Transforms a string to an object (Group).
      *
-     * @param  string $Group name
+     * @param string $Group name
+     *
      * @return Group|null
-     * @throws TransformationFailedException if object (Group) is not found.
+     *
+     * @throws TransformationFailedException if object (Group) is not found
      */
     public function reverseTransform($name)
     {

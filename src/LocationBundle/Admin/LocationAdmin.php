@@ -7,12 +7,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-
 use mhauptma73\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 
 class LocationAdmin extends AbstractAdmin
 {
-    public function configure() {
+    public function configure()
+    {
         $this->setTemplate('edit', 'LocationBundle:CRUD:edit.html.twig');
     }
 
@@ -39,8 +39,8 @@ class LocationAdmin extends AbstractAdmin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array()
-                )
+                    'delete' => array(),
+                ),
             ))
         ;
     }
@@ -55,7 +55,7 @@ class LocationAdmin extends AbstractAdmin
                 'default_lat' => '37.06394430056685',
                 'default_lng' => '-3.09814453125',
                 'map_width' => 600,
-                'type' => 'hidden'
+                'type' => 'hidden',
             ))
         ;
     }

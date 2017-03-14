@@ -5,7 +5,7 @@ namespace FeeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fee
+ * Fee.
  *
  * @ORM\Table(name="fee")
  * @ORM\Entity(repositoryClass="FeeBundle\Repository\FeeRepository")
@@ -66,9 +66,8 @@ class Fee
      */
     private $amount;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -78,7 +77,7 @@ class Fee
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
      *
@@ -92,7 +91,7 @@ class Fee
     }
 
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */
@@ -102,7 +101,7 @@ class Fee
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -116,7 +115,7 @@ class Fee
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -126,7 +125,7 @@ class Fee
     }
 
     /**
-     * Set startDate
+     * Set startDate.
      *
      * @param \DateTime $startDate
      *
@@ -140,7 +139,7 @@ class Fee
     }
 
     /**
-     * Get startDate
+     * Get startDate.
      *
      * @return \DateTime
      */
@@ -150,7 +149,7 @@ class Fee
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
      *
@@ -164,7 +163,7 @@ class Fee
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */
@@ -174,7 +173,7 @@ class Fee
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -188,7 +187,7 @@ class Fee
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */
@@ -198,7 +197,7 @@ class Fee
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
      *
@@ -212,7 +211,7 @@ class Fee
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */

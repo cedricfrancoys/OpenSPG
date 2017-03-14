@@ -1,6 +1,7 @@
 <?php
+
 namespace ProducerBundle\Event;
- 
+
 use Symfony\Component\EventDispatcher\Event;
 
 class VisitEventSubscriber
@@ -19,15 +20,15 @@ class VisitEventSubscriber
         if ($action == 'add' && $visit->getAccepted()) {
             $this->producerManager->setApproved();
             // $producer->setActiveAsProducer(true);
-        }elseif ($action == 'add' && $visit->getAccepted() === false) {
+        } elseif ($action == 'add' && $visit->getAccepted() === false) {
             $producer->setActiveAsProducer(false);
-        }elseif ($action == 'edit') {
-            $visits = $this->em->getRepository('ProducerBundle:Visit')->findBy(array('Producer'=>$producer), array('visitDate'=>'DESC'));
+        } elseif ($action == 'edit') {
+            $visits = $this->em->getRepository('ProducerBundle:Visit')->findBy(array('Producer' => $producer), array('visitDate' => 'DESC'));
             if ($visits[0] == $visit) {
                 if ($visit->getAccepted()) {
                     $this->producerManager->setApproved();
                     // $producer->setActiveAsProducer(true);
-                }elseif($visit->getAccepted() === false){
+                } elseif ($visit->getAccepted() === false) {
                     $producer->setActiveAsProducer(false);
                 }
             }

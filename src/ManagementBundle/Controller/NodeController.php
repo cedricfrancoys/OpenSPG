@@ -5,11 +5,8 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use NodeBundle\Entity\Node;
 use ManagementBundle\Form\NodeType;
 
@@ -24,10 +21,10 @@ class NodeController extends Controller
      */
     public function editAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Node", $this->get("router")->generate("management_node_edit"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Node', $this->get('router')->generate('management_node_edit'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -53,8 +50,8 @@ class NodeController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_default_index');
-            }else{
-                $url = $this->generateUrl('management_node_edit', array('id'=>$node->getId()));
+            } else {
+                $url = $this->generateUrl('management_node_edit', array('id' => $node->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -63,7 +60,7 @@ class NodeController extends Controller
 
         return $this->render('ManagementBundle:Node:edit.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         ));
     }
 }

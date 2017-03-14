@@ -5,7 +5,7 @@ namespace ProducerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * VisitProduction
+ * VisitProduction.
  *
  * @ORM\Table(name="visit_reject_approval")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\RejectApprovalRepository")
@@ -42,9 +42,8 @@ class RejectApproval
      */
     private $reason;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -54,7 +53,7 @@ class RejectApproval
     }
 
     /**
-     * Set reason
+     * Set reason.
      *
      * @param string $reason
      *
@@ -68,7 +67,7 @@ class RejectApproval
     }
 
     /**
-     * Get reason
+     * Get reason.
      *
      * @return string
      */
@@ -78,7 +77,7 @@ class RejectApproval
     }
 
     /**
-     * Set visit
+     * Set visit.
      *
      * @param \ProducerBundle\Entity\Visit $visit
      *
@@ -92,7 +91,7 @@ class RejectApproval
     }
 
     /**
-     * Get visit
+     * Get visit.
      *
      * @return \ProducerBundle\Entity\Visit
      */
@@ -102,7 +101,7 @@ class RejectApproval
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -116,7 +115,7 @@ class RejectApproval
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */

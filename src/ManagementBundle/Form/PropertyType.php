@@ -5,32 +5,27 @@ namespace ManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
-
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-
 use LocationBundle\Form\LocationType;
 
 class PropertyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $year = date('Y');
         $lastTenYears = array();
-        for ($i=$year; $i > $year-50 ; $i--) { 
+        for ($i = $year; $i > $year - 50; --$i) {
             $lastTenYears[$i] = $i;
         }
 
@@ -47,41 +42,41 @@ class PropertyType extends AbstractType
                         ->setParameter('role', '%ROLE_PRODUCER%')
                         ->orderBy('u.name', 'ASC');
                 },
-                'choice_label' => function($member){
-                    return $member->getUser()->getName() . ' ' . $member->getUser()->getSurname();
+                'choice_label' => function ($member) {
+                    return $member->getUser()->getName().' '.$member->getUser()->getSurname();
                 },
-                'label' => 'Producer'
+                'label' => 'Producer',
             ))
             ->add('areaName')
             ->add('address')
             ->add('regNr')
             ->add('name', null, array(
                 'attr' => array(
-                    'class' => 'nameField'
-                )
+                    'class' => 'nameField',
+                ),
             ))
             ->add('Location', LocationType::class, array(
-                'markerTitleField' => 'name'
+                'markerTitleField' => 'name',
             ))
             ->add('tenure')
             ->add('size')
             ->add('previousUses')
             ->add('waterTypeOrigin', null, array(
-                'help' => 'water type origin help'
+                'help' => 'water type origin help',
             ))
             ->add('crops', null, array(
-                'help' => 'crops help'
+                'help' => 'crops help',
             ))
             ->add('certified')
             ->add('certifiedYears', ChoiceType::class, array(
                 'choices' => $lastTenYears,
                 'multiple' => true,
-                'translation_domain' => false
+                'translation_domain' => false,
             ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', DateType::class, array(
                 'placeholder' => 'Never',
-                'required' => false
+                'required' => false,
             ))
             ->add('fertilizer')
             ->add('phytosanitary')
@@ -93,38 +88,38 @@ class PropertyType extends AbstractType
             ->add('productConservation')
             ->add('productConservationDetails')
             ->add('surroundings', null, array(
-                'help' => 'surroundings help'
+                'help' => 'surroundings help',
             ))
             ->add('surroundingProblems', null, array(
-                'help' => 'surrounding problems help'
+                'help' => 'surrounding problems help',
             ))
             ->add('sketchFile', VichImageType::class, array(
                 'required' => false,
-                'help' => 'sketch help'
+                'help' => 'sketch help',
             ))
             ->add('documentFile', VichFileType::class, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',
-                'attr' => array('btn'=>'buttons')
+                'attr' => array('btn' => 'buttons'),
             ))
             ->add('saveAndClose', SubmitType::class, array(
                 'translation_domain' => 'messages',
-                'attr' => array('btn'=>'buttons')
+                'attr' => array('btn' => 'buttons'),
             ))
             ->add('cancel', ResetType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array(
                     'btn' => 'buttons',
                     'class' => 'btn-danger cancel-btn',
-                    'data-path' => 'manager_property_index'
+                    'data-path' => 'manager_property_index',
                 ),
-                'label' => 'Close'
+                'label' => 'Close',
             ))
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -133,7 +128,7 @@ class PropertyType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Property',
             'translation_domain' => 'property',
-            'node' => false
+            'node' => false,
         ));
     }
 }

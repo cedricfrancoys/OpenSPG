@@ -3,7 +3,6 @@
 namespace LocationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
@@ -12,11 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-use LocationBundle\Form\LocationType;
-
 class MapType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */
@@ -34,20 +30,20 @@ class MapType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'type'           => TextType::class,  // the types to render the lat and lng fields as
-            'options'        => array(), // the options for both the fields
-            'lat_options'  => array(),   // the options for just the lat field
+            'type' => TextType::class,  // the types to render the lat and lng fields as
+            'options' => array(), // the options for both the fields
+            'lat_options' => array(),   // the options for just the lat field
             'lng_options' => array(),    // the options for just the lng field
-            'lat_name'       => 'lat',   // the name of the lat field
-            'lng_name'       => 'lng',   // the name of the lng field
+            'lat_name' => 'lat',   // the name of the lat field
+            'lng_name' => 'lng',   // the name of the lng field
             'error_bubbling' => false,
-            'map_width'      => 300,     // the width of the map
-            'map_height'     => 300,     // the height of the map
-            'default_lat'    => 51.5,    // the starting position on the map
-            'default_lng'    => -0.1245, // the starting position on the map
+            'map_width' => 300,     // the width of the map
+            'map_height' => 300,     // the height of the map
+            'default_lat' => 51.5,    // the starting position on the map
+            'default_lng' => -0.1245, // the starting position on the map
             'include_jquery' => false,   // jquery needs to be included above the field (ie not at the bottom of the page)
-            'include_gmaps_js'=>true,     // is this the best place to include the google maps javascript?
-            'markerTitleField'=>false    // Defines if there is a field from which we can update the title of the displayed marker
+            'include_gmaps_js' => true,     // is this the best place to include the google maps javascript?
+            'markerTitleField' => false,    // Defines if there is a field from which we can update the title of the displayed marker
         ));
     }
 
@@ -56,15 +52,15 @@ class MapType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-            $view->vars['lat_name'] = $options['lat_name']; 
-            $view->vars['lng_name'] = $options['lng_name']; 
-            $view->vars['map_width'] = $options['map_width']; 
-            $view->vars['map_height'] = $options['map_height']; 
-            $view->vars['default_lat'] = $options['default_lat']; 
-            $view->vars['default_lng'] = $options['default_lng']; 
-            $view->vars['include_jquery'] = $options['include_jquery']; 
-            $view->vars['include_gmaps_js'] = $options['include_gmaps_js'];
-            $view->vars['markerTitleField'] = ($options['markerTitleField'])?$options['markerTitleField']:'false';
+        $view->vars['lat_name'] = $options['lat_name'];
+        $view->vars['lng_name'] = $options['lng_name'];
+        $view->vars['map_width'] = $options['map_width'];
+        $view->vars['map_height'] = $options['map_height'];
+        $view->vars['default_lat'] = $options['default_lat'];
+        $view->vars['default_lng'] = $options['default_lng'];
+        $view->vars['include_jquery'] = $options['include_jquery'];
+        $view->vars['include_gmaps_js'] = $options['include_gmaps_js'];
+        $view->vars['markerTitleField'] = ($options['markerTitleField']) ? $options['markerTitleField'] : 'false';
     }
 
     public function getParent()

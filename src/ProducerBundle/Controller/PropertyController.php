@@ -5,12 +5,9 @@ namespace ProducerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use ProducerBundle\Entity\Property;
 use ProducerBundle\Form\PropertyType;
 
@@ -25,16 +22,16 @@ class PropertyController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('producer_property_index'));
 
         $properties = $this->getUser()->getProducer()->getProperties();
 
         return $this->render('ProducerBundle:Property:index.html.twig', array(
             'properties' => $properties,
-            'menu' => 'account'
+            'menu' => 'account',
         ));
     }
 
@@ -43,11 +40,11 @@ class PropertyController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_property_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('producer_property_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('producer_property_add'));
 
         $property = new Property();
 
@@ -65,7 +62,7 @@ class PropertyController extends Controller
             $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('producer_property_edit', array('id'=>$property->getId()));
+            $url = $this->generateUrl('producer_property_edit', array('id' => $property->getId()));
             $response = new RedirectResponse($url);
 
             return $response;
@@ -73,7 +70,7 @@ class PropertyController extends Controller
 
         return $this->render('ProducerBundle:Property:edit.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'account'
+            'menu' => 'account',
         ));
     }
 
@@ -82,11 +79,11 @@ class PropertyController extends Controller
      */
     public function editAction(Property $property, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Properties", $this->get("router")->generate("producer_property_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("producer_property_edit", array('id'=>$property->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('producer_property_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('producer_property_edit', array('id' => $property->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -102,14 +99,14 @@ class PropertyController extends Controller
             $em->persist($property);
             $em->flush();
 
-            $url = $this->generateUrl('producer_property_edit', array('id'=>$property->getId()));
+            $url = $this->generateUrl('producer_property_edit', array('id' => $property->getId()));
             $response = new RedirectResponse($url);
 
             return $response;
         }
 
         return $this->render('ProducerBundle:Property:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 }

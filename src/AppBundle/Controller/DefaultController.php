@@ -33,7 +33,7 @@ class DefaultController extends Controller
             'latestVisits' => $latestVisits,
             'news' => $news,
             'pendingApprovalVisits' => $pendingApprovalVisits,
-            'properties' => $properties
+            'properties' => $properties,
         );
 
         return $this->render('AppBundle:Default:index.html.twig', $data);
@@ -56,5 +56,5 @@ class DefaultController extends Controller
             )
         ;
         $mailer->send($message);
-    }    
+    }
 }

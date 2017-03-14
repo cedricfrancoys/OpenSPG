@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Member
+ * Member.
  *
  * @ORM\Table(name="producer")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\MemberRepository")
@@ -30,33 +30,33 @@ class Member
     private $activeAsProducer;
 
     /**
-    * @var User
-    *
-    * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist","remove"}, mappedBy="Producer")
-    */
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="\UserBundle\Entity\User", cascade={"persist","remove"}, mappedBy="Producer")
+     */
     protected $User;
 
     /**
-    * @var Properties
-    *
-    * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member", cascade={"persist"})
-    */
+     * @var Properties
+     *
+     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Property", mappedBy="Member", cascade={"persist"})
+     */
     protected $Properties;
 
     /**
-    * @var Stocks
-    *
-    * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Stock", mappedBy="Producer", cascade={"persist"})
-    */
+     * @var Stocks
+     *
+     * @ORM\OneToMany(targetEntity="\ProducerBundle\Entity\Stock", mappedBy="Producer", cascade={"persist"})
+     */
     protected $Stocks;
 
     public function __toString()
     {
-        return ($this->getUser()) ? $this->getUser()->getName() . ' ' . $this->getUser()->getSurname() : '';
+        return ($this->getUser()) ? $this->getUser()->getName().' '.$this->getUser()->getSurname() : '';
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -66,7 +66,7 @@ class Member
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -74,7 +74,7 @@ class Member
     }
 
     /**
-     * Add property
+     * Add property.
      *
      * @param \ProducerBundle\Entity\Property $property
      *
@@ -89,7 +89,7 @@ class Member
     }
 
     /**
-     * Remove property
+     * Remove property.
      *
      * @param \ProducerBundle\Entity\Property $property
      */
@@ -99,7 +99,7 @@ class Member
     }
 
     /**
-     * Get properties
+     * Get properties.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -109,7 +109,7 @@ class Member
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
      *
@@ -124,7 +124,7 @@ class Member
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */
@@ -134,9 +134,9 @@ class Member
     }
 
     /**
-     * Set activeAsProducer
+     * Set activeAsProducer.
      *
-     * @param boolean $activeAsProducer
+     * @param bool $activeAsProducer
      *
      * @return Member
      */
@@ -148,9 +148,9 @@ class Member
     }
 
     /**
-     * Get activeAsProducer
+     * Get activeAsProducer.
      *
-     * @return boolean
+     * @return bool
      */
     public function getActiveAsProducer()
     {
@@ -158,7 +158,7 @@ class Member
     }
 
     /**
-     * Add stock
+     * Add stock.
      *
      * @param \ProducerBundle\Entity\Stock $stock
      *
@@ -172,7 +172,7 @@ class Member
     }
 
     /**
-     * Remove stock
+     * Remove stock.
      *
      * @param \ProducerBundle\Entity\Stock $stock
      */
@@ -182,7 +182,7 @@ class Member
     }
 
     /**
-     * Get stocks
+     * Get stocks.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

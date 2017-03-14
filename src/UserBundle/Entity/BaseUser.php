@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Storage agnostic user object
+ * Storage agnostic user object.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
@@ -45,12 +45,12 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     protected $emailCanonical;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $enabled;
 
     /**
-     * The salt to use for hashing
+     * The salt to use for hashing.
      *
      * @var string
      */
@@ -76,7 +76,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     protected $lastLogin;
 
     /**
-     * Random string sent to the user email address in order to verify it
+     * Random string sent to the user email address in order to verify it.
      *
      * @var string
      */
@@ -93,12 +93,12 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     protected $groups;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $locked;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $expired;
 
@@ -113,7 +113,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     protected $roles;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $credentialsExpired;
 
@@ -211,7 +211,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -274,7 +274,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * Returns the user roles
+     * Returns the user roles.
      *
      * @return array The roles
      */
@@ -302,7 +302,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
      *
      * @param string $role
      *
-     * @return boolean
+     * @return bool
      */
     public function hasRole($role)
     {
@@ -402,7 +402,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * @param boolean $boolean
+     * @param bool $boolean
      *
      * @return User
      */
@@ -429,7 +429,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
 
     public function setEnabled($boolean)
     {
-        $this->enabled = (Boolean) $boolean;
+        $this->enabled = (bool) $boolean;
 
         return $this;
     }
@@ -437,13 +437,13 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     /**
      * Sets this user to expired.
      *
-     * @param Boolean $boolean
+     * @param bool $boolean
      *
      * @return User
      */
     public function setExpired($boolean)
     {
-        $this->expired = (Boolean) $boolean;
+        $this->expired = (bool) $boolean;
 
         return $this;
     }
@@ -563,7 +563,7 @@ abstract class BaseUser implements UserInterface, GroupableInterface
     /**
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function hasGroup($name)
     {

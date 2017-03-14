@@ -8,12 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use ProductBundle\Entity\Variety;
 
 /**
-* @Route("/producer/product/variety")
-*/
+ * @Route("/producer/product/variety")
+ */
 class VarietyController extends Controller
 {
     /**
@@ -31,8 +30,7 @@ class VarietyController extends Controller
             ->createQueryBuilder('v')
             ->select('v');
 
-        if( $family )
-        {
+        if ($family) {
             $Family = $em->getRepository('ProductBundle:Family')->findOneByName($family);
             $varieties->where('v.Family = :family')
                 ->setParameter('family', $Family);
@@ -57,41 +55,42 @@ class VarietyController extends Controller
 
         $suggestion = $request->request->get('suggestion');
         $group = $request->request->get('group');
-        $Group = $em->getRepository('ProductBundle:ProductGroup')->findOneBy(array('name'=>$group));
+        $Group = $em->getRepository('ProductBundle:ProductGroup')->findOneBy(array('name' => $group));
         $family = $request->request->get('family');
-        $Family = $em->getRepository('ProductBundle:Family')->findOneBy(array('name'=>$family, 'Group'=>$Group));
+        $Family = $em->getRepository('ProductBundle:Family')->findOneBy(array('name' => $family, 'Group' => $Group));
 
         if (null === $Group) {
             $response = new JsonResponse();
-            $response->setData(array('msg'=>'Error saving variety data. Group is missing.'));
+            $response->setData(array('msg' => 'Error saving variety data. Group is missing.'));
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-            return $response;    
+
+            return $response;
         }
 
         if (null === $Family) {
             $response = new JsonResponse();
-            $response->setData(array('msg'=>'Error saving variety data. Family is missing.'));
+            $response->setData(array('msg' => 'Error saving variety data. Family is missing.'));
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-            return $response;    
+
+            return $response;
         }
 
-        try
-        {
+        try {
             $variety = new Variety();
             $variety->setName($suggestion);
             $variety->setFamily($Family);
 
             $em->persist($variety);
             $em->flush();
-        }catch(\Exception $e){}
+        } catch (\Exception $e) {
+        }
 
         $varieties = $em->
             getRepository('ProductBundle:Variety')
             ->createQueryBuilder('v')
             ->select('v');
 
-        if( $family )
-        {
+        if ($family) {
             $varieties->where('v.Family = :family')
                 ->setParameter('family', $Family);
         }
@@ -103,6 +102,6 @@ class VarietyController extends Controller
         $response->setData($varieties);
         $response->setStatusCode(Response::HTTP_CREATED);
 
-        return $response;        
+        return $response;
     }
 }

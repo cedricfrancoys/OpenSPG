@@ -4,15 +4,9 @@ namespace ProductBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-
 use Doctrine\Common\Persistence\ObjectManager;
-
 use AppBundle\Form\Type\TypeaheadType;
-
 use ProductBundle\Form\DataTransformer\GroupTransformer;
 use ProductBundle\Form\DataTransformer\FamilyTransformer;
 use ProductBundle\Form\DataTransformer\VarietyTransformer;
@@ -28,20 +22,20 @@ class ProductType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
             ->add('Group', TypeaheadType::class, array(
-                'compound' => false
+                'compound' => false,
             ))
             ->add('Family', TypeaheadType::class, array(
-                'compound' => false
+                'compound' => false,
             ))
             ->add('Variety', TypeaheadType::class, array(
-                'compound' => false
+                'compound' => false,
             ))
         ;
 
@@ -52,7 +46,7 @@ class ProductType extends AbstractType
         $builder->get('Variety')
             ->addModelTransformer(new VarietyTransformer($this->manager));
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -60,7 +54,7 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProductBundle\Entity\Product',
-            'translation_domain' => 'product'
+            'translation_domain' => 'product',
         ));
     }
 }

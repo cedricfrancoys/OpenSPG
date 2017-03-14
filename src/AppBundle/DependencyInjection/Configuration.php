@@ -7,11 +7,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    const DEFAULT_JS_FILE  = '%kernel.root_dir%/../src/AppBundle/Resources/public/js/typeahead.jquery.js';
-    const DEFAULT_JS_OUTPUT  = 'js/typeahead.js';
+    const DEFAULT_JS_FILE = '%kernel.root_dir%/../src/AppBundle/Resources/public/js/typeahead.jquery.js';
+    const DEFAULT_JS_OUTPUT = 'js/typeahead.js';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+
         return $treeBuilder;
     }
 }

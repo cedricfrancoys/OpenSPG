@@ -5,13 +5,9 @@ namespace ProducerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use ProducerBundle\Entity\Stock;
 use ProductBundle\Entity\Product;
 use ProducerBundle\Form\StockType;
@@ -28,14 +24,14 @@ class StockController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Stocks', $this->get('router')->generate('producer_stock_index'));
 
         $producer = $this->getUser()->getProducer();
 
-        if( null === $producer ){
+        if (null === $producer) {
             throw new AccessDeniedException();
         }
 
@@ -43,7 +39,7 @@ class StockController extends Controller
 
         return $this->render('ProducerBundle:Stock:index.html.twig', array(
             'products' => $products,
-            'menu' => 'account'
+            'menu' => 'account',
         ));
     }
 
@@ -53,11 +49,11 @@ class StockController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("producer_stock_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Stocks', $this->get('router')->generate('producer_stock_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('producer_stock_add'));
 
         $stock = new Stock();
         $product = new Product();
@@ -76,7 +72,7 @@ class StockController extends Controller
             $em->persist($stock);
             $em->flush();
 
-            $url = $this->generateUrl('producer_stock_edit', array('id'=>$stock->getId()));
+            $url = $this->generateUrl('producer_stock_edit', array('id' => $stock->getId()));
             $response = new RedirectResponse($url);
 
             return $response;
@@ -103,7 +99,7 @@ class StockController extends Controller
             'family_add_path' => $this->generateUrl('product_family_add'),
             'variety_get_path' => $this->generateUrl('product_variety_get'),
             'variety_add_path' => $this->generateUrl('product_variety_add'),
-            'product_add_path' => $this->generateUrl('product_product_add')
+            'product_add_path' => $this->generateUrl('product_product_add'),
         ));
     }
 
@@ -113,11 +109,11 @@ class StockController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("producer_stock_index"));
-        $breadcrumbs->addItem("edit", $this->get("router")->generate("producer_stock_edit", array('id'=>$id)));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Products', $this->get('router')->generate('producer_stock_index'));
+        $breadcrumbs->addItem('edit', $this->get('router')->generate('producer_stock_edit', array('id' => $id)));
 
         $em = $this->getDoctrine()->getManager();
         $stock = $em->getRepository('ProducerBundle:Stock')->find($id);
@@ -163,7 +159,7 @@ class StockController extends Controller
             'family_add_path' => $this->generateUrl('product_family_add'),
             'variety_get_path' => $this->generateUrl('product_variety_get'),
             'variety_add_path' => $this->generateUrl('product_variety_add'),
-            'product_add_path' => $this->generateUrl('product_product_add')
+            'product_add_path' => $this->generateUrl('product_product_add'),
         ));
     }
 }

@@ -3,16 +3,10 @@
 namespace ProducerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use ProducerBundle\Entity\Visit;
-use ProducerBundle\Form\VisitType;
-use ProducerBundle\Form\SignMeUpType;
 use ProducerBundle\Entity\Member;
 
 /**
@@ -25,10 +19,10 @@ class PublicProducerVisitController extends Controller
      */
     public function indexAction(Member $producer)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_producer_index"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_publicproducervisit_index", array('id'=>$producer->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_producer_index'));
+        $breadcrumbs->addItem('Visits', $this->get('router')->generate('producer_publicproducervisit_index', array('id' => $producer->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -48,7 +42,7 @@ class PublicProducerVisitController extends Controller
 
         return $this->render('ProducerBundle:PublicProducerVisit:index.html.twig', array(
             'visits' => $visits,
-            'menu' => 'producer'
+            'menu' => 'producer',
         ));
     }
 
@@ -60,15 +54,15 @@ class PublicProducerVisitController extends Controller
     {
         $producer = $visit->getProducer();
 
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_producer_index"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_publicproducervisit_index", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem("Show", $this->get("router")->generate("producer_publicproducervisit_show", array('id'=>$visit->getProducer()->getId(),'visit_id'=>$visit->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_producer_index'));
+        $breadcrumbs->addItem('Visits', $this->get('router')->generate('producer_publicproducervisit_index', array('id' => $producer->getId())));
+        $breadcrumbs->addItem('Show', $this->get('router')->generate('producer_publicproducervisit_show', array('id' => $visit->getProducer()->getId(), 'visit_id' => $visit->getId())));
 
         return $this->render('ProducerBundle:PublicProducerVisit:show.html.twig', array(
             'visit' => $visit,
-            'menu' => 'producer'
+            'menu' => 'producer',
         ));
     }
 }

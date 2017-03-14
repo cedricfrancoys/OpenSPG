@@ -5,7 +5,7 @@ namespace PageBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Page
+ * Page.
  *
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="PageBundle\Repository\PageRepository")
@@ -70,9 +70,8 @@ class Page
      */
     private $updatedBy;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -82,7 +81,7 @@ class Page
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -96,7 +95,7 @@ class Page
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -106,7 +105,7 @@ class Page
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -120,7 +119,7 @@ class Page
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -130,7 +129,7 @@ class Page
     }
 
     /**
-     * Set path
+     * Set path.
      *
      * @param string $path
      *
@@ -144,7 +143,7 @@ class Page
     }
 
     /**
-     * Get path
+     * Get path.
      *
      * @return string
      */
@@ -154,7 +153,7 @@ class Page
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -168,7 +167,7 @@ class Page
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -178,7 +177,7 @@ class Page
     }
 
     /**
-     * Set createdBy
+     * Set createdBy.
      *
      * @param \UserBundle\Entity\User $createdBy
      *
@@ -192,7 +191,7 @@ class Page
     }
 
     /**
-     * Get createdBy
+     * Get createdBy.
      *
      * @return \UserBundle\Entity\User
      */
@@ -202,7 +201,7 @@ class Page
     }
 
     /**
-     * Set updatedBy
+     * Set updatedBy.
      *
      * @param \UserBundle\Entity\User $updatedBy
      *
@@ -216,7 +215,7 @@ class Page
     }
 
     /**
-     * Get updatedBy
+     * Get updatedBy.
      *
      * @return \UserBundle\Entity\User
      */
@@ -226,7 +225,7 @@ class Page
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -240,7 +239,7 @@ class Page
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */

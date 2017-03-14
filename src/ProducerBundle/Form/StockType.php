@@ -6,28 +6,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityRepository;
-
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-
-use ProductBundle\Form\ProductType;
 
 class StockType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('Product', EntityType::class, array(
                 'class' => 'ProductBundle:Product',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ))
             ->add('unit')
             ->add('amount', NumberType::class)
@@ -36,7 +30,7 @@ class StockType extends AbstractType
             ->add('save', SubmitType::class)
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -44,7 +38,7 @@ class StockType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Stock',
-            'translation_domain' => 'stock'
+            'translation_domain' => 'stock',
         ));
     }
 }

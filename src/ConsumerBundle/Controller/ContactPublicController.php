@@ -2,18 +2,10 @@
 
 namespace ConsumerBundle\Controller;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use AppBundle\Entity\Contact;
 use ConsumerBundle\Form\ContactType;
 use ConsumerBundle\Entity\Member;
@@ -28,19 +20,19 @@ class ContactPublicController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Consumers", $this->get("router")->generate("consumer_consumer_index"));
-        $breadcrumbs->addItem("Contact", $this->get("router")->generate("consumer_contactpublic_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Consumers', $this->get('router')->generate('consumer_consumer_index'));
+        $breadcrumbs->addItem('Contact', $this->get('router')->generate('consumer_contactpublic_index'));
 
         $em = $this->getDoctrine()->getManager();
 
         $contact = new Contact();
 
-        if ($request->get('consumer_id')){
+        if ($request->get('consumer_id')) {
             $consumer = $em->getRepository('ConsumerBundle:Member')->find($request->get('consumer_id'));
             $contact->setReceiver($consumer->getUser());
-        }else{
+        } else {
             $consumer = null;
         }
 
@@ -72,7 +64,7 @@ class ContactPublicController extends Controller
 
         $data = array(
             'form' => $form->createView(),
-            'menu' => 'consumer'
+            'menu' => 'consumer',
         );
 
         return $this->render('ConsumerBundle:ContactPublic:index.html.twig', $data);
@@ -83,10 +75,10 @@ class ContactPublicController extends Controller
         $trans = $this->get('translator');
 
         $subject = $trans->trans('New contact request received', array(), 'contact');
-        if( $consumer ){
+        if ($consumer) {
             $receiver = $consumer->getUser()->getEmail();
         }
-        if(!$receiver){
+        if (!$receiver) {
             return;
         }
 
@@ -98,7 +90,7 @@ class ContactPublicController extends Controller
                 $this->renderView(
                     'ConsumerBundle:ContactPublic:contact_mail.html.twig',
                     array(
-                        'contact' => $contact
+                        'contact' => $contact,
                     )
                 ),
                 'text/html'

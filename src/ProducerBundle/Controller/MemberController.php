@@ -3,23 +3,17 @@
 namespace ProducerBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use ProducerBundle\Entity\Member;
-use ProducerBundle\Form\MemberType;
 use ProducerBundle\Form\ProfileType;
 use ProducerBundle\Form\RegistrationType;
 use UserBundle\Entity\User;
-
 use ProducerBundle\Event\ProducerEvent;
 
 /**
@@ -33,7 +27,7 @@ class MemberController extends Controller
      */
     public function indexAction()
     {
-        return new RedirectResponse($this->get("router")->generate("producer_member_profile"));
+        return new RedirectResponse($this->get('router')->generate('producer_member_profile'));
     }
 
     /**
@@ -41,10 +35,10 @@ class MemberController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Registration", $this->get("router")->generate("fos_user_registration_register"));
-        $breadcrumbs->addItem("Producer registration", $this->get("router")->generate("producer_member_register"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Registration', $this->get('router')->generate('fos_user_registration_register'));
+        $breadcrumbs->addItem('Producer registration', $this->get('router')->generate('producer_member_register'));
 
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
@@ -79,7 +73,7 @@ class MemberController extends Controller
                 $em->flush();
 
                 $producerEvent = new ProducerEvent($member, 'add');
-                $dispatcher = $this->get('event_dispatcher'); 
+                $dispatcher = $this->get('event_dispatcher');
                 $dispatcher->dispatch('producer.events.producerCreated', $producerEvent);
 
                 if (null === $response = $event->getResponse()) {
@@ -98,13 +92,13 @@ class MemberController extends Controller
                     $trans->trans('Your signup has been successfull', array(), 'user')
                 );
 
-                return $response;   
+                return $response;
             }
         }
 
         return $this->render('ProducerBundle:Member:register.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'register'
+            'menu' => 'register',
         ));
     }
 
@@ -112,44 +106,42 @@ class MemberController extends Controller
      * @Route("/perfil/")
      * @Security("has_role('ROLE_PRODUCER')")
      */
-    public function profileAction(Request $request){
-
-    	$breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Profile", $this->get("router")->generate("producer_member_profile"));
+    public function profileAction(Request $request)
+    {
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Profile', $this->get('router')->generate('producer_member_profile'));
 
         $em = $this->getDoctrine()->getManager();
 
         $member = $this->getUser()->getProducer();
 
-    	$form = $this->createForm(ProfileType::class, $member);
+        $form = $this->createForm(ProfileType::class, $member);
 
-    	$form->handleRequest($request);
+        $form->handleRequest($request);
 
-    	if ($form->isSubmitted() && $form->isValid()) {
-            
-             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
-            $user = $userManager->findUserBy(array('id'=>$this->getUser()->getId()));
+            $user = $userManager->findUserBy(array('id' => $this->getUser()->getId()));
 
             $pUser = $request->request->get('profile');
             $pUser = $pUser['User'];
             $user->setEmail($pUser['email']);
             $user->setUsername($pUser['username']);
-            
+
             $userManager->updateUser($user);
 
             $em->persist($member);
-		    $em->flush();
+            $em->flush();
 
-		    return $this->redirectToRoute('producer_member_profile');
-		}
+            return $this->redirectToRoute('producer_member_profile');
+        }
 
-
-    	return $this->render('ProducerBundle:Member:profile.html.twig', array(
-    		'form' => $form->createView(),
-            'menu' => 'account'
-    	));
+        return $this->render('ProducerBundle:Member:profile.html.twig', array(
+            'form' => $form->createView(),
+            'menu' => 'account',
+        ));
     }
 }

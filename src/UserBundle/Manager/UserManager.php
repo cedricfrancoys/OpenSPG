@@ -1,22 +1,19 @@
 <?php
+
 namespace UserBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use \Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Form\FormError;
-
-use Symfony\Component\Form\Exception\OutOfBoundsException;
-
 use UserBundle\Entity\User;
 
 class UserManager
 {
-  /**
+    /**
    * @var EntityManager
    */
   private $orm;
@@ -47,117 +44,120 @@ class UserManager
   private $twig;
 
   /**
-   * @var Object
+   * @var object
    */
   private $mailer;
 
   /**
    * @param EntityManager $orm
-   * @param TokenStorage $token
+   * @param TokenStorage  $token
    */
-  public function __construct(EntityManager $orm, TokenStorage $token) {
-    $this->orm = $orm;
-    $this->currentUser = $token->getToken()->getUser();
+  public function __construct(EntityManager $orm, TokenStorage $token)
+  {
+      $this->orm = $orm;
+      $this->currentUser = $token->getToken()->getUser();
   }
 
   /**
-   * Set the user
+   * Set the user.
    *
    * @param User $user
-   * @return void
    */
-  public function setUser(User $user) {
-    $this->user = $user;
+  public function setUser(User $user)
+  {
+      $this->user = $user;
   }
 
   /**
-   * Returns the user
+   * Returns the user.
    *
    * @return User
    */
-  public function getUser() {
-    return $this->user;
+  public function getUser()
+  {
+      return $this->user;
   }
 
   /**
-   * Set the current user
+   * Set the current user.
    *
    * @param user $user
-   * @return void
    */
-  public function setCurrentUser(User $user) {
-    $this->currentUser = $user;
+  public function setCurrentUser(User $user)
+  {
+      $this->currentUser = $user;
   }
 
   /**
-   * Set the request
+   * Set the request.
    *
    * @param RequestStack $request
-   * @return void
    */
-  public function setRequest(RequestStack $request) {
-    $this->request = $request->getCurrentRequest();
+  public function setRequest(RequestStack $request)
+  {
+      $this->request = $request->getCurrentRequest();
   }
 
   /**
-   * Set the translator
+   * Set the translator.
    *
    * @param TranslatorInterface $trans
-   * @return void
    */
-  public function setTranslator(TranslatorInterface $trans) {
-    $this->translator = $trans;
+  public function setTranslator(TranslatorInterface $trans)
+  {
+      $this->translator = $trans;
   }
 
   /**
-   * Set twig
+   * Set twig.
    *
    * @param Twig_Environment $twig
-   * @return void
    */
-  public function setTwig(\Twig_Environment $twig) {
-    $this->twig = $twig;
+  public function setTwig(\Twig_Environment $twig)
+  {
+      $this->twig = $twig;
   }
 
   /**
-   * Set Mailer
+   * Set Mailer.
    *
-   * @param Object $mailer
-   * @return void
+   * @param object $mailer
    */
-  public function setMailer($mailer) {
-    $this->mailer = $mailer;
+  public function setMailer($mailer)
+  {
+      $this->mailer = $mailer;
   }
 
   /**
-  * @deprecated
-  */
+   * @deprecated
+   */
   public function getUsersByRole($role, $makeSureFieldIsNotNull = false, $makeSureFieldIsNull = false)
   {
-    return $this
+      return $this
       ->orm
       ->getRepository('UserBundle:User')
       ->getUsersByRole($role, $this->currentUser->getNode(), $makeSureFieldIsNotNull, $makeSureFieldIsNull)
     ;
   }
 
-  public function getAll()
-  {
-    return $this->orm
+    public function getAll()
+    {
+        return $this->orm
       ->getRepository('UserBundle:User')
       ->getAll();
-  }
-
-  public function createUser(User $user, $form, array $formData, array $roles, $activate = false)
-  {
-    if($this->checkIsDuplicate($formData)){
-      try{
-        $form->get('username')->addError(new FormError('The username already exists'));
-      }catch(\OutOfBoundsException $e){
-        $form->get('User')->get('username')->addError(new FormError($this->translator->trans('The username already exists',array(),'user')));
-      }
-      return false;
     }
+
+    public function createUser(User $user, $form, array $formData, array $roles, $activate = false)
+    {
+        if ($this->checkIsDuplicate($formData)) {
+            try {
+                $form->get('username')->addError(new FormError('The username already exists'));
+            } catch (\OutOfBoundsException $e) {
+                $form->get('User')->get('username')->addError(new FormError($this->translator->trans('The username already exists', array(), 'user')));
+            }
+
+            return false;
+        }
 
     // @ToDo Registartion init
     // $event = new GetResponseUserEvent($user, $this->request);
@@ -171,44 +171,45 @@ class UserManager
     // $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
     // $pUser = (array_key_exists('User', $formData)) ? $formData['User'] : $formData;
 
-    if( is_array($pUser['password']) ){
-    	$user->setPlainPassword($pUser['password']['first']);
-    }else{
-    	$user->setPlainPassword($pUser['password']);
+    if (is_array($pUser['password'])) {
+        $user->setPlainPassword($pUser['password']['first']);
+    } else {
+        $user->setPlainPassword($pUser['password']);
     }
-    foreach ($roles as $role) {
-      $user->addRole($role);
+        foreach ($roles as $role) {
+            $user->addRole($role);
+        }
+        if ($this->currentUser instanceof User) {
+            $user->setNode($this->currentUser->getNode());
+        }
+        if ($activate) {
+            $user->setEnabled(true);
+        }
+
+        $this->orm->persist($user);
+        $this->orm->flush();
+
+        if (isset($pUser['sendEmail']) && $pUser['sendEmail']) {
+            $this->sendPasswordEmail($pUser);
+        }
+
+        return true;
     }
-    if( $this->currentUser instanceof User ){
-    	$user->setNode($this->currentUser->getNode());
-    }
-    if ($activate) {
-    	$user->setEnabled(true);
-    }
 
-    $this->orm->persist($user);
-    $this->orm->flush();
+    private function checkIsDuplicate($data)
+    {
+        $username = (array_key_exists('User', $data)) ? $data['User']['username'] : $data['username'];
+        $items = $this->orm->getRepository('UserBundle:User')->findBy(array('username' => $username));
 
-    if (isset($pUser['sendEmail']) && $pUser['sendEmail']) {
-        $this->sendPasswordEmail($pUser);
+        return count($items);
     }
 
-    return true;
-  }
+    protected function sendPasswordEmail($user)
+    {
+        $trans = $this->translator;
+        $tpl = $this->twig;
 
-  private function checkIsDuplicate($data)
-  {
-    $username = (array_key_exists('User', $data)) ? $data['User']['username'] : $data['username'];
-    $items = $this->orm->getRepository('UserBundle:User')->findBy(array('username'=>$username));
-    return count($items);
-  }
-
-  protected function sendPasswordEmail($user)
-  {
-    $trans = $this->translator;
-    $tpl = $this->twig;
-
-    $message = \Swift_Message::newInstance()
+        $message = \Swift_Message::newInstance()
         ->setSubject($trans->trans('Your account on SPG', array(), 'user'))
         ->setFrom('mhauptma73@gmail.com')
         ->setTo($user['email'])
@@ -222,12 +223,12 @@ class UserManager
                     'username' => $user['username'],
                     'phone' => $user['phone'],
                     'email' => $user['email'],
-                    'enabled' => $user['enabled']
+                    'enabled' => $user['enabled'],
                 )
             ),
             'text/html'
         )
     ;
-    $this->mailer->send($message);
-  }
+        $this->mailer->send($message);
+    }
 }

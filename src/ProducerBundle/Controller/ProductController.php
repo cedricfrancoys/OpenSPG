@@ -7,13 +7,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductGroup;
 use ProductBundle\Entity\Family;
@@ -34,11 +29,11 @@ class ProductController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producer", $this->get("router")->generate("producer_member_index"));
-        $breadcrumbs->addItem("Stocks", $this->get("router")->generate("producer_stock_index"));
-        $breadcrumbs->addItem("Add product", $this->get("router")->generate("producer_product_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producer', $this->get('router')->generate('producer_member_index'));
+        $breadcrumbs->addItem('Stocks', $this->get('router')->generate('producer_stock_index'));
+        $breadcrumbs->addItem('Add product', $this->get('router')->generate('producer_product_add'));
 
         $product = new Product();
 
@@ -52,7 +47,6 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isValid()) {
-
             $em->persist($product);
             $em->flush();
 
@@ -75,7 +69,7 @@ class ProductController extends Controller
             'form' => $form->createView(),
             'groupForm' => $groupForm->createView(),
             'familyForm' => $familyForm->createView(),
-            'varietyForm' => $varietyForm->createView()
+            'varietyForm' => $varietyForm->createView(),
         ));
     }
 
@@ -83,8 +77,8 @@ class ProductController extends Controller
      * @Route("/addGroup", options={"expose":true})
      * @Security("has_role('ROLE_PRODUCER')")
      */
-    public function addGroupAction(Request $request){
-
+    public function addGroupAction(Request $request)
+    {
         $group = new ProductGroup();
         $form = $this->createForm(GroupType::class, $group);
 
@@ -97,7 +91,7 @@ class ProductController extends Controller
 
             $response = new JsonResponse(array(
                 'id' => $group->getId(),
-                'name' => $group->getName()
+                'name' => $group->getName(),
             ));
 
             return $response;
@@ -110,7 +104,8 @@ class ProductController extends Controller
      * @Route("/addFamily", options={"expose":true})
      * @Security("has_role('ROLE_PRODUCER')")
      */
-    public function addFamilyAction(Request $request){
+    public function addFamilyAction(Request $request)
+    {
         $family = new Family();
         $form = $this->createForm(FamilyType::class, $family);
 
@@ -123,7 +118,7 @@ class ProductController extends Controller
 
             $response = new JsonResponse(array(
                 'id' => $family->getId(),
-                'name' => $family->getName()
+                'name' => $family->getName(),
             ));
 
             return $response;
@@ -136,7 +131,9 @@ class ProductController extends Controller
      * @Route("/addVariety", options={"expose":true})
      * @Security("has_role('ROLE_PRODUCER')")
      */
-    public function addVarietyAction(Request $request){}
+    public function addVarietyAction(Request $request)
+    {
+    }
 
     /**
      * @Route("/getFamilies/{group}", options={"expose"=true})
@@ -144,7 +141,6 @@ class ProductController extends Controller
      */
     public function getFamiliesAction(Request $request, ProductGroup $group)
     {
-        
         $em = $this->getDoctrine()->getManager();
 
         $families = $em->
@@ -168,7 +164,6 @@ class ProductController extends Controller
      */
     public function getVarietiesAction(Request $request, Family $family)
     {
-        
         $em = $this->getDoctrine()->getManager();
 
         $varieties = $em->

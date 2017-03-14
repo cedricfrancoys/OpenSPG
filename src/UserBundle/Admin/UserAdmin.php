@@ -7,7 +7,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use UserBundle\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -32,15 +31,15 @@ class UserAdmin extends AbstractAdmin
                 ->add('phone', 'text')
                 ->add('email', 'email')
                 ->add('Node');
-        
-                if (!$subject->getId()) {
-                    $formMapper->add('password', 'password');
-                    $formMapper->add('sendEmail', 'checkbox', array(
+
+        if (!$subject->getId()) {
+            $formMapper->add('password', 'password');
+            $formMapper->add('sendEmail', 'checkbox', array(
                         'help' => 'sendEmailHelp',
                         'mapped' => false,
-                        'required' => false
+                        'required' => false,
                     ));
-                }
+        }
 
         $formMapper
                 ->add('enabled')
@@ -54,31 +53,31 @@ class UserAdmin extends AbstractAdmin
                     'mapped' => false,
                     'label' => 'Admin',
                     'data' => in_array(\UserBundle\Entity\User::ROLE_ADMIN, $roles),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add(\UserBundle\Entity\User::ROLE_PRODUCER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Producer',
                     'data' => in_array(\UserBundle\Entity\User::ROLE_PRODUCER, $roles),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add(\UserBundle\Entity\User::ROLE_CONSUMER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Consumer',
                     'data' => in_array(\UserBundle\Entity\User::ROLE_CONSUMER, $roles),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add(\UserBundle\Entity\User::ROLE_MANAGER, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Management',
                     'data' => in_array(\UserBundle\Entity\User::ROLE_MANAGER, $roles),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add(\UserBundle\Entity\User::ROLE_VISITGROUP, 'checkbox', array(
                     'mapped' => false,
                     'label' => 'Visit Group',
                     'data' => in_array(\UserBundle\Entity\User::ROLE_VISITGROUP, $roles),
-                    'required' => false
+                    'required' => false,
                 ))
             ->end();
     }
@@ -109,12 +108,14 @@ class UserAdmin extends AbstractAdmin
         ($this->getForm()->get(\UserBundle\Entity\User::ROLE_MANAGER)->getData()) ? $roles[] = \UserBundle\Entity\User::ROLE_MANAGER : false;
         $data->setRoles($roles);
     }
+
     public function postPersist($data)
     {
-        if( $this->getForm()->get('sendEmail')->getData() ){
+        if ($this->getForm()->get('sendEmail')->getData()) {
             $this->sendPasswordEmail();
         }
     }
+
     public function preUpdate($data)
     {
         $roles = array();
@@ -125,11 +126,13 @@ class UserAdmin extends AbstractAdmin
         $data->setRoles($roles);
     }
 
-    public function configure() {
+    public function configure()
+    {
         $this->setTemplate('edit', 'UserBundle:Admin:edit.html.twig');
     }
 
-    protected function sendPasswordEmail(){
+    protected function sendPasswordEmail()
+    {
         $container = $this->getConfigurationPool()->getContainer();
         $trans = $container->get('translator');
         $tpl = $container->get('twig');
@@ -150,7 +153,7 @@ class UserAdmin extends AbstractAdmin
                         'phone' => $form->get('phone')->getData(),
                         'email' => $form->get('email')->getData(),
                         'node' => $form->get('Node')->getData(),
-                        'enabled' => $form->get('enabled')->getData()
+                        'enabled' => $form->get('enabled')->getData(),
                     )
                 ),
                 'text/html'

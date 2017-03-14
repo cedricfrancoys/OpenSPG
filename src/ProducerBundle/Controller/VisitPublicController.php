@@ -5,17 +5,10 @@ namespace ProducerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use ProducerBundle\Entity\Visit;
 use ProducerBundle\Entity\Member;
 use ProducerBundle\Entity\RejectApproval;
-
-use ProducerBundle\Form\VisitType;
-use ProducerBundle\Form\SignMeUpType;
 use ProducerBundle\Form\RejectApprovalType;
 
 /**
@@ -28,9 +21,9 @@ class VisitPublicController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visitpublic_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Visits', $this->get('router')->generate('producer_visitpublic_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -48,7 +41,7 @@ class VisitPublicController extends Controller
 
         return $this->render('ProducerBundle:VisitPublic:index.html.twig', array(
             'visits' => $visits,
-            'menu' => 'producer'
+            'menu' => 'producer',
         ));
     }
 
@@ -59,14 +52,14 @@ class VisitPublicController extends Controller
     {
         $producer = $visit->getProducer();
 
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visitpublic_index"));
-        $breadcrumbs->addItem("Show", $this->get("router")->generate("producer_visitpublic_show", array('id'=>$visit->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Visits', $this->get('router')->generate('producer_visitpublic_index'));
+        $breadcrumbs->addItem('Show', $this->get('router')->generate('producer_visitpublic_show', array('id' => $visit->getId())));
 
         return $this->render('ProducerBundle:VisitPublic:show.html.twig', array(
             'visit' => $visit,
-            'menu' => 'producer'
+            'menu' => 'producer',
         ));
     }
 
@@ -75,10 +68,10 @@ class VisitPublicController extends Controller
      */
     public function rejectApprovalAction(Visit $visit, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Visits", $this->get("router")->generate("producer_visitpublic_index"));
-        $breadcrumbs->addItem("Reject approval", $this->get("router")->generate("producer_visitpublic_rejectapproval", array('id'=>$visit->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Visits', $this->get('router')->generate('producer_visitpublic_index'));
+        $breadcrumbs->addItem('Reject approval', $this->get('router')->generate('producer_visitpublic_rejectapproval', array('id' => $visit->getId())));
 
         $rejectApproval = new RejectApproval();
         $rejectApproval->setUser($this->getUser());
@@ -103,7 +96,7 @@ class VisitPublicController extends Controller
                 $trans->trans('Your rejection has been recorded!', array(), 'visit')
             );
 
-            $url = $this->generateUrl('producer_visitpublic_show', array('id'=>$visit->getId()));
+            $url = $this->generateUrl('producer_visitpublic_show', array('id' => $visit->getId()));
             $response = new RedirectResponse($url);
 
             return $response;
@@ -112,7 +105,7 @@ class VisitPublicController extends Controller
         return $this->render('ProducerBundle:VisitPublic:rejectApproval.html.twig', array(
             'form' => $form->createView(),
             'visit' => $visit,
-            'menu' => 'producer'
+            'menu' => 'producer',
         ));
     }
 }

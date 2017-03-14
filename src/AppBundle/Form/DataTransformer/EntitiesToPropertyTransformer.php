@@ -2,11 +2,7 @@
 
 namespace AppBundle\Form\DataTransformer;
 
-use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -33,9 +29,9 @@ class EntitiesToPropertyTransformer extends EntityToPropertyTransformer
                 $return[] = $value;
             }
         }
+
         return $return;
     }
-
 
     public function reverseTransform($array)
     {
@@ -54,6 +50,7 @@ class EntitiesToPropertyTransformer extends EntityToPropertyTransformer
                 $return[] = $entity;
             }
         }
+
         return $return;
     }
 }

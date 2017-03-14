@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fee
+ * Fee.
  *
  * @ORM\Table(name="contact")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContactRepository")
@@ -57,29 +57,29 @@ class Contact
     private $sent;
 
     /**
-    * @var \UserBundle\Entity\User
-    *
-    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-    */
+     * @var \UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     */
     private $Receiver;
 
     /**
-    * @var \UserBundle\Entity\User
-    *
-    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-    */
+     * @var \UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     */
     private $Sender;
 
     /**
-    * @var \AppBundle\Entity\Contact
-    *
-    * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Contact")
-    * @ORM\JoinColumn(onDelete="SET NULL")
-    */
+     * @var \AppBundle\Entity\Contact
+     *
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Contact")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
     private $Parent;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -89,7 +89,7 @@ class Contact
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -103,7 +103,7 @@ class Contact
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class Contact
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -127,7 +127,7 @@ class Contact
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -137,7 +137,7 @@ class Contact
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
      *
@@ -151,7 +151,7 @@ class Contact
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -161,7 +161,7 @@ class Contact
     }
 
     /**
-     * Set received
+     * Set received.
      *
      * @param \DateTime $received
      *
@@ -175,7 +175,7 @@ class Contact
     }
 
     /**
-     * Get received
+     * Get received.
      *
      * @return \DateTime
      */
@@ -185,7 +185,7 @@ class Contact
     }
 
     /**
-     * Set receiver
+     * Set receiver.
      *
      * @param \UserBundle\Entity\User $receiver
      *
@@ -199,7 +199,7 @@ class Contact
     }
 
     /**
-     * Get receiver
+     * Get receiver.
      *
      * @return \UserBundle\Entity\User
      */
@@ -209,7 +209,7 @@ class Contact
     }
 
     /**
-     * Set sender
+     * Set sender.
      *
      * @param \UserBundle\Entity\User $sender
      *
@@ -223,7 +223,7 @@ class Contact
     }
 
     /**
-     * Get sender
+     * Get sender.
      *
      * @return \UserBundle\Entity\User
      */
@@ -233,7 +233,7 @@ class Contact
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param \AppBundle\Entity\Contact $parent
      *
@@ -247,7 +247,7 @@ class Contact
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return \AppBundle\Entity\Contact
      */
@@ -257,7 +257,7 @@ class Contact
     }
 
     /**
-     * Set sent
+     * Set sent.
      *
      * @param \DateTime $sent
      *
@@ -271,7 +271,7 @@ class Contact
     }
 
     /**
-     * Get sent
+     * Get sent.
      *
      * @return \DateTime
      */

@@ -7,10 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
-
-use ProducerBundle\Form\PropertyType;
 use UserBundle\Form\RegistrationType as BaseRegistrationType;
 
 class RegistrationType extends AbstractType
@@ -19,7 +15,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('User', BaseRegistrationType::class, array(
-                'label' => false
+                'label' => false,
             ))
             // ->add('Properties', CollectionType::class, array(
             //     'entry_type' => PropertyType::class,
@@ -40,9 +36,9 @@ class RegistrationType extends AbstractType
     }
 
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'ProducerBundle\Entity\Member'
-	    ));
-	}
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'ProducerBundle\Entity\Member',
+        ));
+    }
 }

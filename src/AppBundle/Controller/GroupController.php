@@ -5,9 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use \Symfony\Component\HttpFoundation\ResponseHeaderBag;
-
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use UserBundle\Entity\User;
 
 /**
@@ -20,9 +18,9 @@ class GroupController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Groups", $this->get("router")->generate("app_group_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Groups', $this->get('router')->generate('app_group_index'));
 
         $em = $this->getDoctrine()->getManager();
         $nodes = $em->getRepository('NodeBundle:Node')->findAll();
@@ -36,7 +34,7 @@ class GroupController extends Controller
         $data = array(
             'managers' => $managers,
             'visitors' => $visitors,
-            'nodes' => $nodes
+            'nodes' => $nodes,
         );
 
         return $this->render('AppBundle:Group:index.html.twig', $data);
@@ -47,7 +45,7 @@ class GroupController extends Controller
      */
     public function downloadAction($file)
     {
-        $filePath = dirname(dirname(dirname(__DIR__))).'/web/downloads/' . $file;
+        $filePath = dirname(dirname(dirname(__DIR__))).'/web/downloads/'.$file;
 
         $response = new BinaryFileResponse($filePath);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);

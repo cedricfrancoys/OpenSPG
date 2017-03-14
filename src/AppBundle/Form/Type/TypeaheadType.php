@@ -3,22 +3,17 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Bridge\Doctrine\Form\EventListener\MergeDoctrineCollectionListener;
-use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\Collection;
 use AppBundle\Form\DataTransformer\EntityToPropertyTransformer;
 use AppBundle\Form\DataTransformer\EntitiesToPropertyTransformer;
 
@@ -86,7 +81,6 @@ class TypeaheadType extends AbstractType
     public function configureOptions(OptionsResolver $resolver) // sf2.6+
     // public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
         //$resolver->setOptional(array(''));
         // $resolver->setRequired(array('class','render','route'));
         // $resolver->setDefaults(array(

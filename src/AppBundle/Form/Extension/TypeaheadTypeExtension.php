@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Extension;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -12,15 +13,18 @@ class TypeaheadTypeExtension extends AbstractTypeExtension
     public function __construct(array $cfg = array())
     {
     }
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         //$view->vars[...];
     }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
         ));
     }
+
     public function getExtendedType()
     {
         return 'form';

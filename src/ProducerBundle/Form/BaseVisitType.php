@@ -6,16 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
-
 use ManagementBundle\Form\VisitProductionType;
 
 class BaseVisitType extends AbstractType
@@ -25,7 +22,7 @@ class BaseVisitType extends AbstractType
         $builder
             ->add('visitDate', DateType::class, array(
                 'placeholder' => 'Not yet defined',
-                'required' => false
+                'required' => false,
             ))
             ->add('Participants', EntityType::class, array(
                 'class' => 'UserBundle:User',
@@ -33,22 +30,22 @@ class BaseVisitType extends AbstractType
                     return $er->createQueryBuilder('u');
                 },
                 'multiple' => true,
-                'required' => false
+                'required' => false,
             ))
             ->add('startTime', TimeType::class, array(
                 'placeholder' => 'Not yet defined',
-                'required' => false
+                'required' => false,
             ))
             ->add('endTime', TimeType::class, array(
                 'placeholder' => 'Not yet defined',
-                'required' => false
+                'required' => false,
             ))
             ->add('Producer', EntityType::class, array(
                 'class' => 'ProducerBundle:Member',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('m');
                 },
-                'placeholder' => 'Choose a producer'
+                'placeholder' => 'Choose a producer',
             ))
             ->add('Property', EntityType::class, array(
                 'class' => 'ProducerBundle:Property',
@@ -56,7 +53,7 @@ class BaseVisitType extends AbstractType
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.name', 'ASC');
                 },
-                'placeholder' => 'Choose a property'
+                'placeholder' => 'Choose a property',
             ))
             ->add('didFertilize', ChoiceType::class, array(
                 'required' => false,
@@ -64,23 +61,23 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('fertlizeWith', null, array(
                 'attr' => array(
-                    'class' => 'visit_didFertilize_yes'
-                )
+                    'class' => 'visit_didFertilize_yes',
+                ),
             ))
             ->add('fertilizeQty', null, array(
                 'attr' => array(
-                    'class' => 'visit_didFertilize_yes'
-                )
+                    'class' => 'visit_didFertilize_yes',
+                ),
             ))
             ->add('fertilizeOrigin', null, array(
                 'attr' => array(
-                    'class' => 'visit_didFertilize_yes'
-                )
+                    'class' => 'visit_didFertilize_yes',
+                ),
             ))
             ->add('usesFoliarFertilizer', ChoiceType::class, array(
                 'required' => false,
@@ -88,13 +85,13 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('usesFoliarFertilizerWhich', null, array(
                 'attr' => array(
-                    'class' => 'visit_usesFoliarFertilizer_yes'
-                )
+                    'class' => 'visit_usesFoliarFertilizer_yes',
+                ),
             ))
             ->add('fertilizerObservations')
             ->add('Production', CollectionType::class, array(
@@ -117,8 +114,8 @@ class BaseVisitType extends AbstractType
                         <td style="width:80px;">Comprada</td>
                         <td>Referencia</td>
                     </tr>
-                </table>'
-                )
+                </table>',
+                ),
             ))
             ->add('productionOberservation')
             // ->add('doesSoilConservation')
@@ -128,8 +125,8 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scMulching', ChoiceType::class, array(
                 'required' => false,
@@ -137,8 +134,8 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scNotPlow', ChoiceType::class, array(
                 'required' => false,
@@ -146,8 +143,8 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scHerbsState', ChoiceType::class, array(
                 'required' => false,
@@ -155,8 +152,8 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scHerbsDistribution', ChoiceType::class, array(
                 'required' => false,
@@ -164,8 +161,8 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scHerbsControl', ChoiceType::class, array(
                 'required' => false,
@@ -173,11 +170,11 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('scOberservations', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('pcPests', ChoiceType::class, array(
                 'required' => false,
@@ -185,35 +182,35 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('pcControl', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_pcPests_yes'
-                )
+                    'class' => 'visit_pcPests_yes',
+                ),
             ))
             ->add('pcPrevention', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_pcPests_yes'
-                )
+                    'class' => 'visit_pcPests_yes',
+                ),
             ))
             ->add('pcOberservations', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('pcPestsCrops', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_pcPests_yes'
-                )
+                    'class' => 'visit_pcPests_yes',
+                ),
             ))
             ->add('pcPestsDamage', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_pcPests_yes'
-                )
+                    'class' => 'visit_pcPests_yes',
+                ),
             ))
             ->add('doesAssociations', ChoiceType::class, array(
                 'required' => false,
@@ -221,14 +218,14 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('associations', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_doesAssociations_yes'
-                )
+                    'class' => 'visit_doesAssociations_yes',
+                ),
             ))
             ->add('doesRotations', ChoiceType::class, array(
                 'required' => false,
@@ -236,14 +233,14 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('rotations', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_doesRotations_yes'
-                )
+                    'class' => 'visit_doesRotations_yes',
+                ),
             ))
             ->add('steepBankStatus', ChoiceType::class, array(
                 'required' => false,
@@ -251,11 +248,11 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Correcto' => true,
-                    'incorrecto' => false
-                )
+                    'incorrecto' => false,
+                ),
             ))
             ->add('steepBankStatusReason', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('hedgesBarriersExists', ChoiceType::class, array(
                 'required' => false,
@@ -263,28 +260,28 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Si' => true,
-                    'No' => false
-                )
+                    'No' => false,
+                ),
             ))
             ->add('hedgesBarriersExistsReason', null, array(
                 'required' => false,
                 'attr' => array(
-                    'class' => 'visit_hedgesBarriersExists_yes'
-                )
+                    'class' => 'visit_hedgesBarriersExists_yes',
+                ),
             ))
             ->add('pruningRests', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('agroquimicPresence')
             ->add('plasticWaste')
             ->add('agroquimicPackaging')
             ->add('pesticideSupsition')
             ->add('observations', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('document', FileType::class, array(
                 'file_path' => 'getWebPath',
-                'required' => false
+                'required' => false,
             ))
             ->add('accepted', ChoiceType::class, array(
                 'required' => false,
@@ -292,26 +289,26 @@ class BaseVisitType extends AbstractType
                 'multiple' => false,
                 'choices' => array(
                     'Accepted' => true,
-                    'Rejected' => false
-                )
+                    'Rejected' => false,
+                ),
             ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'ProducerBundle\Entity\Visit',
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'ProducerBundle\Entity\Visit',
             'translation_domain' => 'visit',
             'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
 
                 if (null !== $data->getAccepted()) {
-                    return array('completed','default');
+                    return array('completed', 'default');
                 }
 
                 return array('default');
-            }
-	    ));
-	}
+            },
+        ));
+    }
 }

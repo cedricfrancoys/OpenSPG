@@ -3,17 +3,11 @@
 namespace ConsumerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use AppBundle\Entity\Contact;
-use ConsumerBundle\Form\ContactType;
 use ConsumerBundle\Form\ReplyContactType;
 
 /**
@@ -23,22 +17,21 @@ class ContactController extends Controller
 {
     /**
      * @Route("/", options={"expose":true})
-     @Security("has_role('ROLE_CONSUMER')")
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("consumer_member_index"));
-        $breadcrumbs->addItem("Contacts", $this->get("router")->generate("consumer_contact_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('consumer_member_index'));
+        $breadcrumbs->addItem('Contacts', $this->get('router')->generate('consumer_contact_index'));
 
         $em = $this->getDoctrine()->getManager();
 
-        $contacts = $em->getRepository('AppBundle:Contact')->findBy(array('Sender'=>$this->getUser()));
+        $contacts = $em->getRepository('AppBundle:Contact')->findBy(array('Sender' => $this->getUser()));
 
         $data = array(
             'contacts' => $contacts,
-            'menu' => 'account'
+            'menu' => 'account',
         );
 
         return $this->render('ConsumerBundle:Contact:index.html.twig', $data);
@@ -46,15 +39,14 @@ class ContactController extends Controller
 
     /**
      * @Route("/{id}")
-     @Security("has_role('ROLE_CONSUMER')")
      */
     public function showAction(Request $request, Contact $contact)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("My account", $this->get("router")->generate("consumer_member_index"));
-        $breadcrumbs->addItem("Contacts", $this->get("router")->generate("consumer_contact_index"));
-        $breadcrumbs->addItem("Show", $this->get("router")->generate("consumer_contact_show",array('id'=>$contact->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('My account', $this->get('router')->generate('consumer_member_index'));
+        $breadcrumbs->addItem('Contacts', $this->get('router')->generate('consumer_contact_index'));
+        $breadcrumbs->addItem('Show', $this->get('router')->generate('consumer_contact_show', array('id' => $contact->getId())));
 
         if ($contact->getSender() != $this->getUser()) {
             throw new AccessDeniedException();
@@ -62,7 +54,7 @@ class ContactController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $replys = $em->getRepository('AppBundle:Contact')->findBy(array('Parent'=>$contact));
+        $replys = $em->getRepository('AppBundle:Contact')->findBy(array('Parent' => $contact));
 
         $replyContact = new Contact();
         $replyContact->setParent($contact);
@@ -100,7 +92,7 @@ class ContactController extends Controller
             'contact' => $contact,
             'form' => $form->createView(),
             'menu' => 'account',
-            'replys' => $replys
+            'replys' => $replys,
         );
 
         return $this->render('ProducerBundle:MemberContact:show.html.twig', $data);
@@ -121,7 +113,7 @@ class ContactController extends Controller
                     'ProducerBundle:MemberContact:producer_reply_mail.html.twig',
                     array(
                         'contact' => $contact,
-                        'reply_contact' => $replyContact
+                        'reply_contact' => $replyContact,
                     )
                 ),
                 'text/html'

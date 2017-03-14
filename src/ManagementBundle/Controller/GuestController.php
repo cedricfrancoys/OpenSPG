@@ -5,17 +5,9 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use UserBundle\Entity\User;
 use ManagementBundle\Form\GuestType;
 
@@ -31,11 +23,10 @@ class GuestController extends Controller
      */
     public function indexAction()
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Guests", $this->get("router")->generate("management_guest_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Guests', $this->get('router')->generate('management_guest_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -46,7 +37,7 @@ class GuestController extends Controller
 
         $data = array(
             'users' => $users,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -59,11 +50,11 @@ class GuestController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Guests", $this->get("router")->generate("management_guest_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_guest_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Guests', $this->get('router')->generate('management_guest_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_guest_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -78,7 +69,7 @@ class GuestController extends Controller
             $user->addRole(User::ROLE_GUEST);
             $em->persist($user);
             $em->flush();
-            
+
             $session = $this->get('session');
             $trans = $this->get('translator');
 
@@ -90,8 +81,8 @@ class GuestController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_guest_index');
-            }else{
-                $url = $this->generateUrl('management_guest_edit', array('id'=>$user->getId()));
+            } else {
+                $url = $this->generateUrl('management_guest_edit', array('id' => $user->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -100,7 +91,7 @@ class GuestController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -111,11 +102,11 @@ class GuestController extends Controller
      */
     public function editAction(user $user, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Guest", $this->get("router")->generate("management_guest_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_guest_edit",array('id'=>$user->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Guest', $this->get('router')->generate('management_guest_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_guest_edit', array('id' => $user->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -129,8 +120,8 @@ class GuestController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_guest_index');
-            }else{
-                $url = $this->generateUrl('management_guest_edit', array('id'=>$user->getId()));
+            } else {
+                $url = $this->generateUrl('management_guest_edit', array('id' => $user->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -139,7 +130,7 @@ class GuestController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -150,11 +141,11 @@ class GuestController extends Controller
      */
     public function deleteAction(User $user, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Guest", $this->get("router")->generate("management_guest_index"));
-        $breadcrumbs->addItem("Remove", $this->get("router")->generate("management_guest_delete",array('id'=>$user->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Guest', $this->get('router')->generate('management_guest_index'));
+        $breadcrumbs->addItem('Remove', $this->get('router')->generate('management_guest_delete', array('id' => $user->getId())));
 
         if (!$user) {
             throw $this->createNotFoundException('User not found');
@@ -163,10 +154,10 @@ class GuestController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/guest/delete')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/guest/delete')) {
             $session->remove('confirmation/management/guest/delete');
 
-            if ($this->getUser()->getNode() !== $user->getNode()){
+            if ($this->getUser()->getNode() !== $user->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -181,13 +172,13 @@ class GuestController extends Controller
             );
 
             return new RedirectResponse($this->generateUrl('management_guest_index'));
-        }else{
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/guest/delete', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }

@@ -9,13 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use JMS\Serializer\SerializerBuilder;
-
 use ProductBundle\Entity\Product;
 use ProductBundle\Form\ProductType;
 
 /**
-* @Route("/producer/product/product")
-*/
+ * @Route("/producer/product/product")
+ */
 class ProductController extends Controller
 {
     /**
@@ -65,7 +64,7 @@ class ProductController extends Controller
             $response->setContent($json);
             $response->setStatusCode(Response::HTTP_CREATED);
 
-            return $response; 
+            return $response;
         }
 
         $errors = $form->getErrors(true);
@@ -79,6 +78,6 @@ class ProductController extends Controller
         $response->setData($errors);
         $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
 
-        return $response;       
+        return $response;
     }
 }

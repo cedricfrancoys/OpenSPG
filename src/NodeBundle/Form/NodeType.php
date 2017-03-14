@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-
-use NodeBundle\Form\NodeType;
 
 class NodeType extends AbstractType
 {
@@ -21,9 +18,9 @@ class NodeType extends AbstractType
     }
 
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'NodeBundle\Entity\Node'
-	    ));
-	}
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'NodeBundle\Entity\Node',
+        ));
+    }
 }

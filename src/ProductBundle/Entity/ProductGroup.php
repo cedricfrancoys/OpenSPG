@@ -5,7 +5,7 @@ namespace ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProductGroup
+ * ProductGroup.
  *
  * @ORM\Table(name="product_group")
  * @ORM\Entity(repositoryClass="ProductBundle\Repository\ProductGroupRepository")
@@ -34,7 +34,7 @@ class ProductGroup
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -44,7 +44,7 @@ class ProductGroup
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -58,7 +58,7 @@ class ProductGroup
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -67,4 +67,3 @@ class ProductGroup
         return $this->name;
     }
 }
-

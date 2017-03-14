@@ -2,23 +2,9 @@
 
 namespace ProducerBundle\Controller;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use ProducerBundle\Entity\Member;
-use ProducerBundle\Form\MemberType;
-use ProducerBundle\Form\ProfileType;
-use ProducerBundle\Form\RegistrationType;
-use UserBundle\Entity\User;
 
 /**
  * @Route("/productores")
@@ -30,9 +16,9 @@ class ProducerController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("producer_producer_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producers', $this->get('router')->generate('producer_producer_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -40,7 +26,7 @@ class ProducerController extends Controller
 
         $data = array(
             'producers' => $producers,
-            'menu' => 'producer'
+            'menu' => 'producer',
         );
 
         return $this->render('ProducerBundle:Producer:index.html.twig', $data);
@@ -51,14 +37,14 @@ class ProducerController extends Controller
      */
     public function showAction(Member $producer)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("producer_producer_index"));
-        $breadcrumbs->addItem($producer->getUser()->getName(), $this->get("router")->generate("producer_producer_show",array('id'=>$producer->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Producers', $this->get('router')->generate('producer_producer_index'));
+        $breadcrumbs->addItem($producer->getUser()->getName(), $this->get('router')->generate('producer_producer_show', array('id' => $producer->getId())));
 
         $data = array(
             'producer' => $producer,
-            'properties' => $producer->getProperties()
+            'properties' => $producer->getProperties(),
         );
 
         return $this->render('ProducerBundle:Producer:show.html.twig', $data);

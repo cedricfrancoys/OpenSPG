@@ -5,7 +5,7 @@ namespace ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product2
+ * Product2.
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="ProductBundle\Repository\ProductRepository")
@@ -29,26 +29,25 @@ class Product
     private $name;
 
     /**
-    * @var ProductGroup
-    *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\ProductGroup")
-    */
+     * @var ProductGroup
+     *
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\ProductGroup")
+     */
     private $Group;
 
     /**
-    * @var Family
-    *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Family")
-    */
+     * @var Family
+     *
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Family")
+     */
     private $Family;
 
     /**
-    * @var Variety
-    *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Variety")
-    */
+     * @var Variety
+     *
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Variety")
+     */
     private $Variety;
-
 
     public function __toString()
     {
@@ -56,7 +55,7 @@ class Product
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -66,7 +65,7 @@ class Product
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -80,7 +79,7 @@ class Product
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -90,7 +89,7 @@ class Product
     }
 
     /**
-     * Set group
+     * Set group.
      *
      * @param \ProductBundle\Entity\ProductGroup $group
      *
@@ -104,7 +103,7 @@ class Product
     }
 
     /**
-     * Get group
+     * Get group.
      *
      * @return \ProductBundle\Entity\ProductGroup
      */
@@ -114,7 +113,7 @@ class Product
     }
 
     /**
-     * Set family
+     * Set family.
      *
      * @param \ProductBundle\Entity\Family $family
      *
@@ -128,7 +127,7 @@ class Product
     }
 
     /**
-     * Get family
+     * Get family.
      *
      * @return \ProductBundle\Entity\Family
      */
@@ -138,7 +137,7 @@ class Product
     }
 
     /**
-     * Set variety
+     * Set variety.
      *
      * @param \ProductBundle\Entity\Variety $variety
      *
@@ -152,7 +151,7 @@ class Product
     }
 
     /**
-     * Get variety
+     * Get variety.
      *
      * @return \ProductBundle\Entity\Variety
      */

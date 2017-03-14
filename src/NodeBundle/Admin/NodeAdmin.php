@@ -10,7 +10,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class NodeAdmin extends AbstractAdmin
 {
-    public function configure() {
+    public function configure()
+    {
         $this->setTemplate('edit', 'LocationBundle:CRUD:edit.html.twig');
     }
 
@@ -39,7 +40,7 @@ class NodeAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -53,7 +54,7 @@ class NodeAdmin extends AbstractAdmin
             ->add('name')
             ->add('address')
             ->add('Location', 'sonata_type_admin', array(
-                'label' => false
+                'label' => false,
             ))
         ;
     }

@@ -6,11 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use ProducerBundle\Entity\Stock;
 use ManagementBundle\Form\StockType;
 
@@ -26,11 +23,10 @@ class StockController extends Controller
      */
     public function indexAction(Request $request)
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Stock', $this->get('router')->generate('management_stock_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -45,7 +41,7 @@ class StockController extends Controller
             ->andWhere('u.Node = :node')
             ->setParameter('node', $currentMember->getNode());
 
-        if($filter = $request->request->get('filter')){
+        if ($filter = $request->request->get('filter')) {
             if ($filter['producer']) {
                 $sql->andWhere('u.id = :user')
                     ->setParameter('user', $filter['producer']);
@@ -61,7 +57,7 @@ class StockController extends Controller
         $data = array(
             'products' => $products,
             'producers' => $producers,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -73,11 +69,11 @@ class StockController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_stock_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Stock', $this->get('router')->generate('management_stock_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_stock_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -93,8 +89,8 @@ class StockController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_stock_index');
-            }else{
-                $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            } else {
+                $url = $this->generateUrl('management_stock_edit', array('id' => $stock->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -103,7 +99,7 @@ class StockController extends Controller
 
         return $this->render('ManagementBundle:Stock:add.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         ));
     }
 
@@ -113,11 +109,11 @@ class StockController extends Controller
      */
     public function editAction(Stock $stock, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_stock_edit",array('id'=>$stock->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Stock', $this->get('router')->generate('management_stock_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_stock_edit', array('id' => $stock->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -131,8 +127,8 @@ class StockController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_stock_index');
-            }else{
-                $url = $this->generateUrl('management_stock_edit', array('id'=>$stock->getId()));
+            } else {
+                $url = $this->generateUrl('management_stock_edit', array('id' => $stock->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -141,7 +137,7 @@ class StockController extends Controller
 
         return $this->render('ManagementBundle:Stock:edit.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         ));
     }
 }

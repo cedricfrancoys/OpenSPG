@@ -6,16 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
 use AppBundle\Form\DataTransformer\EntityToIdTransformer;
 
 /**
- * Entity identitifer
+ * Entity identitifer.
  *
  * @author Gregwar <g.passault@gmail.com>
  */
@@ -46,11 +43,11 @@ class HiddenEntityType extends AbstractType
         ));
 
         $resolver->setDefaults(array(
-            'em'            => null,
-            'property'      => null,
+            'em' => null,
+            'property' => null,
             'query_builder' => null,
-            'hidden'        => true,
-            'multiple'      => false,
+            'hidden' => true,
+            'multiple' => false,
         ));
     }
 

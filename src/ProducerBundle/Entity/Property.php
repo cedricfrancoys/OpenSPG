@@ -4,13 +4,12 @@ namespace ProducerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Property
+ * Property.
  *
  * @ORM\Table(name="property")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\PropertyRepository")
@@ -45,10 +44,10 @@ class Property
     private $address;
 
     /**
-    * @var Location
-    *
-    * @ORM\OneToOne(targetEntity="\LocationBundle\Entity\Location", cascade={"persist"})
-    */
+     * @var Location
+     *
+     * @ORM\OneToOne(targetEntity="\LocationBundle\Entity\Location", cascade={"persist"})
+     */
     private $Location;
 
     /**
@@ -236,19 +235,19 @@ class Property
     protected $sketch;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="property_sketch", fileNameProperty="sketch")
-     * 
+     *
      * @var File
      */
     private $sketchFile;
 
     /**
-    * @var Member
-    *
-    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Properties", cascade={"persist","detach"})
-    * @Gedmo\Versioned
-    */
+     * @var Member
+     *
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Properties", cascade={"persist","detach"})
+     * @Gedmo\Versioned
+     */
     private $Member;
 
     /**
@@ -265,9 +264,9 @@ class Property
     private $document;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="property_document", fileNameProperty="document")
-     * 
+     *
      * @var File
      */
     private $documentFile;
@@ -287,7 +286,7 @@ class Property
     private $created;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -300,9 +299,8 @@ class Property
         return $this->getName();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -312,7 +310,7 @@ class Property
     }
 
     /**
-     * Set areaName
+     * Set areaName.
      *
      * @param string $areaName
      *
@@ -326,7 +324,7 @@ class Property
     }
 
     /**
-     * Get areaName
+     * Get areaName.
      *
      * @return string
      */
@@ -336,7 +334,7 @@ class Property
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
      *
@@ -350,7 +348,7 @@ class Property
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -360,7 +358,7 @@ class Property
     }
 
     /**
-     * Set regNr
+     * Set regNr.
      *
      * @param string $regNr
      *
@@ -374,7 +372,7 @@ class Property
     }
 
     /**
-     * Get regNr
+     * Get regNr.
      *
      * @return string
      */
@@ -384,7 +382,7 @@ class Property
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -398,7 +396,7 @@ class Property
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -408,7 +406,7 @@ class Property
     }
 
     /**
-     * Set tenure
+     * Set tenure.
      *
      * @param string $tenure
      *
@@ -422,7 +420,7 @@ class Property
     }
 
     /**
-     * Get tenure
+     * Get tenure.
      *
      * @return string
      */
@@ -432,7 +430,7 @@ class Property
     }
 
     /**
-     * Set size
+     * Set size.
      *
      * @param float $size
      *
@@ -446,7 +444,7 @@ class Property
     }
 
     /**
-     * Get size
+     * Get size.
      *
      * @return float
      */
@@ -456,7 +454,7 @@ class Property
     }
 
     /**
-     * Set previousUses
+     * Set previousUses.
      *
      * @param string $previousUses
      *
@@ -470,7 +468,7 @@ class Property
     }
 
     /**
-     * Get previousUses
+     * Get previousUses.
      *
      * @return string
      */
@@ -480,7 +478,7 @@ class Property
     }
 
     /**
-     * Set waterTypeOrigin
+     * Set waterTypeOrigin.
      *
      * @param string $waterTypeOrigin
      *
@@ -494,7 +492,7 @@ class Property
     }
 
     /**
-     * Get waterTypeOrigin
+     * Get waterTypeOrigin.
      *
      * @return string
      */
@@ -504,7 +502,7 @@ class Property
     }
 
     /**
-     * Set surroundings
+     * Set surroundings.
      *
      * @param string $surroundings
      *
@@ -518,7 +516,7 @@ class Property
     }
 
     /**
-     * Get surroundings
+     * Get surroundings.
      *
      * @return string
      */
@@ -528,7 +526,7 @@ class Property
     }
 
     /**
-     * Set surroundingProblems
+     * Set surroundingProblems.
      *
      * @param string $surroundingProblems
      *
@@ -542,7 +540,7 @@ class Property
     }
 
     /**
-     * Get surroundingProblems
+     * Get surroundingProblems.
      *
      * @return string
      */
@@ -552,7 +550,7 @@ class Property
     }
 
     /**
-     * Set crops
+     * Set crops.
      *
      * @param string $crops
      *
@@ -566,7 +564,7 @@ class Property
     }
 
     /**
-     * Get crops
+     * Get crops.
      *
      * @return string
      */
@@ -576,9 +574,9 @@ class Property
     }
 
     /**
-     * Set certified
+     * Set certified.
      *
-     * @param boolean $certified
+     * @param bool $certified
      *
      * @return Property
      */
@@ -590,7 +588,7 @@ class Property
     }
 
     /**
-     * Get certified
+     * Get certified.
      *
      * @return bool
      */
@@ -600,7 +598,7 @@ class Property
     }
 
     /**
-     * Set certifiedYear
+     * Set certifiedYear.
      *
      * @param array $certifiedYears
      *
@@ -614,7 +612,7 @@ class Property
     }
 
     /**
-     * Get certifiedYear
+     * Get certifiedYear.
      *
      * @return array
      */
@@ -624,7 +622,7 @@ class Property
     }
 
     /**
-     * Set certifiedProvider
+     * Set certifiedProvider.
      *
      * @param string $certifiedProvider
      *
@@ -638,7 +636,7 @@ class Property
     }
 
     /**
-     * Get certifiedProvider
+     * Get certifiedProvider.
      *
      * @return string
      */
@@ -648,7 +646,7 @@ class Property
     }
 
     /**
-     * Set lastAgroquimicUsage
+     * Set lastAgroquimicUsage.
      *
      * @param \DateTime $lastAgroquimicUsage
      *
@@ -662,7 +660,7 @@ class Property
     }
 
     /**
-     * Get lastAgroquimicUsage
+     * Get lastAgroquimicUsage.
      *
      * @return \DateTime
      */
@@ -672,7 +670,7 @@ class Property
     }
 
     /**
-     * Set fertilizer
+     * Set fertilizer.
      *
      * @param string $fertilizer
      *
@@ -686,7 +684,7 @@ class Property
     }
 
     /**
-     * Get fertilizer
+     * Get fertilizer.
      *
      * @return string
      */
@@ -696,7 +694,7 @@ class Property
     }
 
     /**
-     * Set phytosanitary
+     * Set phytosanitary.
      *
      * @param string $phytosanitary
      *
@@ -710,7 +708,7 @@ class Property
     }
 
     /**
-     * Get phytosanitary
+     * Get phytosanitary.
      *
      * @return string
      */
@@ -720,9 +718,9 @@ class Property
     }
 
     /**
-     * Set ownerLivesHere
+     * Set ownerLivesHere.
      *
-     * @param boolean $ownerLivesHere
+     * @param bool $ownerLivesHere
      *
      * @return Property
      */
@@ -734,7 +732,7 @@ class Property
     }
 
     /**
-     * Get ownerLivesHere
+     * Get ownerLivesHere.
      *
      * @return bool
      */
@@ -744,9 +742,9 @@ class Property
     }
 
     /**
-     * Set ownerDistance
+     * Set ownerDistance.
      *
-     * @param integer $ownerDistance
+     * @param int $ownerDistance
      *
      * @return Property
      */
@@ -758,7 +756,7 @@ class Property
     }
 
     /**
-     * Get ownerDistance
+     * Get ownerDistance.
      *
      * @return int
      */
@@ -768,7 +766,7 @@ class Property
     }
 
     /**
-     * Set workforce
+     * Set workforce.
      *
      * @param string $workforce
      *
@@ -782,7 +780,7 @@ class Property
     }
 
     /**
-     * Get workforce
+     * Get workforce.
      *
      * @return string
      */
@@ -792,9 +790,9 @@ class Property
     }
 
     /**
-     * Set productSellingDistance
+     * Set productSellingDistance.
      *
-     * @param integer $productSellingDistance
+     * @param int $productSellingDistance
      *
      * @return Property
      */
@@ -806,7 +804,7 @@ class Property
     }
 
     /**
-     * Get productSellingDistance
+     * Get productSellingDistance.
      *
      * @return int
      */
@@ -816,9 +814,9 @@ class Property
     }
 
     /**
-     * Set productSellingTime
+     * Set productSellingTime.
      *
-     * @param integer $productSellingTime
+     * @param int $productSellingTime
      *
      * @return Property
      */
@@ -830,7 +828,7 @@ class Property
     }
 
     /**
-     * Get productSellingTime
+     * Get productSellingTime.
      *
      * @return int
      */
@@ -840,9 +838,9 @@ class Property
     }
 
     /**
-     * Set productConservation
+     * Set productConservation.
      *
-     * @param boolean $productConservation
+     * @param bool $productConservation
      *
      * @return Property
      */
@@ -854,7 +852,7 @@ class Property
     }
 
     /**
-     * Get productConservation
+     * Get productConservation.
      *
      * @return bool
      */
@@ -864,7 +862,7 @@ class Property
     }
 
     /**
-     * Set productConservationDetails
+     * Set productConservationDetails.
      *
      * @param string $productConservationDetails
      *
@@ -878,7 +876,7 @@ class Property
     }
 
     /**
-     * Get productConservationDetails
+     * Get productConservationDetails.
      *
      * @return string
      */
@@ -888,7 +886,7 @@ class Property
     }
 
     /**
-     * Set member
+     * Set member.
      *
      * @param \ProducerBundle\Entity\Member $member
      *
@@ -902,7 +900,7 @@ class Property
     }
 
     /**
-     * Get member
+     * Get member.
      *
      * @return \ProducerBundle\Entity\Member
      */
@@ -964,7 +962,7 @@ class Property
     }
 
     /**
-     * Add visit
+     * Add visit.
      *
      * @param \ProducerBundle\Entity\Visit $visit
      *
@@ -978,7 +976,7 @@ class Property
     }
 
     /**
-     * Remove visit
+     * Remove visit.
      *
      * @param \ProducerBundle\Entity\Visit $visit
      */
@@ -988,7 +986,7 @@ class Property
     }
 
     /**
-     * Get visits
+     * Get visits.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1050,7 +1048,7 @@ class Property
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -1064,7 +1062,7 @@ class Property
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -1074,7 +1072,7 @@ class Property
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
      *
@@ -1088,7 +1086,7 @@ class Property
     }
 
     /**
-     * Get created
+     * Get created.
      *
      * @return \DateTime
      */
@@ -1098,7 +1096,7 @@ class Property
     }
 
     /**
-     * Set location
+     * Set location.
      *
      * @param \LocationBundle\Entity\Location $location
      *
@@ -1112,7 +1110,7 @@ class Property
     }
 
     /**
-     * Get location
+     * Get location.
      *
      * @return \LocationBundle\Entity\Location
      */

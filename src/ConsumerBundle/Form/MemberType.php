@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-
-use ConsumerBundle\Form\PropertyType;
 use UserBundle\Form\UserType;
 
 class MemberType extends AbstractType
@@ -23,10 +20,10 @@ class MemberType extends AbstractType
     }
 
     public function configureOptions(OptionsResolver $resolver)
-	{
-	    $resolver->setDefaults(array(
-	        'data_class' => 'ConsumerBundle\Entity\Member',
-            'is_authenticated' => false
-	    ));
-	}
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'ConsumerBundle\Entity\Member',
+            'is_authenticated' => false,
+        ));
+    }
 }

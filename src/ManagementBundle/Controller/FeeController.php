@@ -5,17 +5,9 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use FeeBundle\Entity\Fee;
 use ManagementBundle\Form\FeeType;
 
@@ -31,11 +23,10 @@ class FeeController extends Controller
      */
     public function indexAction()
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Fee", $this->get("router")->generate("management_fee_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Fee', $this->get('router')->generate('management_fee_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -57,7 +48,7 @@ class FeeController extends Controller
         $data = array(
             'fees' => $fees,
             'users' => $users,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -70,11 +61,11 @@ class FeeController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Fee", $this->get("router")->generate("management_fee_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_fee_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Fee', $this->get('router')->generate('management_fee_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_fee_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -103,15 +94,16 @@ class FeeController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_fee_index');
-            }else{
-                $url = $this->generateUrl('management_fee_edit', array('id'=>$fee->getId()));
+            } else {
+                $url = $this->generateUrl('management_fee_edit', array('id' => $fee->getId()));
             }
+
             return new RedirectResponse($url);
         }
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -122,11 +114,11 @@ class FeeController extends Controller
      */
     public function editAction(Fee $fee, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Fee", $this->get("router")->generate("management_fee_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_fee_edit",array('id'=>$fee->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Fee', $this->get('router')->generate('management_fee_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_fee_edit', array('id' => $fee->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -149,8 +141,8 @@ class FeeController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_fee_index');
-            }else{
-                $url = $this->generateUrl('management_fee_edit', array('id'=>$fee->getId()));
+            } else {
+                $url = $this->generateUrl('management_fee_edit', array('id' => $fee->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -159,7 +151,7 @@ class FeeController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -170,11 +162,11 @@ class FeeController extends Controller
      */
     public function markPaidAction(Fee $fee, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Fees", $this->get("router")->generate("management_fee_index"));
-        $breadcrumbs->addItem("Mark as paid", $this->get("router")->generate("management_fee_markpaid",array('id'=>$fee->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Fees', $this->get('router')->generate('management_fee_index'));
+        $breadcrumbs->addItem('Mark as paid', $this->get('router')->generate('management_fee_markpaid', array('id' => $fee->getId())));
 
         if (!$fee) {
             throw $this->createNotFoundException('Fee not found');
@@ -183,11 +175,11 @@ class FeeController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/fee/markPaid')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/fee/markPaid')) {
             $session->remove('confirmation/management/fee/markPaid');
 
             $user = $fee->getUser();
-            if ($user->getNode() !== $this->getUser()->getNode()){
+            if ($user->getNode() !== $this->getUser()->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -204,13 +196,13 @@ class FeeController extends Controller
             );
 
             return new RedirectResponse($this->generateUrl('management_fee_index'));
-        }else{
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/fee/markPaid', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }

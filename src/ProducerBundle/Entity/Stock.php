@@ -5,7 +5,7 @@ namespace ProducerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stock
+ * Stock.
  *
  * @ORM\Table(name="stock")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\StockRepository")
@@ -57,22 +57,21 @@ class Stock
     private $isExchangeable;
 
     /**
-    * @var Product
-    *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Product")
-    */
+     * @var Product
+     *
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Product")
+     */
     private $Product;
 
     /**
-    * @var Producer
-    *
-    * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Stocks")
-    */
+     * @var Producer
+     *
+     * @ORM\ManyToOne(targetEntity="\ProducerBundle\Entity\Member", inversedBy="Stocks")
+     */
     private $Producer;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -82,7 +81,7 @@ class Stock
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
      *
@@ -96,7 +95,7 @@ class Stock
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -106,7 +105,7 @@ class Stock
     }
 
     /**
-     * Set caduce
+     * Set caduce.
      *
      * @param \DateTime $caduce
      *
@@ -120,7 +119,7 @@ class Stock
     }
 
     /**
-     * Get caduce
+     * Get caduce.
      *
      * @return \DateTime
      */
@@ -130,7 +129,7 @@ class Stock
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param float $price
      *
@@ -144,7 +143,7 @@ class Stock
     }
 
     /**
-     * Get price
+     * Get price.
      *
      * @return float
      */
@@ -154,9 +153,9 @@ class Stock
     }
 
     /**
-     * Set isExchangeable
+     * Set isExchangeable.
      *
-     * @param boolean $isExchangeable
+     * @param bool $isExchangeable
      *
      * @return Stock
      */
@@ -168,7 +167,7 @@ class Stock
     }
 
     /**
-     * Get isExchangeable
+     * Get isExchangeable.
      *
      * @return bool
      */
@@ -178,7 +177,7 @@ class Stock
     }
 
     /**
-     * Set product
+     * Set product.
      *
      * @param \ProductBundle\Entity\Product $product
      *
@@ -192,7 +191,7 @@ class Stock
     }
 
     /**
-     * Get product
+     * Get product.
      *
      * @return \ProductBundle\Entity\Product
      */
@@ -202,7 +201,7 @@ class Stock
     }
 
     /**
-     * Set producer
+     * Set producer.
      *
      * @param \ProducerBundle\Entity\Member $producer
      *
@@ -216,7 +215,7 @@ class Stock
     }
 
     /**
-     * Get producer
+     * Get producer.
      *
      * @return \ProducerBundle\Entity\Member
      */
@@ -226,7 +225,7 @@ class Stock
     }
 
     /**
-     * Set unit
+     * Set unit.
      *
      * @param string $unit
      *
@@ -240,7 +239,7 @@ class Stock
     }
 
     /**
-     * Get unit
+     * Get unit.
      *
      * @return string
      */

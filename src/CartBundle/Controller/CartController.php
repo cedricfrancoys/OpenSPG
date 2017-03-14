@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 use CartBundle\Entity\Cart;
 
 /**
@@ -19,9 +18,9 @@ class CartController extends Controller
      */
     public function indexAction()
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Cart", $this->get("router")->generate("cart_cart_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Cart', $this->get('router')->generate('cart_cart_index'));
 
         return $this->render('CartBundle:Cart:index.html.twig');
     }
@@ -31,10 +30,10 @@ class CartController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Cart", $this->get("router")->generate("cart_cart_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("cart_cart_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Cart', $this->get('router')->generate('cart_cart_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('cart_cart_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -53,7 +52,7 @@ class CartController extends Controller
             ->getResult();
 
         $data = array(
-            'products' => $products
+            'products' => $products,
         );
 
         return $this->render('CartBundle:Cart:cart.html.twig', $data);
@@ -64,10 +63,10 @@ class CartController extends Controller
      */
     public function restAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Cart", $this->get("router")->generate("cart_cart_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("cart_cart_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Cart', $this->get('router')->generate('cart_cart_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('cart_cart_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -86,7 +85,7 @@ class CartController extends Controller
             ->getResult();
 
         $data = array(
-            'products' => $products
+            'products' => $products,
         );
 
         return $this->render('CartBundle:Cart:cart.html.twig', $data);
@@ -98,10 +97,10 @@ class CartController extends Controller
      */
     public function updateAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Cart", $this->get("router")->generate("cart_cart_index"));
-        $breadcrumbs->addItem("Update", $this->get("router")->generate("cart_cart_update"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Cart', $this->get('router')->generate('cart_cart_index'));
+        $breadcrumbs->addItem('Update', $this->get('router')->generate('cart_cart_update'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -109,7 +108,7 @@ class CartController extends Controller
 
         $amounts = $request->request->get('amount');
         foreach ($amounts as $stock_id => $amount) {
-            $this->updateProductInCart($stock_id, $member_id, $amount); 
+            $this->updateProductInCart($stock_id, $member_id, $amount);
         }
 
         $products = $em->
@@ -122,7 +121,7 @@ class CartController extends Controller
             ->getResult();
 
         $data = array(
-            'products' => $products
+            'products' => $products,
         );
 
         return $this->render('CartBundle:Cart:cart.html.twig', $data);
@@ -134,9 +133,9 @@ class CartController extends Controller
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
         $member = $em->getRepository('UserBundle:User')->find($member_id);
-        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
+        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product' => $stock, 'Member' => $member));
 
-        if( $cartItem ){
+        if ($cartItem) {
             $cartItem->setAmount($amount);
             $em->persist($cartItem);
             $em->flush();
@@ -149,11 +148,11 @@ class CartController extends Controller
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
         $member = $em->getRepository('UserBundle:User')->find($member_id);
-        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
+        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product' => $stock, 'Member' => $member));
 
-        if( $cartItem ){
-            $cartItem->setAmount($cartItem->getAmount()+1);
-        }else{
+        if ($cartItem) {
+            $cartItem->setAmount($cartItem->getAmount() + 1);
+        } else {
             $cartItem = new Cart();
             $cartItem->setProduct($stock);
             $cartItem->setMember($member);
@@ -170,18 +169,16 @@ class CartController extends Controller
 
         $stock = $em->getRepository('ProducerBundle:Stock')->find($product_id);
         $member = $em->getRepository('UserBundle:User')->find($member_id);
-        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product'=>$stock, 'Member'=>$member));
+        $cartItem = $em->getRepository('CartBundle:Cart')->findOneBy(array('Product' => $stock, 'Member' => $member));
 
-        if( $cartItem ){
+        if ($cartItem) {
             if ($cartItem->getAmount() == 1) {
                 $em->remove($cartItem);
-            }else{
-                $cartItem->setAmount($cartItem->getAmount()-1);
+            } else {
+                $cartItem->setAmount($cartItem->getAmount() - 1);
                 $em->persist($cartItem);
             }
             $em->flush();
         }
-
-        
     }
 }

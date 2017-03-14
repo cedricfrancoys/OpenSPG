@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -11,7 +12,7 @@ class ImageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'delete' => false,
-            'path' => null
+            'path' => null,
         ));
     }
 

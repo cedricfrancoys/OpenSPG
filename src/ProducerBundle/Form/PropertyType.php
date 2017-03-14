@@ -5,22 +5,20 @@ namespace ProducerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\FormView;
 
 class PropertyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $year = date('Y');
         $lastTenYears = array();
-        for ($i=$year; $i > $year-50 ; $i--) { 
+        for ($i = $year; $i > $year - 50; --$i) {
             $lastTenYears[$i] = $i;
         }
 
@@ -30,8 +28,8 @@ class PropertyType extends AbstractType
             ->add('regNr')
             ->add('name', null, array(
                 'attr' => array(
-                    'class' => 'nameField'
-                )
+                    'class' => 'nameField',
+                ),
             ))
             ->add('tenure')
             ->add('size')
@@ -41,19 +39,19 @@ class PropertyType extends AbstractType
             ->add('surroundingProblems')
             ->add('crops')
             ->add('certified', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('certifiedYears', ChoiceType::class, array(
                 'choices' => $lastTenYears,
                 'multiple' => true,
-                'required' => false
+                'required' => false,
             ))
             ->add('certifiedProvider', null, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('lastAgroquimicUsage', DateType::class, array(
                 'required' => false,
-                'placeholder' => 'Nunca'
+                'placeholder' => 'Nunca',
             ))
             ->add('fertilizer')
             ->add('phytosanitary')
@@ -66,7 +64,7 @@ class PropertyType extends AbstractType
             ->add('productConservationDetails')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -74,7 +72,7 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProducerBundle\Entity\Property',
-            'translation_domain' => 'property'
+            'translation_domain' => 'property',
         ));
     }
 }

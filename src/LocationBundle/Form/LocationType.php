@@ -5,8 +5,6 @@ namespace LocationBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use LocationBundle\Form\MapType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class LocationType extends AbstractType
@@ -20,7 +18,7 @@ class LocationType extends AbstractType
                 'map_width' => 600,
                 'type' => HiddenType::class,
                 'label' => false,
-                'markerTitleField' => $options['markerTitleField']
+                'markerTitleField' => $options['markerTitleField'],
             ))
             ;
     }
@@ -29,7 +27,7 @@ class LocationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'LocationBundle\Entity\Location',
-            'markerTitleField' => false
+            'markerTitleField' => false,
         ));
     }
 }

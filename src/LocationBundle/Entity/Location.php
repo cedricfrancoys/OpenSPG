@@ -8,7 +8,7 @@ use mhauptma73\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 use LocationBundle\Type\PointType;
 
 /**
- * LocationBundle\Entity\Location
+ * LocationBundle\Entity\Location.
  *
  * @ORM\Table(name="location")
  * @ORM\Entity(repositoryClass="LocationBundle\Entity\LocationRepository")
@@ -17,7 +17,7 @@ use LocationBundle\Type\PointType;
 class Location implements \ArrayAccess
 {
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -30,50 +30,53 @@ class Location implements \ArrayAccess
     private $longitude;
 
     /**
-     * @var string $location
+     * @var string
      *
      * @ORM\Column(name="location", type="point", nullable=false)
      */
     private $location;
 
     /**
-     * @var date $created
+     * @var date
      *
      * @ORM\Column(name="created", type="datetime", nullable=false)
      */
     private $created;
 
     /**
-     * @var date $modified
+     * @var date
      *
      * @ORM\Column(name="modified", type="datetime", nullable=true)
      */
     private $modified = null;
 
-    public function __construct( $repo = null){
+    public function __construct($repo = null)
+    {
         $this->created = new \DateTime();
-        $this->location = array('lat'=>0,'lon'=>0);
+        $this->location = array('lat' => 0, 'lon' => 0);
     }
 
     public function setLatLng($latlng)
     {
         $this->setLatitude($latlng['lat']);
         $this->setLongitude($latlng['lng']);
+
         return $this;
     }
+
     /**
      * @Assert\NotBlank()
      * @OhAssert\LatLng()
      */
     public function getLatLng()
     {
-        return array('lat'=>$this->getLatitude(),'lng'=>$this->getLongitude());
+        return array('lat' => $this->getLatitude(), 'lng' => $this->getLongitude());
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -81,15 +84,16 @@ class Location implements \ArrayAccess
     }
 
     /**
-     * Get latitude
+     * Get latitude.
      *
-     * @return string 
+     * @return string
      */
     public function getLatitude()
     {
         return $this->location['lat'];
     }
-     public function setLatitude( $lat )
+
+    public function setLatitude($lat)
     {
         $this->location['lat'] = $lat;
     }
@@ -99,7 +103,7 @@ class Location implements \ArrayAccess
         return sprintf('POINT(%f %f)', $this->latitude, $this->longitude);
     }
 
-    public function setLongitude( $long )
+    public function setLongitude($long)
     {
         $this->location['lon'] = $long;
     }
@@ -110,22 +114,23 @@ class Location implements \ArrayAccess
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return Location
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -133,22 +138,23 @@ class Location implements \ArrayAccess
     }
 
     /**
-     * Set modified
+     * Set modified.
      *
      * @param \DateTime $modified
+     *
      * @return Location
      */
     public function setModified($modified)
     {
         $this->modified = $modified;
-    
+
         return $this;
     }
 
     /**
-     * Get modified
+     * Get modified.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getModified()
     {
@@ -156,7 +162,7 @@ class Location implements \ArrayAccess
     }
 
     /**
-     * Set location
+     * Set location.
      *
      * @param PointType $location
      *
@@ -170,7 +176,7 @@ class Location implements \ArrayAccess
     }
 
     /**
-     * Get location
+     * Get location.
      *
      * @return PointType
      */
@@ -179,20 +185,29 @@ class Location implements \ArrayAccess
         return $this->location;
     }
 
-    public function offsetSet($offset, $value) {
-        $offset = 'set' . ucfirst($offset);
+    public function offsetSet($offset, $value)
+    {
+        $offset = 'set'.ucfirst($offset);
         $this->$offset($value);
     }
-    public function offsetExists($offset) {
-        $offset = 'get' . ucfirst($offset);
+
+    public function offsetExists($offset)
+    {
+        $offset = 'get'.ucfirst($offset);
+
         return method_exists($this, $offset);
     }
-    public function offsetUnset($offset) {
-        $offset = 'set' . ucfirst($offset);
+
+    public function offsetUnset($offset)
+    {
+        $offset = 'set'.ucfirst($offset);
         $this->$offset(null);
     }
-    public function offsetGet($offset) {
-        $offset = 'get' . ucfirst($offset);
+
+    public function offsetGet($offset)
+    {
+        $offset = 'get'.ucfirst($offset);
+
         return $this->$offset();
     }
 }

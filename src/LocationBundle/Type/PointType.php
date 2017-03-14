@@ -7,33 +7,36 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class PointType extends Type
 {
-	const POINT = 'point';
+    const POINT = 'point';
 
-	public function getName()
-	{
-		return self::POINT;
-	}
+    public function getName()
+    {
+        return self::POINT;
+    }
 
-	public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
-	{
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    {
         return 'POINT';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         //Null fields come in as empty strings
-        if($value == '') {
+        if ($value == '') {
             return null;
         }
- 
+
         $data = unpack('x/x/x/x/corder/Ltype/dlat/dlon', $value);
+
         return $data;
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (!$value) return;
- 
+        if (!$value) {
+            return;
+        }
+
         return pack('xxxxcLdd', '0', 1, $value['lat'], $value['lon']);
     }
 }

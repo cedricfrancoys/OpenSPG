@@ -5,17 +5,9 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use UserBundle\Entity\User;
 use ManagementBundle\Form\ManagerType;
 
@@ -31,11 +23,10 @@ class ManagerController extends Controller
      */
     public function indexAction()
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Manager", $this->get("router")->generate("management_manager_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Manager', $this->get('router')->generate('management_manager_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -46,7 +37,7 @@ class ManagerController extends Controller
 
         $data = array(
             'managers' => $managers,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -59,11 +50,11 @@ class ManagerController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Manager", $this->get("router")->generate("management_manager_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_manager_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Manager', $this->get('router')->generate('management_manager_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_manager_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -76,9 +67,8 @@ class ManagerController extends Controller
         if ($form->isValid()) {
             $manager = $this->get('users.manager.user');
             $manager->setCurrentUser($this->getUser());
-            $userCreated = $manager->createUser($user, $form, $request->request->get('manager'), array(\UserBundle\Entity\User::ROLE_MEMBER,\UserBundle\Entity\User::ROLE_MANAGER));
-            if($userCreated)
-            {
+            $userCreated = $manager->createUser($user, $form, $request->request->get('manager'), array(\UserBundle\Entity\User::ROLE_MEMBER, \UserBundle\Entity\User::ROLE_MANAGER));
+            if ($userCreated) {
                 $session = $this->get('session');
                 $trans = $this->get('translator');
 
@@ -90,8 +80,8 @@ class ManagerController extends Controller
 
                 if ($form->get('saveAndClose')->isClicked()) {
                     $url = $this->generateUrl('management_manager_index');
-                }else{
-                    $url = $this->generateUrl('management_manager_edit', array('id'=>$user->getId()));
+                } else {
+                    $url = $this->generateUrl('management_manager_edit', array('id' => $user->getId()));
                 }
                 $response = new RedirectResponse($url);
 
@@ -101,7 +91,7 @@ class ManagerController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -112,11 +102,11 @@ class ManagerController extends Controller
      */
     public function editAction(user $manager, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Manager", $this->get("router")->generate("management_manager_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_manager_edit",array('id'=>$manager->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Manager', $this->get('router')->generate('management_manager_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_manager_edit', array('id' => $manager->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -130,8 +120,8 @@ class ManagerController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_manager_index');
-            }else{
-                $url = $this->generateUrl('management_manager_edit', array('id'=>$user->getId()));
+            } else {
+                $url = $this->generateUrl('management_manager_edit', array('id' => $user->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -140,7 +130,7 @@ class ManagerController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -151,11 +141,11 @@ class ManagerController extends Controller
      */
     public function removeAction(User $user, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Managers", $this->get("router")->generate("management_manager_index"));
-        $breadcrumbs->addItem("Remove", $this->get("router")->generate("management_manager_remove",array('id'=>$user->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Managers', $this->get('router')->generate('management_manager_index'));
+        $breadcrumbs->addItem('Remove', $this->get('router')->generate('management_manager_remove', array('id' => $user->getId())));
 
         if (!$user) {
             throw $this->createNotFoundException('No manager found');
@@ -164,10 +154,10 @@ class ManagerController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/manager/remove')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/manager/remove')) {
             $session->remove('confirmation/management/manager/remove');
 
-            if ($user->getNode() !== $this->getUser()->getNode()){
+            if ($user->getNode() !== $this->getUser()->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -183,13 +173,13 @@ class ManagerController extends Controller
             );
 
             return new RedirectResponse($this->generateUrl('management_manager_index'));
-        }else{
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/manager/remove', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }

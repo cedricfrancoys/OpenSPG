@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -21,24 +22,24 @@ class ImageTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * Add the image_path option
+     * Add the image_path option.
      *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefined(array(
-        	'image_path',
-        	'allow_remove'
+            'image_path',
+            'allow_remove',
         ));
     }
 
     /**
-     * Pass the image URL to the view
+     * Pass the image URL to the view.
      *
-     * @param FormView $view
+     * @param FormView      $view
      * @param FormInterface $form
-     * @param array $options
+     * @param array         $options
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -48,12 +49,12 @@ class ImageTypeExtension extends AbstractTypeExtension
             if (null !== $parentData) {
                 $accessor = PropertyAccess::createPropertyAccessor();
                 $imageUrl = $accessor->getValue($parentData, $options['image_path']);
-                
-                if(!file_exists($this->getWebRoot().$imageUrl) || !is_file($this->getWebRoot().$imageUrl)){
-                	$imageUrl = null;
+
+                if (!file_exists($this->getWebRoot().$imageUrl) || !is_file($this->getWebRoot().$imageUrl)) {
+                    $imageUrl = null;
                 }
             } else {
-                 $imageUrl = null;
+                $imageUrl = null;
             }
 
             // set an "image_url" variable that will be available when rendering this field
@@ -64,6 +65,6 @@ class ImageTypeExtension extends AbstractTypeExtension
 
     protected function getWebRoot()
     {
-    	return __DIR__.'/../../../../web/';
+        return __DIR__.'/../../../../web/';
     }
 }

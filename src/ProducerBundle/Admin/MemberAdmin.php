@@ -35,7 +35,7 @@ class MemberAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -47,7 +47,7 @@ class MemberAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('User', 'sonata_type_admin', array(
-                'label' => false
+                'label' => false,
             ))
             ->add('phone')
         ;

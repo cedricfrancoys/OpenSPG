@@ -5,7 +5,7 @@ namespace ProducerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * VisitProduction
+ * VisitProduction.
  *
  * @ORM\Table(name="visit_production")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\VisitProductionRepository")
@@ -77,9 +77,8 @@ class VisitProduction
      */
     private $originReference;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -89,7 +88,7 @@ class VisitProduction
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -103,7 +102,7 @@ class VisitProduction
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -113,7 +112,7 @@ class VisitProduction
     }
 
     /**
-     * Set estimatedYield
+     * Set estimatedYield.
      *
      * @param string $estimatedYield
      *
@@ -127,7 +126,7 @@ class VisitProduction
     }
 
     /**
-     * Get estimatedYield
+     * Get estimatedYield.
      *
      * @return string
      */
@@ -137,9 +136,9 @@ class VisitProduction
     }
 
     /**
-     * Set originLocal
+     * Set originLocal.
      *
-     * @param boolean $originLocal
+     * @param bool $originLocal
      *
      * @return VisitProduction
      */
@@ -151,7 +150,7 @@ class VisitProduction
     }
 
     /**
-     * Get originLocal
+     * Get originLocal.
      *
      * @return bool
      */
@@ -161,9 +160,9 @@ class VisitProduction
     }
 
     /**
-     * Set originComercial
+     * Set originComercial.
      *
-     * @param boolean $originComercial
+     * @param bool $originComercial
      *
      * @return VisitProduction
      */
@@ -175,7 +174,7 @@ class VisitProduction
     }
 
     /**
-     * Get originComercial
+     * Get originComercial.
      *
      * @return bool
      */
@@ -185,9 +184,9 @@ class VisitProduction
     }
 
     /**
-     * Set originOwn
+     * Set originOwn.
      *
-     * @param boolean $originOwn
+     * @param bool $originOwn
      *
      * @return VisitProduction
      */
@@ -199,7 +198,7 @@ class VisitProduction
     }
 
     /**
-     * Get originOwn
+     * Get originOwn.
      *
      * @return bool
      */
@@ -209,9 +208,9 @@ class VisitProduction
     }
 
     /**
-     * Set originBought
+     * Set originBought.
      *
-     * @param boolean $originBought
+     * @param bool $originBought
      *
      * @return VisitProduction
      */
@@ -223,7 +222,7 @@ class VisitProduction
     }
 
     /**
-     * Get originBought
+     * Get originBought.
      *
      * @return bool
      */
@@ -233,7 +232,7 @@ class VisitProduction
     }
 
     /**
-     * Set originReference
+     * Set originReference.
      *
      * @param string $originReference
      *
@@ -247,7 +246,7 @@ class VisitProduction
     }
 
     /**
-     * Get originReference
+     * Get originReference.
      *
      * @return string
      */
@@ -257,7 +256,7 @@ class VisitProduction
     }
 
     /**
-     * Set visit
+     * Set visit.
      *
      * @param \ProducerBundle\Entity\Visit $visit
      *
@@ -271,7 +270,7 @@ class VisitProduction
     }
 
     /**
-     * Get visit
+     * Get visit.
      *
      * @return \ProducerBundle\Entity\Visit
      */

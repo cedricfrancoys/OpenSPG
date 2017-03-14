@@ -5,7 +5,7 @@ namespace ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Family
+ * Family.
  *
  * @ORM\Table(name="family", uniqueConstraints={@ORM\UniqueConstraint(name="family_idx", columns={"name","group_id"})})
  * @ORM\Entity(repositoryClass="ProductBundle\Repository\FamilyRepository")
@@ -29,10 +29,10 @@ class Family
     private $name;
 
     /**
-    * @var ProductGroup
-    *
-    * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\ProductGroup")
-    */
+     * @var ProductGroup
+     *
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\ProductGroup")
+     */
     private $Group;
 
     public function __toString()
@@ -41,7 +41,7 @@ class Family
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -51,7 +51,7 @@ class Family
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -65,7 +65,7 @@ class Family
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -75,7 +75,7 @@ class Family
     }
 
     /**
-     * Set group
+     * Set group.
      *
      * @param \ProductBundle\Entity\ProductGroup $group
      *
@@ -89,7 +89,7 @@ class Family
     }
 
     /**
-     * Get group
+     * Get group.
      *
      * @return \ProductBundle\Entity\ProductGroup
      */

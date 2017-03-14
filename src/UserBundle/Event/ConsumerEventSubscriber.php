@@ -1,6 +1,7 @@
 <?php
+
 namespace UserBundle\Event;
- 
+
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -26,27 +27,29 @@ class ConsumerEventSubscriber
     {
         $this->em = $em;
     }
+
     public function setMailer($mailer)
     {
         $this->mailer = $mailer;
     }
+
     /**
-       * Set the translator
-       *
-       * @param TranslatorInterface $trans
-       * @return void
-       */
-    public function setTranslator(TranslatorInterface $trans) {
+     * Set the translator.
+     *
+     * @param TranslatorInterface $trans
+     */
+    public function setTranslator(TranslatorInterface $trans)
+    {
         $this->translator = $trans;
     }
 
     /**
-       * Set twig
-       *
-       * @param Twig_Environment $twig
-       * @return void
-    */
-    public function setTwig(\Twig_Environment $twig) {
+     * Set twig.
+     *
+     * @param Twig_Environment $twig
+     */
+    public function setTwig(\Twig_Environment $twig)
+    {
         $this->twig = $twig;
     }
 
@@ -54,7 +57,7 @@ class ConsumerEventSubscriber
     {
         $em = $this->em;
 
-        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewConsumer'=>true));
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewConsumer' => true));
     }
 
     protected function sendEmail($subscriber, $consumer)
@@ -73,9 +76,9 @@ class ConsumerEventSubscriber
                     'UserBundle:Emails:newConsumer.html.twig',
                     array(
                         'name' => $subscriber->getName(),
-                        'consumer_name' => $consumerUser->getName() . ' ' . $consumerUser->getSurname(),
+                        'consumer_name' => $consumerUser->getName().' '.$consumerUser->getSurname(),
                         'consumer_id' => $consumer->getId(),
-                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
+                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile',
                     )
                 ),
                 'text/html'

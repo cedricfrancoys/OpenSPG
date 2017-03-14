@@ -3,12 +3,8 @@
 namespace AppBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class EntityToPropertyTransformer implements DataTransformerInterface
 {
@@ -35,7 +31,6 @@ class EntityToPropertyTransformer implements DataTransformerInterface
             ? PropertyAccess::createPropertyAccessor()->getValue($entity, $this->property)
             : current($this->unitOfWork->getEntityIdentifier($entity));
     }
-
 
     public function reverseTransform($value)
     {

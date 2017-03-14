@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * News
+ * News.
  *
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="NewsBundle\Repository\NewsRepository")
@@ -83,13 +83,13 @@ class News
      */
     private $Tags;
 
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->Tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -99,7 +99,7 @@ class News
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -113,7 +113,7 @@ class News
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -123,7 +123,7 @@ class News
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -137,7 +137,7 @@ class News
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -147,7 +147,7 @@ class News
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -161,7 +161,7 @@ class News
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -171,7 +171,7 @@ class News
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -185,7 +185,7 @@ class News
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -195,7 +195,7 @@ class News
     }
 
     /**
-     * Set modifiedAt
+     * Set modifiedAt.
      *
      * @param \DateTime $modifiedAt
      *
@@ -209,7 +209,7 @@ class News
     }
 
     /**
-     * Get modifiedAt
+     * Get modifiedAt.
      *
      * @return \DateTime
      */
@@ -219,7 +219,7 @@ class News
     }
 
     /**
-     * Set createdBy
+     * Set createdBy.
      *
      * @param \UserBundle\Entity\User $createdBy
      *
@@ -233,7 +233,7 @@ class News
     }
 
     /**
-     * Get createdBy
+     * Get createdBy.
      *
      * @return \UserBundle\Entity\User
      */
@@ -243,7 +243,7 @@ class News
     }
 
     /**
-     * Set modifiedBy
+     * Set modifiedBy.
      *
      * @param \UserBundle\Entity\User $modifiedBy
      *
@@ -257,7 +257,7 @@ class News
     }
 
     /**
-     * Get modifiedBy
+     * Get modifiedBy.
      *
      * @return \UserBundle\Entity\User
      */
@@ -267,7 +267,7 @@ class News
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param \NewsBundle\Entity\Tags $tag
      *
@@ -281,7 +281,7 @@ class News
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param \NewsBundle\Entity\Tags $tag
      */
@@ -291,7 +291,7 @@ class News
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

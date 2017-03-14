@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Visit
+ * Visit.
  *
  * @ORM\Table(name="visit")
  * @ORM\Entity(repositoryClass="ProducerBundle\Repository\VisitRepository")
@@ -403,9 +403,8 @@ class Visit
      */
     private $RejectApproval;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -415,7 +414,7 @@ class Visit
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -425,7 +424,7 @@ class Visit
     }
 
     /**
-     * Set visitDate
+     * Set visitDate.
      *
      * @param \DateTime $visitDate
      *
@@ -439,7 +438,7 @@ class Visit
     }
 
     /**
-     * Get visitDate
+     * Get visitDate.
      *
      * @return \DateTime
      */
@@ -449,7 +448,7 @@ class Visit
     }
 
     /**
-     * Set startTime
+     * Set startTime.
      *
      * @param \DateTime $startTime
      *
@@ -463,7 +462,7 @@ class Visit
     }
 
     /**
-     * Get startTime
+     * Get startTime.
      *
      * @return \DateTime
      */
@@ -473,7 +472,7 @@ class Visit
     }
 
     /**
-     * Set endTime
+     * Set endTime.
      *
      * @param \DateTime $endTime
      *
@@ -487,7 +486,7 @@ class Visit
     }
 
     /**
-     * Get endTime
+     * Get endTime.
      *
      * @return \DateTime
      */
@@ -497,9 +496,9 @@ class Visit
     }
 
     /**
-     * Set didFertilize
+     * Set didFertilize.
      *
-     * @param boolean $didFertilize
+     * @param bool $didFertilize
      *
      * @return Visit
      */
@@ -511,7 +510,7 @@ class Visit
     }
 
     /**
-     * Get didFertilize
+     * Get didFertilize.
      *
      * @return bool
      */
@@ -521,7 +520,7 @@ class Visit
     }
 
     /**
-     * Set fertlizeWith
+     * Set fertlizeWith.
      *
      * @param string $fertlizeWith
      *
@@ -535,7 +534,7 @@ class Visit
     }
 
     /**
-     * Get fertlizeWith
+     * Get fertlizeWith.
      *
      * @return string
      */
@@ -545,7 +544,7 @@ class Visit
     }
 
     /**
-     * Set fertilizeQty
+     * Set fertilizeQty.
      *
      * @param string $fertilizeQty
      *
@@ -559,7 +558,7 @@ class Visit
     }
 
     /**
-     * Get fertilizeQty
+     * Get fertilizeQty.
      *
      * @return string
      */
@@ -569,7 +568,7 @@ class Visit
     }
 
     /**
-     * Set fertilizeOrigin
+     * Set fertilizeOrigin.
      *
      * @param string $fertilizeOrigin
      *
@@ -583,7 +582,7 @@ class Visit
     }
 
     /**
-     * Get fertilizeOrigin
+     * Get fertilizeOrigin.
      *
      * @return string
      */
@@ -593,7 +592,7 @@ class Visit
     }
 
     /**
-     * Set fertilizerObservations
+     * Set fertilizerObservations.
      *
      * @param string $fertilizerObservations
      *
@@ -607,7 +606,7 @@ class Visit
     }
 
     /**
-     * Get fertilizerObservations
+     * Get fertilizerObservations.
      *
      * @return string
      */
@@ -617,9 +616,9 @@ class Visit
     }
 
     /**
-     * Set doesSoilConservation
+     * Set doesSoilConservation.
      *
-     * @param boolean $doesSoilConservation
+     * @param bool $doesSoilConservation
      *
      * @return Visit
      */
@@ -631,7 +630,7 @@ class Visit
     }
 
     /**
-     * Get doesSoilConservation
+     * Get doesSoilConservation.
      *
      * @return bool
      */
@@ -641,9 +640,9 @@ class Visit
     }
 
     /**
-     * Set scGreenManure
+     * Set scGreenManure.
      *
-     * @param boolean $scGreenManure
+     * @param bool $scGreenManure
      *
      * @return Visit
      */
@@ -655,7 +654,7 @@ class Visit
     }
 
     /**
-     * Get scGreenManure
+     * Get scGreenManure.
      *
      * @return bool
      */
@@ -665,9 +664,9 @@ class Visit
     }
 
     /**
-     * Set scMulching
+     * Set scMulching.
      *
-     * @param boolean $scMulching
+     * @param bool $scMulching
      *
      * @return Visit
      */
@@ -679,7 +678,7 @@ class Visit
     }
 
     /**
-     * Get scMulching
+     * Get scMulching.
      *
      * @return bool
      */
@@ -689,9 +688,9 @@ class Visit
     }
 
     /**
-     * Set scNotPlow
+     * Set scNotPlow.
      *
-     * @param boolean $scNotPlow
+     * @param bool $scNotPlow
      *
      * @return Visit
      */
@@ -703,7 +702,7 @@ class Visit
     }
 
     /**
-     * Get scNotPlow
+     * Get scNotPlow.
      *
      * @return bool
      */
@@ -713,9 +712,9 @@ class Visit
     }
 
     /**
-     * Set scHerbsState
+     * Set scHerbsState.
      *
-     * @param boolean $scHerbsState
+     * @param bool $scHerbsState
      *
      * @return Visit
      */
@@ -727,7 +726,7 @@ class Visit
     }
 
     /**
-     * Get scHerbsState
+     * Get scHerbsState.
      *
      * @return bool
      */
@@ -737,9 +736,9 @@ class Visit
     }
 
     /**
-     * Set scHerbsDistribution
+     * Set scHerbsDistribution.
      *
-     * @param boolean $scHerbsDistribution
+     * @param bool $scHerbsDistribution
      *
      * @return Visit
      */
@@ -751,7 +750,7 @@ class Visit
     }
 
     /**
-     * Get scHerbsDistribution
+     * Get scHerbsDistribution.
      *
      * @return bool
      */
@@ -761,9 +760,9 @@ class Visit
     }
 
     /**
-     * Set scHerbsControl
+     * Set scHerbsControl.
      *
-     * @param boolean $scHerbsControl
+     * @param bool $scHerbsControl
      *
      * @return Visit
      */
@@ -775,7 +774,7 @@ class Visit
     }
 
     /**
-     * Get scHerbsControl
+     * Get scHerbsControl.
      *
      * @return bool
      */
@@ -785,7 +784,7 @@ class Visit
     }
 
     /**
-     * Set scOberservations
+     * Set scOberservations.
      *
      * @param string $scOberservations
      *
@@ -799,7 +798,7 @@ class Visit
     }
 
     /**
-     * Get scOberservations
+     * Get scOberservations.
      *
      * @return string
      */
@@ -809,9 +808,9 @@ class Visit
     }
 
     /**
-     * Set pcPests
+     * Set pcPests.
      *
-     * @param boolean $pcPests
+     * @param bool $pcPests
      *
      * @return Visit
      */
@@ -823,7 +822,7 @@ class Visit
     }
 
     /**
-     * Get pcPests
+     * Get pcPests.
      *
      * @return bool
      */
@@ -833,7 +832,7 @@ class Visit
     }
 
     /**
-     * Set pcControl
+     * Set pcControl.
      *
      * @param string $pcControl
      *
@@ -847,7 +846,7 @@ class Visit
     }
 
     /**
-     * Get pcControl
+     * Get pcControl.
      *
      * @return string
      */
@@ -857,7 +856,7 @@ class Visit
     }
 
     /**
-     * Set pcPrevention
+     * Set pcPrevention.
      *
      * @param string $pcPrevention
      *
@@ -871,7 +870,7 @@ class Visit
     }
 
     /**
-     * Get pcPrevention
+     * Get pcPrevention.
      *
      * @return string
      */
@@ -881,7 +880,7 @@ class Visit
     }
 
     /**
-     * Set pcOberservations
+     * Set pcOberservations.
      *
      * @param string $pcOberservations
      *
@@ -895,7 +894,7 @@ class Visit
     }
 
     /**
-     * Get pcOberservations
+     * Get pcOberservations.
      *
      * @return string
      */
@@ -905,7 +904,7 @@ class Visit
     }
 
     /**
-     * Set pcPestsCrops
+     * Set pcPestsCrops.
      *
      * @param string $pcPestsCrops
      *
@@ -919,7 +918,7 @@ class Visit
     }
 
     /**
-     * Get pcPestsCrops
+     * Get pcPestsCrops.
      *
      * @return string
      */
@@ -929,7 +928,7 @@ class Visit
     }
 
     /**
-     * Set pcPestsDamage
+     * Set pcPestsDamage.
      *
      * @param string $pcPestsDamage
      *
@@ -943,7 +942,7 @@ class Visit
     }
 
     /**
-     * Get pcPestsDamage
+     * Get pcPestsDamage.
      *
      * @return string
      */
@@ -953,7 +952,7 @@ class Visit
     }
 
     /**
-     * Set pruningRests
+     * Set pruningRests.
      *
      * @param string $pruningRests
      *
@@ -967,7 +966,7 @@ class Visit
     }
 
     /**
-     * Get pruningRests
+     * Get pruningRests.
      *
      * @return string
      */
@@ -977,7 +976,7 @@ class Visit
     }
 
     /**
-     * Set agroquimicPresence
+     * Set agroquimicPresence.
      *
      * @param string $agroquimicPresence
      *
@@ -991,7 +990,7 @@ class Visit
     }
 
     /**
-     * Get agroquimicPresence
+     * Get agroquimicPresence.
      *
      * @return string
      */
@@ -1001,7 +1000,7 @@ class Visit
     }
 
     /**
-     * Set plasticWaste
+     * Set plasticWaste.
      *
      * @param string $plasticWaste
      *
@@ -1015,7 +1014,7 @@ class Visit
     }
 
     /**
-     * Get plasticWaste
+     * Get plasticWaste.
      *
      * @return string
      */
@@ -1025,7 +1024,7 @@ class Visit
     }
 
     /**
-     * Set agroquimicPackaging
+     * Set agroquimicPackaging.
      *
      * @param string $agroquimicPackaging
      *
@@ -1039,7 +1038,7 @@ class Visit
     }
 
     /**
-     * Get agroquimicPackaging
+     * Get agroquimicPackaging.
      *
      * @return string
      */
@@ -1049,7 +1048,7 @@ class Visit
     }
 
     /**
-     * Set pesticideSupsition
+     * Set pesticideSupsition.
      *
      * @param string $pesticideSupsition
      *
@@ -1063,7 +1062,7 @@ class Visit
     }
 
     /**
-     * Get pesticideSupsition
+     * Get pesticideSupsition.
      *
      * @return string
      */
@@ -1073,7 +1072,7 @@ class Visit
     }
 
     /**
-     * Set observations
+     * Set observations.
      *
      * @param string $observations
      *
@@ -1087,7 +1086,7 @@ class Visit
     }
 
     /**
-     * Get observations
+     * Get observations.
      *
      * @return string
      */
@@ -1097,7 +1096,7 @@ class Visit
     }
 
     /**
-     * Set producer
+     * Set producer.
      *
      * @param \ProducerBundle\Entity\Member $producer
      *
@@ -1111,7 +1110,7 @@ class Visit
     }
 
     /**
-     * Get producer
+     * Get producer.
      *
      * @return \ProducerBundle\Entity\Member
      */
@@ -1122,11 +1121,11 @@ class Visit
 
     public function isOwner($user)
     {
-        return ($this->getProducer()->getUser() === $user);
+        return $this->getProducer()->getUser() === $user;
     }
 
     /**
-     * Set property
+     * Set property.
      *
      * @param \ProducerBundle\Entity\Property $property
      *
@@ -1140,7 +1139,7 @@ class Visit
     }
 
     /**
-     * Get property
+     * Get property.
      *
      * @return \ProducerBundle\Entity\Property
      */
@@ -1150,7 +1149,7 @@ class Visit
     }
 
     /**
-     * Add participant
+     * Add participant.
      *
      * @param \UserBundle\Entity\User $participant
      *
@@ -1164,7 +1163,7 @@ class Visit
     }
 
     /**
-     * Remove participant
+     * Remove participant.
      *
      * @param \UserBundle\Entity\User $participant
      */
@@ -1174,7 +1173,7 @@ class Visit
     }
 
     /**
-     * Get participants
+     * Get participants.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1184,9 +1183,10 @@ class Visit
     }
 
     /**
-     * Checks whether the given user is participant of the visit
+     * Checks whether the given user is participant of the visit.
      *
      * @param User
+     *
      * @return bool
      */
     public function isParticipant($user)
@@ -1197,13 +1197,14 @@ class Visit
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * Set accepted
+     * Set accepted.
      *
-     * @param boolean $accepted
+     * @param bool $accepted
      *
      * @return Visit
      */
@@ -1215,9 +1216,9 @@ class Visit
     }
 
     /**
-     * Get accepted
+     * Get accepted.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAccepted()
     {
@@ -1225,9 +1226,9 @@ class Visit
     }
 
     /**
-     * Set usesFoliarFertilizer
+     * Set usesFoliarFertilizer.
      *
-     * @param boolean $usesFoliarFertilizer
+     * @param bool $usesFoliarFertilizer
      *
      * @return Visit
      */
@@ -1239,9 +1240,9 @@ class Visit
     }
 
     /**
-     * Get usesFoliarFertilizer
+     * Get usesFoliarFertilizer.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUsesFoliarFertilizer()
     {
@@ -1249,7 +1250,7 @@ class Visit
     }
 
     /**
-     * Set usesFoliarFertilizerWhich
+     * Set usesFoliarFertilizerWhich.
      *
      * @param string $usesFoliarFertilizerWhich
      *
@@ -1263,7 +1264,7 @@ class Visit
     }
 
     /**
-     * Get usesFoliarFertilizerWhich
+     * Get usesFoliarFertilizerWhich.
      *
      * @return string
      */
@@ -1273,7 +1274,7 @@ class Visit
     }
 
     /**
-     * Add production
+     * Add production.
      *
      * @param \ProducerBundle\Entity\VisitProduction $production
      *
@@ -1288,7 +1289,7 @@ class Visit
     }
 
     /**
-     * Remove production
+     * Remove production.
      *
      * @param \ProducerBundle\Entity\VisitProduction $production
      */
@@ -1298,7 +1299,7 @@ class Visit
     }
 
     /**
-     * Get production
+     * Get production.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1308,7 +1309,7 @@ class Visit
     }
 
     /**
-     * Set productionOberservation
+     * Set productionOberservation.
      *
      * @param string $productionOberservation
      *
@@ -1322,7 +1323,7 @@ class Visit
     }
 
     /**
-     * Get productionOberservation
+     * Get productionOberservation.
      *
      * @return string
      */
@@ -1332,9 +1333,9 @@ class Visit
     }
 
     /**
-     * Set doesAssociations
+     * Set doesAssociations.
      *
-     * @param boolean $doesAssociations
+     * @param bool $doesAssociations
      *
      * @return Visit
      */
@@ -1346,9 +1347,9 @@ class Visit
     }
 
     /**
-     * Get doesAssociations
+     * Get doesAssociations.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDoesAssociations()
     {
@@ -1356,7 +1357,7 @@ class Visit
     }
 
     /**
-     * Set associations
+     * Set associations.
      *
      * @param string $associations
      *
@@ -1370,7 +1371,7 @@ class Visit
     }
 
     /**
-     * Get associations
+     * Get associations.
      *
      * @return string
      */
@@ -1380,9 +1381,9 @@ class Visit
     }
 
     /**
-     * Set doesRotations
+     * Set doesRotations.
      *
-     * @param boolean $doesRotations
+     * @param bool $doesRotations
      *
      * @return Visit
      */
@@ -1394,9 +1395,9 @@ class Visit
     }
 
     /**
-     * Get doesRotations
+     * Get doesRotations.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDoesRotations()
     {
@@ -1404,7 +1405,7 @@ class Visit
     }
 
     /**
-     * Set rotations
+     * Set rotations.
      *
      * @param string $rotations
      *
@@ -1418,7 +1419,7 @@ class Visit
     }
 
     /**
-     * Get rotations
+     * Get rotations.
      *
      * @return string
      */
@@ -1428,7 +1429,7 @@ class Visit
     }
 
     /**
-     * Set distanceToNeighbours
+     * Set distanceToNeighbours.
      *
      * @param string $distanceToNeighbours
      *
@@ -1442,7 +1443,7 @@ class Visit
     }
 
     /**
-     * Get distanceToNeighbours
+     * Get distanceToNeighbours.
      *
      * @return string
      */
@@ -1452,9 +1453,9 @@ class Visit
     }
 
     /**
-     * Set steepBankStatus
+     * Set steepBankStatus.
      *
-     * @param boolean $steepBankStatus
+     * @param bool $steepBankStatus
      *
      * @return Visit
      */
@@ -1466,9 +1467,9 @@ class Visit
     }
 
     /**
-     * Get steepBankStatus
+     * Get steepBankStatus.
      *
-     * @return boolean
+     * @return bool
      */
     public function getSteepBankStatus()
     {
@@ -1476,7 +1477,7 @@ class Visit
     }
 
     /**
-     * Set steepBankStatusReason
+     * Set steepBankStatusReason.
      *
      * @param string $steepBankStatusReason
      *
@@ -1490,7 +1491,7 @@ class Visit
     }
 
     /**
-     * Get steepBankStatusReason
+     * Get steepBankStatusReason.
      *
      * @return string
      */
@@ -1500,9 +1501,9 @@ class Visit
     }
 
     /**
-     * Set hedgesBarriersExists
+     * Set hedgesBarriersExists.
      *
-     * @param boolean $hedgesBarriersExists
+     * @param bool $hedgesBarriersExists
      *
      * @return Visit
      */
@@ -1514,9 +1515,9 @@ class Visit
     }
 
     /**
-     * Get hedgesBarriersExists
+     * Get hedgesBarriersExists.
      *
-     * @return boolean
+     * @return bool
      */
     public function getHedgesBarriersExists()
     {
@@ -1524,7 +1525,7 @@ class Visit
     }
 
     /**
-     * Set hedgesBarriersExistsReason
+     * Set hedgesBarriersExistsReason.
      *
      * @param string $hedgesBarriersExistsReason
      *
@@ -1538,7 +1539,7 @@ class Visit
     }
 
     /**
-     * Get hedgesBarriersExistsReason
+     * Get hedgesBarriersExistsReason.
      *
      * @return string
      */
@@ -1548,7 +1549,7 @@ class Visit
     }
 
     /**
-     * Set document
+     * Set document.
      *
      * @param string $document
      *
@@ -1556,7 +1557,7 @@ class Visit
      */
     public function setDocument($document)
     {
-        if( $document){
+        if ($document) {
             $this->document = $document;
             $this->newFileUpload = true;
         }
@@ -1565,7 +1566,7 @@ class Visit
     }
 
     /**
-     * Get document
+     * Get document.
      *
      * @return File
      */
@@ -1573,15 +1574,15 @@ class Visit
     {
         $web_path = dirname(dirname(dirname(__DIR__))).'/web';
         $document = null;
-        if( $this->document && file_exists($web_path.'/'.$this->document) ){
-            $document = new File($web_path . '/' . $this->document);
+        if ($this->document && file_exists($web_path.'/'.$this->document)) {
+            $document = new File($web_path.'/'.$this->document);
         }
 
         return $document;
     }
 
     /**
-     * Get document... should only be used when an file has been uploaded
+     * Get document... should only be used when an file has been uploaded.
      *
      * @return FileInfoInterface
      */
@@ -1591,7 +1592,7 @@ class Visit
     }
 
     /**
-     * Return the public path to the document
+     * Return the public path to the document.
      *
      * @return null|string
      */
@@ -1601,7 +1602,7 @@ class Visit
     }
 
     /**
-     * Add rejectApproval
+     * Add rejectApproval.
      *
      * @param \ProducerBundle\Entity\RejectApproval $rejectApproval
      *
@@ -1615,7 +1616,7 @@ class Visit
     }
 
     /**
-     * Remove rejectApproval
+     * Remove rejectApproval.
      *
      * @param \ProducerBundle\Entity\RejectApproval $rejectApproval
      */
@@ -1625,7 +1626,7 @@ class Visit
     }
 
     /**
-     * Get rejectApproval
+     * Get rejectApproval.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

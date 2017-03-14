@@ -6,17 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use UserBundle\Entity\User;
 use ManagementBundle\Form\UserType;
 use UserBundle\Form\ChangePasswordType;
-
 use ProducerBundle\Entity\Member as Producer;
 use ConsumerBundle\Entity\Member as Consumer;
 
@@ -32,11 +28,10 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("User", $this->get("router")->generate("management_user_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('User', $this->get('router')->generate('management_user_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -46,7 +41,7 @@ class UserController extends Controller
 
         $data = array(
             'users' => $users,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -59,11 +54,11 @@ class UserController extends Controller
      */
     public function editAction(user $user, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Users", $this->get("router")->generate("management_user_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_user_edit",array('id'=>$user->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Users', $this->get('router')->generate('management_user_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_user_edit', array('id' => $user->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -77,8 +72,8 @@ class UserController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_user_index');
-            }else{
-                $url = $this->generateUrl('management_user_edit', array('id'=>$user->getId()));
+            } else {
+                $url = $this->generateUrl('management_user_edit', array('id' => $user->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -86,14 +81,14 @@ class UserController extends Controller
         }
 
         $change_password_form = $this->createForm(ChangePasswordType::class, $user, array(
-            'action' => $this->generateUrl('management_user_changepassword', array('id'=>$user->getId()))
+            'action' => $this->generateUrl('management_user_changepassword', array('id' => $user->getId())),
         ));
 
         return array(
             'form' => $form->createView(),
             'user' => $user,
             'menu' => 'management',
-            'change_password_form' => $change_password_form->createView()
+            'change_password_form' => $change_password_form->createView(),
         );
     }
 
@@ -108,7 +103,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ChangePasswordType::class, $user, array(
-            'action' => $this->generateUrl('management_user_changepassword', array('id'=>$user->getId()))
+            'action' => $this->generateUrl('management_user_changepassword', array('id' => $user->getId())),
         ));
 
         $form->handleRequest($request);
@@ -120,13 +115,12 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $response = new JsonResponse(array('status'=>'ok'));
+            $response = new JsonResponse(array('status' => 'ok'));
 
             return $response;
         }
 
-        throw new Exception("Error Processing Request", 1);
-        
+        throw new Exception('Error Processing Request', 1);
     }
 
     /**
@@ -136,11 +130,11 @@ class UserController extends Controller
      */
     public function deleteAction(User $user, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Managers", $this->get("router")->generate("management_manager_index"));
-        $breadcrumbs->addItem("Remove", $this->get("router")->generate("management_manager_remove",array('id'=>$user->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Managers', $this->get('router')->generate('management_manager_index'));
+        $breadcrumbs->addItem('Remove', $this->get('router')->generate('management_manager_remove', array('id' => $user->getId())));
 
         if (!$user) {
             throw $this->createNotFoundException('No manager found');
@@ -149,10 +143,10 @@ class UserController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/user/delete')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/user/delete')) {
             $session->remove('confirmation/management/user/delete');
 
-            if ($this->getUser()->getNode() !== $user->getNode()){
+            if ($this->getUser()->getNode() !== $user->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -167,13 +161,13 @@ class UserController extends Controller
             );
 
             return new RedirectResponse($this->generateUrl('management_user_index'));
-        }else{
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/user/delete', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }
@@ -191,9 +185,9 @@ class UserController extends Controller
 
         $user->addRole(\UserBundle\Entity\User::ROLE_PRODUCER);
 
-        if( $user->getProducer() ){
+        if ($user->getProducer()) {
             $producer = $user->getProducer();
-        }else{
+        } else {
             $producer = new Producer();
             $producer->setActiveAsProducer(true);
             $em->persist($producer);
@@ -210,7 +204,7 @@ class UserController extends Controller
             $trans->trans('The user has been made a producer!', array(), 'producer')
         );
 
-        return new RedirectResponse($this->generateUrl('management_producer_edit', array('id'=>$producer->getId())));
+        return new RedirectResponse($this->generateUrl('management_producer_edit', array('id' => $producer->getId())));
     }
 
     /**
@@ -226,9 +220,9 @@ class UserController extends Controller
 
         $user->addRole(\UserBundle\Entity\User::ROLE_CONSUMER);
 
-        if( $user->getConsumer() ){
+        if ($user->getConsumer()) {
             $consumer = $user->getConsumer();
-        }else{
+        } else {
             $consumer = new Consumer();
             $em->persist($consumer);
             $user->setConsumer($consumer);
@@ -244,7 +238,7 @@ class UserController extends Controller
             $trans->trans('The user has been made a consumer!', array(), 'consumer')
         );
 
-        return new RedirectResponse($this->generateUrl('management_consumer_edit', array('id'=>$consumer->getId())));
+        return new RedirectResponse($this->generateUrl('management_consumer_edit', array('id' => $consumer->getId())));
     }
 
     /**
@@ -270,7 +264,7 @@ class UserController extends Controller
             $trans->trans('The user has been made a manager!', array(), 'management')
         );
 
-        return new RedirectResponse($this->generateUrl('management_manager_edit', array('id'=>$user->getId())));
+        return new RedirectResponse($this->generateUrl('management_manager_edit', array('id' => $user->getId())));
     }
 
     /**
@@ -296,6 +290,6 @@ class UserController extends Controller
             $trans->trans('The user has been made a visit group member!', array(), 'management')
         );
 
-        return new RedirectResponse($this->generateUrl('management_visitgroup_edit', array('id'=>$user->getId())));
+        return new RedirectResponse($this->generateUrl('management_visitgroup_edit', array('id' => $user->getId())));
     }
 }

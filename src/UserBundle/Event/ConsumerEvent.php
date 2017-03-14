@@ -1,10 +1,10 @@
 <?php
+
 namespace UserBundle\Event;
 
 use ConsumerBundle\Entity\Member;
- 
 use Symfony\Component\EventDispatcher\Event;
- 
+
 class ConsumerEvent extends Event
 {
     protected $consumer;

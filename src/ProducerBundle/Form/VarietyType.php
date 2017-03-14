@@ -5,20 +5,13 @@ namespace ProducerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-
-use Doctrine\Common\Persistence\ObjectManager;
-
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Form\Type\HiddenEntityType;
 
 class VarietyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,11 +20,11 @@ class VarietyType extends AbstractType
             ->add('Family', HiddenEntityType::class, array(
                 'class' => 'ProductBundle\\Entity\\Family',
                 'label' => false,
-                'attr' => array('class'=>'needsUpdate')
+                'attr' => array('class' => 'needsUpdate'),
             ))
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -39,7 +32,7 @@ class VarietyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'ProductBundle\Entity\Variety',
-            'translation_domain' => 'product'
+            'translation_domain' => 'product',
         ));
     }
 }

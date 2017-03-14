@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Log
+ * Log.
  *
  * @ORM\Table(name="log")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LogRepository")
@@ -55,7 +55,7 @@ class Log
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -65,7 +65,7 @@ class Log
     }
 
     /**
-     * Set action
+     * Set action.
      *
      * @param string $action
      *
@@ -79,7 +79,7 @@ class Log
     }
 
     /**
-     * Get action
+     * Get action.
      *
      * @return string
      */
@@ -89,7 +89,7 @@ class Log
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param string $user
      *
@@ -103,7 +103,7 @@ class Log
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class Log
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
      *
@@ -127,7 +127,7 @@ class Log
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -137,7 +137,7 @@ class Log
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -151,7 +151,7 @@ class Log
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */

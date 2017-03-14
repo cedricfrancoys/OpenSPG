@@ -1,8 +1,9 @@
 <?php
+
 namespace ProducerBundle\Event;
- 
+
 use Symfony\Component\EventDispatcher\Event;
-use \Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use AppBundle\Manager\LogManager;
 
 class ProducerEventSubscriber
@@ -30,37 +31,39 @@ class ProducerEventSubscriber
     {
         $this->em = $em;
     }
+
     public function setMailer($mailer)
     {
         $this->mailer = $mailer;
     }
+
     /**
-       * Set the translator
-       *
-       * @param TranslatorInterface $trans
-       * @return void
-       */
-    public function setTranslator(TranslatorInterface $trans) {
+     * Set the translator.
+     *
+     * @param TranslatorInterface $trans
+     */
+    public function setTranslator(TranslatorInterface $trans)
+    {
         $this->translator = $trans;
     }
+
     /**
-       * Set the log manager
-       *
-       * @param logManager $log
-       * @return void
-       */
-    public function setLogManager(LogManager $log) {
+     * Set the log manager.
+     *
+     * @param logManager $log
+     */
+    public function setLogManager(LogManager $log)
+    {
         $this->log = $log;
     }
 
-
     /**
-       * Set twig
-       *
-       * @param Twig_Environment $twig
-       * @return void
-    */
-    public function setTwig(\Twig_Environment $twig) {
+     * Set twig.
+     *
+     * @param Twig_Environment $twig
+     */
+    public function setTwig(\Twig_Environment $twig)
+    {
         $this->twig = $twig;
     }
 
@@ -68,7 +71,7 @@ class ProducerEventSubscriber
     {
         $em = $this->em;
 
-        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewProducer'=>true));
+        return $em->getRepository('UserBundle:User')->findBy(array('receiveEmailNewProducer' => true));
     }
 
     protected function sendEmail($subscriber, $producer)
@@ -87,9 +90,9 @@ class ProducerEventSubscriber
                     'UserBundle:Emails:newProducer.html.twig',
                     array(
                         'name' => $subscriber->getName(),
-                        'producer_name' => $producerUser->getName() . ' ' . $producerUser->getSurname(),
+                        'producer_name' => $producerUser->getName().' '.$producerUser->getSurname(),
                         'producer_id' => $producer->getId(),
-                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile'
+                        'profile_path' => ($subscriber->getProducer()) ? 'producer_member_profile' : 'consumer_member_profile',
                     )
                 ),
                 'text/html'
@@ -97,6 +100,6 @@ class ProducerEventSubscriber
         ;
         $this->mailer->send($message);
 
-        $this->log->log('ProducerEventSubscriber:sendEmail', 'Sent email to ' . $subscriber->getEmail());
+        $this->log->log('ProducerEventSubscriber:sendEmail', 'Sent email to '.$subscriber->getEmail());
     }
 }

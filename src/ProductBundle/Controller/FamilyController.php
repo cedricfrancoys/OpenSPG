@@ -8,12 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use ProductBundle\Entity\Family;
 
 /**
-* @Route("/producer/product/family")
-*/
+ * @Route("/producer/product/family")
+ */
 class FamilyController extends Controller
 {
     /**
@@ -31,8 +30,7 @@ class FamilyController extends Controller
             ->createQueryBuilder('f')
             ->select('f');
 
-        if( $group )
-        {
+        if ($group) {
             $Group = $em->getRepository('ProductBundle:ProductGroup')->findOneByName($group);
             $families->where('f.Group = :group')
                 ->setParameter('group', $Group);
@@ -61,28 +59,28 @@ class FamilyController extends Controller
 
         if (null === $Group) {
             $response = new JsonResponse();
-            $response->setData(array('msg'=>'Error saving family data. Group is missing.'));
+            $response->setData(array('msg' => 'Error saving family data. Group is missing.'));
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-            return $response;    
+
+            return $response;
         }
 
-        try
-        {
+        try {
             $family = new Family();
             $family->setName($suggestion);
             $family->setGroup($Group);
 
             $em->persist($family);
             $em->flush();
-        }catch(\Exception $e){}
+        } catch (\Exception $e) {
+        }
 
         $families = $em->
             getRepository('ProductBundle:Family')
             ->createQueryBuilder('f')
             ->select('f');
 
-        if( $group )
-        {
+        if ($group) {
             $families->where('f.Group = :group')
                 ->setParameter('group', $Group);
         }
@@ -94,6 +92,6 @@ class FamilyController extends Controller
         $response->setData($families);
         $response->setStatusCode(Response::HTTP_CREATED);
 
-        return $response;        
+        return $response;
     }
 }

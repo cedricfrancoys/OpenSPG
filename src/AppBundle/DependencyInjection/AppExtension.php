@@ -11,18 +11,17 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AppExtension extends Extension implements PrependExtensionInterface
 {
-
     public function load(array $configs, ContainerBuilder $container)
     {
-//        $configuration = new Configuration();
+        //        $configuration = new Configuration();
 //        $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function prepend(ContainerBuilder $container)
     {
@@ -45,8 +44,6 @@ class AppExtension extends Extension implements PrependExtensionInterface
     /**
      * @param ContainerBuilder $container The service container
      * @param array            $config    The bundle configuration
-     *
-     * @return void
      */
     protected function configureAsseticBundle(ContainerBuilder $container, array $config)
     {
@@ -59,8 +56,8 @@ class AppExtension extends Extension implements PrependExtensionInterface
                             $config['typeahead_js_file'],
                         ),
                         'output' => $config['typeahead_js_output'],
-                    )
-                )
+                    ),
+                ),
             ));
         }
     }
@@ -68,8 +65,6 @@ class AppExtension extends Extension implements PrependExtensionInterface
     /**
      * @param ContainerBuilder $container The service container
      * @param array            $config    The bundle configuration
-     *
-     * @return void
      */
     protected function configureTwigBundle(ContainerBuilder $container, array $config)
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -21,23 +22,23 @@ class DownloadTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * Add the image_path option
+     * Add the image_path option.
      *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefined(array(
-        	'file_path'
+            'file_path',
         ));
     }
 
     /**
-     * Pass the image URL to the view
+     * Pass the image URL to the view.
      *
-     * @param FormView $view
+     * @param FormView      $view
      * @param FormInterface $form
-     * @param array $options
+     * @param array         $options
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -47,20 +48,20 @@ class DownloadTypeExtension extends AbstractTypeExtension
             if (null !== $parentData) {
                 $accessor = PropertyAccess::createPropertyAccessor();
                 $fileUrl = $accessor->getValue($parentData, $options['file_path']);
-                
-                if(!file_exists($this->getWebRoot().$fileUrl) || !is_file($this->getWebRoot().$fileUrl)){
-                	$fileUrl = null;
+
+                if (!file_exists($this->getWebRoot().$fileUrl) || !is_file($this->getWebRoot().$fileUrl)) {
+                    $fileUrl = null;
                 }
             } else {
-                 $fileUrl = null;
+                $fileUrl = null;
             }
 
             // set an "image_url" variable that will be available when rendering this field
             $view->vars['file_url'] = $fileUrl;
             if ($view->vars['file_url'] !== null) {
                 $view->vars['file_name'] = explode('/', $view->vars['file_url']);
-                $view->vars['file_name'] = $view->vars['file_name'][count($view->vars['file_name'])-1];
-            }else{
+                $view->vars['file_name'] = $view->vars['file_name'][count($view->vars['file_name']) - 1];
+            } else {
                 $view->vars['file_name'] = null;
             }
         }
@@ -68,6 +69,6 @@ class DownloadTypeExtension extends AbstractTypeExtension
 
     protected function getWebRoot()
     {
-    	return __DIR__.'/../../../../web/';
+        return __DIR__.'/../../../../web/';
     }
 }

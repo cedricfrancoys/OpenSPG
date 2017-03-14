@@ -18,7 +18,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface;
-
 use UserBundle\Entity\User;
 
 /**
@@ -74,9 +73,6 @@ class LoginManager
         $this->rememberMeService = $rememberMeService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     final public function logInUser($firewallName, User $user, Response $response = null)
     {
         $this->userChecker->checkPreAuth($user);

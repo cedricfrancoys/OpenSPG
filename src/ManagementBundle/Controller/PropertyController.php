@@ -5,23 +5,13 @@ namespace ManagementBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use ProducerBundle\Entity\Property;
 use ManagementBundle\Form\PropertyType;
-
 use ProducerBundle\Entity\Member;
 
 /**
@@ -36,15 +26,15 @@ class PropertyController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
         // if($producer){
         //     $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
         //     $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
         //     $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
         // }
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('management_property_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -61,13 +51,13 @@ class PropertyController extends Controller
             ->setParameter('node', $currentMember->getNode())
             ->addOrderBy('v.visitDate', 'DESC');
 
-        if($filter = $request->get('filter')){
+        if ($filter = $request->get('filter')) {
             if ($filter['Member']) {
                 $sql->andWhere('u.id = :user')
                     ->setParameter('user', $filter['Member']);
             }
         }
-            
+
         $query = $sql->getQuery();
         $properties = $query->getResult();
 
@@ -77,7 +67,7 @@ class PropertyController extends Controller
         return array(
             'properties' => $properties,
             'users' => $users,
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -88,22 +78,22 @@ class PropertyController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        if(false){
-            $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
-            $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-            $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        if (false) {
+            $name = $producer->getUser()->getName().' '.$producer->getUser()->getSurname();
+            $breadcrumbs->addItem('Producers', $this->get('router')->generate('management_producer_index'));
+            $breadcrumbs->addItem($name, $this->get('router')->generate('management_producer_edit', array('id' => $producer->getId())));
         }
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
-        $breadcrumbs->addItem("Add", $this->get("router")->generate("management_producer_add"));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('management_property_index'));
+        $breadcrumbs->addItem('Add', $this->get('router')->generate('management_producer_add'));
 
         $em = $this->getDoctrine()->getManager();
 
         $property = new Property();
 
-        $form = $this->createForm(PropertyType::class, $property, array('node'=>$this->getUser()->getNode()));
+        $form = $this->createForm(PropertyType::class, $property, array('node' => $this->getUser()->getNode()));
 
         $form->handleRequest($request);
 
@@ -128,15 +118,16 @@ class PropertyController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_property_index');
-            }else{
-                $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
+            } else {
+                $url = $this->generateUrl('management_property_edit', array('id' => $property->getId()));
             }
+
             return new RedirectResponse($url);
         }
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -148,17 +139,17 @@ class PropertyController extends Controller
     public function editAction(Property $property, Request $request)
     {
         // $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
         // $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
         // $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index"));
-        $breadcrumbs->addItem("Edit", $this->get("router")->generate("management_producer_edit", array('id'=>0)));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('management_property_index'));
+        $breadcrumbs->addItem('Edit', $this->get('router')->generate('management_producer_edit', array('id' => 0)));
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(PropertyType::class, $property, array('node'=>$this->getUser()->getNode()));
+        $form = $this->createForm(PropertyType::class, $property, array('node' => $this->getUser()->getNode()));
 
         $form->handleRequest($request);
 
@@ -168,8 +159,8 @@ class PropertyController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_property_index');
-            }else{
-                $url = $this->generateUrl('management_property_edit', array('id'=>$property->getId()));
+            } else {
+                $url = $this->generateUrl('management_property_edit', array('id' => $property->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -178,7 +169,7 @@ class PropertyController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         );
     }
 
@@ -190,14 +181,14 @@ class PropertyController extends Controller
      */
     public function deleteAction(Member $producer, Property $property, Request $request)
     {
-        $name = $producer->getUser()->getName() . ' ' . $producer->getUser()->getSurname();
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Producers", $this->get("router")->generate("management_producer_index"));
-        $breadcrumbs->addItem($name, $this->get("router")->generate("management_producer_edit", array('id'=>$producer->getId())));
-        $breadcrumbs->addItem('Properties', $this->get("router")->generate("management_property_index", array('producer_id'=>$producer->getId())));
-        $breadcrumbs->addItem("Delete", $this->get("router")->generate("management_producer_delete", array('producer_id'=>0, 'id'=>0)));
+        $name = $producer->getUser()->getName().' '.$producer->getUser()->getSurname();
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Producers', $this->get('router')->generate('management_producer_index'));
+        $breadcrumbs->addItem($name, $this->get('router')->generate('management_producer_edit', array('id' => $producer->getId())));
+        $breadcrumbs->addItem('Properties', $this->get('router')->generate('management_property_index', array('producer_id' => $producer->getId())));
+        $breadcrumbs->addItem('Delete', $this->get('router')->generate('management_producer_delete', array('producer_id' => 0, 'id' => 0)));
 
         if (!$producer) {
             throw $this->createNotFoundException('No producer found');
@@ -209,10 +200,10 @@ class PropertyController extends Controller
         $session = $this->get('session');
         $trans = $this->get('translator');
 
-        if($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/property/delete')){
+        if ($request->request->get('confirmation_key') && $request->request->get('confirmation_key') == $session->get('confirmation/management/property/delete')) {
             $session->remove('confirmation/management/property/delete');
 
-            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()){
+            if ($this->getUser()->getNode() !== $producer->getUser()->getNode()) {
                 throw new AccessDeniedException();
             }
 
@@ -226,14 +217,14 @@ class PropertyController extends Controller
                 $trans->trans('The property has been deleted!', array(), 'management')
             );
 
-            return new RedirectResponse($this->generateUrl('management_property_index', array('producer_id'=>$producer->getId())));
-        }else{
+            return new RedirectResponse($this->generateUrl('management_property_index', array('producer_id' => $producer->getId())));
+        } else {
             $confirmation_key = uniqid();
             $session->set('confirmation/management/property/delete', $confirmation_key);
 
             return array(
                 'confirmation_key' => $confirmation_key,
-                'menu' => 'management'
+                'menu' => 'management',
             );
         }
     }

@@ -27,7 +27,7 @@ class LoadNodeData extends AbstractFixture implements OrderedFixtureInterface
         $node3->setName('Grupo Costa Granadina');
         $node3->setAddress('Gualchos');
 
-        $manager->persist($node3);     
+        $manager->persist($node3);
 
         $manager->flush();
 

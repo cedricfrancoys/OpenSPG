@@ -2,19 +2,10 @@
 
 namespace ProducerBundle\Controller;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
-use ProducerBundle\Entity\Property;
 use AppBundle\Entity\Contact;
 use ProducerBundle\Form\ContactType;
 use ProducerBundle\Entity\Stock;
@@ -30,10 +21,10 @@ class ContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("product_public_index"));
-        $breadcrumbs->addItem("Contact", $this->get("router")->generate("producer_contact_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Products', $this->get('router')->generate('product_public_index'));
+        $breadcrumbs->addItem('Contact', $this->get('router')->generate('producer_contact_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -43,13 +34,13 @@ class ContactController extends Controller
             $stock = $em->getRepository('ProducerBundle:Stock')->find($request->get('stock_id'));
             $contact->setReceiver($stock->getProducer()->getUser());
             // $contact->Stock = $stock->getId();
-        }else{
+        } else {
             $stock = null;
         }
-        if ($request->get('producer_id')){
+        if ($request->get('producer_id')) {
             $producer = $em->getRepository('ProducerBundle:Member')->find($request->get('producer_id'));
             $contact->setReceiver($producer->getUser());
-        }else{
+        } else {
             $producer = null;
         }
 
@@ -87,7 +78,7 @@ class ContactController extends Controller
         $data = array(
             'form' => $form->createView(),
             'menu' => 'producer',
-            'stock' => $stock
+            'stock' => $stock,
         );
 
         return $this->render('ProducerBundle:Contact:index.html.twig', $data);
@@ -98,12 +89,12 @@ class ContactController extends Controller
         $trans = $this->get('translator');
 
         $subject = $trans->trans('New contact request received', array(), 'contact');
-        if( $stock ){
+        if ($stock) {
             $receiver = $stock->getProducer()->getUser()->getEmail();
-        }else if( $producer ){
+        } elseif ($producer) {
             $receiver = $producer->getUser()->getEmail();
         }
-        if(!$receiver){
+        if (!$receiver) {
             return;
         }
 
@@ -116,7 +107,7 @@ class ContactController extends Controller
                     'ProducerBundle:Contact:producer_mail.html.twig',
                     array(
                         'contact' => $contact,
-                        'stock' => $stock
+                        'stock' => $stock,
                     )
                 ),
                 'text/html'

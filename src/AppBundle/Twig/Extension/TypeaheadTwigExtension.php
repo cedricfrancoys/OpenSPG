@@ -2,9 +2,6 @@
 
 namespace AppBundle\Twig\Extension;
 
-use Assetic\Asset\AssetCollection;
-use Assetic\Asset\StringAsset;
-use Assetic\Filter\Yui\JsCompressorFilter;
 use AppBundle\Form\Type\TypeaheadType;
 
 class TypeaheadTwigExtension extends \Twig_Extension
@@ -17,7 +14,7 @@ class TypeaheadTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('twitter_typeahead_init', array($this,'initTypeaheadFunction'), array('needs_environment' => true, 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('twitter_typeahead_init', array($this, 'initTypeaheadFunction'), array('needs_environment' => true, 'is_safe' => array('html'))),
         );
     }
 
@@ -25,11 +22,12 @@ class TypeaheadTwigExtension extends \Twig_Extension
     {
         if (!TypeaheadType::$initialized) {
             TypeaheadType::$initialized = true;
+
             return '';
             // $url = $env->getExtension('assets')->getAssetUrl('bundles/lifotypeahead/js/typeaheadbundle.js');
             // return "<script type=\"text/javascript\" src=\"$url\"></script>";
         }
+
         return '';
     }
-
 }

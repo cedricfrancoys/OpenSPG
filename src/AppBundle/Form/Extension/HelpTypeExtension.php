@@ -1,10 +1,10 @@
 <?php
+
 namespace AppBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
@@ -21,7 +21,7 @@ class HelpTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * Add the help option
+     * Add the help option.
      *
      * @param OptionsResolver $resolver
      */
@@ -31,11 +31,11 @@ class HelpTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * Pass the help text to the view
+     * Pass the help text to the view.
      *
-     * @param FormView $view
+     * @param FormView      $view
      * @param FormInterface $form
-     * @param array $options
+     * @param array         $options
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {

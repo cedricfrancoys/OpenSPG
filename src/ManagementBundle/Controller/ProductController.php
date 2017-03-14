@@ -7,17 +7,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductGroup;
 use ProductBundle\Entity\Family;
 use UserBundle\Entity\User;
 use ProductBundle\Entity\Variety;
-
 use ManagementBundle\Form\ProductType;
 
 /**
@@ -32,11 +28,10 @@ class ProductController extends Controller
      */
     public function indexAction(Request $request)
     {
-        
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Products", $this->get("router")->generate("management_product_index"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Products', $this->get('router')->generate('management_product_index'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -51,12 +46,12 @@ class ProductController extends Controller
             ->leftJoin('p.Variety', 'v')
         ;
 
-        if($filter = $request->request->get('filter')){
+        if ($filter = $request->request->get('filter')) {
             $filter = array_merge(
                 array(
                     'family' => 0,
                     'group' => 0,
-                    'variety' => 0
+                    'variety' => 0,
                 ),
                 $filter
             );
@@ -86,7 +81,7 @@ class ProductController extends Controller
             'families' => $families,
             'groups' => $groups,
             'varieties' => $varieties,
-            'menu' => 'management'
+            'menu' => 'management',
         );
 
         return $data;
@@ -98,7 +93,6 @@ class ProductController extends Controller
      */
     public function getFamiliesAction(Request $request, ProductGroup $group)
     {
-        
         $em = $this->getDoctrine()->getManager();
 
         $families = $em->
@@ -122,7 +116,6 @@ class ProductController extends Controller
      */
     public function getVarietiesAction(Request $request, Family $family)
     {
-        
         $em = $this->getDoctrine()->getManager();
 
         $varieties = $em->
@@ -146,11 +139,11 @@ class ProductController extends Controller
      */
     public function addAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
-        $breadcrumbs->addItem("Add product", $this->get("router")->generate("management_product_add"));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Stock', $this->get('router')->generate('management_stock_index'));
+        $breadcrumbs->addItem('Add product', $this->get('router')->generate('management_product_add'));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -166,8 +159,8 @@ class ProductController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_product_index');
-            }else{
-                $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            } else {
+                $url = $this->generateUrl('management_product_edit', array('id' => $product->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -176,7 +169,7 @@ class ProductController extends Controller
 
         return $this->render('ManagementBundle:Product:add.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         ));
     }
 
@@ -186,11 +179,11 @@ class ProductController extends Controller
      */
     public function editAction(Product $product, Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Management", $this->get("router")->generate("management_default_index"));
-        $breadcrumbs->addItem("Stock", $this->get("router")->generate("management_stock_index"));
-        $breadcrumbs->addItem("Edit product", $this->get("router")->generate("management_product_edit",array('id'=>$product->getId())));
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
+        $breadcrumbs->addItem('Management', $this->get('router')->generate('management_default_index'));
+        $breadcrumbs->addItem('Stock', $this->get('router')->generate('management_stock_index'));
+        $breadcrumbs->addItem('Edit product', $this->get('router')->generate('management_product_edit', array('id' => $product->getId())));
 
         $em = $this->getDoctrine()->getManager();
 
@@ -204,8 +197,8 @@ class ProductController extends Controller
 
             if ($form->get('saveAndClose')->isClicked()) {
                 $url = $this->generateUrl('management_product_index');
-            }else{
-                $url = $this->generateUrl('management_product_edit', array('id'=>$product->getId()));
+            } else {
+                $url = $this->generateUrl('management_product_edit', array('id' => $product->getId()));
             }
             $response = new RedirectResponse($url);
 
@@ -214,7 +207,7 @@ class ProductController extends Controller
 
         return $this->render('ManagementBundle:Product:edit.html.twig', array(
             'form' => $form->createView(),
-            'menu' => 'management'
+            'menu' => 'management',
         ));
     }
 }

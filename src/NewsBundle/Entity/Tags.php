@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tags
+ * Tags.
  *
  * @ORM\Table(name="tags")
  * @ORM\Entity(repositoryClass="NewsBundle\Repository\TagsRepository")
@@ -44,8 +44,8 @@ class Tags
      */
     private $News;
 
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->News = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -55,7 +55,7 @@ class Tags
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -65,7 +65,7 @@ class Tags
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -79,7 +79,7 @@ class Tags
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -89,7 +89,7 @@ class Tags
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -103,7 +103,7 @@ class Tags
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class Tags
     }
 
     /**
-     * Add news
+     * Add news.
      *
      * @param \NewsBundle\Entity\News $news
      *
@@ -127,7 +127,7 @@ class Tags
     }
 
     /**
-     * Remove news
+     * Remove news.
      *
      * @param \NewsBundle\Entity\News $news
      */
@@ -137,7 +137,7 @@ class Tags
     }
 
     /**
-     * Get news
+     * Get news.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

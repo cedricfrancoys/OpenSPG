@@ -3,10 +3,9 @@
 namespace NodeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Member
+ * Member.
  *
  * @ORM\Table(name="node")
  * @ORM\Entity(repositoryClass="NodeBundle\Repository\NodeRepository")
@@ -37,19 +36,18 @@ class Node
     protected $address;
 
     /**
-    * @var Location
-    *
-    * @ORM\OneToOne(targetEntity="\LocationBundle\Entity\Location", cascade={"persist"})
-    */
+     * @var Location
+     *
+     * @ORM\OneToOne(targetEntity="\LocationBundle\Entity\Location", cascade={"persist"})
+     */
     private $Location;
 
     /**
-    * @var Admin
-    *
-    * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-    */
+     * @var Admin
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     */
     private $Admin;
-
 
     public function __toString()
     {
@@ -57,9 +55,9 @@ class Node
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -67,7 +65,7 @@ class Node
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -81,7 +79,7 @@ class Node
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -91,7 +89,7 @@ class Node
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
      *
@@ -105,7 +103,7 @@ class Node
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -115,7 +113,7 @@ class Node
     }
 
     /**
-     * Set location
+     * Set location.
      *
      * @param \LocationBundle\Entity\Location $location
      *
@@ -129,7 +127,7 @@ class Node
     }
 
     /**
-     * Get location
+     * Get location.
      *
      * @return \LocationBundle\Entity\Location
      */
@@ -139,7 +137,7 @@ class Node
     }
 
     /**
-     * Set admin
+     * Set admin.
      *
      * @param \UserBundle\Entity\User $admin
      *
@@ -153,7 +151,7 @@ class Node
     }
 
     /**
-     * Get admin
+     * Get admin.
      *
      * @return \UserBundle\Entity\User
      */

@@ -40,12 +40,6 @@
 				};
 			}
 
-			var mapOptions = {
-				zoom: this.settings.default_zoom,
-				center: center,
-				mapTypeId: 'mapbox.mapbox-streets-v7',
-				accessToken: 'pk.eyJ1IjoibWhhdXB0bWE3MyIsImEiOiJjajAxdm95cnUwMDhuMzNsdTEzcTlzYm55In0.PWU0PhdQ-GsakOmJyrXYPw'
-			};
 			this.map = L.map(this.map_el[0], {
 				zoomControl: true, 
 				center: center.latlng,

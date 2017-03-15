@@ -4,6 +4,7 @@ div.body{
 	height: 100%;
 }
 body{
+	padding-top: 0;
 	position: absolute;
 	width: 100%;
 }
@@ -11,6 +12,9 @@ div.body{
 	height: auto;
 	min-height: 100%;
 	padding-bottom: 142px;
+}
+.navbar-wrapper{
+	z-index: 999;
 }
 .navbar-nav.navbar-right:last-child{
 	margin-right: 20px;

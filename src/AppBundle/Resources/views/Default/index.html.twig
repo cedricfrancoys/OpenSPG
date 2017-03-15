@@ -179,21 +179,48 @@
 	{% endif %}
 
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	{% javascripts
+        'bundles/location/js/Leaflet.Spain.WMS.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 	<script type="text/javascript">
-		var mymap = L.map('googleMap').setView([36.892011,-3.245017], 10);
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-			maxZoom: 18,
-			id: 'mapbox.satellite',
-			accessToken: 'pk.eyJ1IjoibWhhdXB0bWE3MyIsImEiOiJjajAxdm95cnUwMDhuMzNsdTEzcTlzYm55In0.PWU0PhdQ-GsakOmJyrXYPw'
-		}).addTo(mymap);
+		var GProperties = new L.LayerGroup();
 		{% for property in properties %}
 			{% if property.Location is not null %}
-				var marker{{property.id}} = L.marker([{{property.Location.latitude}}, {{property.Location.longitude}}]).addTo(mymap);
-				marker{{property.id}}.bindPopup("{{property.name}}").openPopup();
+				L.marker([{{property.Location.latitude}}, {{property.Location.longitude}}])
+					.addTo(GProperties)
+					.bindPopup("{{property.name}}")
 			{% endif %}
 		{% endfor %}
-
+		var GGroups = new L.LayerGroup();
+		{% for node in nodes %}
+			{% if node.Location is not null %}
+				L.marker([{{node.Location.latitude}}, {{node.Location.longitude}}])
+					.addTo(GGroups)
+					.bindPopup("{{node.name}}")
+			{% endif %}
+		{% endfor %}
+		var mymap = L.map('googleMap',{
+			zoomControl: true, 
+			center: [36.892011,-3.245017],
+			zoom: 10,
+			layers: [Spain_IGNBase,GProperties]
+		});
+		var baseMaps = {};
+		var overlayMaps = {
+			"Propiedades": GProperties,
+			"Grupos": GGroups
+		}
+		L.control
+			.layers(
+				baseMaps, 
+				overlayMaps,
+				{
+					collapsed: false,
+					position: 'bottomright'
+				}
+			)
+			.addTo(mymap);
 	</script>
 
 {% endblock %}

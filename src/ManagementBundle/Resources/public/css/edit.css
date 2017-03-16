@@ -53,3 +53,13 @@ span.message-success{
 	color: #5cb85c;
 	font-weight: bold;
 }
+
+.form-group{
+	position: relative;
+}
+#add-group,
+#add-family{
+	position: absolute;
+	right: 15px;
+	top: 25px;
+}

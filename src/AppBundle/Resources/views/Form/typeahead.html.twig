@@ -1,5 +1,9 @@
 {% use "bootstrap_3_layout.html.twig" %}
 
 {% block entity_typeahead_widget %}
+    <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" />
+    {%- set attr = attr|merge({'role': 'typeahead', 'data-url': url, 'data-id': id, 'data-dependency': dependency }) -%}
+    {% set id = id ~ '_text' %}
+    {% set full_name = '' %}
     {{- block('form_widget_simple') -}}
 {% endblock %}

@@ -14,6 +14,8 @@ use ProductBundle\Entity\ProductGroup;
 use ProductBundle\Entity\Family;
 use UserBundle\Entity\User;
 use ProductBundle\Entity\Variety;
+use ProductBundle\Form\BaseProductGroupType;
+use ProductBundle\Form\BaseProductFamilyType;
 use ManagementBundle\Form\ProductType;
 
 /**
@@ -149,11 +151,21 @@ class ProductController extends Controller
 
         $product = new Product();
 
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, array(
+            'group_url' => $this->generateUrl('management_productgroup_index'),
+            'family_url' => $this->generateUrl('management_productfamily_index'),
+            'family_dependency' => 'product_Group'
+        ));
+        $group_form = $this->createForm(BaseProductGroupType::class, $product->getGroup(), array(
+            'action' => $this->generateUrl('management_productgroup_add'),
+        ));
+        $family_form = $this->createForm(BaseProductFamilyType::class, $product->getFamily(), array(
+            'action' => $this->generateUrl('management_productfamily_add'),
+        ));
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($product);
             $em->flush();
 
@@ -169,6 +181,8 @@ class ProductController extends Controller
 
         return $this->render('ManagementBundle:Product:add.html.twig', array(
             'form' => $form->createView(),
+            'group_form' => $group_form->createView(),
+            'family_form' => $family_form->createView(),
             'menu' => 'management',
         ));
     }
@@ -191,7 +205,7 @@ class ProductController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($product);
             $em->flush();
 

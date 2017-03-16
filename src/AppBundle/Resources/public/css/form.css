@@ -46,3 +46,6 @@ form span.help{
 	float: right;
 	margin-left: 5px;
 }
+.twitter-typeahead{
+	width: 100%;
+}

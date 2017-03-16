@@ -33,76 +33,22 @@ class TypeaheadType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        // @todo I could combine the transformers below into a single class...
-        // if ($options['multiple']) {
-        //     $builder->addViewTransformer(new EntitiesToPropertyTransformer(
-        //         $options['em'] ?: $this->em,
-        //         $options['class'],
-        //         $options['property']
-        //     ), true);
-        // } else {
-        //     $builder->addViewTransformer(new EntityToPropertyTransformer(
-        //         $options['em'] ?: $this->em,
-        //         $options['class'],
-        //         $options['property']
-        //     ), true);
-        //}
-    }
+    {}
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
-        //$cfg = $form->getConfig();
 
-        // assign some variables to the view template
-        // $vars = array('render', 'route', 'route_params', 'property',
-        //               'minLength', 'items', 'delay', 'spinner',
-        //               'multiple', 'allow_add', 'allow_remove', 'empty_value',
-        //               'resetOnSelect', 'callback');
-        // foreach ($vars as $var) {
-        //     $view->vars[$var] = $options[$var];
-        // }
-
-        // // convert the route into an URL
-        // if (!empty($options['route'])) {
-        //     try {
-        //         $params = $options['route_params'] ?: array();
-        //         if (!is_array($params) and !($params instanceof \Traversable)) {
-        //             throw new UnexpectedTypeException($params, "array or \\Traversable");
-        //         }
-        //         $view->vars['url'] = $this->router->generate($options['route'], $params);
-        //     } catch (\InvalidArgumentException $e) {
-        //         throw new RuntimeException("Route \"{$options['route']}\" configured on " . get_class() . " does not exist.");
-        //     }
-        // }
+        $view->vars['url'] = $options['url'];
+        $view->vars['dependency'] = $options['dependency'];
     }
 
     public function configureOptions(OptionsResolver $resolver) // sf2.6+
-    // public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        //$resolver->setOptional(array(''));
-        // $resolver->setRequired(array('class','render','route'));
-        // $resolver->setDefaults(array(
-        //     'em'                => null,
-        //     'query_builder'     => null,
-        //     'property'          => null,
-        //     'empty_value'       => '',
-        //     'route_params'      => null,
-
-        //     'multiple'          => false,
-        //     'allow_add'         => false,
-        //     'allow_remove'      => false,
-
-        //     'delay'             => 250,
-        //     'minLength'         => 2,
-        //     'items'             => 10,
-        //     'spinner'           => 'glyphicon glyphicon-refresh spin',
-        //     'resetOnSelect'     => function(Options $options) { return $options['multiple']; },
-        //     'callback'          => null,
-
-        //     'compound'          => false, //function(Options $options){ return $options['multiple']; },
-        // ));
+        $resolver->setDefaults(array(
+            'dependency' => false
+        ));
+        $resolver->setRequired(array('url'));
     }
 
     public function getName()

@@ -7,22 +7,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\Type\TypeaheadType;
+use ProductBundle\Form\BaseProductGroupType;
 
-class ProductType extends AbstractType
+class ProductGroupType extends BaseProductGroupType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
-            ->add('Group', TypeaheadType::class, array(
-                'url' => $options['group_url']
-            ))
-            ->add('Family', TypeaheadType::class, array(
-                'url' => $options['family_url'],
-                'dependency' => $options['family_dependency']
-            ))
-            ->add('Variety')
-            ->add('name')
             ->add('save', SubmitType::class, array(
                 'translation_domain' => 'messages',
                 'attr' => array('btn' => 'buttons'),
@@ -41,16 +34,5 @@ class ProductType extends AbstractType
                 'label' => 'Close',
             ))
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'ProductBundle\Entity\Product',
-            'translation_domain' => 'product',
-            'family_dependency' => false
-        ));
-
-        $resolver->setRequired(array('group_url','family_url'));
     }
 }

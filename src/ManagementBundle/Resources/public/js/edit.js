@@ -7,29 +7,35 @@ jQuery(document).ready(function() {
     		$('#producer_User_sendEmail').closest('.form-group').hide();
     	}
     });
-    $('#product_Group').on('change', function(e){
-    	$('#product_Family').empty();
-    	$('#product_Variety').empty();
-    	$.get(
-    		Routing.generate('management_product_getfamilies', { group: $('#product_Group').val() }),
-    		function(data, status){
-    			$.each(data, function(index,item){
-    				$('#product_Family').append('<option value="'+item.id+'">'+item.name+'</option>');
-    			});
-    		}
-    	);
-    });
-    $('#product_Family').on('change', function(e){
-    	$('#product_Variety').empty();
-    	$.get(
-    		Routing.generate('management_product_getvarieties', { family: $('#product_Family').val() }),
-    		function(data, status){
-    			$.each(data, function(index,item){
-    				$('#product_Variety').append('<option value="'+item.id+'">'+item.name+'</option>');
-    			});
-    		}
-    	);
-    });
+    if ($('#product_Group').length) {
+        // Group.init($('#product_Group'));
+        // $('#product_Group_text').on('change', function(e){
+        //     $('#product_Family').empty();
+        //     $('#product_Variety').empty();
+        //     $.get(
+        //         Routing.generate('management_product_getfamilies', { group: $('#product_Group').val() }),
+        //         function(data, status){
+        //             $.each(data, function(index,item){
+        //                 $('#product_Family').append('<option value="'+item.id+'">'+item.name+'</option>');
+        //             });
+        //         }
+        //     );
+        // });
+    }
+    if (true) {
+        // Family.init($('#product_Family'));
+        $('#product_Family').on('change', function(e){
+            $('#product_Variety').empty();
+            $.get(
+                Routing.generate('management_product_getvarieties', { family: $('#product_Family').val() }),
+                function(data, status){
+                    $.each(data, function(index,item){
+                        $('#product_Variety').append('<option value="'+item.id+'">'+item.name+'</option>');
+                    });
+                }
+            );
+        });
+    }
 
     $('.section-user.action-edit form div.form-group').first().after(
         '<div class="form-group change-password"><label class="control-label" for="user_password">Contraseña</label><span class="form-control password">****</span><a id="change-password" class="btn-default btn" data-toggle="modal" data-target="#change-password-modal">Cambiar contraseña</a></div>'

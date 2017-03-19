@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
     var Typeahead = function(el){
         this.url = null;
         this.dev = true;
-        this.el = el;
+        this.el = $(el);
         this.url = $(el).data('url');
         
         if(this.dev) console.log('initializing using', el);
@@ -22,8 +22,9 @@ jQuery(document).ready(function() {
         var $this = this;
         if ($(this.el).data('dependency')) {
             if(this.dev) console.log('... has dependency ', $(this.el).data('dependency'));
-            this.url =+ $('#'+$(this.el).data('dependency')).val();
-            $('#'+$(this.el).data('dependency')).on('change', function(e){
+            this.url = false;
+            $('#'+$(this.el).data('dependency')+'_text').on('typeahead:change', function(e){
+                if($this.dev) console.log('Dependency has changed ', $('#'+$($this.el).data('dependency')).val());
                 $this.url = $($this.el).data('url') + $('#'+$($this.el).data('dependency')).val();
                 $this._loadData();
             });
@@ -34,25 +35,40 @@ jQuery(document).ready(function() {
         if(this.dev) console.log('_loadData()...');
         var d = $.Deferred();
         var $this = this;
-        if(this.dev) console.log('Loading data from ', this.url);
-        $.get(this.url)
-        .done(function(data){
-            if($this.dev) console.log('Data loaded: ', data);
-            // Set the data source to be used 
-            $($this.el).data('source', data);
-            // Set the initial text value if present
-            var currentValue = $('#'+$($this.el).data('id')).val();
-            if(currentValue){
-                $.each(data, function(i,v){
-                    if (v.id == currentValue) {
-                        $($this.el).val(v.name);
-                    }
-                });
-            }
-            if($this.dev) console.log('_loadData() solved!');
-            d.resolve();
-        });
+        // this.url should be false if there is a dependency but not value yet defined for that dep
+        if( this.url ){
+            if(this.dev) console.log('Loading data from ', this.url);
+            $.get(this.url)
+            .done(function(data){
+                if($this.dev) console.log('Data loaded: ', data);
+                // Set the data source to be used 
+                $($this.el).data('source', data);
+                // Set the initial text value if present
+                var currentValue = $('#'+$($this.el).data('id')).val();
+                if(currentValue){
+                    $.each(data, function(i,v){
+                        if (v.id == currentValue) {
+                            $($this.el).val(v.name);
+                        }
+                    });
+                }
+                if($this.dev) console.log('_loadData() solved!');
+                $this.setActive();
+                d.resolve();
+            });
+        }else{
+            if(this.dev) console.log('No data loading due to missing dep value');
+            this.setInactive();
+        }
         return d.promise();
+    }
+    Typeahead.prototype.setInactive = function(){
+        this.el.val('Need to define its parent first');
+        this.el.attr('readOnly', true);
+    }
+    Typeahead.prototype.setActive = function(){
+        this.el.val('');
+        this.el.attr('readOnly', false);
     }
     Typeahead.prototype._initPlugin = function(){
         if(this.dev) console.log('_initPlugin()...', this.el);

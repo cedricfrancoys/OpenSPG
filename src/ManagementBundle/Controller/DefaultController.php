@@ -30,6 +30,7 @@ class DefaultController extends Controller
             'users' => $em->getRepository('UserBundle:User')->getLatest($node, 5),
             'visits' => $em->getRepository('ProducerBundle:Visit')->getLatestByNode(5, $node),
             'properties' => $em->getRepository('ProducerBundle:Property')->getLatestByNode(5, $node),
+            'fees' => $em->getRepository('FeeBundle:Fee')->getPendingLatestByNode(5, $node),
         ));
     }
 }

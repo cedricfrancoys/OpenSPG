@@ -2,6 +2,9 @@
 
 namespace FeeBundle\Repository;
 
+use FeeBundle\Entity\Fee;
+use NodeBundle\Entity\Node;
+
 /**
  * FeeRepository.
  *
@@ -10,4 +13,44 @@ namespace FeeBundle\Repository;
  */
 class FeeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function getPendingLatestByNode($maxResults = 10, Node $node)
+	{
+		$latest = $this
+            ->createQueryBuilder('f')
+            ->select('f')
+            ->leftJoin('f.User', 'u')
+            ->where('u.Node = :node')
+            ->orderBy('f.created', 'DESC')
+            ->setParameter('node', $node)
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $pending = $this
+            ->createQueryBuilder('f')
+            ->select('f')
+            ->leftJoin('f.User', 'u')
+            ->where('u.Node = :node')
+            ->andWhere('f.status = :status')
+            ->orderBy('f.created', 'DESC')
+            ->setParameter('node', $node)
+            ->setParameter('status', Fee::STATUS_PENDING)
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        if (count($pending) < $maxResults && count($latest)) {
+        	$a = 0;
+        	while (count($pending) < $maxResults) {
+        		if($latest[$a]){
+        			$pending[] = $latest[$a++];
+        		}
+        	}
+        }
+
+        return $pending;
+	}
 }

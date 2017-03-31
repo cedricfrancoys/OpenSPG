@@ -3,12 +3,16 @@
 namespace FeeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Fee.
  *
  * @ORM\Table(name="fee")
  * @ORM\Entity(repositoryClass="FeeBundle\Repository\FeeRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @Gedmo\Loggable
  */
 class Fee
 {
@@ -28,6 +32,7 @@ class Fee
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=20)
+     * @Assert\NotNull()
      */
     private $code;
 
@@ -35,6 +40,7 @@ class Fee
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotNull()
      */
     private $name;
 
@@ -42,6 +48,7 @@ class Fee
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
+     * @Assert\NotBlank()
      */
     private $User;
 
@@ -49,13 +56,24 @@ class Fee
      * @var \DateTime
      *
      * @ORM\Column(name="startDate", type="date")
+     * @Gedmo\Versioned
      */
     private $startDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="paymentDate", type="date")
+     * @Gedmo\Versioned
+     */
+    private $paymentDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=20)
+     * @Assert\NotNull()
+     * @Gedmo\Versioned
      */
     private $status;
 
@@ -63,8 +81,34 @@ class Fee
      * @var float
      *
      * @ORM\Column(name="amount", type="float")
+     * @Assert\NotNull()
+     * @Gedmo\Versioned
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull()
+     *
+     * @var \DateTime
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Versioned
+     *
+     * @var \DateTime
+     */
+    private $updated;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * Get id.
@@ -218,5 +262,87 @@ class Fee
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Fee
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Fee
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Called before updating the entity.
+     *
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * Set paymentDate
+     *
+     * @param \DateTime $paymentDate
+     *
+     * @return Fee
+     */
+    public function setPaymentDate($paymentDate)
+    {
+        $this->paymentDate = $paymentDate;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentDate
+     *
+     * @return \DateTime
+     */
+    public function getPaymentDate()
+    {
+        return $this->paymentDate;
     }
 }

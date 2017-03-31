@@ -1,11 +1,12 @@
-User: Usuario
-Name: Nombre
-Start: Inicio
 Amount: Importe
-Status: Estado
-mark paid: marcar pagado
 Code: Código
-Start date: Fecha inicio
-Pending: Pendiente
+mark paid: marcar pagado
+Name: Nombre
 Paid: Pagado
+Payment date: Fecha de pago
+Pending: Pendiente
 Save: Guardar
+Start date: Fecha inicio
+Start: Inicio
+Status: Estado
+User: Usuario

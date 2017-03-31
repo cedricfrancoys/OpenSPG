@@ -63,10 +63,10 @@ class Fee
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="paymentDate", type="date")
+     * @ORM\Column(name="paymentDate", type="date", nullable=true)
      * @Gedmo\Versioned
      */
-    private $paymentDate;
+    private $paymentDate = null;
 
     /**
      * @var string

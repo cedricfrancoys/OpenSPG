@@ -16,13 +16,15 @@ class FeeRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getPendingLatestByNode($maxResults = 10, Node $node)
 	{
-		$latest = $this
+        $latest = $this
             ->createQueryBuilder('f')
             ->select('f')
             ->leftJoin('f.User', 'u')
             ->where('u.Node = :node')
+            ->andWhere('f.status = :status')
             ->orderBy('f.created', 'DESC')
             ->setParameter('node', $node)
+            ->setParameter('status', Fee::STATUS_PAID)
             ->setMaxResults($maxResults)
             ->getQuery()
             ->getResult()
@@ -44,10 +46,8 @@ class FeeRepository extends \Doctrine\ORM\EntityRepository
 
         if (count($pending) < $maxResults && count($latest)) {
         	$a = 0;
-        	while (count($pending) < $maxResults) {
-        		if($latest[$a]){
-        			$pending[] = $latest[$a++];
-        		}
+        	while (count($pending) < $maxResults && $latest[$a]) {
+        		$pending[] = $latest[$a++];
         	}
         }
 

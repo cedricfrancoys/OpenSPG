@@ -20,7 +20,7 @@
 					<td>{{ fee.status }}</td>
 					<td>{% if fee.startDate is not null %}{{ fee.startDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
 					<td>{% if fee.paymentDate is not null %}{{ fee.paymentDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
-					<td>{{ fee.anmount|number_format(2,',', '.') }} EUR</td>
+					<td>{{ fee.amount|number_format(2,',', '.') }} EUR</td>
 				</tr>
 			{% endfor %}
 		</tbody>

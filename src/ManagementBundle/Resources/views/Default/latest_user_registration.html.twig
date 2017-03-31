@@ -1,0 +1,26 @@
+<div class="table-responsive" role="sortable-item" id="latest_user_registration">
+	<h2>{% trans from "management" %}Latest user registrations{% endtrans %}</h2>
+	<span class="glyphicon glyphicon-align-justify" aria-hidden="true" role="handle"></span>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{% trans from "user" %}Username{% endtrans %}</th>
+				<th>{% trans from "user" %}Email{% endtrans %}</th>
+				<th>{% trans from "user" %}Registration date{% endtrans %}</th>
+				<th>{% trans from "user" %}Last login{% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.id }}</td>
+					<td><a href="{{ path('management_user_edit',{"id":user.id}) }}">{{ user.username }}</a></td>
+					<td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+					<td>{% if user.registered is null %}--{% else %}{{ user.registered|date('d-m-y H:i') }}{% endif %}</td>
+					<td>{% if user.lastLogin is null %}--{% else %}{{ user.lastLogin|date('d-m-y H:i') }}{% endif %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

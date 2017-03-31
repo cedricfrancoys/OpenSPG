@@ -1,0 +1,26 @@
+<div class="table-responsive" role="sortable-item" id="latest_properties">
+	<h2>{% trans from "management" %}Latest properties{% endtrans %}</h2>
+	<span class="glyphicon glyphicon-align-justify" aria-hidden="true" role="handle"></span>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{% trans from "visit" %}Name{% endtrans %}</th>
+				<th>{% trans from "visit" %}Address{% endtrans %}</th>
+				<th>{% trans from "visit" %}Producer{% endtrans %}</th>
+				<th>{% trans from "visit" %}Added{% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for property in properties %}
+				<tr>
+					<td>{{ property.id }}</td>
+					<td><a href="{{ path('management_property_edit',{"id":property.id}) }}">{{ property.name }}</a></td>
+					<td>{{ property.address }}</td>
+					<td><a href="{{ path('management_producer_edit',{"id":property.Member.id}) }}">{{ property.Member }}</a></td>
+					<td>{% if property.created is not null %}{{ property.created|date('d-m-Y') }}{% else %}--{% endif %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,26 @@
+<div class="table-responsive" role="sortable-item" id="latest_visits">
+	<h2>{% trans from "management" %}Latest visits{% endtrans %}</h2>
+	<span class="glyphicon glyphicon-align-justify" aria-hidden="true" role="handle"></span>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{% trans from "visit" %}Visit date{% endtrans %}</th>
+				<th>{% trans from "visit" %}Property{% endtrans %}</th>
+				<th>{% trans from "visit" %}Producer{% endtrans %}</th>
+				<th>{% trans from "visit" %}Status{% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for visit in visits %}
+				<tr>
+					<td>{{ visit.id }}</td>
+					<td><a href="{{ path('management_visit_edit',{"id":visit.id}) }}">{{ visit.visitDate|date('d-m-Y') }}</a></td>
+					<td><a href="{{ path('management_property_edit',{"id":visit.Property.id}) }}">{{ visit.Property }}</a></td>
+					<td><a href="{{ path('management_producer_edit',{"id":visit.Producer.id}) }}">{{ visit.Producer }}</a></td>
+					<td>{% if visit.accepted %}{% trans from "visit" %}Accepted{% endtrans %}{% else %}{% trans from "visit" %}Rejected{% endtrans %}{% endif %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

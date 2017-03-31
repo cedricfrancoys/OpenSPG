@@ -19,6 +19,7 @@
               <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
             <![endif]-->
         {% endblock %}
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -94,6 +95,7 @@
 
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             {% javascripts '@AppBundle/Resources/public/js/bootstrap.min.js'
                 '@AppBundle/Resources/public/js/typeahead.jquery.js'
                 '@AppBundle/Resources/public/js/*' %}

@@ -1,0 +1,28 @@
+<div class="table-responsive" role="sortable-item" id="fees">
+	<h2>{% trans from "management" %}Fees{% endtrans %}</h2>
+	<span class="glyphicon glyphicon-align-justify" aria-hidden="true" role="handle"></span>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{% trans from "fee" %}User{% endtrans %}</th>
+				<th>{% trans from "fee" %}Status{% endtrans %}</th>
+				<th>{% trans from "fee" %}Start date{% endtrans %}</th>
+				<th>{% trans from "fee" %}Payment date{% endtrans %}</th>
+				<th>{% trans from "fee" %}Amount{% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fee in fees %}
+				<tr>
+					<td>{{ fee.id }}</td>
+					<td><a href="{{ path('management_user_edit',{"id":fee.id}) }}">{{ fee.User }}</a></td>
+					<td>{{ fee.status }}</td>
+					<td>{% if fee.startDate is not null %}{{ fee.startDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
+					<td>{% if fee.paymentDate is not null %}{{ fee.paymentDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
+					<td>{{ fee.anmount|number_format(2,',', '.') }} EUR</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

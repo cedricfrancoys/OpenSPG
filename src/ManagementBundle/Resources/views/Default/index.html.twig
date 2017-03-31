@@ -11,112 +11,16 @@
 			<div class="container">
 				<div class="row">
 					{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
-					<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
-						<h2>{% trans from "management" %}Latest user registrations{% endtrans %}</h2>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>{% trans from "user" %}Username{% endtrans %}</th>
-										<th>{% trans from "user" %}Email{% endtrans %}</th>
-										<th>{% trans from "user" %}Registration date{% endtrans %}</th>
-										<th>{% trans from "user" %}Last login{% endtrans %}</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for user in users %}
-										<tr>
-											<td>{{ user.id }}</td>
-											<td><a href="{{ path('management_user_edit',{"id":user.id}) }}">{{ user.username }}</a></td>
-											<td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-											<td>{% if user.registered is null %}--{% else %}{{ user.registered|date('d-m-y H:i') }}{% endif %}</td>
-											<td>{% if user.lastLogin is null %}--{% else %}{{ user.lastLogin|date('d-m-y H:i') }}{% endif %}</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
+					<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main" id="sortable-container">
 
-						<h2>{% trans from "management" %}Latest visits{% endtrans %}</h2>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>{% trans from "visit" %}Visit date{% endtrans %}</th>
-										<th>{% trans from "visit" %}Property{% endtrans %}</th>
-										<th>{% trans from "visit" %}Producer{% endtrans %}</th>
-										<th>{% trans from "visit" %}Status{% endtrans %}</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for visit in visits %}
-										<tr>
-											<td>{{ visit.id }}</td>
-											<td><a href="{{ path('management_visit_edit',{"id":visit.id}) }}">{{ visit.visitDate|date('d-m-Y') }}</a></td>
-											<td><a href="{{ path('management_property_edit',{"id":visit.Property.id}) }}">{{ visit.Property }}</a></td>
-											<td><a href="{{ path('management_producer_edit',{"id":visit.Producer.id}) }}">{{ visit.Producer }}</a></td>
-											<td>{% if visit.accepted %}{% trans from "visit" %}Accepted{% endtrans %}{% else %}{% trans from "visit" %}Rejected{% endtrans %}{% endif %}</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-
-						<h2>{% trans from "management" %}Latest properties{% endtrans %}</h2>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>{% trans from "visit" %}Name{% endtrans %}</th>
-										<th>{% trans from "visit" %}Address{% endtrans %}</th>
-										<th>{% trans from "visit" %}Producer{% endtrans %}</th>
-										<th>{% trans from "visit" %}Added{% endtrans %}</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for property in properties %}
-										<tr>
-											<td>{{ property.id }}</td>
-											<td><a href="{{ path('management_property_edit',{"id":property.id}) }}">{{ property.name }}</a></td>
-											<td>{{ property.address }}</td>
-											<td><a href="{{ path('management_producer_edit',{"id":property.Member.id}) }}">{{ property.Member }}</a></td>
-											<td>{% if property.created is not null %}{{ property.created|date('d-m-Y') }}{% else %}--{% endif %}</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-
-						<h2>{% trans from "management" %}Fees{% endtrans %}</h2>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>{% trans from "fee" %}User{% endtrans %}</th>
-										<th>{% trans from "fee" %}Status{% endtrans %}</th>
-										<th>{% trans from "fee" %}Start date{% endtrans %}</th>
-										<th>{% trans from "fee" %}Payment date{% endtrans %}</th>
-										<th>{% trans from "fee" %}Amount{% endtrans %}</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for fee in fees %}
-										<tr>
-											<td>{{ fee.id }}</td>
-											<td><a href="{{ path('management_user_edit',{"id":fee.id}) }}">{{ fee.User }}</a></td>
-											<td>{{ fee.status }}</td>
-											<td>{% if fee.startDate is not null %}{{ fee.startDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
-											<td>{% if fee.paymentDate is not null %}{{ fee.paymentDate|date('d-m-Y') }}{% else %}--{% endif %}</td>
-											<td>{{ fee.anmount|number_format(2,',', '.') }} EUR</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
+						{% for item in sort_order %}
+							{% include 'ManagementBundle:Default:'~item~'.html.twig' %}	
+						{% endfor %}
+						
+						{# {% include 'ManagementBundle:Default:latest_user_registration.html.twig' %}
+						{% include 'ManagementBundle:Default:latest_visits.html.twig' %}
+						{% include 'ManagementBundle:Default:latest_properties.html.twig' %}
+						{% include 'ManagementBundle:Default:fees.html.twig' %} #}
 
 					</div>
 				</div>
@@ -129,4 +33,44 @@
 		{% endblock %}	
 		{% block javascripts %}
 			{{ parent() }}
+			<script type="text/javascript">
+				$( function() {
+				    $( "#sortable-container" ).sortable({
+				    	axis: 'y',
+				    	containment: '#sortable-container',
+				    	handle: '[role=handle]',
+				    	items: '> [role=sortable-item]',
+				    	update: function(event, ui){
+				    		sort_order = {};
+				    		$('#sortable-container [role=sortable-item]').each(function(index){
+								var id = $(this).attr('id');
+								sort_order[id] = index+1;
+							});
+				    		$.post(
+				    			Routing.generate('management_default_updatesortorder'),
+				    			{'sort_order': sort_order}
+				    		)
+				    		.done(function(data){
+				    			$('#sortable-container').prepend('<span class="message message-success hide-again">Sort changes have been saved to server!</span>');
+				    			setTimeout(function(){
+					              $('.hide-again').remove();
+					            }, 5000);
+				    		})
+				    		.fail(function(xhrObject){
+				    			var data = xhrObject.responseJSON;
+				    			$('#sortable-container').prepend('<span class="message message-error hide-again">Error: '+data.msg+'</span>');
+				    			setTimeout(function(){
+					              $('.hide-again').remove();
+					            }, 5000);
+				    		});
+				    	}
+				    });
+				    $( "#sortable-container" ).disableSelection();
+				});
+				var sort_order = {};
+				$('#sortable-container [role=sortable-item]').each(function(index){
+					var id = $(this).attr('id');
+					sort_order[id] = index+1;
+				});
+			</script>
 		{% endblock %}

@@ -104,6 +104,19 @@ footer{
   content: "» ";
 }
 
+/*** Message styling ***/
+span.message{
+
+}
+span.message-success{
+	color: #5cb85c;
+	font-weight: bold;
+}
+span.message-error{
+	color: #ff0000;
+	font-weight: bold;
+}
+
 /*** Dashboard fixes ***/
 .sidebar{
 	position: relative;
@@ -112,4 +125,11 @@ footer{
 .sidebar .title{
 	font-weight: bold;
 	padding-left: 8px;
+}
+
+/*** Handle for moving page parts ***/
+[role="handle"] {
+  cursor: ns-resize;
+  float: right;
+  top: 23px;
 }

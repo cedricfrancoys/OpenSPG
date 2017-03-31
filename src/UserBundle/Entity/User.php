@@ -272,6 +272,14 @@ class User implements UserInterface
      */
     protected $registered;
 
+    /**
+     * @ORM\Column(type="json_array")
+     * @Gedmo\Versioned
+     *
+     * @var array
+     */
+    protected $attributes = array();
+
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
@@ -1253,5 +1261,29 @@ class User implements UserInterface
     public function getRegistered()
     {
         return $this->registered;
+    }
+
+    /**
+     * Set attributes
+     *
+     * @param array $attributes
+     *
+     * @return User
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = json_encode($attributes);
+
+        return $this;
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return json_decode($this->attributes, true);
     }
 }

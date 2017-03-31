@@ -46,13 +46,6 @@ a#change-password{
 	right: 0;
 	top: 25px;
 }
-span.message{
-
-}
-span.message-success{
-	color: #5cb85c;
-	font-weight: bold;
-}
 
 .form-group{
 	position: relative;

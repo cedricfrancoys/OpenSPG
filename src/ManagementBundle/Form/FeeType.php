@@ -17,7 +17,12 @@ class FeeType extends AbstractType
             ->add('User')
             ->add('code')
             ->add('name')
-            ->add('startDate')
+            ->add('startDate', null, array(
+                'help' => 'The start date the payment will be valid for'
+            ))
+            ->add('paymentDate', null, array(
+                'help' => 'The specific date the payment was made'
+            ))
             ->add('amount')
             ->add('status', ChoiceType::class, array(
                 'choices' => array(

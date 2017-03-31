@@ -1,7 +1,6 @@
 Amount: Importe
 Code: Código
 Edit Fee: Editar cuota
-mark paid: marcar pagado
 Name: Nombre
 Paid: Pagado
 paid: pagado
@@ -13,7 +12,11 @@ See/edit User: Ver/Editar usuario
 Start date: Fecha inicio
 Start: Inicio
 Status: Estado
+<<<<<<< Updated upstream
 User: Usuario
-mark paid: marcar pagadoThe specific date the payment was made: La fecha concreta en la que se hizo el pago
+mark paid: marcar pagado
+=======
+The specific date the payment was made: La fecha concreta en la que se hizo el pago
 The start date the payment will be valid for: La fecha de inicio del periodo de validez de la cuota
 User: Usuario
+>>>>>>> Stashed changes

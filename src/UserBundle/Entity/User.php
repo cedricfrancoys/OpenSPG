@@ -561,6 +561,16 @@ class User implements UserInterface
     }
 
     /**
+     * Called before saving the entity.
+     *
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
      * Set updatedAt.
      *
      * @param \DateTime $updatedAt

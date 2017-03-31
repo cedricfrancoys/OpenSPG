@@ -315,7 +315,7 @@ class Fee
     /**
      * Called before updating the entity.
      *
-     * @ORM\PreUpdate()
+     * @ORM\PreUpdate
      */
     public function preUpdate()
     {

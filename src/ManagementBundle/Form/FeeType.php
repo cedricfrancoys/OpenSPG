@@ -7,7 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class FeeType extends AbstractType
 {
@@ -23,7 +25,7 @@ class FeeType extends AbstractType
             ->add('paymentDate', null, array(
                 'help' => 'The specific date the payment was made'
             ))
-            ->add('amount')
+            ->add('amount', MoneyType::class)
             ->add('status', ChoiceType::class, array(
                 'choices' => array(
                     'Pending' => 'pending',

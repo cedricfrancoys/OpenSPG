@@ -15,7 +15,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('Group', TypeaheadType::class, array(
-                'url' => $options['group_url']
+                'url' => $options['group_url'],
+                'create_url' => $options['group_create_url']
             ))
             ->add('Family', TypeaheadType::class, array(
                 'url' => $options['family_url'],
@@ -48,7 +49,8 @@ class ProductType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'ProductBundle\Entity\Product',
             'translation_domain' => 'product',
-            'family_dependency' => false
+            'family_dependency' => false,
+            'group_create_url' => false
         ));
 
         $resolver->setRequired(array('group_url','family_url'));

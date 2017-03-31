@@ -153,6 +153,7 @@ class ProductController extends Controller
 
         $form = $this->createForm(ProductType::class, $product, array(
             'group_url' => $this->generateUrl('management_productgroup_index'),
+            'group_create_url' => $this->generateUrl('management_productgroup_create'),
             'family_url' => $this->generateUrl('management_productfamily_index'),
             'family_dependency' => 'product_Group'
         ));

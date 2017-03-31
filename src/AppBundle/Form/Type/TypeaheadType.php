@@ -41,12 +41,14 @@ class TypeaheadType extends AbstractType
 
         $view->vars['url'] = $options['url'];
         $view->vars['dependency'] = $options['dependency'];
+        $view->vars['create_url'] = $options['create_url'];
     }
 
     public function configureOptions(OptionsResolver $resolver) // sf2.6+
     {
         $resolver->setDefaults(array(
-            'dependency' => false
+            'dependency' => false,
+            'create_url' => false
         ));
         $resolver->setRequired(array('url'));
     }

@@ -10,6 +10,8 @@ jQuery(document).ready(function() {
         this._getUrl();
         this._loadData()
         .then($.proxy(this._initPlugin, this));
+
+        this._checkForNewValue();
     }
     Typeahead.prototype._getUrl = function(){
         if(this.dev) console.log('_getUrl()...');
@@ -122,6 +124,41 @@ jQuery(document).ready(function() {
             if (!found) {
                 $('#'+$(this).data('id')).val('');
             }
+        });
+    }
+    Typeahead.prototype._checkForNewValue = function(){
+        this.create_url = this.el.data('create_url');
+        if(!this.create_url) return; // No need to go further if we don't have the URL
+        var $this = this;
+        this.el.on('change', function(e){
+            // Only need to continue if there is no item value set
+            if ($('#'+$this.el.data('id')).val() == '') {
+                return;
+            }
+            var val = $this.el.val();
+            if(val.trim() === '') return;
+            var data = $this.el.data('source');
+            var found = false;
+            $.each(data, function(i,e){
+                if (e.name === val) {
+                    found = true;
+                }
+            });
+            if (!found) { // It's a new value
+                $this._saveNewValue();
+            }
+        });
+    }
+    Typeahead.prototype._saveNewValue = function(){
+        var $this = this;
+        $.post(
+            this.create_url,
+            {name:this.el.val()}
+        )
+        .done(function(data){
+            $this.el.val(data.data.name); // Set the name again in case it has been sanitized
+            $('#'+$this.el.data('id')).val(data.data.id); // Set the hidden value of the saved item
+            $this.el.trigger('typeahead:select');
         });
     }
 

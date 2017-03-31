@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use ProductBundle\Entity\ProductGroup;
 use ProductBundle\Form\BaseProductGroupType;
 
@@ -29,6 +31,49 @@ class ProductGroupController extends Controller
         $groups = $em->createQuery('SELECT g.id, g.name FROM ProductBundle:ProductGroup g')->getArrayResult();
 
         return new JsonResponse($groups);
+    }
+
+    /**
+     * @Route("/create")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request)
+    {
+        $name = $request->request->get('name');
+
+        $notBlankValidator = new Assert\NotBlank();
+        $notBlankValidator->message = 'The value can not be empty';
+
+        $errors = $this->get('validator')->validate(
+            $name,
+            $notBlankValidator
+        );
+
+        if (0 != count($errors)) {
+            return new JsonResponse(array(
+                'status' => 'ko',
+                'msg' => $errors[0]->getMessage()
+            ),
+            400);
+        }
+
+        $group = new ProductGroup();
+        $group->setName($name);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($group);
+        $em->flush();
+
+        return new JsonResponse(
+            array(
+                'status' => 'ok',
+                'data' => array(
+                    'id' => $group->getId(),
+                    'name' => $group->getName()
+                )
+            )
+        );
     }
 
     /**

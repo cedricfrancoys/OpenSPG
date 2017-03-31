@@ -79,7 +79,7 @@ class FeeController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($fee);
             $em->flush();
 
@@ -122,11 +122,11 @@ class FeeController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(feeType::class, $fee);
+        $form = $this->createForm(FeeType::class, $fee);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($fee);
             $em->flush();
 

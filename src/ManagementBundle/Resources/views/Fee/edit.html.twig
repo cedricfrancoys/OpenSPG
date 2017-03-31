@@ -12,6 +12,11 @@
 		<div class="row">
 			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+			    {% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
+					{% endfor %}
+				{% endfor %}
 			    <div class="action-buttons">
 					<a href="{{ path('management_fee_add') }}" class="btn btn-success btn-add">{{"New fee"|trans({},"management")}}</a>
 				</div>

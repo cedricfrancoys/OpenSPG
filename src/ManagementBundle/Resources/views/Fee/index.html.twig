@@ -12,6 +12,11 @@
 		<div class="row">
 			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				{% for type, messages in app.session.flashbag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }}">{{ message }}</div>
+					{% endfor %}
+				{% endfor %}
 				<div class="filter">
 					<form method="post">
 						{{"Filter"|trans()}}: 
@@ -41,9 +46,9 @@
 							<tr class="row-{% if fee.status == 'paid' %}success{% endif %}">
 								<td>{{fee.User}}</td>
 								<td>{{fee.name}}</td>
-								<td>{{fee.startDate|date('d/m/Y')}}</td>
-								<td>{{fee.amount}} €</td>
-								<td>{{fee.status}}</td>
+								<td>{{fee.startDate|date('d-m-Y')}}</td>
+								<td>{{fee.amount|number_format(2,',','.')}} €</td>
+								<td>{{fee.status|trans({},'fee')}}</td>
 								<td>
 									<a href="{{ path('management_fee_edit', {"id":fee.id}) }}" class="btn btn-default">{{"edit"|trans({},"table")}}</a>
 									{% if fee.status != 'paid' %}

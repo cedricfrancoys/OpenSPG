@@ -1,82 +1,83 @@
+Add consumer: Añadir consumidor
 Add family: Añadir familia
+Add fee: Añadir cuota
 Add group: Añadir grupo
+Add manager: Añadir gestor
+Add news: Añadir noticia
+Add page: Añadir página
+Add producer: Añadir productor
+Add product: Añadir producto
+Add stock: Añadir stock
+Add tag: Añadir etiqueta
+Add visit: Añadir visita
+Add: Añadir
+All families: Todas las familias
+All groups: Todos los grupos
+All varieties: Todas las variedades
+Consumers: Consumidores
 Dashboard: Tablero
+Edit consumer: Editar consumidor
+Edit fee: Editar cuota
+Edit manager: Editar gestor
+Edit news: Editar noticia
+Edit node: Editar nodo
+Edit page: Editar página
+Edit producer: Editar productor
+Edit product: Editar producto
+Edit property: Editar propiedad
+Edit stock: Editar stock
+Edit tag: Editar etiqueta
+Edit user: Editar usuario
+Edit visit group member: Editar miembro grupo de visita
+Edit visit: Editar visita
+Fees: Cuotas
+Generate password: Generar contraseña
+Guests: Invitados
 Latest properties: Últimas propiedades añadidas
 Latest user registrations: Últimos usuarios registrados
 Latest visits: Últimas visitas
+Mailings: Mailings
+Make manager: Convertir a gestor
 Make visit group member: Añadir a "Grupo de visita"
 Management: Gestión
-Producers: Productores
-Consumers: Consumidores
-Products: Productos
-Products/Stock: Productos/Stock
-Visits: Visitas
-Mailings: Mailings
 Manager: Gestores
-Add producer: Añadir productor
-Add: Añadir
-Toggle password: Mostrar/esconder contraseña
-Generate password: Generar contraseña
-Properties: Propiedades
 Managers: Gestores
 Name: Nombre
-Surname: Apellido(s)
-Phone: Teléfono
-Users: Usuarios
-Edit manager: Editar gestor
-Edit user: Editar usuario
-Roles: Roles
-Edit consumer: Editar consumidor
-Add product: Añadir producto
-Edit visit: Editar visita
-Edit producer: Editar productor
-Related: Relacionado
-Fees: Cuotas
-Add fee: Añadir cuota
-Pages: Páginas
-Add page: Añadir página
-Edit page: Editar página
-Edit property: Editar propiedad
-visits: visitas
-Producer: Productor
-Property: Propiedad
-Add consumer: Añadir consumidor
-Add manager: Añadir gestor
-Edit product: Editar producto
-Add stock: Añadir stock
-All groups: Todos los grupos
-All families: Todas las familias
-All varieties: Todas las variedades
-Stock: Stock
-Edit stock: Editar stock
-New producer: Nuevo productor
 New consumer: Nuevo consumidor
 New fee: Nueva cuota
 New manager: Nuevo gestor
+New news: Crear noticia
 New page: Nueva página
+New producer: Nuevo productor
 New product: Nuevo producto
 New property: Nueva propiedad
 New stock: Nuevo stock
-New visit: Nueva visita
-Node: Nodo
-Edit node: Editar nodo
-News: Noticias
-Add news: Añadir noticia
-Edit news: Editar noticia
-New news: Crear noticia
 New tag: Nueva etiqueta
+New visit group member: Crear miembro grupo de visita
+New visit: Nueva visita
+News: Noticias
+Node: Nodo
+Pages: Páginas
+Phone: Teléfono
+Producer: Productor
+Producers: Productores
+Products/Stock: Productos/Stock
+Products: Productos
+Properties: Propiedades
+Property: Propiedad
+Related: Relacionado
+Roles: Roles
+Stock: Stock
+Surname: Apellido(s)
 Tags: Etiquetas
-Add tag: Añadir etiqueta
-Edit tag: Editar etiqueta
-Make manager: Convertir a gestor
-The user has been made a manager!: El usuario ha recibido el estado y los derechos de gestor!
-Add visit: Añadir visita
-The producer data has been updated!: Los datos del productor han sido actualizados!
-The producer has been created!: El productor ha sido creado!
 The consumer data has been updated!: Los datos del consumidor han sido actualizados!
 The consumer has been created!: El consumidor ha sido creado!
 The consumers data has been updated!: Los datos del consumidor han sido actualizados!
+The producer data has been updated!: Los datos del productor han sido actualizados!
+The producer has been created!: El productor ha sido creado!
+The user has been made a manager!: El usuario ha recibido el estado y los derechos de gestor!
+Toggle password: Mostrar/esconder contraseña
+Users: Usuarios
 Visit Group: Grupo de visita
-Edit visit group member: Editar miembro grupo de visita
-New visit group member: Crear miembro grupo de visita
-Guests: Invitados
+Visits: Visitas
+visits: visitas

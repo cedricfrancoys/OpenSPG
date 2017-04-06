@@ -1,1 +1,28 @@
 Login: Entrar
+Request new password: Solicitar contraseña nueva
+resetting.request.invalid_username: <strong style="color:#ff0000;">El nombre de usuario indicado no existe!!</strong>
+resetting.request.in_ttl: <strong style="color:#ff0000;">No puedes volver a solicitar la contraseña hasta %restablish_password_request%</strong>
+
+resetting:
+    check_email: |
+        Te hemos enviado un correo electrónico. Contiene un enlace de activación que debes seguir para restablecer tu contraseña.
+         Ten en cuenta: No puedes solicitar una nueva contraseña hasta dentro de %tokenLifetime% horas.
+
+        Si no recibes el correo electrónico, comprueba tu carpeta de correo no deseado o inténtalo de nuevo pasado el tiempo indicado.
+    email_sent: Correo Electrónico enviado
+    request:
+        username: 'Nombre de usuario o correo electrónico'
+        submit: 'Restablecer contraseña'
+    reset:
+        submit: 'Cambiar contraseña'
+    flash:
+        success: 'La contraseña se ha cambiado con éxito.'
+    email:
+        subject: 'Restablecer Contraseña'
+        message: |
+            Hola %username%!
+
+            Para restablecer tu contraseña - por favor visita %confirmationUrl%
+
+            Atentamente,
+            el Equipo.

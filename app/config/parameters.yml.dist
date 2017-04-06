@@ -21,3 +21,6 @@ parameters:
     # Host data to be used by commands
     router.request_context.host: spg.mac
     router.request_context.scheme: http
+
+    # User related data
+    from_email.resetting: hi@myhost.com

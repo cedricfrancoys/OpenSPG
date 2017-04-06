@@ -1,9 +1,12 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+<form action="{{ path('user_resetting_sendemail') }}" method="POST" class="fos_user_resetting_request">
     <div>
         {% if invalid_username is defined %}
-            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username})|raw }}</p>
+        {% endif %}
+        {% if in_ttl is defined %}
+            <p>{{ 'resetting.request.in_ttl'|trans({'%restablish_password_request%': restablish_password_request})|raw }}</p>
         {% endif %}
         <p class="explain">{{ "resetting.request.explain"|trans({},'user') }}</p>
         <div class="form-group">

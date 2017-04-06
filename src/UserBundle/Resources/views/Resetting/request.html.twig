@@ -1,0 +1,9 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block pageTitleText %}{% trans %}Request new password{% endtrans %}{% endblock %}
+{% block title %}{% trans %}resetting.request.submit{% endtrans %}{% endblock %}
+
+{% block fos_user_content %}
+	{% include "UserBundle:Resetting:request_content.html.twig" %}
+{% endblock fos_user_content %}

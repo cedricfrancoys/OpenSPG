@@ -3,13 +3,18 @@
 namespace UserBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Translation\DataCollectorTranslator;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Form\FormError;
+
 use UserBundle\Entity\User;
+use UserBundle\Util\CanonicalFieldsUpdater;
 
 class UserManager
 {
@@ -49,13 +54,31 @@ class UserManager
   private $mailer;
 
   /**
+   * @var Router
+   */
+  private $router;
+
+  /**
+   * @var string
+   */
+  private $resetting_from_email;
+
+  /**
+   * @var CanonicalFieldsUpdater
+   */
+  private $canonicalFieldsUpdater;  
+
+  /**
    * @param EntityManager $orm
    * @param TokenStorage  $token
+   * @param string $resetting_from_email
    */
-  public function __construct(EntityManager $orm, TokenStorage $token)
+  public function __construct(EntityManager $orm, TokenStorage $token, $resetting_from_email, CanonicalFieldsUpdater $canonicalFieldsUpdater)
   {
       $this->orm = $orm;
       $this->currentUser = $token->getToken()->getUser();
+      $this->resetting_from_email = $resetting_from_email;
+      $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
   }
 
   /**
@@ -126,6 +149,16 @@ class UserManager
   public function setMailer($mailer)
   {
       $this->mailer = $mailer;
+  }
+
+  /**
+   * Set Router.
+   *
+   * @param Router $router
+   */
+  public function setRouter($router)
+  {
+      $this->router = $router;
   }
 
   /**
@@ -230,5 +263,72 @@ class UserManager
         )
     ;
         $this->mailer->send($message);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUserByEmail($email)
+    {
+        return $this->orm->getRepository('UserBundle:User')->findOneBy(array('emailCanonical' => $this->canonicalFieldsUpdater->canonicalizeEmail($email)));
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function findUserByUsername($username)
+    {
+        return $this->orm->getRepository('UserBundle:User')->findOneBy(array('usernameCanonical' => $this->canonicalFieldsUpdater->canonicalizeUsername($username)));
+    }
+
+
+    /**
+     * Returns a user by either his username or his email address
+     */
+    public function findUserByUsernameOrEmail($usernameOrEmail)
+    {
+        if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
+            return $this->findUserByEmail($usernameOrEmail);
+        }
+        return $this->findUserByUsername($usernameOrEmail);
+    }
+
+    public function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
+
+    public function sendResettingEmailMessage(User $user)
+    {
+        $template = 'UserBundle:Resetting:email.txt.twig';
+        $url = $this->router->generate('user_resetting_reset', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);
+        $rendered = $this->twig->render($template, array(
+            'user' => $user,
+            'confirmationUrl' => $url,
+        ));
+        $this->sendEmailMessage($rendered, $this->resetting_from_email, (string) $user->getEmail());
+    }
+
+    /**
+     * @param string $renderedTemplate
+     * @param string $fromEmail
+     * @param string $toEmail
+     */
+    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
+    {
+        // Render the email, use the first line as the subject, and the rest as the body
+        $renderedLines = explode("\n", trim($renderedTemplate));
+        $subject = array_shift($renderedLines);
+        $body = implode("\n", $renderedLines);
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setTo($toEmail)
+            ->setBody($body);
+        $this->mailer->send($message);
+    }
+
+    public function findUserByConfirmationToken($token)
+    {
+        return $this->orm->getRepository('UserBundle:User')->findOneBy(array('confirmationToken' => $token));
     }
 }

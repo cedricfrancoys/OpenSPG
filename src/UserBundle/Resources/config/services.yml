@@ -6,12 +6,13 @@ services:
             - { name: sonata.admin, manager_type: orm, label: User, group: users }
     users.manager.user:
         class: UserBundle\Manager\UserManager
-        arguments: ["@doctrine.orm.entity_manager","@security.token_storage"]
+        arguments: ["@doctrine.orm.entity_manager","@security.token_storage", "%from_email.resetting%", "@users.manager.canonicalFields"]
         calls:
             - [setRequest, ["@request_stack"]]
             - [setTwig, ["@twig"]]
             - [setTranslator, ["@translator"]]
             - [setMailer, ["@mailer"]]
+            - [setRouter, ["@router"]]
     user.events.consumer:
         class: UserBundle\Event\ConsumerEventSubscriber
         calls:
@@ -43,3 +44,12 @@ services:
         class: UserBundle\Security\User\DbUserProvider
         arguments:
             - "@doctrine.orm.entity_manager"
+    users.util.username_canonicalizer: 
+        class: UserBundle\Util\UsernameCanonicalizer
+    users.util.email_canonicalizer:
+        class: UserBundle\Util\EmailCanonicalizer
+    users.manager.canonicalFields:
+        class: UserBundle\Util\CanonicalFieldsUpdater
+        arguments: ["@users.util.username_canonicalizer","@users.util.email_canonicalizer"]
+    users.util.canonicalizer:
+        class: UserBundle\Util\Canonicalizer

@@ -72,6 +72,7 @@ class PropertyType extends AbstractType
                 'choices' => $lastTenYears,
                 'multiple' => true,
                 'translation_domain' => false,
+                'required' => false,
             ))
             ->add('certifiedProvider')
             ->add('lastAgroquimicUsage', DateType::class, array(

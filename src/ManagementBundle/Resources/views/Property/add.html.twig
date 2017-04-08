@@ -12,6 +12,9 @@
 		<div class="row">
 			{{ include('ManagementBundle:Partials:sidebar.html.twig') }}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
+				<div class="action-buttons">
+					<a href="{{ path('management_property_add') }}" class="btn btn-success btn-add">{{"New property"|trans({},"management")}}</a>
+				</div>
 			    {{ form_start(form) }}
 					{{ form_errors(form) }}
 					{{ include('ProducerBundle:Property:base_form.html.twig') }}
@@ -27,6 +30,7 @@
 	{% stylesheets 'bundles/management/css/edit.css'
 					'bundles/producer/css/property.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     {% endstylesheets %}
 {% endblock %}	
 {% block javascripts %}
@@ -36,7 +40,8 @@
 	{% javascripts
         'bundles/management/js/edit.js'
         'bundles/producer/js/property.js'
-        'bundles/app/js/forms.js'%}
+        'bundles/location/js/jquery.maps.js'
+        'bundles/location/js/Leaflet.Spain.WMS.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

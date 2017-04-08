@@ -1,14 +1,14 @@
-.table-striped > tbody > tr.row-success td,
-div.legend span.legend-success{
-	background-color: #BCED91
+table.table th{
+	white-space: nowrap;
 }
-.table-striped > tbody > tr.row-danger td,
-div.legend span.legend-danger{
-	background-color: #ff6961
+span.legend-success{
+	background-color: #BCED91;
 }
-.table-striped > tbody > tr.row-warning td,
-div.legend span.legend-warning{
-	background-color: #f0ad4e
+span.legend-danger{
+	background-color: #ff6961;
+}
+span.legend-warning{
+	background-color: #f0ad4e;
 }
 div.legend{
 	float: right;
@@ -21,4 +21,21 @@ div.legend span.legend{
 }
 div.legend span.title{
 	font-weight: bold;
+}
+td.actions{
+	white-space: nowrap;
+}
+table.table td.status span{
+	border-radius: 5px;
+	color: #000;
+	padding: 4px 8px;
+}
+table.table td.status.status-success span{
+	background-color: #BCED91;
+}
+table.table td.status.status-success span{
+	background-color: #BCED91;
+}
+table.table td.status.status-success span{
+	background-color: #BCED91;
 }

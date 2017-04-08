@@ -1,51 +1,52 @@
-Area name: Zona
+Add property: Añadir propiedad
 Address: Dirección
-Certified years: Años certificados
-Document file: Documento (PDF)
-Lat lng: Latitud/Longitud
-Location: Ubicación
-Reg nr: Registro
-Sketch file: Fichero mapa
-Name: Nombre
-Tenure: Régimen de tenencia
-Size: Superficie (m2)
-Size public: Superficie
-Previous uses: Usos anteriores de la propiedad
-Water type origin: Agua
-water type origin help: Tipo y procedencia
-Surroundings: ¿Qué hay en los alrededores de la finca?
-surroundings help: Cultivos colindantes
-Surrounding problems: ¿Qué tipo de manejo presenta?
-surrounding problems help: ¿Genera algún perjuicio a la unidad productiva? ¿Por qué?
-Crops: Cultivos utilizados
-crops help: Origen de los mismos
-Certified: Certificación. ¿Propiedad certificada anteriormente?
+Area name: Zona
+Area: Área
+Certified provider: Nombre de la(s) certificadora(s)
 Certified public: ¿Propiedad certificada anteriormente?
 Certified year: ¿En qué años?
-Certified provider: Nombre de la(s) certificadora(s)
-Last agroquimic usage: Ultima fecha de aplicación de agroquímicos
-Fertilizer: Tipos de fertilizantes usados y procedencia
-Phytosanitary: Tipos de fitosanitarios que suele utilizar
-Owner lives here: ¿El productor vive en la propiedad?
-Owner distance: Si no es así, ¿a qué distancia se encuentra?
-Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
-Product selling distance: Distancia aproximada que recorren los productos hasta los puntos de venta (km)
-Product selling distance public: Distancia aproximada que recorren los productos hasta los puntos de venta
-Product selling time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta (horas)
-Product selling time public: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
-Product conservation: ¿Utiliza algún método de conservación?
-Product conservation details: Detalles sobre la conservación
-Add property: Añadir propiedad
-Property: Propiedad
-Property data: Datos de la propiedad
-General information: Datos generales de la unidad productiva
-Products: Productos
-Environment data: Datos del entorno
-Producer: Productor
-Area: Área
-Never: Nunca
-Last Visit: Última visita
-Sketch: Croquis de la propiedad y los alrededores
-sketch help: Dibuja tu propiedad, señalando las lindes, los cultivos colindantes y el sistema de producción (ecológico o no)
-Email: Email
+Certified years: Años certificados
+Certified: Certificación. ¿Propiedad certificada anteriormente?
+crops help: Origen de los mismos
+Crops: Cultivos utilizados
+Document file: Documento (PDF)
 Download document: Descargar documento
+Email: Email
+Environment data: Datos del entorno
+Fertilizer: Tipos de fertilizantes usados y procedencia
+General information: Datos generales de la unidad productiva
+Last agroquimic usage: Ultima fecha de aplicación de agroquímicos
+Last Visit: Última visita
+Lat lng: Latitud/Longitud
+Location: Ubicación
+Name: Nombre
+Never: Nunca
+Owner distance: Si no es así, ¿a qué distancia se encuentra?
+Owner lives here: ¿El productor vive en la propiedad?
+Phytosanitary: Tipos de fitosanitarios que suele utilizar
+Previous uses: Usos anteriores de la propiedad
+Producer: Productor
+Product conservation details: Detalles sobre la conservación
+Product conservation: ¿Utiliza algún método de conservación?
+Product selling distance public: Distancia aproximada que recorren los productos hasta los puntos de venta
+Product selling distance: Distancia aproximada que recorren los productos hasta los puntos de venta (km)
+Product selling time public: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta
+Product selling time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta (horas)
+Products: Productos
+Property data: Datos de la propiedad
+Property: Propiedad
+Reg nr: Registro
+Size public: Superficie
+Size: Superficie (m2)
+Sketch file: Fichero mapa
+sketch help: Dibuja tu propiedad, señalando las lindes, los cultivos colindantes y el sistema de producción (ecológico o no)
+Sketch: Croquis de la propiedad y los alrededores
+Status: Estado
+surrounding problems help: ¿Genera algún perjuicio a la unidad productiva? ¿Por qué?
+Surrounding problems: ¿Qué tipo de manejo presenta?
+surroundings help: Cultivos colindantes
+Surroundings: ¿Qué hay en los alrededores de la finca?
+Tenure: Régimen de tenencia
+water type origin help: Tipo y procedencia
+Water type origin: Agua
+Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?

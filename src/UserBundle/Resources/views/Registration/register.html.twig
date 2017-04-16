@@ -1,0 +1,10 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'user' %}
+
+{% block pageTitleText %}{% trans %}registration.pageTitleText{% endtrans %}{% endblock %}
+{% block title %}{% trans %}registration.title{% endtrans %}{% endblock %}
+
+{% block fos_user_content %}
+{% include "@User/Registration/register_content.html.twig" %}
+{% endblock fos_user_content %}

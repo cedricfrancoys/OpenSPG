@@ -2,12 +2,15 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+
+use UserBundle\Entity\User;
+use UserBundle\Form\RegistrationType;
 
 class RegistrationController extends Controller
 {
@@ -19,16 +22,36 @@ class RegistrationController extends Controller
     {
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
-        $breadcrumbs->addItem('Registration', $this->get('router')->generate('fos_user_registration_register'));
+        $breadcrumbs->addItem('Registration', $this->get('router')->generate('user_registration_register'));
 
-        $response = parent::RegisterAction($request);
+        /** @var $formFactory FactoryInterface */
+        // $formFactory = $this->get('fos_user.registration.form.factory');
+        
+        $userManager = $this->get('users.manager.user');
 
-        $content = $response->getcontent();
-        $registerLink = $this->generateUrl('fos_user_registration_register');
-        $content = str_replace('<li><a href="'.$registerLink.'"', '<li class="active"><a href="'.$registerLink.'"', $content);
-        $response->setContent($content);
+        $user = new User();
+        $user->setEnabled(true);
 
-        return $response;
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $url = $this->generateUrl('fos_user_registration_confirmed');
+                $response = new RedirectResponse($url);
+                return $response;
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+        );
     }
 
     /**

@@ -2,24 +2,24 @@ Last login: Último login
 Registration date: Fecha de registro
 Toggle password: Mostrar/esconder contraseña
 Generate password: Generar contraseña
-User data: Datos de usuario
-Username: Nombre de usuario
+User data: Datos de usuario/a
+Username: Nombre de usuaria/o
 Name: Nombre
 Surname: Apellido(s)
 Phone: Teléfono
 Email: Email
-Node: Nodo
+Node: Grupo
 Password: Contraseña
 Send Email: Enviar Email
-sendEmailHelp: Enviar Email con su contraseña a la dirección dada en este campo
+sendEmailHelp: Enviar Email con su contraseña a la dirección indicada en este campo
 Roles: Roles
-Admin: Administrador
-Producer: Productor
-Consumer: Consumidor
+Admin: Administrador/a
+Producer: Productor/a
+Consumer: Consumidor/a
 Management: Gestión
-User List: Listado de usuarios
-User Create: Crear usuario
-User: Usuario
+User List: Listado de usuarios/as
+User Create: Crear usuario/a
+User: Usuaria/o
 Enabled: Activado
 Your account on SPG: Tu cuenta en el SPG
 Image: Imagen
@@ -27,7 +27,7 @@ RegistrationEmailContent: >
   <p>Hola %name%</p>
   <p>En el sistema del SPG se ha creado una cuenta para tu uso del portal<br />
   Tus datos de acceso son:</p>
-  <p>Usuario: %username%<br />
+  <p>Usuaria/o: %username%<br />
   Contraseña: %password%</p>
   <p></p>
   <p>Para hacer login accede al siguiente enlace: <a href="%loginLink%">%loginLink%</a></p>
@@ -87,3 +87,7 @@ resetting:
 Forgot password?: ¿Has olvidado tu contraseña?
 Remember me: Recuérdame
 Enter: Entrar
+
+registration.pageTitleText: Registro nuevo usuario/a
+registration.title: Registro nuevo usuaria/o
+registration.submit: Enviar registro

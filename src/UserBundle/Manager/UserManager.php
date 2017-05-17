@@ -331,4 +331,38 @@ class UserManager
     {
         return $this->orm->getRepository('UserBundle:User')->findOneBy(array('confirmationToken' => $token));
     }
+
+    public function updateCanonicalFields(User $user)
+    {
+      $user->setUsernameCanonical($this->canonicalize($user->getUsername()));
+      $user->setEmailCanonical($this->canonicalize($user->getEmail()));
+    }
+
+    protected function canonicalize($string)
+    {
+        if (null === $string) {
+            return null;
+        }
+
+        $encoding = mb_detect_encoding($string);
+        $result = $encoding
+            ? mb_convert_case($string, MB_CASE_LOWER, $encoding)
+            : mb_convert_case($string, MB_CASE_LOWER);
+
+        return $result;
+    }
+
+    public function hashPassword(User $user)
+    {
+        $plainPassword = $user->getPlainPassword();
+
+        if (0 === strlen($plainPassword)) {
+            return;
+        }
+
+        $encoder = $this->get('security.password_encoder');
+        $encoded = $encoder->encodePassword($user, $user->getPassword());
+        $user->setPassword($encoded);
+        $user->eraseCredentials();
+    }
 }

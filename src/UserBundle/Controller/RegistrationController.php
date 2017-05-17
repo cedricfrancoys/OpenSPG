@@ -44,7 +44,8 @@ class RegistrationController extends Controller
                 $user->addRole(User::ROLE_CONSUMER);
 
                 $userManager->updateCanonicalFields($user);
-                $userManager->hashPassword($user);
+                $encoder = $this->get('security.password_encoder');
+                $userManager->hashPassword($user, $encoder);
 
                 $consumer = new Consumer();
                 $user->setConsumer($consumer);

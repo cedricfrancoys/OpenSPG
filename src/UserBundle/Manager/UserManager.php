@@ -357,12 +357,13 @@ class UserManager
         $plainPassword = $user->getPlainPassword();
 
         if (0 === strlen($plainPassword)) {
+            dump('no plain password given');
             return;
         }
 
         $encoder = $this->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, $user->getPassword());
+        $encoded = $encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
-        $user->eraseCredentials();
+//         $user->eraseCredentials();
     }
 }

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use UserBundle\Entity\User;
 use ConsumerBundle\Entity\Member as Consumer;
@@ -54,9 +55,10 @@ class RegistrationController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $url = $this->generateUrl('user_registration_confirmed');
-                $response = new RedirectResponse($url);
-                return $response;
+                $this->authenticateUser($user);
+
+                $url = $this->generateUrl('consumer_member_profile');
+                return new RedirectResponse($url);
             }
         }
 
@@ -104,6 +106,14 @@ class RegistrationController extends Controller
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
         );
+    }
+
+    private function authenticateUser(User $user)
+    {
+        $providerKey = 'main'; // your firewall name
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+
+        $this->get('security.token_storage')->setToken($token);
     }
 
     /**

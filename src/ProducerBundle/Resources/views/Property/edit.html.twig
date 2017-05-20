@@ -10,7 +10,11 @@
 
     <div class="container">
 		<div class="row">
-			{{ include('ProducerBundle:Partials:sidebar.html.twig') }}
+			{% if is_granted('ROLE_CONSUMER') %}
+				{{ include('ConsumerBundle:Partials:sidebar.html.twig') }}
+			{% else %}
+				{{ include('ProducerBundle:Partials:sidebar.html.twig') }}
+			{% endif %}
 			<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-0 main">
 			    {{ form_start(form) }}
 					{{ form_errors(form) }}

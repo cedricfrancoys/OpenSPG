@@ -13,12 +13,12 @@ use ProducerBundle\Form\PropertyType;
 
 /**
  * @Route("/productor/propiedad")
+ * @Security("has_role('ROLE_PRODUCER')")
  */
 class PropertyController extends Controller
 {
     /**
      * @Route("/")
-     * @Security("has_role('ROLE_PRODUCER')")
      */
     public function indexAction()
     {

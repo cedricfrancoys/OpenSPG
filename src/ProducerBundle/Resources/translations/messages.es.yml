@@ -1,49 +1,48 @@
-Stock: Stock
-Producers: Productores
-Properties: Propiedades
-Phone: Teléfono
-Name: Nombre
-Surname: Apellido(s)
-Member List: Socios
-
-Property List: Propiedades
-Area Name: Zona
 Address: Dirección
-Reg Nr: Registro
-Tenure: Régimen de tenencia
-Size: Superficie (m2)
-Previous Uses: Usos anteriores de la propiedad
-Water Type Origin: Agua. Tipo y procedencia
-Surroundings: ¿Qué hay en los alrededores de la finca?. Cultivos colindantes.
-Surrounding Problems: ¿Qué tipo de manejo presenta? ¿Genera algún perjuicio a la unidad productiva? ¿Por qué?
-Crops: Cultivos utilizados. Origen de los mismos.
-Certified: Certificación. ¿Propiedad certificada anteriormente?
-Certified Year: ¿En qué años?
+Area Name: Zona
 Certified Provider: Nombre de la(s) certificadora(s)
-Last Agroquimic Usage: Ultima fecha de aplicación de agroquímicos
+Certified Year: ¿En qué años?
+Certified: Certificación. ¿Propiedad certificada anteriormente?
+Contacts: Contactos
+Crops: Cultivos utilizados. Origen de los mismos.
 Fertilizer: Tipos de fertilizantes usados y procedencia
-Phytosanitary: Tipos de fitosanitarios que suele utilizar
-Owner Lives Here: ¿El productor vive en la propiedad?
+Image: Imagen
+Last Agroquimic Usage: Ultima fecha de aplicación de agroquímicos
+Member List: Socios
+My account: Mi cuenta
+Name: Nombre
+No: No
 Owner Distance: Si no es así, ¿a qué distancia se encuentra?
-Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
+Owner Lives Here: ¿El productor vive en la propiedad?
+Phone: Teléfono
+Phytosanitary: Tipos de fitosanitarios que suele utilizar
+Previous Uses: Usos anteriores de la propiedad
+Producer members desc: Socios que produzcan hortaliza, fruta u otro producto tradicional
+Producer members: Socios productores
+Producer registration: Registro productor
+Producers: Productores
+Product Conservation Details: Detalles sobre la conservación
+Product Conservation: ¿Utiliza algún método de conservación?
 Product Selling Distance: Distancia aproximada que recorren los productos hasta los puntos de venta (km)
 Product Selling Time: Tiempo que tardan los productos desde su recolección hasta la llegada a los puntos de venta (horas)
-Product Conservation: ¿Utiliza algún método de conservación?
-Product Conservation Details: Detalles sobre la conservación
-
-Producer members: Socios productores
-Producer members desc: Socios que produzcan hortaliza, fruta u otro producto tradicional
-Image: Imagen
-Registration: Registro
-Producer registration: Registro productor
-My account: Mi cuenta
 Profile: Perfil
-Stocks: Stock
+produktor: productor
+Properties: Propiedades
+Property List: Propiedades
+Reg Nr: Registro
+Registration: Registro
+Reject approval: Vetar aprobación
 Save changes: Guardar cambios
 Show: Mostrar
-Contacts: Contactos
 Sign me up: Apuntarme
+Size: Superficie (m2)
+Stock: Stock
+Stocks: Stock
 Submit: Enviar
-No: No
+Surname: Apellido(s)
+Surrounding Problems: ¿Qué tipo de manejo presenta? ¿Genera algún perjuicio a la unidad productiva? ¿Por qué?
+Surroundings: ¿Qué hay en los alrededores de la finca?. Cultivos colindantes.
+Tenure: Régimen de tenencia
+Water Type Origin: Agua. Tipo y procedencia
+Workforce: ¿Hay mano de obra contratada? ¿En que condiciones?
 Yes: Si
-Reject approval: Vetar aprobación

@@ -1,26 +1,26 @@
-Profile: Perfil
-Producer: Productor
-Producers: Productores
-
+Active as producer: Aprobado
+Active: Activo
+Communication: Comunicación
+Email: Email
+Enquiries: Consultas
+Ficha del productor: Ficha del productor
+Inactive: Inactivo
+Make producer: Convertir a productor
+Messages: Mensajes
 My Account: Mi cuenta
 My Data: Mis datos
-Properties: Propiedades
-Products: Productos
-Visits: Visitas
-Communication: Comunicación
-Messages: Mensajes
-Enquiries: Consultas
 Name: Nombre
-Surname: Apellido(s)
-Phone: Teléfono
-Email: Email
-Active: Activo
-Inactive: Inactivo
-Active as producer: Aprobado
-Registration: Registro
-Products/Stock: Productos/Stock
-Make producer: Convertir a productor
-The user has been made a producer!: El usuario ha recibido el estado y los derechos de productor!
-ProducerP: Productores
-Node: Nodo
 No producers available: No hay productores en el listado
+Node: Grupo
+Phone: Teléfono
+Producer: Productor
+ProducerP: Productores
+Producers: Productores
+Products/Stock: Productos/Stock
+Products: Productos
+Profile: Perfil
+Properties: Propiedades
+Registration: Registro
+Surname: Apellido(s)
+The user has been made a producer!: El usuario ha recibido el estado y los derechos de productor!
+Visits: Visitas

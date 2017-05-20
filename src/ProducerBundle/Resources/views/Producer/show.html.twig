@@ -9,7 +9,7 @@
 	{{ parent() }}
 
     <div class="container">
-		<h2 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Ficha del propietario</h2>
+		<h2 style="text-align:left;font-weight:bold;border-bottom:3px solid #ccc;margin-bottom:30px;width:850px;">{{"Ficha del productor"|trans({},'producer')}}</h2>
 		<div class="row">
 			{% if producer.User.webPath %}	
 				<div class="col-lg-3">
@@ -18,49 +18,71 @@
 			{% endif %}
 			<div class="col-lg-9">
 				<div class="row row-underline">
-					<div class="col-lg-3">{{"Name"|trans({},'producer')}}:</div>
-					<div class="col-lg-9">{{ producer.User.name }} {{ producer.User.surname }}</a></div>
+					<div class="col-lg-3">
+						<span class="list-label">{{"Name"|trans({},'producer')}}</span><br />
+						<span class="list-value">{{ producer.User.name }} {{ producer.User.surname }}</span>
+					</div>
 				</div>
 				{% if app.user and (app.user.hasRole('ROLE_MANAGER') or app.user.hasRole('ROLE_PRODUCER') or app.user.hasRole('ROLE_CONSUMER')) and app.user.isEnabled() %}
 					<div class="row row-underline">
-						<div class="col-lg-3">{{"Email"|trans({},'producer')}}:</div>
-						<div class="col-lg-9"><a href="mailto:{{ producer.User.email }}">{{ producer.User.email }}</a></div>
+						<div class="col-lg-3">
+							<span class="list-label">{{"Email"|trans({},'producer')}}:</span><br />
+							<span class="list-value"><a href="mailto:{{ producer.User.email }}">{{ producer.User.email }}</a></span>
+						</div>
 					</div>
 					<div class="row row-underline">
-						<div class="col-lg-3">{{"Phone"|trans({},'user')}}:</div>
-						<div class="col-lg-9">{{ producer.User.phone }}</div>
+						<div class="col-lg-3">
+							<span class="list-label">{{"Phone"|trans({},'user')}}:</span><br />
+							<span class="list-value">{{ producer.User.phone }}</span>
+						</div>
 					</div>
 				{% endif %}
-				<h3 style="text-align:center;font-weight:bold;border-bottom:1px solid #ccc;margin-bottom:30px;">Propiedades</h3>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>{{"Name"|trans({},"property")}}</th>
-							<th>{{"Area"|trans({},"property")}}</th>
-							<th>{{"Address"|trans({},"property")}}</th>
-							<th>{{"Last Visit"|trans({},"property")}}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for property in properties %}
-							<tr>
-								<td><a href="{{ path('producer_publicproperty_show',{'id':property.id}) }}">{{property.name}}</a></td>
-								<td>{{property.areaName}}</td>
-								<td>{{property.address}}</td>
-								{% if property.Visits|length %}
-									{% if property.Visits.0.visitDate is null %}
-										{% set visitDate = '--' %}
-									{% else %}
-										{% set visitDate = property.Visits.0.visitDate|date('d/m/Y') %}
-									{% endif %}
-								{% else %}
-									{% set visitDate = '--' %}
-								{% endif %}
-								<td>{{ visitDate }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+			</div> {# div.col-lg-9 #}
+		</div> {# div.row #}
+
+		{% if properties|length > 1 %}
+			{% set propTrans = "Properties"|trans({},'property') %}
+		{% elseif properties|length == 1 %}
+			{% set propTrans = "Property"|trans({},'property') %}
+		{% endif %}
+		<h3 style="text-align:left;font-weight:bold;border-bottom:3px solid #ccc;padding-top:30px;margin-bottom:0px;width:860px;">{{ propTrans }}</h3>
+		<div class="row">
+			<div class="col-lg-9">
+				{% for property in properties %}
+					<div class="row row-underline">
+						<div class="col-lg-3">
+							<span class="list-label">{{"Name"|trans({},'property')}}</span><br />
+							<span class="list-value"><a href="{{ path('producer_publicproperty_show',{'id':property.id}) }}">{{property.name}}</a></span>
+						</div>
+					</div>
+					<div class="row row-underline">
+						<div class="col-lg-3">
+							<span class="list-label">{{"Area"|trans({},'property')}}</span><br />
+							<span class="list-value">{{property.areaName}}</span>
+						</div>
+					</div>
+					<div class="row row-underline">
+						<div class="col-lg-3">
+							<span class="list-label">{{"Address"|trans({},'property')}}</span><br />
+							<span class="list-value">{{property.address}}</span>
+						</div>
+					</div>
+					{% if property.Visits|length %}
+						{% if property.Visits.0.visitDate is null %}
+							{% set visitDate = '--' %}
+						{% else %}
+							{% set visitDate = property.Visits.0.visitDate|date('d/m/Y') %}
+						{% endif %}
+					{% else %}
+						{% set visitDate = '--' %}
+					{% endif %}
+					<div class="row row-underline">
+						<div class="col-lg-3">
+							<span class="list-label">{{"Last visit"|trans({},'property')}}</span><br />
+							<span class="list-value">{{visitDate}}</span>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

@@ -18,4 +18,12 @@
 			<a href="{{ path('consumer_contact_index') }}">{% trans from "consumer" %}Messages{% endtrans %}</a>
 		</li>
 	</ul>
+	<ul class="nav nav-sidebar">
+		<li class="title">
+			{% trans from "consumer" %}Become a producer{% endtrans %}
+		</li>
+		<li class="{% if app.request.get('_route') in ['producer_property_add'] %}active{% endif %}">
+			<a href="{{ path('producer_property_add') }}">{% trans from "consumer" %}Add property{% endtrans %}</a>
+		</li>
+	</ul>
 </div>

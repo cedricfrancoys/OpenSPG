@@ -37,14 +37,20 @@ class PropertyController extends Controller
 
     /**
      * @Route("/add")
+     * @Security("has_role('ROLE_PRODUCER') or has_role('ROLE_CONSUMER')")
      */
     public function addAction(Request $request)
     {
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addItem('Home', $this->get('router')->generate('homepage'));
-        $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
-        $breadcrumbs->addItem('Properties', $this->get('router')->generate('producer_property_index'));
-        $breadcrumbs->addItem('Add', $this->get('router')->generate('producer_property_add'));
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_PRODUCER')) {
+            $breadcrumbs->addItem('My account', $this->get('router')->generate('producer_member_index'));
+            $breadcrumbs->addItem('Properties', $this->get('router')->generate('producer_property_index'));
+            $breadcrumbs->addItem('Add', $this->get('router')->generate('producer_property_add'));
+        } else if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSUMER')) {
+            $breadcrumbs->addItem('My account', $this->get('router')->generate('consumer_member_index'));
+            $breadcrumbs->addItem('Add property', $this->get('router')->generate('producer_property_add'));
+        }
 
         $property = new Property();
 

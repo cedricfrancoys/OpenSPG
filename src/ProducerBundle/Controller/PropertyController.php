@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ProducerBundle\Entity\Property;
 use ProducerBundle\Form\PropertyType;
+use ProducerBundle\Event\PropertyEvent;
 
 /**
  * @Route("/productor/propiedad")
@@ -67,6 +68,11 @@ class PropertyController extends Controller
 
             $em->persist($property);
             $em->flush();
+
+            /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+            $dispatcher = $this->get('event_dispatcher');
+            $PropertyEvent = new PropertyEvent($property, 'add');
+            $dispatcher->dispatch('producer.events.propertyCreated', $PropertyEvent);
 
             $url = $this->generateUrl('producer_property_edit', array('id' => $property->getId()));
             $response = new RedirectResponse($url);

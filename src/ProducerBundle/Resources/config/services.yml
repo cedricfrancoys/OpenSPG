@@ -40,6 +40,17 @@ services:
         tags:
             - {name:"kernel.event_listener", event:"producer.events.producerCreated", method:"onProducerCreated"}
 
+    producer.events.property:
+        class: ProducerBundle\Event\PropertyEventSubscriber
+        calls:
+            - ["setEntityManager", ["@doctrine.orm.entity_manager"]]
+            - ["setMailer", ["@mailer"]]
+            - [setTwig, ["@twig"]]
+            - [setTranslator, ["@translator"]]
+            - [setLogManager, ["@app.manager.log"]]
+        tags:
+            - {name:"kernel.event_listener", event:"producer.events.propertyCreated", method:"onPropertyCreatedByConsumer"}
+
     producer.manager.producer:
         class: ProducerBundle\Manager\ProducerManager
         arguments: ["@doctrine.orm.entity_manager","@security.token_storage","@event_dispatcher","@mailer","@twig","@translator","@request_stack"]
